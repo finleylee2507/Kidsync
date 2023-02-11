@@ -1,25 +1,44 @@
-import { useState } from "react";
-
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-
-import "./App.css";
-import Default from "./components/Default";
+import { useState } from 'react';
+import logo from './logo.svg';
+import styles from './App.module.css'
 
 const App = () => {
-  // Establish routes for the different screens on our web app
+  const [count, setCount] = useState(0);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route // The landing page of our application
-          path="/"
-          element={
-            <div>
-              <Default />
-            </div>
-          }
-        ></Route>
-      </Routes>
-    </BrowserRouter>
+    <div className={styles.app}>
+      <header className={styles.appHeader}>
+        <img src={logo} className={styles.appLogo} alt="logo" />
+        <p>Hello Vite + React!</p>
+        <p>
+          <button onClick={() => setCount(count => count + 1)}>
+            count is: {count}
+          </button>
+        </p>
+        <p>
+          Edit <code>App.jsx</code> and save to test hot module replacement (HMR).
+        </p>
+        <p>
+          <a
+            className={styles.appLink}
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+          {' | '}
+          <a
+            className={styles.appLink}
+            href="https://vitejs.dev/guide/features.html"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Vite Docs
+          </a>
+        </p>
+      </header>
+    </div>
   );
 };
 
