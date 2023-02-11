@@ -1,6 +1,6 @@
 import { useState } from "react";
 import logo from "../logo.svg";
-import "../App.css";
+import "../Default.module.css";
 
 const Default = () => {
   const [count, setCount] = useState(0);
