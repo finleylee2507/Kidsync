@@ -3,7 +3,7 @@ import UserDetails from "./UserDetails";
 import Confirmation from "./Confirmation";
 import DependentDetails from "./DependentDetails";
 
-function CreateProfileForm({}) {
+const CreateProfileForm = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -92,6 +92,6 @@ function CreateProfileForm({}) {
         />
       );
   }
-}
+};
 
 export default CreateProfileForm;
