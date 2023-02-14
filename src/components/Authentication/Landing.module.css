@@ -1,0 +1,21 @@
+.signInBtnContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+#signInButton {
+  color: white !important;
+  border: none !important;
+  background-color: black !important;
+  border-radius: 15px;
+  font-size: 1.2rem;
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: bold;
+}
+
+#signInButton:hover {
+  cursor: pointer;
+  background-color: #6c60ff !important;
+  transition: 0.3s;
+}

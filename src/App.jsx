@@ -2,13 +2,13 @@ import { useState } from "react";
 import logo from "./logo.svg";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Default from "./components/Default";
+import Landing from "./components/Authentication/Landing";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Default />}></Route>
+        <Route path="/" element={<Landing />}></Route>
       </Routes>
     </BrowserRouter>
   );
