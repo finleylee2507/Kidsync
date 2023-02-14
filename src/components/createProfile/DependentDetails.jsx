@@ -1,92 +1,53 @@
-import React from 'react';
-import {Box, Button, TextField, Typography} from "@mui/material";
+import React, {useEffect} from 'react';
+import styles from "./DependentDetails.module.css";
+import {Button, Group, Text, TextInput} from "@mantine/core";
+import {useForm} from "@mantine/form";
 
-function DependentDetails({prevStep, nextStep, formData, handleChange, currDependent}) {
+
+function DependentDetails({prevStep, nextStep, formData, handleSetDependentsData, currDependent}) {
+    console.log("formData: ", formData);
+    const form = useForm({
+        initialValues: {
+            firstName:"",
+            lastName:""
+        },
+        validate: {},
+    });
+
+    useEffect(() => {
+        form.setValues(formData);
+    }, [formData]);
     return (
 
+        <div className={styles.dependentDetailsFormContainer}>
+            <Text fz="xl" fw="700" mb="2rem" mt="6rem">Enter Information for Dependent {currDependent + 1}:</Text>
+            <form onSubmit={form.onSubmit((values, event) => {
+                for (let key in values) {
+                    handleSetDependentsData(key, values[key], currDependent);
+                }
 
-        //might change to this kind of style in the future
-        <Box sx={{display: "flex", justifyContent: "center"}}>
-            <Box sx={{maxWidth: 400, marginTop: "10rem"}}>
+                form.reset()
 
+                if (event.nativeEvent.submitter.name === "nextButton") {
+                    nextStep();
+                }
 
-                <Typography variant="h6">
-                    Enter Information for Dependent {currDependent+1}:
-                </Typography>
+            })
+            }>
+                <TextInput withAsterisk label="First Name" {...form.getInputProps('firstName')}
+                           required/>
+                <TextInput withAsterisk label="Last Name" {...form.getInputProps('lastName')} required/>
 
-
-                <TextField
-                    fullWidth
-                    label="First Name"
-                    variant="outlined"
-                    margin="normal"
-                    name="firstName"
-                    value={formData[currDependent].firstName}
-                    onChange={(e) => {
-                        handleChange(e, currDependent);
-                    }}
-
-                />
-
-                <TextField
-                    fullWidth
-                    label="Last Name"
-                    variant="outlined"
-                    margin="normal"
-                    name="lastName"
-                    value={formData[currDependent].lastName}
-                    onChange={(e) => {
-                        handleChange(e, currDependent);
-                    }}
-
-                />
-
-                {/*<TextField*/}
-                {/*    fullWidth*/}
-                {/*    label="Email"*/}
-                {/*    variant="outlined"*/}
-                {/*    margin="normal"*/}
-                {/*    name="email"*/}
-                {/*    type="email"*/}
-                {/*    value={formData.email}*/}
-                {/*    onChange={handleChange}*/}
-                {/*/>*/}
-
-                {/*<TextField*/}
-                {/*    fullWidth*/}
-                {/*    label="Phone Number"*/}
-                {/*    variant="outlined"*/}
-                {/*    margin="normal"*/}
-                {/*    name="phone"*/}
-                {/*    value={formData.phone}*/}
-                {/*    onChange={handleChange}*/}
-                {/*/>*/}
-
-                {/*<TextField*/}
-                {/*    fullWidth*/}
-                {/*    label="Number of Dependents"*/}
-                {/*    name="numberOfDependents"*/}
-                {/*    margin="normal"*/}
-                {/*    type="number"*/}
-                {/*    inputProps={{*/}
-                {/*        min: 0,*/}
-                {/*        max: 10,*/}
-                {/*        step: 1,*/}
-                {/*    }}*/}
-                {/*    value={formData.numberOfDependents}*/}
-                {/*    onChange={handleChange}*/}
-                {/*    variant="outlined"*/}
-                {/*/>*/}
+                <Group position="right" mt="md">
+                    <Button name="previousButton" onClick={prevStep}>Previous</Button>
+                    <Button type="submit" name="saveButton">Save</Button>
+                    <Button type="submit" name="nextButton">Next</Button>
+                </Group>
+            </form>
 
 
-                <Button fullWidth variant="contained" sx={{marginTop: "20px"}} onClick={nextStep}>Next</Button>
+        </div>
 
-                <Button fullWidth variant="contained" sx={{marginTop: "20px"}} onClick={prevStep}>Last</Button>
-
-
-            </Box>
-
-        </Box>
     );
 }
 

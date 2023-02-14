@@ -1,88 +1,67 @@
-import React from 'react';
-import {Box, Button, TextField, Typography} from "@mui/material";
+import React, {useEffect} from 'react';
+import styles from './UserDetails.module.css';
+import {Button, Group, NumberInput, Text, TextInput} from '@mantine/core';
+import {useForm} from '@mantine/form';
 
-function UserDetails({nextStep, handleChange, formData,initializeDependentsData}) {
+
+function UserDetails({nextStep, handleSetFormData, formData, initializeDependentsData}) {
+    const form = useForm({
+        initialValues: {
+            firstName:"",
+            lastName:"",
+            email:"",
+            numberOfDependents:""
+        },
+
+        validate: {
+            email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+            numberOfDependents: (value) => value < 10 ? null : 'Please enter a valid number of dependents'
+        },
+    });
+
+    useEffect(() => {
+        form.setValues(formData);
+    }, [formData]);
+
     return (
 
-        <Box sx={{display: "flex", justifyContent: "center"}}>
-            <Box sx={{maxWidth: 400, marginTop: "10rem"}}>
+        <div className={styles.userDetailsFormContainer}>
 
+            <Text fz="xl" fw="700" mb="2rem" mt="6rem">Enter Account Information:</Text>
+            <form onSubmit={form.onSubmit((values) => {
+                console.log("Values: ",values);
+                for (let key in values) {
+                    handleSetFormData(key, values[key]);
+                }
 
-                    <Typography variant="h5">
-                        Account Information:
-                    </Typography>
-                    <TextField
-                        fullWidth
-                        label="First Name"
-                        variant="outlined"
-                        margin="normal"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleChange}
+                nextStep();
+            })
+            }>
+                <TextInput withAsterisk label="First Name" {...form.getInputProps('firstName')} required/>
+                <TextInput withAsterisk label="Last Name" {...form.getInputProps('lastName')} required/>
+                <TextInput
+                    withAsterisk
+                    label="Email"
+                    placeholder="your@email.com"
+                    {...form.getInputProps('email')}
+                    required
+                />
+                <NumberInput mt="xl" label="Number of Dependents"
+                             max="10"
+                             {...form.getInputProps('numberOfDependents')}
+                            onChange={(value)=>{
+                                initializeDependentsData(value)
 
-                    />
+                                //I guess onChange overrides Mantine's default behavior, so we have to manually set the field value
+                                form.setFieldValue('numberOfDependents', value);
+                            }}
+                />
+                <Group position="right" mt="md">
+                    <Button type="submit" name="nextButton">Next</Button>
+                </Group>
+            </form>
 
-                    <TextField
-                        fullWidth
-                        label="Last Name"
-                        variant="outlined"
-                        margin="normal"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleChange}
-
-                    />
-
-                    <TextField
-                        fullWidth
-                        label="Email"
-                        variant="outlined"
-                        margin="normal"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        fullWidth
-                        label="Phone Number"
-                        variant="outlined"
-                        margin="normal"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        fullWidth
-                        label="Number of Dependents"
-                        name="numberOfDependents"
-                        margin="normal"
-                        type="number"
-                        inputProps={{
-                            min: 0,
-                            max: 10,
-                            step: 1,
-                        }}
-                        value={formData.numberOfDependents}
-                        onChange={(e)=>{
-                            handleChange(e)
-                            initializeDependentsData(e.target.value)
-                        }}
-                        variant="outlined"
-                    />
-
-
-
-                    <Button fullWidth variant="contained" sx={{marginTop: "20px"}} onClick={nextStep}>Next</Button>
-
-
-
-
-            </Box>
-
-        </Box>
+        </div>
 
 
     );

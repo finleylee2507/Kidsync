@@ -3,6 +3,7 @@ import UserDetails from "./UserDetails";
 import Confirmation from "./Confirmation";
 import DependentDetails from "./DependentDetails";
 
+
 function CreateProfileForm({}) {
     const [formData, setFormData] = useState({
         firstName: "",
@@ -14,11 +15,12 @@ function CreateProfileForm({}) {
 
     const [dependentsData, setDependentsData] = useState([]);
     const [step, setStep] = useState(1);
-    const numSteps = parseInt(formData.numberOfDependents) + 2; //the total number of steps in our form
+    const numSteps = dependentsData.length+ 2; //the total number of steps in our form
 
-    console.log("Num steps: ", numSteps);
 
     const initializeDependentsData = (numOfDependents) => {
+        console.log("Initializing... ");
+        console.log(numOfDependents);
         let result = [];
         for (let i = 0; i < numOfDependents; i++) {
             let newObject = {
@@ -47,43 +49,47 @@ function CreateProfileForm({}) {
 
 
     //handle changing user form data
-    const handleChangeUserData = (event) => {
-        const {name, value, type, files} = event.target;
+    const handleSetFormData = (fieldName, value) => {
         setFormData((prevFormData) => ({
             ...prevFormData,
-            [name]: value
-            // [name]: type === "file" ? files[0] : value,
+            [fieldName]: value
         }));
-    };
 
-    const handleChangeDependentsData = (event, currentDependent) => {
-        const {name, value, type, files} = event.target;
-        const updatedDependentsData = dependentsData.map((item, index) => {
-            if (index === currentDependent) {
-                return {...item, [name]: value};
-            } else {
-                return item;
-            }
+    };
+    const handleSetDependentsData = (fieldName, value, currentDependent) => {
+
+        setDependentsData(prevDependentsData => {
+            const updatedDependentsData = prevDependentsData.map((item, index) => {
+                if (index === currentDependent) {
+                    return {...item, [fieldName]: value};
+                } else {
+                    return item;
+                }
+            });
+
+            return updatedDependentsData;
         });
 
-        setDependentsData(updatedDependentsData)
+
+        console.log("Dependents: ", dependentsData);
     };
 
 
     switch (step) {
         case 1: //for the first step
             return (
-                <UserDetails handleChange={handleChangeUserData} nextStep={nextStep} formData={formData}
+                <UserDetails handleSetFormData={handleSetFormData} nextStep={nextStep} formData={formData}
                              initializeDependentsData={initializeDependentsData}/>
             );
         case numSteps: //for the last step (confirmation page)
             return (
-                <Confirmation handleChange={handleChangeUserData} prevStep={prevStep}/>
+                <Confirmation prevStep={prevStep}/>
             );
         default: //all steps in between
             return (
-                <DependentDetails handleChange={handleChangeDependentsData} prevStep={prevStep} nextStep={nextStep}
-                                  formData={dependentsData} currDependent={step - 2}/>
+                <DependentDetails handleSetDependentsData={handleSetDependentsData} prevStep={prevStep}
+                                  nextStep={nextStep}
+                                  formData={dependentsData[step - 2]} currDependent={step - 2}/>
             );
 
     }
