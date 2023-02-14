@@ -1,9 +1,11 @@
-import { signInWithGoogle, useAuthState } from "../../utilities/firebase";
-
-import { redirect } from "react-router-dom";
-
+import { React } from "react";
+import {
+  addNewUser,
+  signInWithGoogle,
+  useAuthState,
+} from "../../utilities/firebase";
+import { Navigate, useNavigate } from "react-router-dom";
 import styles from "./Landing.module.css";
-
 import { FcGoogle } from "react-icons/fc";
 
 const SignInButton = () => {
@@ -24,8 +26,35 @@ const SignInButton = () => {
   );
 };
 
-const Landing = () => {
+const Landing = (allUsers) => {
+  const user = useAuthState();
+  const navigate = useNavigate();
+
+  if (user && allUsers && allUsers["allUsers"]) {
+    if (!allUsers["allUsers"][user.uid]) {
+      const newUser = {
+        displayName: user.displayName,
+        email: user.email,
+        unreadMessages: ["welcome"],
+        photoURL: user.photoURL,
+      };
+
+      addNewUser(newUser, user.uid);
+
+      navigate("/create-profile");
+    }
+  }
+
   return <SignInButton />;
 };
 
 export default Landing;
+
+/*
+click on sign in button
+
+
+1. Popup and sign in
+2. New user gets added to the database using addNewUser
+3. Navigate to the create profile
+*/
