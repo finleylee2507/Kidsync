@@ -1,5 +1,7 @@
 import { signInWithGoogle, useAuthState } from "../../utilities/firebase";
 
+import { redirect } from "react-router-dom";
+
 import styles from "./Landing.module.css";
 
 import { FcGoogle } from "react-icons/fc";
@@ -13,7 +15,7 @@ const SignInButton = () => {
         className="btn btn-light"
         size="lg"
         aria-label="Sign in with google"
-        // onClick={signInWithGoogle}
+        onClick={signInWithGoogle}
       >
         <FcGoogle className={styles.googleIcon} />
         Sign in with Google

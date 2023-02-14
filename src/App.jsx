@@ -12,9 +12,9 @@ const App = () => {
         <Route path="/" element={<Landing />}></Route>
       </Routes>
 
-        <Routes>
-            <Route path="/create-profile" element={<CreateProfileForm/>}></Route>
-        </Routes>
+      <Routes>
+        <Route path="/create-profile" element={<CreateProfileForm />}></Route>
+      </Routes>
     </BrowserRouter>
   );
 };
