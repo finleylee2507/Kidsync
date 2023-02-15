@@ -4,7 +4,7 @@ import {Button, Group, NumberInput, Text, TextInput} from '@mantine/core';
 import {useForm} from '@mantine/form';
 
 
-function UserDetails({nextStep, handleSetFormData, formData, initializeDependentsData}) {
+function UserDetails() {
     const form = useForm({
         initialValues: {
             firstName:"",
@@ -19,10 +19,6 @@ function UserDetails({nextStep, handleSetFormData, formData, initializeDependent
         },
     });
 
-    useEffect(() => {
-        form.setValues(formData);
-    }, [formData]);
-
     return (
 
         <div className={styles.userDetailsFormContainer}>
@@ -30,11 +26,7 @@ function UserDetails({nextStep, handleSetFormData, formData, initializeDependent
             <Text fz="xl" fw="700" mb="2rem" mt="6rem">Enter Account Information:</Text>
             <form onSubmit={form.onSubmit((values) => {
                 console.log("Values: ",values);
-                for (let key in values) {
-                    handleSetFormData(key, values[key]);
-                }
 
-                nextStep();
             })
             }>
                 <TextInput withAsterisk label="First Name" size="lg" {...form.getInputProps('firstName')} required/>
@@ -47,17 +39,7 @@ function UserDetails({nextStep, handleSetFormData, formData, initializeDependent
                     {...form.getInputProps('email')}
                     required
                 />
-                <NumberInput mt="xl" label="Number of Dependents"
-                             max="10"
-                             size="lg"
-                             {...form.getInputProps('numberOfDependents')}
-                            onChange={(value)=>{
-                                initializeDependentsData(value)
 
-                                //I guess onChange overrides Mantine's default behavior, so we have to manually set the field value
-                                form.setFieldValue('numberOfDependents', value);
-                            }}
-                />
                 <Group position="right" mt="md">
                     <Button type="submit" name="nextButton">Next</Button>
                 </Group>
