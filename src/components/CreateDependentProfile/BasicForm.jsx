@@ -33,7 +33,7 @@ function BasicForm({formData, nextStep, setFormData}) {
     return (
 
         <div>
-            <Text fz="xl" fw="700" mb="2rem" mt="6rem">Enter Basic Information:</Text>
+            <Text fz="xl" fw="700" mb="2rem" mt="2rem">Enter Basic Information:</Text>
             <form onSubmit={form.onSubmit((values, event) => {
                 setFormData(values);
                 nextStep();

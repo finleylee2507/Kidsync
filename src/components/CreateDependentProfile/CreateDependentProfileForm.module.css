@@ -1,0 +1,16 @@
+.formWrapper{
+    width: 50rem;
+    margin: auto;
+}
+
+.progressBarContainer{
+    margin-top: 3rem;
+    width: 100%;
+    /*border: 1px solid black;*/
+}
+.formContent{
+    width: 70%;
+    margin: auto;
+
+}
+

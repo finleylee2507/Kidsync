@@ -1,56 +1,58 @@
-import React,{useState} from 'react';
+import React, {useState} from 'react';
 import BasicForm from "./BasicForm";
 import EmergencyForm from './EmergencyForm';
 import GeneralCareForm from './GeneralCareForm';
-import DocumentsForm from './DocumentsForm'
+import DocumentsForm from './DocumentsForm';
 import EducationForm from "./EducationForm";
+import styles from './CreateDependentProfileForm.module.css'
+import { Progress } from '@mantine/core';
 
 function CreateDependentProfileForm({}) {
     const [basicFormData, setBasicFormData] = useState({
-        firstName:"",
-        lastName:"",
-        birthday:"",
-        relationship:"",
-        preferredPronouns:"",
-        sex:"",
-        address:"",
-        phoneNumber:"",
-        parentsName:""
+        firstName: "",
+        lastName: "",
+        birthday: "",
+        relationship: "",
+        preferredPronouns: "",
+        sex: "",
+        address: "",
+        phoneNumber: "",
+        parentsName: ""
 
     });
 
     const [emergencyFormData, setEmergencyFormData] = useState({
-        emergencyContactName:"",
-        emergencyContactPhone:"",
-        emergencyContactRelationship:"",
-        allergies:"",
-        currentMedications:"",
+        emergencyContactName: "",
+        emergencyContactPhone: "",
+        emergencyContactRelationship: "",
+        allergies: "",
+        currentMedications: "",
     });
 
     const [generalCareFormData, setGeneralCareFormData] = useState({
-        routineNotes:"",
-        extracurriculars:"",
-        bedTime:"",
-        medicationSchedule:"",
-    })
+        routineNotes: "",
+        extracurriculars: "",
+        bedTime: "",
+        medicationSchedule: "",
+    });
 
-    const [educationFormData,setEducationFormData]=useState({
-        schoolName:"",
-        teacherName:"",
-        grade:"",
-        startTime:"",
-        endTime:"",
-        busNumber:"",
-        busTime:""
-    })
+    const [educationFormData, setEducationFormData] = useState({
+        schoolName: "",
+        teacherName: "",
+        grade: "",
+        startTime: "",
+        endTime: "",
+        busNumber: "",
+        busTime: ""
+    });
 
 
     const [documentsFormData, setDocumentsFormData] = useState({
-        immunizationFile:null,
-        insuranceCard:null,
-        esaDocuments:null,
-        fsaDocuments:null,
-    })
+        immunizationFile: null,
+        insuranceCard: null,
+        esaDocuments: null,
+        fsaDocuments: null,
+    });
     //keeps track of which form we want to display
     const [step, setStep] = useState(0);
 
@@ -64,27 +66,54 @@ function CreateDependentProfileForm({}) {
         setStep(currStep => currStep + 1);
     };
 
-    switch(step){
+
+    let renderedElement;
+
+    switch (step) {
         case 0:
             //display basic form
-            return <BasicForm formData={basicFormData} nextStep={nextStep} setFormData={setBasicFormData}/>
+            renderedElement = (
+                <BasicForm formData={basicFormData} nextStep={nextStep} setFormData={setBasicFormData}/>);
+            break;
 
         case 1:
-            return <EmergencyForm formData={emergencyFormData} nextStep={nextStep} prevStep={prevStep} setFormData={setEmergencyFormData}/>
+            renderedElement = (<EmergencyForm formData={emergencyFormData} nextStep={nextStep} prevStep={prevStep}
+                                              setFormData={setEmergencyFormData}/>);
+            break;
         case 2:
-            return <EducationForm formData={educationFormData} nextStep={nextStep} prevStep={prevStep} setFormData={setEducationFormData}/>
+            renderedElement = (<EducationForm formData={educationFormData} nextStep={nextStep} prevStep={prevStep}
+                                              setFormData={setEducationFormData}/>);
+
+            break;
         case 3:
-            return <GeneralCareForm formData={generalCareFormData} nextStep={nextStep} prevStep={prevStep} setFormData={setGeneralCareFormData}/>
+            renderedElement = (<GeneralCareForm formData={generalCareFormData} nextStep={nextStep} prevStep={prevStep}
+                                                setFormData={setGeneralCareFormData}/>);
+            break;
         case 4:
-            return <DocumentsForm formData={documentsFormData} nextStep={nextStep} prevStep={prevStep} setFormData={setDocumentsFormData}/>
+            renderedElement = (<DocumentsForm formData={documentsFormData} nextStep={nextStep} prevStep={prevStep}
+                                              setFormData={setDocumentsFormData}/>);
+            break;
 
         default:
-            return (<div>
+            renderedElement = (<div>
                 Placeholder
                 <button onClick={prevStep}>Prev</button>
                 <button onClick={nextStep}>Next</button>
-            </div>)
+            </div>);
+            break;
     }
+
+    return (
+        <div className={styles.formWrapper}>
+            <div className={styles.progressBarContainer} title="Progress">
+                <Progress value={(step/5)*100} label={`${step/5*100}%`} size="xl" radius="xl" striped/>
+            </div>
+            <div className={styles.formContent}>
+                {renderedElement}
+            </div>
+
+        </div>
+        )
 
 
 }

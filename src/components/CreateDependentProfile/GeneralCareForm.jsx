@@ -22,7 +22,7 @@ function GeneralCareForm({formData, nextStep, prevStep, setFormData}) {
     return (
 
         <div>
-            <Text fz="xl" fw="700" mb="2rem" mt="6rem">Enter General Care Information:</Text>
+            <Text fz="xl" fw="700" mb="2rem" mt="2rem">Enter General Care Information:</Text>
             <form onSubmit={form.onSubmit((values, event) => {
                 console.log("Values: ", values);
                 setFormData(values);

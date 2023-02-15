@@ -22,7 +22,7 @@ function DocumentsForm({formData, nextStep, prevStep, setFormData}) {
     return (
 
         <div>
-            <Text fz="xl" fw="700" mb="2rem" mt="6rem">Upload Documents:</Text>
+            <Text fz="xl" fw="700" mb="2rem" mt="2rem">Upload Documents:</Text>
             <form onSubmit={form.onSubmit((values, event) => {
                 console.log("Values: ", values);
                 setFormData(values);
