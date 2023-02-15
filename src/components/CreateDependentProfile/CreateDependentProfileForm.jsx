@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import BasicForm from "./BasicForm";
 import EmergencyForm from './EmergencyForm';
+import EducationForm from "./EducationForm";
 
 function CreateDependentProfileForm({}) {
     const [basicFormData, setBasicFormData] = useState({
@@ -24,6 +25,16 @@ function CreateDependentProfileForm({}) {
         currentMedications:"",
     })
 
+    const [educationFormData,setEducationFormData]=useState({
+        schoolName:"",
+        teacherName:"",
+        grade:"",
+        startTime:"",
+        endTime:"",
+        busNumber:"",
+        busTime:""
+    })
+
     //keeps track of which form we want to display
     const [step, setStep] = useState(0);
 
@@ -45,6 +56,8 @@ function CreateDependentProfileForm({}) {
         case 1:
             return <EmergencyForm formData={emergencyFormData} nextStep={nextStep} prevStep={prevStep} setFormData={setEmergencyFormData}/>
 
+        case 3:
+            return <EducationForm formData={educationFormData} nextStep={nextStep} prevStep={prevStep} setFormData={setEducationFormData}/>
         default:
             return (<div>
                 Placeholder
