@@ -4,6 +4,7 @@ import {useAuthState, useDbData} from "./utilities/firebase";
 import Landing from "./components/Authentication/Landing";
 import DependentsList from "./components/Dependents/DependentsList";
 import UserDetails from "./components/CreateProfile/UserDetails";
+import CreateDependentProfileForm from "./components/CreateDependentProfile/CreateDependentProfileForm";
 
 const App = () => {
     const user = useAuthState();
@@ -31,6 +32,7 @@ const App = () => {
                 ></Route>
                 <Route path="/create-profile" element={<UserDetails/>}></Route>
                 <Route path="/dependents" element={<DependentsList/>}></Route>
+                <Route path="/create-dependents-profile" element={<CreateDependentProfileForm/>}></Route>
             </Routes>
         </BrowserRouter>
     );
