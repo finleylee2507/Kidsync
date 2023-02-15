@@ -39,6 +39,8 @@ const firebaseConfig = {
 const firebase = initializeApp(firebaseConfig);
 const database = getDatabase(firebase);
 
+/* DATABASE FUNCTIONS */
+
 // Get data from a specific path in the entire database
 export const useDbData = (path) => {
   const [data, setData] = useState();
@@ -59,6 +61,11 @@ export const useDbData = (path) => {
   );
 
   return [data, error];
+};
+
+// Add new user to the user table in the database
+export const addNewUser = (newUser, uid) => {
+  set(ref(database, "users/" + uid), newUser);
 };
 
 /* USER AUTHENTICATION FUNCTIONS */
