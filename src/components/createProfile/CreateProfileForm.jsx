@@ -83,7 +83,7 @@ function CreateProfileForm({}) {
             );
         case numSteps: //for the last step (confirmation page)
             return (
-                <Confirmation prevStep={prevStep}/>
+                <Confirmation prevStep={prevStep} formData={formData} dependentsData={dependentsData}/>
             );
         default: //all steps in between
             return (

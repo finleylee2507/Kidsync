@@ -37,17 +37,19 @@ function UserDetails({nextStep, handleSetFormData, formData, initializeDependent
                 nextStep();
             })
             }>
-                <TextInput withAsterisk label="First Name" {...form.getInputProps('firstName')} required/>
-                <TextInput withAsterisk label="Last Name" {...form.getInputProps('lastName')} required/>
+                <TextInput withAsterisk label="First Name" size="lg" {...form.getInputProps('firstName')} required/>
+                <TextInput withAsterisk label="Last Name" size="lg" {...form.getInputProps('lastName')} required/>
                 <TextInput
                     withAsterisk
                     label="Email"
                     placeholder="your@email.com"
+                    size="lg"
                     {...form.getInputProps('email')}
                     required
                 />
                 <NumberInput mt="xl" label="Number of Dependents"
                              max="10"
+                             size="lg"
                              {...form.getInputProps('numberOfDependents')}
                             onChange={(value)=>{
                                 initializeDependentsData(value)

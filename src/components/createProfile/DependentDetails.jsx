@@ -34,12 +34,12 @@ function DependentDetails({prevStep, nextStep, formData, handleSetDependentsData
 
             })
             }>
-                <TextInput withAsterisk label="First Name" {...form.getInputProps('firstName')}
+                <TextInput withAsterisk label="First Name" {...form.getInputProps('firstName')} size="lg"
                            required/>
-                <TextInput withAsterisk label="Last Name" {...form.getInputProps('lastName')} required/>
+                <TextInput withAsterisk label="Last Name" {...form.getInputProps('lastName')} size="lg" required/>
 
                 <Group position="right" mt="md">
-                    <Button name="previousButton" onClick={prevStep}>Previous</Button>
+                    <Button name="previousButton" onClick={prevStep}>Back</Button>
                     <Button type="submit" name="saveButton">Save</Button>
                     <Button type="submit" name="nextButton">Next</Button>
                 </Group>
