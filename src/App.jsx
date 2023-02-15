@@ -3,7 +3,7 @@ import {useAuthState, useDbData} from "./utilities/firebase";
 
 import Landing from "./components/Authentication/Landing";
 import DependentsList from "./components/Dependents/DependentsList";
-import UserDetails from "./components/createProfile/UserDetails";
+import UserDetails from "./components/CreateProfile/UserDetails";
 
 const App = () => {
     const user = useAuthState();
