@@ -1,6 +1,14 @@
+import data from "../../utilities/Dependents.json";
+import DependentCard from "./DependentCard";
+import styles from "./DependentsList.module.css";
+
 const DependentsList = () => {
   return (
-    <h1>This is where you will be able to see a list of your dependents.</h1>
+    <div>
+      {Object.entries(data["dependents"]).map(([id, dependent]) => (
+        <DependentCard key={id} dependent={dependent} />
+      ))}
+    </div>
   );
 };
 
