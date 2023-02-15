@@ -27,7 +27,7 @@ function CreateDependentProfileForm({}) {
         currentMedications:"",
     });
 
-    const [generalCareFormData, setGengeralCareFormData] = useState({
+    const [generalCareFormData, setGeneralCareFormData] = useState({
         routineNotes:"",
         extracurriculars:"",
         bedTime:"",
@@ -74,7 +74,7 @@ function CreateDependentProfileForm({}) {
         case 2:
             return <EducationForm formData={educationFormData} nextStep={nextStep} prevStep={prevStep} setFormData={setEducationFormData}/>
         case 3:
-            return <GeneralCareForm formData={generalCareFormData} nextStep={nextStep} prevStep={prevStep} setFormData={setGengeralCareFormData}/>
+            return <GeneralCareForm formData={generalCareFormData} nextStep={nextStep} prevStep={prevStep} setFormData={setGeneralCareFormData}/>
         case 4:
             return <DocumentsForm formData={documentsFormData} nextStep={nextStep} prevStep={prevStep} setFormData={setDocumentsFormData}/>
 
