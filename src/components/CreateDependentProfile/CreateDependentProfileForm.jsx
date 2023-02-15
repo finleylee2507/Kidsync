@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import BasicForm from "./BasicForm";
+import EmergencyForm from './EmergencyForm';
 
 function CreateDependentProfileForm({}) {
     const [basicFormData, setBasicFormData] = useState({
@@ -14,6 +15,14 @@ function CreateDependentProfileForm({}) {
         parentsName:""
 
     });
+
+    const [emergencyFormData, setEmergencyFormData] = useState({
+        emergencyContactName:"",
+        emergencyContactPhone:"",
+        emergencyContactRelationship:"",
+        allergies:"",
+        currentMedications:"",
+    })
 
     //keeps track of which form we want to display
     const [step, setStep] = useState(0);
@@ -32,6 +41,9 @@ function CreateDependentProfileForm({}) {
         case 0:
             //display basic form
             return <BasicForm formData={basicFormData} nextStep={nextStep} setFormData={setBasicFormData}/>
+
+        case 1:
+            return <EmergencyForm formData={emergencyFormData} nextStep={nextStep} prevStep={prevStep} setFormData={setEmergencyFormData}/>
 
         default:
             return (<div>
