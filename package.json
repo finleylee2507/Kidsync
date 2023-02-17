@@ -14,6 +14,7 @@
     "@fortawesome/fontawesome-free": "^6.3.0",
     "@mantine/core": "^5.10.3",
     "@mantine/dates": "^5.10.3",
+    "@mantine/ds": "^5.10.3",
     "@mantine/form": "^5.10.3",
     "@mantine/hooks": "^5.10.3",
     "@tabler/icons": "^2.4.0",
@@ -24,7 +25,8 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-input-mask": "^2.0.4",
-    "react-router-dom": "^6.8.1"
+    "react-router-dom": "^6.8.1",
+    "tabler-icons-react": "^1.56.0"
   },
   "devDependencies": {
     "@testing-library/react": "^13.3.0",
