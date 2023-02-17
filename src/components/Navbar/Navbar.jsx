@@ -11,7 +11,7 @@ import {
   ScrollArea,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { signOut } from "../utilities/firebase";
+import { signOut } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
