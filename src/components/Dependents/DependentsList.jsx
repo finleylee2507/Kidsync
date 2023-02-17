@@ -20,10 +20,6 @@ const useStyles = createStyles(() => ({
 }));
 
 const DependentsList = ({ user, allUsers, allDependents }) => {
-  console.log(user);
-  console.log(allUsers);
-  console.log(allDependents);
-
   const [allDeps, setAllDeps] = useState(allDependents);
 
   useEffect(() => {
@@ -39,25 +35,14 @@ const DependentsList = ({ user, allUsers, allDependents }) => {
     navigate("/create-dependents-profile");
   };
 
-  if (allDependents) {
-    if (allDependents.length == 1) {
-      return (
-        <div>
-          <Container>
-            <Button
-              fullWidth
-              className={classes.button}
-              onClick={handleAddDependentClick}
-              color={theme.primaryColor}
-            >
-              <div className={classes.label}>Add Dependent</div>
-            </Button>
-          </Container>
-        </div>
-      );
-    } else {
-      return (
-        <div>
+  if (
+    allDeps == null ||
+    allDeps.length == 1 ||
+    allUsers[user.uid]["dependents"] == null
+  ) {
+    return (
+      <div>
+        <Container>
           <Button
             fullWidth
             className={classes.button}
@@ -66,21 +51,34 @@ const DependentsList = ({ user, allUsers, allDependents }) => {
           >
             <div className={classes.label}>Add Dependent</div>
           </Button>
-          <Container py="xl">
-            <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
-              {Object.entries(allUsers[user.uid]["dependents"]).map(
-                ([id, dependentID]) => (
-                  <DependentCard
-                    key={id}
-                    dependent={allDependents[dependentID]}
-                  />
-                )
-              )}
-            </SimpleGrid>
-          </Container>
-        </div>
-      );
-    }
+        </Container>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <Button
+          fullWidth
+          className={classes.button}
+          onClick={handleAddDependentClick}
+          color={theme.primaryColor}
+        >
+          <div className={classes.label}>Add Dependent</div>
+        </Button>
+        <Container py="xl">
+          <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+            {Object.entries(allUsers[user.uid]["dependents"]).map(
+              ([id, dependentID]) => (
+                <DependentCard
+                  key={id}
+                  dependent={allDependents[dependentID]}
+                />
+              )
+            )}
+          </SimpleGrid>
+        </Container>
+      </div>
+    );
   }
 };
 
