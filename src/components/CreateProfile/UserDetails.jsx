@@ -5,13 +5,13 @@ import { useForm } from "@mantine/form";
 import { useAuthState } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 
-const UserDetails = () => {
+const UserDetails = ({ user }) => {
   const navigate = useNavigate();
   const form = useForm({
     initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
+      firstName: user ? user.displayName.split(" ")[0] : "",
+      lastName: user ? user.displayName.split(" ")[1] : "",
+      email: user.email,
     },
 
     validate: {

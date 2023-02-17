@@ -1,3 +1,5 @@
+import { React, useEffect } from "react";
+
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useAuthState, useDbData } from "./utilities/firebase";
 
@@ -11,11 +13,17 @@ import ViewDependent from "./components/Dependents/ViewDependent";
 const App = () => {
   const user = useAuthState();
   const [dbUsers, dbUsersError] = useDbData("/users");
+  const [dbDependents, dbDependentsError] = useDbData("/dependents");
 
   if (dbUsersError) {
     console.log(
-      "Here was the error in getting users from the database: ",
+      "Here was the error in getting the users from the database: ",
       dbUsersError
+    );
+  } else if (dbDependentsError) {
+    console.log(
+      "Here was the error in getting the dependents from the database: ",
+      dbDependentsError
     );
   }
 
@@ -37,7 +45,7 @@ const App = () => {
           element={
             <div>
               <Navbar />
-              <UserDetails />
+              <UserDetails user={user} />
             </div>
           }
         ></Route>
@@ -46,7 +54,11 @@ const App = () => {
           element={
             <div>
               <Navbar />
-              <DependentsList />
+              <DependentsList
+                user={user}
+                allUsers={dbUsers}
+                allDependents={dbDependents}
+              />
             </div>
           }
         ></Route>

@@ -43,23 +43,13 @@ const ViewDependent = () => {
             <Text fz="lg" fw="500" mt="2rem">
               Relationship
             </Text>
-            <Text>
-              {" "}
-              {dependent.basic.relationship
-                ? dependent.basic.relationship
-                : "N/A"}
-            </Text>
+            <Text> {dependent.basic.relationship}</Text>
           </div>
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Preferred Pronouns
             </Text>
-            <Text>
-              {" "}
-              {dependent.basic.preferredPronouns
-                ? dependent.basic.preferredPronouns
-                : "N/A"}
-            </Text>
+            <Text> {dependent.basic.preferredPronouns}</Text>
           </div>
           <div>
             <Text fz="lg" fw="500" mt="2rem">
@@ -71,21 +61,13 @@ const ViewDependent = () => {
             <Text fz="lg" fw="500" mt="2rem">
               Address
             </Text>
-            <Text>
-              {" "}
-              {dependent.basic.address ? dependent.basic.address : "N/A"}
-            </Text>
+            <Text> {dependent.basic.address}</Text>
           </div>
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Phone Number
             </Text>
-            <Text>
-              {" "}
-              {dependent.basic.phoneNumber
-                ? dependent.basic.phoneNumber
-                : "N/A"}
-            </Text>
+            <Text> {dependent.basic.phoneNumber}</Text>
           </div>
           <div>
             <Text fz="lg" fw="500" mt="2rem">
@@ -106,35 +88,35 @@ const ViewDependent = () => {
             <Text fz="lg" fw="500" mt="2rem">
               Emergency Contact Name
             </Text>
-            <Text> {dependent.emergency[0].name}</Text>
+            <Text> {dependent.emergency.emergencyContactName}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Emergency Contact Phone
             </Text>
-            <Text> {dependent.emergency[0].phone}</Text>
+            <Text> {dependent.emergency.emergencyContactPhone}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Emergency Contact Relationship
             </Text>
-            <Text> {dependent.emergency[0].relationship}</Text>
+            <Text> {dependent.emergency.emergencyContactRelationship}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Allergies
             </Text>
-            <Text> {dependent.emergency[0].allergies}</Text>
+            <Text> {dependent.emergency.allergies}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Current Medications
             </Text>
-            <Text> {dependent.emergency[0].currentMedications}</Text>
+            <Text> {dependent.emergency.currentMedications}</Text>
           </div>
         </SimpleGrid>
       </Paper>
@@ -170,48 +152,28 @@ const ViewDependent = () => {
             <Text fz="lg" fw="500" mt="2rem">
               Start Time
             </Text>
-            <Text>
-              {" "}
-              {dependent.education.startTime
-                ? dependent.education.startTime
-                : "N/A"}
-            </Text>
+            <Text> {dependent.education.startTime}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               End Time
             </Text>
-            <Text>
-              {" "}
-              {dependent.education.endTime
-                ? dependent.education.endTime
-                : "N/A"}
-            </Text>
+            <Text> {dependent.education.endTime}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Bus Number
             </Text>
-            <Text>
-              {" "}
-              {dependent.education.busNumber
-                ? dependent.education.busNumber
-                : "N/A"}
-            </Text>
+            <Text> {dependent.education.busNumber}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Bus Time
             </Text>
-            <Text>
-              {" "}
-              {dependent.education.busTime
-                ? dependent.education.busTime
-                : "N/A"}
-            </Text>
+            <Text> {dependent.education.busTime}</Text>
           </div>
         </SimpleGrid>
       </Paper>
@@ -226,48 +188,28 @@ const ViewDependent = () => {
             <Text fz="lg" fw="500" mt="2rem">
               Routine Notes
             </Text>
-            <Text>
-              {" "}
-              {dependent.generalCare.routineNotes
-                ? dependent.generalCare.routineNotes
-                : "N/A"}
-            </Text>
+            <Text> {dependent.generalCare.routineNotes}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Extracurriculars
             </Text>
-            <Text>
-              {" "}
-              {dependent.generalCare.extracurriculars
-                ? dependent.generalCare.extracurriculars
-                : "N/A"}
-            </Text>
+            <Text> {dependent.generalCare.extracurriculars}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Bed Time
             </Text>
-            <Text>
-              {" "}
-              {dependent.generalCare.bedTime
-                ? dependent.generalCare.bedTime
-                : "N/A"}
-            </Text>
+            <Text> {dependent.generalCare.bedTime}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Medication Schedule
             </Text>
-            <Text>
-              {" "}
-              {dependent.generalCare.medicationSchedule
-                ? dependent.generalCare.medicationSchedule
-                : "N/A"}
-            </Text>
+            <Text> {dependent.generalCare.medicationSchedule}</Text>
           </div>
         </SimpleGrid>
       </Paper>

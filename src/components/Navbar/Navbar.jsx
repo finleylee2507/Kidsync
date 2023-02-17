@@ -71,7 +71,7 @@ export function Navbar() {
   const { classes, theme } = useStyles();
 
   return (
-    <Box pb={120}>
+    <Box pb={30}>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: "100%" }}>
           YourTurn
@@ -80,9 +80,6 @@ export function Navbar() {
             spacing={0}
             className={classes.hiddenMobile}
           >
-            <a href="/" className={classes.link}>
-              Home
-            </a>
             <a href="/dependents" className={classes.link}>
               My Dependents
             </a>
@@ -113,9 +110,6 @@ export function Navbar() {
             color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
           />
 
-          <a href="/" className={classes.link}>
-            Home
-          </a>
           <a href="/dependents" className={classes.link}>
             My Dependents
           </a>
