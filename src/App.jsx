@@ -42,12 +42,7 @@ const App = () => {
         ></Route>
         <Route
           path="/create-profile"
-          element={
-            <div>
-              <Navbar />
-              <UserDetails user={user} />
-            </div>
-          }
+          element={<UserDetails user={user} />}
         ></Route>
         <Route
           path="/dependents"
