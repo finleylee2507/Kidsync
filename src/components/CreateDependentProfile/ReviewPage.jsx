@@ -109,17 +109,17 @@ const ReviewPage = ({
             <div>
                 <Text fz="xl" fw="700" mt="2rem">General Care Information</Text>
                 <Text fz="lg" fw="500" mt="2rem">Routine Notes</Text>
-                <Text> {generalCareFormData.routineNotes}</Text>
+                <Text> {generalCareFormData.routineNotes?generalCareFormData.routineNotes:"N/A"}</Text>
 
 
                 <Text fz="lg" fw="500" mt="2rem">Extracurriculars</Text>
-                <Text> {generalCareFormData.extracurriculars}</Text>
+                <Text> {generalCareFormData.extracurriculars?generalCareFormData.extracurriculars:"N/A"}</Text>
 
                 <Text fz="lg" fw="500" mt="2rem">Bed Time</Text>
-                <Text> {generalCareFormData.bedTime.toLocaleDateString()}</Text>
+                <Text> {generalCareFormData.bedTime?generalCareFormData.bedTime.toLocaleDateString():"N/A"}</Text>
 
                 <Text fz="lg" fw="500" mt="2rem">Medication Schedule</Text>
-                <Text> {generalCareFormData.medicationSchedule}</Text>
+                <Text> {generalCareFormData.medicationSchedule?generalCareFormData.medicationSchedule:"N/A"}</Text>
             </div>
 
             <Divider mt="2rem" size="sm"/>
@@ -144,7 +144,7 @@ const ReviewPage = ({
 
             <Group position="right" mt="md">
                 <Button name="prevButton" onClick={prevStep}>Back</Button>
-                {/*<Button type="submit" name="nextButton">Next</Button>*/}
+                <Button name="nextButton">Submit</Button>
             </Group>
         </div>
 
