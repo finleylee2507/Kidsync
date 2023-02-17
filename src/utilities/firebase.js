@@ -68,6 +68,27 @@ export const addNewUser = (newUser, uid) => {
   set(ref(database, "users/" + uid), newUser);
 };
 
+// Get a new key for a dependent
+export const getNewDependentKey = () => {
+  const dependentKey = push(child(ref(database), "dependent"));
+  return dependentKey.key;
+};
+
+// Add new dependent to the dependents table in the database
+export const addNewDependent = (
+  newDependent,
+  updatedUserDependents,
+  did,
+  uid
+) => {
+  // Create a new entry in the dependents table
+  set(ref(database, "/dependents" + did), newDependent);
+
+  // Update the user object
+  const userDependentsRef = child(ref(database), `users/${uid}`);
+  update(userDependentsRef, updatedUserDependents);
+};
+
 /* USER AUTHENTICATION FUNCTIONS */
 
 // Open Google sign in popup and sign in the user

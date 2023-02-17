@@ -59,7 +59,15 @@ const App = () => {
             </div>
           }
         ></Route>
-                <Route path="/create-dependents-profile" element={<CreateDependentProfileForm/>}></Route>
+        <Route
+          path="/create-dependents-profile"
+          element={
+            <div>
+              <Navbar />
+              <CreateDependentProfileForm user={user} allUsers={dbUsers} />
+            </div>
+          }
+        ></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Divider, Group, Text } from "@mantine/core";
 import styles from "./ReviewPage.module.css";
+import { addNewDependent, getNewDependentKey } from "../../utilities/firebase";
 
 const ReviewPage = ({
   basicFormData,
@@ -9,11 +10,18 @@ const ReviewPage = ({
   educationFormData,
   documentsFormData,
   prevStep,
+  user,
+  allUsers,
 }) => {
   console.log(educationFormData);
 
   const handleFormSubmit = () => {
-    let dependent = {
+    // Create a new entry in the dependents table
+    let newDependentID = getNewDependentKey();
+
+    // Create new dependent object
+    let newDependent = {
+      id: newDependentID,
       basic: {
         firstName: basicFormData.firstName,
         lastName: basicFormData.lastName,
@@ -86,6 +94,25 @@ const ReviewPage = ({
           : "Not Uploaded",
       },
     };
+
+    let updatedUserDependents;
+    if (!allUsers[user.uid].dependents) {
+      updatedUserDependents = {
+        dependents: [newDependentID],
+      };
+    } else {
+      updatedUserDependents = {
+        dependents: [...allUsers[user.uid].dependents, newDependentID],
+      };
+    }
+
+    // Add object to database
+    addNewDependent(
+      newDependent,
+      updatedUserDependents,
+      newDependentID,
+      user.uid
+    );
   };
   return (
     <div className={styles.pageWrapper}>
