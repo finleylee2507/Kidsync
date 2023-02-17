@@ -7,6 +7,7 @@ import {
   createStyles,
   Button,
 } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -18,6 +19,8 @@ const useStyles = createStyles((theme) => ({
       transform: "scale(1.01)",
       boxShadow: theme.shadows.md,
     },
+
+    cursor: "pointer",
   },
 
   imageSection: {
@@ -57,9 +60,21 @@ const useStyles = createStyles((theme) => ({
 
 const DependentCard = ({ dependent }) => {
   const { classes, theme } = useStyles();
+  const navigate = useNavigate();
+
+  const handleViewDependent = (dependent) => {
+    console.log("clicked", dependent);
+    navigate("/view-dependent");
+  };
+
   return (
     <div style={{ width: "25rem", margin: "auto" }}>
-      <Card withBorder radius="md" className={classes.card}>
+      <Card
+        withBorder
+        radius="md"
+        className={classes.card}
+        onClick={() => handleViewDependent(dependent)}
+      >
         <Card.Section className={classes.imageSection}>
           <Image
             src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"

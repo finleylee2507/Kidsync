@@ -5,6 +5,7 @@ import Landing from "./components/Authentication/Landing";
 import DependentsList from "./components/Dependents/DependentsList";
 import UserDetails from "./components/CreateProfile/UserDetails";
 import { Navbar } from "./components/Navbar/Navbar";
+import ViewDependent from "./components/Dependents/ViewDependent";
 
 const App = () => {
   const user = useAuthState();
@@ -45,6 +46,15 @@ const App = () => {
             <div>
               <Navbar />
               <DependentsList />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="/view-dependent"
+          element={
+            <div>
+              <Navbar />
+              <ViewDependent />
             </div>
           }
         ></Route>
