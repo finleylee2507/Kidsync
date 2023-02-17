@@ -62,13 +62,17 @@ const DependentCard = ({ dependent }) => {
   const { classes, theme } = useStyles();
   const navigate = useNavigate();
 
+  //hanle click card
   const handleViewDependent = (dependent) => {
-    console.log("clicked", dependent);
+    // use navigate() to pass the data
     navigate("/view-dependent", { state: dependent });
   };
 
+  // try to find out how old is this kid
   const birthday = new Date(dependent.basic.birthday);
-  const age = parseInt(((new Date()).getTime() - birthday.getTime()) / (1000 * 60 * 60 * 24 * 365));
+  const age = parseInt(
+    (new Date().getTime() - birthday.getTime()) / (1000 * 60 * 60 * 24 * 365)
+  );
 
   return (
     <div style={{ width: "25rem", margin: "auto" }}>
@@ -88,7 +92,9 @@ const DependentCard = ({ dependent }) => {
         </Card.Section>
         <Group position="apart" mt="md">
           <div>
-            <Text weight={500}>{`${dependent.basic.firstName} ${dependent.basic.lastName}`}</Text>
+            <Text
+              weight={500}
+            >{`${dependent.basic.firstName} ${dependent.basic.lastName}`}</Text>
             <Text size="xs" color="dimmed">
               {age} years old
             </Text>
