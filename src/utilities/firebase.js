@@ -24,6 +24,14 @@ import {
   signOut,
 } from "firebase/auth";
 
+import {
+  deleteObject,
+  getDownloadURL,
+  getStorage,
+  ref as sRef,
+  uploadBytes,
+} from "firebase/storage";
+
 // Firebase configuration data
 const firebaseConfig = {
   apiKey: "AIzaSyDESRVoJEwuvdknNdmgnGBwltHTb3aczVs",
@@ -38,7 +46,7 @@ const firebaseConfig = {
 // Initialize Firebase and database
 const firebase = initializeApp(firebaseConfig);
 const database = getDatabase(firebase);
-
+const storage = getStorage();
 /* DATABASE FUNCTIONS */
 
 // Get data from a specific path in the entire database
@@ -67,6 +75,49 @@ export const useDbData = (path) => {
 export const addNewUser = (newUser, uid) => {
   set(ref(database, "users/" + uid), newUser);
 };
+
+// Get a new key for a dependent
+export const getNewDependentKey = () => {
+  const dependentKey = push(child(ref(database), "dependents"));
+  return dependentKey.key;
+};
+
+// Add new dependent to the dependents table in the database
+export const addNewDependent = (
+  newDependent,
+  updatedUserDependents,
+  did,
+  uid
+) => {
+  // Create a new entry in the dependents table
+  set(ref(database, "dependents/" + did), newDependent);
+
+  // Update the user object
+  const userDependentsRef = child(ref(database), `users/${uid}`);
+  update(userDependentsRef, updatedUserDependents);
+};
+
+
+//FILE STORAGE FUNCTIONS
+export const uploadFile = async (file,directory) => {
+  let fileLink = `${directory}/${file.name}`;
+  let downloadURL = "";
+  let isSuccessful = false;
+  const imageReference = sRef(storage, fileLink);
+
+  try {
+    await uploadBytes(imageReference, file);
+    downloadURL = await getDownloadURL(imageReference);
+    console.log("File upload successful");
+    isSuccessful = true;
+  } catch (err) {
+    console.log("Error: " + err);
+  }
+
+  return [isSuccessful, downloadURL];
+};
+
+
 
 /* USER AUTHENTICATION FUNCTIONS */
 
