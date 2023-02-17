@@ -5,7 +5,6 @@ import {
   Group,
   Badge,
   createStyles,
-  Center,
   Button,
 } from "@mantine/core";
 
@@ -13,7 +12,12 @@ const useStyles = createStyles((theme) => ({
   card: {
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
-    padding: "2%",
+    transition: "transform 150ms ease, box-shadow 150ms ease",
+
+    "&:hover": {
+      transform: "scale(1.01)",
+      boxShadow: theme.shadows.md,
+    },
   },
 
   imageSection: {
