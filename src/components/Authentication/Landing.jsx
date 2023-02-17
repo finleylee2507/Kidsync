@@ -44,9 +44,7 @@ const Landing = (allUsers) => {
     }
   }
 
-  return user ? (
-    <Navigate to="/dependents" />
-  ) : (
+  return (
     <div
       style={{
         width: "100vw",
