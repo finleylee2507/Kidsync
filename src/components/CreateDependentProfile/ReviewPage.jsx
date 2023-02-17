@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Divider, Group, Text } from "@mantine/core";
 import styles from "./ReviewPage.module.css";
-import { addNewDependent, getNewDependentKey } from "../../utilities/firebase";
+import {addNewDependent, getNewDependentKey, uploadFile} from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 
 const ReviewPage = ({
@@ -16,10 +16,31 @@ const ReviewPage = ({
 }) => {
   const navigate = useNavigate();
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = async () => {
     // Create a new entry in the dependents table
     let newDependentID = getNewDependentKey();
 
+    //upload dependent files
+    let fileLinks = {}
+    for (const [key, file] of Object.entries(documentsFormData)) {
+      // console.log("Document key: ",key," Document value: ",file.name);
+      if(file){ //if the user uploaded a file
+        const [isSuccessful, fileLink] = await uploadFile(file,"dependent-files")
+        if(isSuccessful){
+          fileLinks[key]={fileName:file.name,fileLink:fileLink}
+        }
+        else{
+          fileLinks[key]="N/A"
+        }
+
+      }
+      else{ //user didn't upload file
+        fileLinks[key]="N/A"
+      }
+
+    }
+
+    console.log("File links: ",fileLinks);
     // Create new dependent object
     let newDependent = {
       id: newDependentID,
@@ -82,18 +103,10 @@ const ReviewPage = ({
           : "N/A",
       },
       documents: {
-        immunizationFile: documentsFormData.immunizationFile
-          ? "Uploaded"
-          : "Not Uploaded",
-        insuranceCard: documentsFormData.insuranceCard
-          ? "Uploaded"
-          : "Not Uploaded",
-        esaDocuments: documentsFormData.esaDocuments
-          ? "Uploaded"
-          : "Not Uploaded",
-        fsaDocuments: documentsFormData.fsaDocuments
-          ? "Uploaded"
-          : "Not Uploaded",
+        immunizationFile: fileLinks["immunizationFile"],
+        insuranceCard: fileLinks["insuranceCard"],
+        esaDocuments: fileLinks["esaDocuments"],
+        fsaDocuments: fileLinks["fsaDocuments"]
       },
     };
 
