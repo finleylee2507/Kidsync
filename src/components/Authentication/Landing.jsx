@@ -35,7 +35,6 @@ const Landing = (allUsers) => {
       const newUser = {
         displayName: user.displayName,
         email: user.email,
-        unreadMessages: ["welcome"],
         photoURL: user.photoURL,
       };
 
