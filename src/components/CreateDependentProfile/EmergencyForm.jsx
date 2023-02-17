@@ -4,7 +4,7 @@ import {useForm} from "@mantine/form";
 import InputMask from "react-input-mask";
 
 
-function EmergencyForm({formData,nextStep, prevStep, setFormData}) {
+const EmergencyForm = ({formData,nextStep, prevStep, setFormData}) => {
 
     const form = useForm({
         initialValues: {
@@ -46,7 +46,7 @@ function EmergencyForm({formData,nextStep, prevStep, setFormData}) {
 
                 <TextInput withAsterisk label="Allergies" {...form.getInputProps('allergies')} size="lg"
                            required/>
-                           
+
                 <TextInput withAsterisk label="Current Medications" {...form.getInputProps('currentMedications')} size="lg"
                            required/>
 
@@ -57,6 +57,6 @@ function EmergencyForm({formData,nextStep, prevStep, setFormData}) {
             </form>
         </div>
     );
-}
+};
 
 export default EmergencyForm;

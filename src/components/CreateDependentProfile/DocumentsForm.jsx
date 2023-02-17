@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Button, FileInput, Group, Text} from "@mantine/core";
 import {useForm} from "@mantine/form";
 
-function DocumentsForm({formData, nextStep, prevStep, setFormData}) {
+const DocumentsForm = ({formData, nextStep, prevStep, setFormData}) => {
 
     const form = useForm({
         initialValues: {
@@ -42,6 +42,6 @@ function DocumentsForm({formData, nextStep, prevStep, setFormData}) {
             </form>
         </div>
     );
-}
+};
 
 export default DocumentsForm;

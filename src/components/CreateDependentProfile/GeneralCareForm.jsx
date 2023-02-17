@@ -3,7 +3,7 @@ import {Button, Group, Text, TextInput} from "@mantine/core";
 import {useForm} from "@mantine/form";
 import {TimeInput} from '@mantine/dates';
 
-function GeneralCareForm({formData, nextStep, prevStep, setFormData}) {
+const GeneralCareForm = ({formData, nextStep, prevStep, setFormData}) => {
 
     const form = useForm({
         initialValues: {
@@ -35,8 +35,8 @@ function GeneralCareForm({formData, nextStep, prevStep, setFormData}) {
                 <TextInput  label="Extracurriculars" {...form.getInputProps('extracurriculars')} size="lg"
                            />
 
-                <TimeInput  label="Bed Time" format="12" defaultValue={new Date()}
-                            {...form.getInputProps('bedTime')} size="lg"/>;
+                <TimeInput  label="Bed Time" format="12"
+                            {...form.getInputProps('bedTime')} size="lg"/>
 
                 <TextInput  label="Medication Schedule" {...form.getInputProps('medicationSchedule')}
                            size="lg"
@@ -50,6 +50,6 @@ function GeneralCareForm({formData, nextStep, prevStep, setFormData}) {
             </form>
         </div>
     );
-}
+};
 
 export default GeneralCareForm;

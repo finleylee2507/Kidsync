@@ -4,10 +4,11 @@ import EmergencyForm from './EmergencyForm';
 import GeneralCareForm from './GeneralCareForm';
 import DocumentsForm from './DocumentsForm';
 import EducationForm from "./EducationForm";
-import styles from './CreateDependentProfileForm.module.css'
-import { Progress } from '@mantine/core';
+import styles from './CreateDependentProfileForm.module.css';
+import {Progress} from '@mantine/core';
+import ReviewPage from "./ReviewPage";
 
-function CreateDependentProfileForm({}) {
+const CreateDependentProfileForm = ({}) => {
     const [basicFormData, setBasicFormData] = useState({
         firstName: "",
         lastName: "",
@@ -94,28 +95,40 @@ function CreateDependentProfileForm({}) {
                                               setFormData={setDocumentsFormData}/>);
             break;
 
+        case 5:
+            renderedElement = (<ReviewPage basicFormData={basicFormData} emergencyFormData={emergencyFormData}
+                                           generalCareFormData={generalCareFormData}
+                                           educationFormData={educationFormData}
+                                           documentsFormData={documentsFormData}
+                                            prevStep={prevStep}
+            />);
+            break;
         default:
-            renderedElement = (<div>
-                Placeholder
-                <button onClick={prevStep}>Prev</button>
-                <button onClick={nextStep}>Next</button>
-            </div>);
+            // renderedElement = (<div>
+            //     Placeholder
+            //     <button onClick={prevStep}>Prev</button>
+            //     <button onClick={nextStep}>Next</button>
+            // </div>);
+            renderedElement = (<ReviewPage basicFormData={basicFormData} emergencyFormData={emergencyFormData}
+                                           generalCareFormData={generalCareFormData}
+                                           educationFormData={educationFormData}
+                                           documentsFormData={documentsFormData}/>);
             break;
     }
 
     return (
         <div className={styles.formWrapper}>
             <div className={styles.progressBarContainer} title="Progress">
-                <Progress value={(step/5)*100} label={`${step/5*100}%`} size="xl" radius="xl" striped/>
+                <Progress value={(step / 5) * 100} label={`${step / 5 * 100}%`} size="xl" radius="xl" striped/>
             </div>
-            <div className={styles.formContent}>
+            <div className={`${styles.formContent}${(step === 5) ? "inReview" : ""}`}>
                 {renderedElement}
             </div>
 
         </div>
-        )
+    );
 
 
-}
+};
 
 export default CreateDependentProfileForm;

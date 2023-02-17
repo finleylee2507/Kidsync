@@ -5,7 +5,7 @@ import {useForm} from "@mantine/form";
 import {DatePicker} from "@mantine/dates";
 
 
-function BasicForm({formData, nextStep, setFormData}) {
+const BasicForm = ({formData, nextStep, setFormData}) => {
 
     const form = useForm({
         initialValues: {
@@ -22,7 +22,6 @@ function BasicForm({formData, nextStep, setFormData}) {
         validate: {
             birthday: (value) => (!value) ? 'Please enter a birthday' : null,
             sex: (value) => (!value) ? 'Please select sex' : null,
-            phoneNumber: (value) => (!value) ? 'Please enter a phone number' : null
         },
     });
 
@@ -51,12 +50,15 @@ function BasicForm({formData, nextStep, setFormData}) {
 
                 />
 
-                <TextInput withAsterisk label="Relationship" {...form.getInputProps('relationship')} size="lg"
-                           required/>
+                <TextInput label="Relationship" {...form.getInputProps('relationship')} size="lg"
+                />
 
+                <TextInput label="Preferred Pronouns" {...form.getInputProps('preferredPronouns')} size="lg"
+                />
 
                 <Select
                     label="Sex"
+                    withAsterisk
                     size="lg"
                     data={[
                         {value: 'male', label: 'Male'},
@@ -66,10 +68,11 @@ function BasicForm({formData, nextStep, setFormData}) {
                     {...form.getInputProps('sex')}
                 />
 
-                <TextInput withAsterisk label="Address" {...form.getInputProps('address')} size="lg"
-                           required/>
+                <TextInput label="Address" {...form.getInputProps('address')} size="lg"
+                />
 
-                <Input.Wrapper label="Phone Number" size="lg" required error={form.errors.phoneNumber}>
+
+                <Input.Wrapper label="Phone Number" size="lg" error={form.errors.phoneNumber}>
                     <Input component={InputMask} mask="+1 (999) 999-9999"
                            size="lg" {...form.getInputProps('phoneNumber')}/>
                 </Input.Wrapper>
@@ -83,6 +86,6 @@ function BasicForm({formData, nextStep, setFormData}) {
             </form>
         </div>
     );
-}
+};
 
 export default BasicForm;
