@@ -70,7 +70,7 @@ export const addNewUser = (newUser, uid) => {
 
 // Get a new key for a dependent
 export const getNewDependentKey = () => {
-  const dependentKey = push(child(ref(database), "dependent"));
+  const dependentKey = push(child(ref(database), "dependents"));
   return dependentKey.key;
 };
 
@@ -82,7 +82,7 @@ export const addNewDependent = (
   uid
 ) => {
   // Create a new entry in the dependents table
-  set(ref(database, "/dependents" + did), newDependent);
+  set(ref(database, "dependents/" + did), newDependent);
 
   // Update the user object
   const userDependentsRef = child(ref(database), `users/${uid}`);

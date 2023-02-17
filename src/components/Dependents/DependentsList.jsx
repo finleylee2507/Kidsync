@@ -1,8 +1,8 @@
 import data from "../../utilities/Dependents.json";
 import DependentCard from "./DependentCard";
 import styles from "./DependentsList.module.css";
-import { SimpleGrid, Container } from "@mantine/core";
-import useNavigate from "react-router-dom";
+import { SimpleGrid, Container, createStyles, Button } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = createStyles(() => ({
   button: {
@@ -28,7 +28,7 @@ const DependentsList = () => {
       <Button
         fullWidth
         className={classes.button}
-        // onClick={() => (loaded ? setLoaded(false) : !interval.active && interval.start())}
+        onClick={handleAddDependentClick}
         color={theme.primaryColor}
       >
         <div className={classes.label}>Add Dependent</div>

@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Divider, Group, Text } from "@mantine/core";
 import styles from "./ReviewPage.module.css";
 import { addNewDependent, getNewDependentKey } from "../../utilities/firebase";
+import { useNavigate } from "react-router-dom";
 
 const ReviewPage = ({
   basicFormData,
@@ -13,7 +14,7 @@ const ReviewPage = ({
   user,
   allUsers,
 }) => {
-  console.log(educationFormData);
+  const navigate = useNavigate();
 
   const handleFormSubmit = () => {
     // Create a new entry in the dependents table
@@ -44,7 +45,8 @@ const ReviewPage = ({
       emergency: {
         emergencyContactName: emergencyFormData.emergencyContactName,
         emergencyContactPhone: emergencyFormData.emergencyContactPhone,
-        emergencyContactRelationship: emergencyContactRelationship,
+        emergencyContactRelationship:
+          emergencyFormData.emergencyContactRelationship,
         allergies: emergencyFormData.allergies,
         currentMedications: emergencyFormData.currentMedications,
       },
@@ -59,7 +61,7 @@ const ReviewPage = ({
           ? educationFormData.endTime.toLocaleTimeString()
           : "N/A",
         busNumber: educationFormData.busNumber
-          ? educationFormData.busNumbe
+          ? educationFormData.busNumber
           : "N/A",
         busTime: educationFormData.busTime
           ? educationFormData.busTime.toLocaleTimeString()
@@ -113,6 +115,8 @@ const ReviewPage = ({
       newDependentID,
       user.uid
     );
+
+    navigate("/dependents");
   };
   return (
     <div className={styles.pageWrapper}>
