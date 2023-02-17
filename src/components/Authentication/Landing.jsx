@@ -7,6 +7,18 @@ import {
 import { Navigate, useNavigate } from "react-router-dom";
 import styles from "./Landing.module.css";
 import { FcGoogle } from "react-icons/fc";
+import { Grid } from "@mantine/core";
+import {
+  createStyles,
+  Image,
+  Container,
+  Title,
+  Button,
+  Group,
+  Text,
+  List,
+  ThemeIcon,
+} from "@mantine/core";
 
 const SignInButton = () => {
   return (
@@ -44,7 +56,38 @@ const Landing = (allUsers) => {
     }
   }
 
-  return <SignInButton />;
+  return user ? (
+    <Navigate to="/dependents" />
+  ) : (
+    <container
+      style={{
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          minWidth: "60vw",
+          minHeight: "100vh",
+          alignItems: "center",
+        }}
+      >
+        <Image
+          className={styles.heroImage}
+          src="https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
+          alt="Placeholder for Hero image"
+        />
+      </div>
+      <div className={styles.signInColumn}>
+        <Title className={styles.title}>Hey there!👋</Title>
+        <SignInButton />
+      </div>
+    </container>
+  );
 };
 
 export default Landing;
