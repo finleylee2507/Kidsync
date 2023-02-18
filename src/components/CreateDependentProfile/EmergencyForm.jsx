@@ -11,8 +11,7 @@ const EmergencyForm = ({formData,nextStep, prevStep, setFormData}) => {
             emergencyContactName:"",
             emergencyContactPhone:"",
             emergencyContactRelationship:"",
-            allergies:"",
-            currentMedications:"",
+
         },
         validate: {
             emergencyContactPhone:(value) => (!value) ? 'Please enter a phone number' : null
@@ -44,11 +43,6 @@ const EmergencyForm = ({formData,nextStep, prevStep, setFormData}) => {
                 <TextInput withAsterisk label="Emergency Contact Relationship" {...form.getInputProps('emergencyContactRelationship')} size="lg"
                            required/>
 
-                <TextInput withAsterisk label="Allergies" {...form.getInputProps('allergies')} size="lg"
-                           required/>
-
-                <TextInput withAsterisk label="Current Medications" {...form.getInputProps('currentMedications')} size="lg"
-                           required/>
 
                 <Group position="right" mt="md">
                     <Button name='prevButton' onClick={prevStep}>Back</Button>

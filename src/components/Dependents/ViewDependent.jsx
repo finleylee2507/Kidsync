@@ -70,12 +70,6 @@ const ViewDependent = () => {
                         </Text>
                         <Text> {dependent.basic.phoneNumber}</Text>
                     </div>
-                    <div>
-                        <Text fz="lg" fw="500" mt="2rem">
-                            Parent's Name
-                        </Text>
-                        <Text> {dependent.basic.parentsName}</Text>
-                    </div>
                 </SimpleGrid>
             </Paper>
 
@@ -106,19 +100,6 @@ const ViewDependent = () => {
                         <Text> {dependent.emergency.emergencyContactRelationship}</Text>
                     </div>
 
-                    <div>
-                        <Text fz="lg" fw="500" mt="2rem">
-                            Allergies
-                        </Text>
-                        <Text> {dependent.emergency.allergies}</Text>
-                    </div>
-
-                    <div>
-                        <Text fz="lg" fw="500" mt="2rem">
-                            Current Medications
-                        </Text>
-                        <Text> {dependent.emergency.currentMedications}</Text>
-                    </div>
                 </SimpleGrid>
             </Paper>
 
@@ -199,6 +180,19 @@ const ViewDependent = () => {
                         <Text> {dependent.generalCare.extracurriculars}</Text>
                     </div>
 
+                    <div>
+                        <Text fz="lg" fw="500" mt="2rem">
+                            Allergies
+                        </Text>
+                        <Text> {dependent.generalCare.allergies}</Text>
+                    </div>
+
+                    <div>
+                        <Text fz="lg" fw="500" mt="2rem">
+                            Current Medications
+                        </Text>
+                        <Text> {dependent.generalCare.currentMedications}</Text>
+                    </div>
                     <div>
                         <Text fz="lg" fw="500" mt="2rem">
                             Bed Time

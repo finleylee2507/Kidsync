@@ -45,8 +45,8 @@ const EducationForm = ({formData, nextStep, prevStep, setFormData}) => {
                 <TimeInput label="School Start Time" size="lg" format="12" {...form.getInputProps('startTime')} />
 
                 <TimeInput label="School End Time" size="lg" format="12" {...form.getInputProps('endTime')}/>
-                <TextInput withAsterisk label="Bus Number" {...form.getInputProps('busNumber')} size="lg"
-                           required/>
+                <TextInput label="Bus Number" {...form.getInputProps('busNumber')} size="lg"
+                />
 
                 <TimeInput label="Bus Time" size="lg" format="12" {...form.getInputProps('busTime')}/>
                 <Group position="right" mt="md">

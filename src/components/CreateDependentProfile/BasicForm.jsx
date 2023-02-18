@@ -17,7 +17,7 @@ const BasicForm = ({formData, nextStep, setFormData}) => {
             sex: "",
             address: "",
             phoneNumber: "",
-            parentsName: ""
+
         },
         validate: {
             birthday: (value) => (!value) ? 'Please enter a birthday' : null,
@@ -77,8 +77,6 @@ const BasicForm = ({formData, nextStep, setFormData}) => {
                            size="lg" {...form.getInputProps('phoneNumber')}/>
                 </Input.Wrapper>
 
-                <TextInput withAsterisk label="Parents Name" {...form.getInputProps('parentsName')} size="lg"
-                           required/>
 
                 <Group position="right" mt="md">
                     <Button type="submit" name="nextButton">Next</Button>
