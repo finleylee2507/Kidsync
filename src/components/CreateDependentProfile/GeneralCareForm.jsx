@@ -11,6 +11,8 @@ const GeneralCareForm = ({formData, nextStep, prevStep, setFormData}) => {
             extracurriculars: "",
             bedTime: "",
             medicationSchedule: "",
+            allergies:"",
+            currentMedications:"",
         },
         validate: {},
     });
@@ -34,15 +36,19 @@ const GeneralCareForm = ({formData, nextStep, prevStep, setFormData}) => {
 
                 <TextInput  label="Extracurriculars" {...form.getInputProps('extracurriculars')} size="lg"
                            />
+                <TextInput withAsterisk label="Allergies" {...form.getInputProps('allergies')} size="lg"
+                           required/>
 
-                <TimeInput  label="Bed Time" format="12"
-                            {...form.getInputProps('bedTime')} size="lg"/>
+                <TextInput withAsterisk label="Current Medications" {...form.getInputProps('currentMedications')} size="lg"
+                           required/>
+
 
                 <TextInput  label="Medication Schedule" {...form.getInputProps('medicationSchedule')}
                            size="lg"
                            />
 
-
+                <TimeInput  label="Bed Time" format="12"
+                            {...form.getInputProps('bedTime')} size="lg"/>
                 <Group position="right" mt="md">
                     <Button name="prevButton" onClick={prevStep}>Back</Button>
                     <Button type="submit" name="nextButton">Next</Button>

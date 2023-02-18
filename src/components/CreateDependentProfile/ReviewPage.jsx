@@ -40,7 +40,6 @@ const ReviewPage = ({
 
     }
 
-    console.log("File links: ",fileLinks);
     // Create new dependent object
     let newDependent = {
       id: newDependentID,
@@ -61,15 +60,11 @@ const ReviewPage = ({
         phoneNumber: basicFormData.phoneNumber
           ? basicFormData.phoneNumber
           : "N/A",
-        parentsName: basicFormData.parentsName,
       },
       emergency: {
         emergencyContactName: emergencyFormData.emergencyContactName,
         emergencyContactPhone: emergencyFormData.emergencyContactPhone,
-        emergencyContactRelationship:
-          emergencyFormData.emergencyContactRelationship,
-        allergies: emergencyFormData.allergies,
-        currentMedications: emergencyFormData.currentMedications,
+        emergencyContactRelationship: emergencyFormData.emergencyContactRelationship,
       },
       education: {
         schoolName: educationFormData.schoolName,
@@ -101,6 +96,8 @@ const ReviewPage = ({
         medicationSchedule: generalCareFormData.medicationSchedule
           ? generalCareFormData.medicationSchedule
           : "N/A",
+        allergies: generalCareFormData.allergies,
+        currentMedications: generalCareFormData.currentMedications,
       },
       documents: {
         immunizationFile: fileLinks["immunizationFile"],
@@ -195,10 +192,6 @@ const ReviewPage = ({
           {basicFormData.phoneNumber ? basicFormData.phoneNumber : "N/A"}
         </Text>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Parent's Name
-        </Text>
-        <Text> {basicFormData.parentsName}</Text>
       </div>
 
       <Divider mt="2rem" size="sm" />
@@ -223,15 +216,6 @@ const ReviewPage = ({
         </Text>
         <Text> {emergencyFormData.emergencyContactRelationship}</Text>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Allergies
-        </Text>
-        <Text> {emergencyFormData.allergies}</Text>
-
-        <Text fz="lg" fw="500" mt="2rem">
-          Current Medications
-        </Text>
-        <Text> {emergencyFormData.currentMedications}</Text>
       </div>
       <Divider mt="2rem" size="sm" />
 
@@ -319,6 +303,16 @@ const ReviewPage = ({
             ? generalCareFormData.extracurriculars
             : "N/A"}
         </Text>
+
+        <Text fz="lg" fw="500" mt="2rem">
+          Allergies
+        </Text>
+        <Text> {generalCareFormData.allergies}</Text>
+
+        <Text fz="lg" fw="500" mt="2rem">
+          Current Medications
+        </Text>
+        <Text> {generalCareFormData.currentMedications}</Text>
 
         <Text fz="lg" fw="500" mt="2rem">
           Bed Time
