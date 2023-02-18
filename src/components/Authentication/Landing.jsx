@@ -46,21 +46,10 @@ const Landing = (allUsers) => {
 
   return (
     <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-      }}
+      className={styles.bigContainer}
     >
       <div
-        style={{
-          display: "flex",
-          minWidth: "60vw",
-          minHeight: "100vh",
-          alignItems: "center",
-        }}
+        className={styles.heroImageContainer}
       >
         <Image
           className={styles.heroImage}
@@ -69,7 +58,7 @@ const Landing = (allUsers) => {
         />
       </div>
       <div className={styles.signInColumn}>
-        <Title className={styles.title}>Hey there!👋</Title>
+        <Title className={styles.title}>YourTurn👋</Title>
         <SignInButton />
       </div>
     </div>
