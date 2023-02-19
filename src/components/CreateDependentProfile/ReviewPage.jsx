@@ -1,7 +1,11 @@
 import React from "react";
 import { Button, Divider, Group, Text } from "@mantine/core";
 import styles from "./ReviewPage.module.css";
-import {addNewDependent, getNewDependentKey, uploadFile} from "../../utilities/firebase";
+import {
+  addNewDependent,
+  getNewDependentKey,
+  uploadFile,
+} from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 
 const ReviewPage = ({
@@ -21,25 +25,27 @@ const ReviewPage = ({
     let newDependentID = getNewDependentKey();
 
     //upload dependent files
-    let fileLinks = {}
+    let fileLinks = {};
     for (const [key, file] of Object.entries(documentsFormData)) {
       // console.log("Document key: ",key," Document value: ",file.name);
-      if(file){ //if the user uploaded a file
-        const [isSuccessful, fileLink] = await uploadFile(file,"dependent-files")
-        if(isSuccessful){
-          fileLinks[key]={fileName:file.name,fileLink:fileLink}
+      if (file) {
+        //if the user uploaded a file
+        const [isSuccessful, fileLink] = await uploadFile(
+          file,
+          "dependent-files"
+        );
+        if (isSuccessful) {
+          fileLinks[key] = { fileName: file.name, fileLink: fileLink };
+        } else {
+          fileLinks[key] = "N/A";
         }
-        else{
-          fileLinks[key]="N/A"
-        }
-
+      } else {
+        //user didn't upload file
+        fileLinks[key] = "N/A";
       }
-      else{ //user didn't upload file
-        fileLinks[key]="N/A"
-      }
-
     }
 
+    console.log("File links: ", fileLinks);
     // Create new dependent object
     let newDependent = {
       id: newDependentID,
@@ -60,11 +66,15 @@ const ReviewPage = ({
         phoneNumber: basicFormData.phoneNumber
           ? basicFormData.phoneNumber
           : "N/A",
+        parentsName: basicFormData.parentsName,
       },
       emergency: {
         emergencyContactName: emergencyFormData.emergencyContactName,
         emergencyContactPhone: emergencyFormData.emergencyContactPhone,
-        emergencyContactRelationship: emergencyFormData.emergencyContactRelationship,
+        emergencyContactRelationship:
+          emergencyFormData.emergencyContactRelationship,
+        allergies: emergencyFormData.allergies,
+        currentMedications: emergencyFormData.currentMedications,
       },
       education: {
         schoolName: educationFormData.schoolName,
@@ -96,14 +106,12 @@ const ReviewPage = ({
         medicationSchedule: generalCareFormData.medicationSchedule
           ? generalCareFormData.medicationSchedule
           : "N/A",
-        allergies: generalCareFormData.allergies,
-        currentMedications: generalCareFormData.currentMedications,
       },
       documents: {
         immunizationFile: fileLinks["immunizationFile"],
         insuranceCard: fileLinks["insuranceCard"],
         esaDocuments: fileLinks["esaDocuments"],
-        fsaDocuments: fileLinks["fsaDocuments"]
+        fsaDocuments: fileLinks["fsaDocuments"],
       },
     };
 
@@ -192,6 +200,10 @@ const ReviewPage = ({
           {basicFormData.phoneNumber ? basicFormData.phoneNumber : "N/A"}
         </Text>
 
+        <Text fz="lg" fw="500" mt="2rem">
+          Parent's Name
+        </Text>
+        <Text> {basicFormData.parentsName}</Text>
       </div>
 
       <Divider mt="2rem" size="sm" />
@@ -216,6 +228,15 @@ const ReviewPage = ({
         </Text>
         <Text> {emergencyFormData.emergencyContactRelationship}</Text>
 
+        <Text fz="lg" fw="500" mt="2rem">
+          Allergies
+        </Text>
+        <Text> {emergencyFormData.allergies}</Text>
+
+        <Text fz="lg" fw="500" mt="2rem">
+          Current Medications
+        </Text>
+        <Text> {emergencyFormData.currentMedications}</Text>
       </div>
       <Divider mt="2rem" size="sm" />
 
@@ -303,16 +324,6 @@ const ReviewPage = ({
             ? generalCareFormData.extracurriculars
             : "N/A"}
         </Text>
-
-        <Text fz="lg" fw="500" mt="2rem">
-          Allergies
-        </Text>
-        <Text> {generalCareFormData.allergies}</Text>
-
-        <Text fz="lg" fw="500" mt="2rem">
-          Current Medications
-        </Text>
-        <Text> {generalCareFormData.currentMedications}</Text>
 
         <Text fz="lg" fw="500" mt="2rem">
           Bed Time

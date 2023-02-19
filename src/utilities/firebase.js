@@ -97,9 +97,8 @@ export const addNewDependent = (
   update(userDependentsRef, updatedUserDependents);
 };
 
-
 //FILE STORAGE FUNCTIONS
-export const uploadFile = async (file,directory) => {
+export const uploadFile = async (file, directory) => {
   let fileLink = `${directory}/${file.name}`;
   let downloadURL = "";
   let isSuccessful = false;
@@ -116,8 +115,6 @@ export const uploadFile = async (file,directory) => {
 
   return [isSuccessful, downloadURL];
 };
-
-
 
 /* USER AUTHENTICATION FUNCTIONS */
 
