@@ -1,23 +1,30 @@
-.formWrapper{
+.formWrapper {
     width: 50rem;
     margin: auto;
 }
 
-.progressBarContainer{
+.progressBarContainer {
     margin-top: 3rem;
     width: 100%;
     /*border: 1px solid black;*/
 }
-.formContent{
+
+.formContent {
     width: 70%;
     margin: auto;
 
 }
 
-.formContent.inReview{
-    width:100%;
+.formContent.inReview {
+    width: 100%;
 
 }
 
+.modalButtonContainer {
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
 
+}
 

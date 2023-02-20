@@ -5,15 +5,25 @@ import GeneralCareForm from "./GeneralCareForm";
 import DocumentsForm from "./DocumentsForm";
 import EducationForm from "./EducationForm";
 import styles from "./CreateDependentProfileForm.module.css";
-import {Button, Progress} from "@mantine/core";
+import {Button, Divider, Modal, Progress, Text} from "@mantine/core";
 import ReviewPage from "./ReviewPage";
 import {useNavigate} from "react-router-dom";
 
 const CreateDependentProfileForm = ({user, allUsers}) => {
 
     const navigate = useNavigate();
+    const [isOpenModal, setIsOpenModal] = useState(false);
     const handleBack = () => {
+        setIsOpenModal(true);
+    };
+
+    const handleModalConfirm = () => {
+        setIsOpenModal(false);
         navigate("/dependents");
+    };
+
+    const handleModalCancel = () => {
+        setIsOpenModal(false);
     };
     const [basicFormData, setBasicFormData] = useState({
         firstName: "",
@@ -161,20 +171,33 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
 
     return (
 
+        <div>
+            <Modal title="You are about to leave this page" opened={isOpenModal} onClose={() => setIsOpenModal(false)}>
+                <Text>
+                    Do you really want to leave this page? You might lose information that are not saved.
+                </Text>
 
-        <div className={styles.formWrapper}>
-            <Button onClick={handleBack}>Back</Button>
-            <div className={styles.progressBarContainer} title="Progress">
-                <Progress
-                    value={(step / 5) * 100}
-                    label={`${(step / 5) * 100}%`}
-                    size="xl"
-                    radius="xl"
-                    striped
-                />
-            </div>
-            <div className={`${styles.formContent}${step === 5 ? "inReview" : ""}`}>
-                {renderedElement}
+                <Divider my="sm"/>
+                <div className={styles.modalButtonContainer}>
+                    <Button variant="outline" onClick={handleModalCancel}>Cancel</Button>
+                    <Button onClick={handleModalConfirm}>Confirm</Button>
+                </div>
+
+            </Modal>
+            <div className={styles.formWrapper}>
+                <Button onClick={handleBack}>Back</Button>
+                <div className={styles.progressBarContainer} title="Progress">
+                    <Progress
+                        value={(step / 5) * 100}
+                        label={`${(step / 5) * 100}%`}
+                        size="xl"
+                        radius="xl"
+                        striped
+                    />
+                </div>
+                <div className={`${styles.formContent}${step === 5 ? "inReview" : ""}`}>
+                    {renderedElement}
+                </div>
             </div>
         </div>
 
