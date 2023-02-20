@@ -78,7 +78,7 @@ const BasicForm = ({formData, nextStep, setFormData}) => {
                 </Input.Wrapper>
 
 
-                <Group position="right" mt="md">
+                <Group position="right" mt="md" mb="20px">
                     <Button type="submit" name="nextButton">Next</Button>
                 </Group>
             </form>

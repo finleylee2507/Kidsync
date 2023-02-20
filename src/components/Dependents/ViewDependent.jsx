@@ -1,18 +1,21 @@
 import React from "react";
 import styles from "./ViewDependent.module.css";
-import {useLocation} from "react-router-dom";
-import {Anchor, Container, Paper, SimpleGrid, Text} from "@mantine/core";
+import {useLocation,useNavigate} from "react-router-dom";
+import {Anchor, Container, Paper, SimpleGrid, Text,Button} from "@mantine/core";
 
 const ViewDependent = () => {
     // obtain the data passed by navigate()
     const location = useLocation();
     const dependent = location.state;
     const dependentDocuments = dependent.documents;
+    const navigate = useNavigate();
 
     return (
         <Container pb={40}>
+            <Button onClick={()=>{navigate("/dependents")}} className={styles.backButton}>Back</Button>
             <div className={styles.viewTitle}>
-                <Text fz="xl" fw="700" mb="2rem">
+
+                <Text fz="xl" fw="700" mb="2rem" className={styles.titleText}>
                     Dependent Information
                 </Text>
             </div>
