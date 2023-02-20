@@ -169,12 +169,18 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
             break;
     }
 
+
+
     return (
 
         <div>
-            <Modal title="You are about to leave this page" opened={isOpenModal} onClose={() => setIsOpenModal(false)}>
+            <Modal title="You are about to leave this page" opened={isOpenModal} onClose={() => setIsOpenModal(false)}
+            classNames={{
+                title:styles.modalTitle
+            }}
+            >
                 <Text>
-                    Do you really want to leave this page? You might lose information that are not saved.
+                    Do you really want to go back? You might lose information that are not saved.
                 </Text>
 
                 <Divider my="sm"/>
