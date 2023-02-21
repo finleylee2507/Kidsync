@@ -151,6 +151,8 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
                     user={user}
                     allUsers={allUsers}
                     oldDocumentsFormData={null}
+                    dependentId={null}
+                    isEditMode={false}
                 />
             );
             break;

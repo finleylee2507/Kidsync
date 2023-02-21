@@ -1,7 +1,7 @@
 import React from "react";
 import {Anchor, Button, Divider, Group, Text} from "@mantine/core";
 import styles from "./ReviewPage.module.css";
-import {addNewDependent, getNewDependentKey, uploadFile,} from "../../utilities/firebase";
+import {addNewDependent, getNewDependentKey, updateDependent, uploadFile,} from "../../utilities/firebase";
 import {useNavigate} from "react-router-dom";
 
 const ReviewPage = ({
@@ -13,10 +13,11 @@ const ReviewPage = ({
                         prevStep,
                         user,
                         allUsers,
-                        oldDocumentsFormData
+                        oldDocumentsFormData,
+                        dependentId,
+                        isEditMode
                     }) => {
     const navigate = useNavigate();
-
     const determineDisplayedText = (fieldName) => {
         if (documentsFormData[fieldName]) { //the user uploaded a new file
             return (
@@ -38,11 +39,8 @@ const ReviewPage = ({
 
     };
     const handleFormSubmit = async () => {
-        // Create a new entry in the dependents table
-        let newDependentID = getNewDependentKey();
-
-        //upload dependent files
         let fileLinks = {};
+        //upload dependent files
         for (const [key, file] of Object.entries(documentsFormData)) {
             // console.log("Document key: ",key," Document value: ",file.name);
             if (file) {
@@ -61,92 +59,178 @@ const ReviewPage = ({
                 fileLinks[key] = "N/A";
             }
         }
-        // Create new dependent object
-        let newDependent = {
-            id: newDependentID,
-            basic: {
-                firstName: basicFormData.firstName,
-                lastName: basicFormData.lastName,
-                birthday: basicFormData.birthday
-                    ? basicFormData.birthday.toUTCString()
-                    : "N/A",
-                relationship: basicFormData.relationship
-                    ? basicFormData.relationship
-                    : "N/A",
-                preferredPronouns: basicFormData.preferredPronouns
-                    ? basicFormData.preferredPronouns
-                    : "N/A",
-                sex: basicFormData.sex,
-                address: basicFormData.address ? basicFormData.address : "N/A",
-                phoneNumber: basicFormData.phoneNumber
-                    ? basicFormData.phoneNumber
-                    : "N/A"
-            },
-            emergency: {
-                emergencyContactName: emergencyFormData.emergencyContactName,
-                emergencyContactPhone: emergencyFormData.emergencyContactPhone,
-                emergencyContactRelationship:
-                emergencyFormData.emergencyContactRelationship,
-            },
-            education: {
-                schoolName: educationFormData.schoolName,
-                teacherName: educationFormData.teacherName,
-                grade: educationFormData.grade,
-                startTime: educationFormData.startTime
-                    ? educationFormData.startTime.toUTCString()
-                    : "N/A",
-                endTime: educationFormData.endTime
-                    ? educationFormData.endTime.toUTCString()
-                    : "N/A",
-                busNumber: educationFormData.busNumber
-                    ? educationFormData.busNumber
-                    : "N/A",
-                busTime: educationFormData.busTime
-                    ? educationFormData.busTime.toUTCString()
-                    : "N/A",
-            },
-            generalCare: {
-                routineNotes: generalCareFormData.routineNotes
-                    ? generalCareFormData.routineNotes
-                    : "N/A",
-                extracurriculars: generalCareFormData.extracurriculars
-                    ? generalCareFormData.extracurriculars
-                    : "N/A",
-                bedTime: generalCareFormData.bedTime
-                    ? generalCareFormData.bedTime.toUTCString()
-                    : "N/A",
-                currentMedications: generalCareFormData.currentMedications,
-                medicationSchedule: generalCareFormData.medicationSchedule
-                    ? generalCareFormData.medicationSchedule
-                    : "N/A",
-                allergies: generalCareFormData.allergies
-            },
-            documents: {
-                immunizationFile: fileLinks["immunizationFile"],
-                insuranceCard: fileLinks["insuranceCard"],
-                esaDocuments: fileLinks["esaDocuments"],
-                fsaDocuments: fileLinks["fsaDocuments"],
-            },
-        };
 
-        let updatedUserDependents;
-        if (!allUsers[user.uid].dependents) {
-            updatedUserDependents = {
-                dependents: [newDependentID],
+        if (isEditMode) {
+            let newDocumentObject={}
+            for (const [key,file] of Object.entries(fileLinks)){
+                if(fileLinks[key]==="N/A"){
+                    //check if we have uploaded a file previously
+                    newDocumentObject[key]=(oldDocumentsFormData[key]!=="N/A")?oldDocumentsFormData[key]:"N/A"
+                }
+                else{
+                    newDocumentObject[key]=fileLinks[key]
+                }
+            }
+            // Create new dependent object
+            let newDependent = {
+                id: dependentId,
+                basic: {
+                    firstName: basicFormData.firstName,
+                    lastName: basicFormData.lastName,
+                    birthday: basicFormData.birthday
+                        ? basicFormData.birthday.toUTCString()
+                        : "N/A",
+                    relationship: basicFormData.relationship
+                        ? basicFormData.relationship
+                        : "N/A",
+                    preferredPronouns: basicFormData.preferredPronouns
+                        ? basicFormData.preferredPronouns
+                        : "N/A",
+                    sex: basicFormData.sex,
+                    address: basicFormData.address ? basicFormData.address : "N/A",
+                    phoneNumber: basicFormData.phoneNumber
+                        ? basicFormData.phoneNumber
+                        : "N/A"
+                },
+                emergency: {
+                    emergencyContactName: emergencyFormData.emergencyContactName,
+                    emergencyContactPhone: emergencyFormData.emergencyContactPhone,
+                    emergencyContactRelationship:
+                    emergencyFormData.emergencyContactRelationship,
+                },
+                education: {
+                    schoolName: educationFormData.schoolName,
+                    teacherName: educationFormData.teacherName,
+                    grade: educationFormData.grade,
+                    startTime: educationFormData.startTime
+                        ? educationFormData.startTime.toUTCString()
+                        : "N/A",
+                    endTime: educationFormData.endTime
+                        ? educationFormData.endTime.toUTCString()
+                        : "N/A",
+                    busNumber: educationFormData.busNumber
+                        ? educationFormData.busNumber
+                        : "N/A",
+                    busTime: educationFormData.busTime
+                        ? educationFormData.busTime.toUTCString()
+                        : "N/A",
+                },
+                generalCare: {
+                    routineNotes: generalCareFormData.routineNotes
+                        ? generalCareFormData.routineNotes
+                        : "N/A",
+                    extracurriculars: generalCareFormData.extracurriculars
+                        ? generalCareFormData.extracurriculars
+                        : "N/A",
+                    bedTime: generalCareFormData.bedTime
+                        ? generalCareFormData.bedTime.toUTCString()
+                        : "N/A",
+                    currentMedications: generalCareFormData.currentMedications,
+                    medicationSchedule: generalCareFormData.medicationSchedule
+                        ? generalCareFormData.medicationSchedule
+                        : "N/A",
+                    allergies: generalCareFormData.allergies
+                },
+                documents: newDocumentObject,
             };
-        } else {
-            updatedUserDependents = {
-                dependents: [...allUsers[user.uid].dependents, newDependentID],
+
+            // Add object to database
+            await updateDependent(newDependent,dependentId)
+
+
+        } else { //we're creating the dependent for the first time
+            // Create a new entry in the dependents table
+            let newDependentID = getNewDependentKey();
+
+
+            // Create new dependent object
+            let newDependent = {
+                id: newDependentID,
+                basic: {
+                    firstName: basicFormData.firstName,
+                    lastName: basicFormData.lastName,
+                    birthday: basicFormData.birthday
+                        ? basicFormData.birthday.toUTCString()
+                        : "N/A",
+                    relationship: basicFormData.relationship
+                        ? basicFormData.relationship
+                        : "N/A",
+                    preferredPronouns: basicFormData.preferredPronouns
+                        ? basicFormData.preferredPronouns
+                        : "N/A",
+                    sex: basicFormData.sex,
+                    address: basicFormData.address ? basicFormData.address : "N/A",
+                    phoneNumber: basicFormData.phoneNumber
+                        ? basicFormData.phoneNumber
+                        : "N/A"
+                },
+                emergency: {
+                    emergencyContactName: emergencyFormData.emergencyContactName,
+                    emergencyContactPhone: emergencyFormData.emergencyContactPhone,
+                    emergencyContactRelationship:
+                    emergencyFormData.emergencyContactRelationship,
+                },
+                education: {
+                    schoolName: educationFormData.schoolName,
+                    teacherName: educationFormData.teacherName,
+                    grade: educationFormData.grade,
+                    startTime: educationFormData.startTime
+                        ? educationFormData.startTime.toUTCString()
+                        : "N/A",
+                    endTime: educationFormData.endTime
+                        ? educationFormData.endTime.toUTCString()
+                        : "N/A",
+                    busNumber: educationFormData.busNumber
+                        ? educationFormData.busNumber
+                        : "N/A",
+                    busTime: educationFormData.busTime
+                        ? educationFormData.busTime.toUTCString()
+                        : "N/A",
+                },
+                generalCare: {
+                    routineNotes: generalCareFormData.routineNotes
+                        ? generalCareFormData.routineNotes
+                        : "N/A",
+                    extracurriculars: generalCareFormData.extracurriculars
+                        ? generalCareFormData.extracurriculars
+                        : "N/A",
+                    bedTime: generalCareFormData.bedTime
+                        ? generalCareFormData.bedTime.toUTCString()
+                        : "N/A",
+                    currentMedications: generalCareFormData.currentMedications,
+                    medicationSchedule: generalCareFormData.medicationSchedule
+                        ? generalCareFormData.medicationSchedule
+                        : "N/A",
+                    allergies: generalCareFormData.allergies
+                },
+                documents: {
+                    immunizationFile: fileLinks["immunizationFile"],
+                    insuranceCard: fileLinks["insuranceCard"],
+                    esaDocuments: fileLinks["esaDocuments"],
+                    fsaDocuments: fileLinks["fsaDocuments"],
+                },
             };
+
+            let updatedUserDependents;
+            if (!allUsers[user.uid].dependents) {
+                updatedUserDependents = {
+                    dependents: [newDependentID],
+                };
+            } else {
+                updatedUserDependents = {
+                    dependents: [...allUsers[user.uid].dependents, newDependentID],
+                };
+            }
+
+            // Add object to database
+            await addNewDependent(
+                newDependent,
+                updatedUserDependents,
+                newDependentID,
+                user.uid
+            );
         }
 
-        // Add object to database
-        addNewDependent(
-            newDependent,
-            updatedUserDependents,
-            newDependentID,
-            user.uid
-        );
 
         navigate("/dependents");
     };

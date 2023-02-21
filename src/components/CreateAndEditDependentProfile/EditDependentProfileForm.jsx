@@ -175,6 +175,8 @@ const EditDependentProfileForm = ({user, allUsers}) => {
                     prevStep={prevStep}
                     user={user}
                     allUsers={allUsers}
+                    dependentId={dependent.id}
+                    isEditMode={true}
                 />
             );
             break;
