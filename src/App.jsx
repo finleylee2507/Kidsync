@@ -6,9 +6,10 @@ import { useAuthState, useDbData } from "./utilities/firebase";
 import Landing from "./components/Authentication/Landing";
 import DependentsList from "./components/Dependents/DependentsList";
 import UserDetails from "./components/CreateProfile/UserDetails";
-import CreateDependentProfileForm from "./components/CreateDependentProfile/CreateDependentProfileForm";
+import CreateDependentProfileForm from "./components/CreateAndEditDependentProfile/CreateDependentProfileForm";
 import { Navbar } from "./components/Navbar/Navbar";
 import ViewDependent from "./components/Dependents/ViewDependent";
+import EditDependentProfileForm from "./components/CreateAndEditDependentProfile/EditDependentProfileForm";
 
 const App = () => {
   const user = useAuthState();
@@ -75,6 +76,17 @@ const App = () => {
             </div>
           }
         ></Route>
+
+          <Route path="/edit-dependents-profile"
+          element={
+              <div>
+                  <Navbar/>
+                  <EditDependentProfileForm user={user} allUsers={dbUsers}/>
+              </div>
+          }
+          >
+
+          </Route>
       </Routes>
     </BrowserRouter>
   );
