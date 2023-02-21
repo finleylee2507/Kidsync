@@ -74,7 +74,7 @@ const EditDependentProfileForm = ({user, allUsers}) => {
         fsaDocuments: null,
     });
 
-    console.log("Data: ", dependent);
+
     useEffect(() => {
         setBasicFormData({...dependent.basic, birthday: new Date(dependent.basic.birthday)});
         setEmergencyFormData(dependent.emergency);
@@ -88,6 +88,8 @@ const EditDependentProfileForm = ({user, allUsers}) => {
             ...dependent.generalCare,
             bedTime: dependent.generalCare.bedTime !== "N/A" ? new Date(dependent.generalCare.bedTime) : ""
         });
+
+        //NOTE: we don't set documentFormData to what's coming from the database
 
     }, [dependent]);
     //keeps track of which form we want to display
@@ -152,9 +154,11 @@ const EditDependentProfileForm = ({user, allUsers}) => {
             renderedElement = (
                 <DocumentsForm
                     formData={documentsFormData}
+                    oldFormData={dependent.documents}
                     nextStep={nextStep}
                     prevStep={prevStep}
                     setFormData={setDocumentsFormData}
+                    isEditMode={true}
                 />
             );
             break;
@@ -167,6 +171,7 @@ const EditDependentProfileForm = ({user, allUsers}) => {
                     generalCareFormData={generalCareFormData}
                     educationFormData={educationFormData}
                     documentsFormData={documentsFormData}
+                    oldDocumentsFormData={dependent.documents}
                     prevStep={prevStep}
                     user={user}
                     allUsers={allUsers}
@@ -182,6 +187,7 @@ const EditDependentProfileForm = ({user, allUsers}) => {
                     generalCareFormData={generalCareFormData}
                     educationFormData={educationFormData}
                     documentsFormData={documentsFormData}
+                    oldDocumentsFormData={dependent.documents}
                 />
             );
             break;

@@ -13,8 +13,30 @@ const ReviewPage = ({
                         prevStep,
                         user,
                         allUsers,
+                        oldDocumentsFormData
                     }) => {
     const navigate = useNavigate();
+
+    const determineDisplayedText = (fieldName) => {
+        if (documentsFormData[fieldName]) { //the user uploaded a new file
+            return (
+                <Anchor href={URL.createObjectURL(documentsFormData[fieldName])} target="_blank">
+                    {documentsFormData[fieldName].name}
+                </Anchor>
+            );
+        } else {
+            if (oldDocumentsFormData[fieldName] !== "N/A") {
+                return (
+                    <Anchor href={oldDocumentsFormData[fieldName].fileLink} target="_blank">
+                        {oldDocumentsFormData[fieldName].fileName}
+                    </Anchor>
+                );
+            } else {
+                return "Not Uploaded";
+            }
+        }
+
+    };
     const handleFormSubmit = async () => {
         // Create a new entry in the dependents table
         let newDependentID = getNewDependentKey();
@@ -343,12 +365,7 @@ const ReviewPage = ({
             </Text>
             <Text c="red">
                 {" "}
-                {documentsFormData.immunizationFile ? (
-
-                    <Anchor href={URL.createObjectURL(documentsFormData.immunizationFile)} target="_blank">
-                        {documentsFormData.immunizationFile.name}
-                    </Anchor>
-                ) : "Not Uploaded"}
+                {determineDisplayedText("immunizationFile")}
             </Text>
 
             <Text fz="lg" fw="500" mt="2rem">
@@ -356,11 +373,7 @@ const ReviewPage = ({
             </Text>
             <Text c="red">
                 {" "}
-                {documentsFormData.insuranceCard ? (
-                    <Anchor href={URL.createObjectURL(documentsFormData.insuranceCard)} target="_blank">
-                        {documentsFormData.insuranceCard.name}
-                    </Anchor>
-                ) : "Not Uploaded"}
+                {determineDisplayedText("insuranceCard")}
             </Text>
 
             <Text fz="lg" fw="500" mt="2rem">
@@ -368,11 +381,7 @@ const ReviewPage = ({
             </Text>
             <Text c="red">
                 {" "}
-                {documentsFormData.esaDocuments ? (
-                    <Anchor href={URL.createObjectURL(documentsFormData.esaDocuments)} target="_blank">
-                        {documentsFormData.esaDocuments.name}
-                    </Anchor>
-                ) : "Not Uploaded"}
+                {determineDisplayedText("esaDocuments")}
             </Text>
 
             <Text fz="lg" fw="500" mt="2rem">
@@ -380,11 +389,7 @@ const ReviewPage = ({
             </Text>
             <Text c="red">
                 {" "}
-                {documentsFormData.fsaDocuments ? (
-                    <Anchor href={URL.createObjectURL(documentsFormData.fsaDocuments)} target="_blank">
-                        {documentsFormData.fsaDocuments.name}
-                    </Anchor>
-                ) : "Not Uploaded"}
+                {determineDisplayedText("fsaDocuments")}
             </Text>
 
             <Group position="right" mt="md">

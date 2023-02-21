@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import {Button, FileInput, Group, Text} from "@mantine/core";
+import {Anchor, Button, FileInput, Group, Text} from "@mantine/core";
 import {useForm} from "@mantine/form";
 
-const DocumentsForm = ({formData, nextStep, prevStep, setFormData}) => {
+const DocumentsForm = ({formData, nextStep, prevStep, setFormData, isEditMode, oldFormData}) => {
 
     const form = useForm({
         initialValues: {
@@ -17,23 +17,49 @@ const DocumentsForm = ({formData, nextStep, prevStep, setFormData}) => {
 
     useEffect(() => {
         form.setValues(formData);
+
     }, [formData]);
+
+    console.log("Form values: ", form.values);
 
     return (
 
         <div>
             <Text fz="xl" fw="700" mb="2rem" mt="2rem">Upload Documents:</Text>
             <form onSubmit={form.onSubmit((values, event) => {
-                console.log("Values: ", values);
                 setFormData(values);
                 nextStep();
             })
             }>
                 <FileInput label="Immunization Records" {...form.getInputProps('immunizationFile')} size="lg"/>
+                {isEditMode && (!form.values.immunizationFile && oldFormData.immunizationFile !== "N/A" &&
+                    <Text c="green">Recent upload:
+                        <Anchor href={oldFormData.immunizationFile.fileLink} target="_blank" ml="10px">
+                            {oldFormData.immunizationFile.fileName}
+                        </Anchor>
+                    </Text>)}
                 <FileInput label="Insurance Card" {...form.getInputProps('insuranceCard')} size="lg"/>
+                {isEditMode && (!form.values.insuranceCard && oldFormData.insuranceCard !== "N/A" &&
+                    <Text c="green">Recent upload:
+                        <Anchor href={oldFormData.insuranceCard.fileLink} target="_blank" ml="10px">
+                            {oldFormData.insuranceCard.fileName}
+                        </Anchor>
+                    </Text>)}
                 <FileInput label="ESA Documents" {...form.getInputProps('esaDocuments')} size="lg"/>
-                <FileInput label="FSA Documents" {...form.getInputProps('fsaDocuments')} size="lg"/>
 
+                {isEditMode && (!form.values.esaDocuments && oldFormData.esaDocuments !== "N/A" &&
+                    <Text c="green">Recent upload:
+                        <Anchor href={oldFormData.esaDocuments.fileLink} target="_blank" ml="10px">
+                            {oldFormData.esaDocuments.fileName}
+                        </Anchor>
+                    </Text>)}
+                <FileInput label="FSA Documents" {...form.getInputProps('fsaDocuments')} size="lg"/>
+                {isEditMode && (!form.values.fsaDocuments && oldFormData.fsaDocuments !== "N/A" &&
+                    <Text c="green">Recent upload:
+                        <Anchor href={oldFormData.fsaDocuments.fileLink} target="_blank" ml="10px">
+                            {oldFormData.fsaDocuments.fileName}
+                        </Anchor>
+                    </Text>)}
 
                 <Group position="right" mt="md">
                     <Button name="prevButton" onClick={prevStep}>Back</Button>

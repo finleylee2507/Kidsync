@@ -133,6 +133,8 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
                     nextStep={nextStep}
                     prevStep={prevStep}
                     setFormData={setDocumentsFormData}
+                    isEditMode={false}
+                    oldFormData={null}
                 />
             );
             break;
@@ -148,6 +150,7 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
                     prevStep={prevStep}
                     user={user}
                     allUsers={allUsers}
+                    oldDocumentsFormData={null}
                 />
             );
             break;
