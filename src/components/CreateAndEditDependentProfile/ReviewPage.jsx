@@ -3,6 +3,7 @@ import {Anchor, Button, Divider, Group, Text} from "@mantine/core";
 import styles from "./ReviewPage.module.css";
 import {addNewDependent, getNewDependentKey, updateDependent, uploadFile,} from "../../utilities/firebase";
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 const ReviewPage = ({
                         basicFormData,
@@ -26,7 +27,7 @@ const ReviewPage = ({
                 </Anchor>
             );
         } else {
-            if (oldDocumentsFormData[fieldName] !== "N/A") {
+            if (isEditMode&&oldDocumentsFormData[fieldName] !== "N/A") {
                 return (
                     <Anchor href={oldDocumentsFormData[fieldName].fileLink} target="_blank">
                         {oldDocumentsFormData[fieldName].fileName}
@@ -40,6 +41,7 @@ const ReviewPage = ({
     };
     const handleFormSubmit = async () => {
         let fileLinks = {};
+        const id = toast.loading(`${isEditMode?"Updating dependent profile...":"Creating dependent profile..."}`);
         //upload dependent files
         for (const [key, file] of Object.entries(documentsFormData)) {
             // console.log("Document key: ",key," Document value: ",file.name);
@@ -60,15 +62,14 @@ const ReviewPage = ({
             }
         }
 
-        if (isEditMode) {
-            let newDocumentObject={}
-            for (const [key,file] of Object.entries(fileLinks)){
-                if(fileLinks[key]==="N/A"){
+        if (isEditMode) { //if we're editing
+            let newDocumentObject = {};
+            for (const [key, file] of Object.entries(fileLinks)) {
+                if (fileLinks[key] === "N/A") {
                     //check if we have uploaded a file previously
-                    newDocumentObject[key]=(oldDocumentsFormData[key]!=="N/A")?oldDocumentsFormData[key]:"N/A"
-                }
-                else{
-                    newDocumentObject[key]=fileLinks[key]
+                    newDocumentObject[key] = (oldDocumentsFormData[key] !== "N/A") ? oldDocumentsFormData[key] : "N/A";
+                } else {
+                    newDocumentObject[key] = fileLinks[key];
                 }
             }
             // Create new dependent object
@@ -135,10 +136,31 @@ const ReviewPage = ({
             };
 
             // Add object to database
-            await updateDependent(newDependent,dependentId)
+
+            let updateResult = await updateDependent(newDependent, dependentId);
+
+            if (updateResult) {
+                toast.update(id, {
+                    render: "Successfully updated dependent profile! 👌",
+                    type: toast.TYPE.SUCCESS,
+                    isLoading: false,
+                    autoClose:1000
+                });
+                navigate("/dependents");
+            }
+            else{
+                toast.update(id, {
+                    render: "Hmm... Something went wrong. 🤯 Please try again!",
+                    type: toast.TYPE.ERROR,
+                    isLoading: false,
+                    autoClose:1000
+                });
+            }
 
 
-        } else { //we're creating the dependent for the first time
+
+
+        } else { //if we're creating the dependent for the first time
             // Create a new entry in the dependents table
             let newDependentID = getNewDependentKey();
 
@@ -223,16 +245,34 @@ const ReviewPage = ({
             }
 
             // Add object to database
-            await addNewDependent(
+            let addResult=await addNewDependent(
                 newDependent,
                 updatedUserDependents,
                 newDependentID,
                 user.uid
             );
+
+            if (addResult) {
+                toast.update(id, {
+                    render: "Successfully created dependent profile! 👌",
+                    type: toast.TYPE.SUCCESS,
+                    isLoading: false,
+                    autoClose:1000
+                });
+                navigate("/dependents");
+            }
+            else{
+                toast.update(id, {
+                    render: "Hmm... Something went wrong. 🤯 Please try again!",
+                    type: toast.TYPE.ERROR,
+                    isLoading: false,
+                    autoClose:1000
+                });
+            }
         }
 
 
-        navigate("/dependents");
+
     };
     return (
         <div className={styles.pageWrapper}>

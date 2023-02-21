@@ -8,6 +8,7 @@ import styles from "./CreateDependentProfileForm.module.css";
 import {Button, Divider, Modal, Progress, Text} from "@mantine/core";
 import ReviewPage from "./ReviewPage";
 import {useLocation, useNavigate} from "react-router-dom";
+import {ToastContainer} from "react-toastify";
 
 const EditDependentProfileForm = ({user, allUsers}) => {
 
@@ -199,6 +200,7 @@ const EditDependentProfileForm = ({user, allUsers}) => {
     return (
 
         <div>
+
             <Modal title="You are about to leave this page" opened={isOpenModal} onClose={() => setIsOpenModal(false)}
                    classNames={{
                        title: styles.modalTitle
