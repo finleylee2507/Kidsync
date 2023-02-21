@@ -83,7 +83,7 @@ export function Navbar() {
             <a href="/dependents" className={classes.link}>
               My Dependents
             </a>
-            <a href="/sitter-view-info" className={classes.link}>
+            <a href="/clients" className={classes.link}>
               My Clients
             </a>
           </Group>
@@ -116,7 +116,7 @@ export function Navbar() {
           <a href="/dependents" className={classes.link}>
             My Dependents
           </a>
-          <a href="/sitter-view-info" className={classes.link}>
+          <a href="/clients" className={classes.link}>
             My Clients
           </a>
 

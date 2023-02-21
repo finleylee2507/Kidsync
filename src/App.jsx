@@ -9,7 +9,7 @@ import UserDetails from "./components/CreateProfile/UserDetails";
 import CreateDependentProfileForm from "./components/CreateDependentProfile/CreateDependentProfileForm";
 import { Navbar } from "./components/Navbar/Navbar";
 import ViewDependent from "./components/Dependents/ViewDependent";
-import SitterViewInfo from "./components/Sitters/SitterViewInfo";
+import ClientsList from "./components/Sitters/ClientsList";
 
 const App = () => {
   const user = useAuthState();
@@ -68,11 +68,11 @@ const App = () => {
           }
         ></Route>
         <Route
-          path="sitter-view-info"
+          path="/clients"
           element={
             <div>
               <Navbar />
-              <SitterViewInfo />
+              <ClientsList />
             </div>
           }
         ></Route>
