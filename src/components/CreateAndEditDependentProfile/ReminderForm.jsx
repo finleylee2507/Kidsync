@@ -27,15 +27,17 @@ const ReminderForm = ({formData, nextStep, setFormData}) => {
     }, [formData]);
 
     const handleAddItems=()=>{
-        const prevReminders=form.values.reminders
-        prevReminders.push({time:null,taskName:""})
-        form.setFieldValue('reminders',prevReminders)
+        // const prevReminders=form.values.reminders
+        // prevReminders.push({time:null,taskName:""})
+        // form.setFieldValue('reminders',prevReminders)
+        form.insertListItem('reminders',{time:null,taskName:""})
     }
 
     const handleRemoveItems=(index)=>{
-        const prevReminders=form.values.reminders
-        prevReminders.splice(index,1)
-        form.setFieldValue('reminders',prevReminders)
+        // const prevReminders=form.values.reminders
+        // prevReminders.splice(index,1)
+        // form.setFieldValue('reminders',prevReminders)
+        form.removeListItem('reminders',index);
     }
     return (
 
