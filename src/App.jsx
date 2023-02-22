@@ -13,6 +13,7 @@ import ClientsList from "./components/Sitters/ClientsList";
 import HomePage from "./components/Home/HomePage";
 import EditDependentProfileForm from "./components/CreateAndEditDependentProfile/EditDependentProfileForm";
 import { ToastContainer } from "react-toastify";
+import ViewInformation from './components/Sitters/ViewInformation';
 
 const App = () => {
   const user = useAuthState();
@@ -87,6 +88,16 @@ const App = () => {
               <ToastContainer position="top-right" autoClose={1000} />
               <Navbar />
               <ViewDependent />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="/view-information"
+          element={
+            <div>
+              <ToastContainer position="top-right" autoClose={1000} />
+              <Navbar />
+              <ViewInformation />
             </div>
           }
         ></Route>
