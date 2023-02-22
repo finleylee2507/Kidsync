@@ -1,18 +1,42 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Grid, Group, Popover, Select, Text, TextInput} from "@mantine/core";
+import {Button, Checkbox, Grid, Group, Popover, Select, Text, TextInput} from "@mantine/core";
 import {useForm} from "@mantine/form";
-import {TimeInput} from "@mantine/dates";
+import {DatePicker, TimeInput} from "@mantine/dates";
 import {faTrashCan} from "@fortawesome/free-regular-svg-icons";
-import {faCirclePlus} from "@fortawesome/free-solid-svg-icons";
+import {faCirclePlus,faM,faT,faW,faF,faS} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import styles from "./ReminderForm.module.css";
 
+const CheckboxIconM=({indeterminate,className})=>
+    indeterminate?(
+       <FontAwesomeIcon icon={faM} className={className} fontSize="10px"/>
+    ):(<FontAwesomeIcon icon={faM} className={className} fontSize="10px"/>)
 
+const CheckboxIconT=({indeterminate,className})=>
+    indeterminate?(
+        <FontAwesomeIcon icon={faT} className={className} fontSize="10px"/>
+    ):(<FontAwesomeIcon icon={faT} className={className} fontSize="10px"/>)
 
-const SchedulePopUp = ({form,index}) =>{
+const CheckboxIconW=({indeterminate,className})=>
+    indeterminate?(
+        <FontAwesomeIcon icon={faW} className={className} fontSize="10px"/>
+    ):(<FontAwesomeIcon icon={faW} className={className} fontSize="10px"/>)
 
-    const [scheduleType,setScheduleType]=useState("")
-    return(
+const CheckboxIconF=({indeterminate,className})=>
+    indeterminate?(
+        <FontAwesomeIcon icon={faF} className={className} fontSize="10px"/>
+    ):(<FontAwesomeIcon icon={faF} className={className} fontSize="10px"/>)
+
+const CheckboxIconS=({indeterminate,className})=>
+    indeterminate?(
+        <FontAwesomeIcon icon={faS} className={className} fontSize="10px"/>
+    ):(<FontAwesomeIcon icon={faS} className={className} fontSize="10px"/>)
+
+const SchedulePopUp = ({form, index}) => {
+
+    const [scheduleType, setScheduleType] = useState("");
+
+    return (
         <Popover withArrow shadow="md" position="top-start">
 
             <Popover.Target>
@@ -21,14 +45,33 @@ const SchedulePopUp = ({form,index}) =>{
             </Popover.Target>
             <Popover.Dropdown>
                 <Select label="Schedule type" placeholder="Select one"
+                        value={scheduleType}
+                        onChange={setScheduleType}
+                        size="md"
                         data={[{value: "recurring", label: "Recurring"}, {
                             value: "oneTime",
                             label: "One-time"
                         }]}/>
+
+                {scheduleType === "recurring" && (
+                    <Checkbox.Group label="Repeating on:" size="md">
+                        <Checkbox value="monday" icon={CheckboxIconM} indeterminate/>
+                        <Checkbox value="tuesday" icon={CheckboxIconT} indeterminate/>
+                        <Checkbox value="wednesday" icon={CheckboxIconW} indeterminate/>
+                        <Checkbox value="thursday" icon={CheckboxIconT} indeterminate/>
+                        <Checkbox value="friday" icon={CheckboxIconF} indeterminate/>
+                        <Checkbox value="saturday" icon={CheckboxIconS} indeterminate/>
+                        <Checkbox value="sunday" icon={CheckboxIconS} indeterminate/>
+                    </Checkbox.Group>
+                )}
+
+                {scheduleType==="oneTime"&&(
+                    <DatePicker label="Event Date" size="md"/>
+                )}
             </Popover.Dropdown>
         </Popover>
-    )
-} ;
+    );
+};
 
 
 const ReminderForm = ({formData, nextStep, prevStep, setFormData}) => {
