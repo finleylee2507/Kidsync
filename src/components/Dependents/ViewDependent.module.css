@@ -3,4 +3,17 @@
     justify-content: center;
 }
 
+.backButton {
+
+}
+
+.editWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.editButton {
+    width: 100px;
+}
 

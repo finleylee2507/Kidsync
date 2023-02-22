@@ -17,7 +17,6 @@ const EditDependentProfileForm = ({user, allUsers}) => {
     const navigate = useNavigate();
     const dependent = location.state;
 
-
     const [isOpenModal, setIsOpenModal] = useState(false);
     const handleReturn = () => {
         setIsOpenModal(true);
@@ -94,7 +93,8 @@ const EditDependentProfileForm = ({user, allUsers}) => {
 
     }, [dependent]);
     //keeps track of which form we want to display
-    const [step, setStep] = useState(0);
+
+    const [step, setStep] = useState(dependent.step ? dependent.step : 0);
 
     //go back to the previous form step
     const prevStep = () => {
