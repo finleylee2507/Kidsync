@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import BasicForm from "./BasicForm";
 import EmergencyForm from "./EmergencyForm";
 import GeneralCareForm from "./GeneralCareForm";
@@ -7,13 +7,19 @@ import EducationForm from "./EducationForm";
 import styles from "./CreateDependentProfileForm.module.css";
 import {Button, Divider, Modal, Progress, Text} from "@mantine/core";
 import ReviewPage from "./ReviewPage";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import {ToastContainer} from "react-toastify";
 
-const CreateDependentProfileForm = ({user, allUsers}) => {
+const EditDependentProfileForm = ({user, allUsers}) => {
 
+    // obtain the data passed by navigate()
+    const location = useLocation();
     const navigate = useNavigate();
+    const dependent = location.state;
+
+
     const [isOpenModal, setIsOpenModal] = useState(false);
-    const handleBack = () => {
+    const handleReturn = () => {
         setIsOpenModal(true);
     };
 
@@ -68,6 +74,25 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
         esaDocuments: null,
         fsaDocuments: null,
     });
+
+
+    useEffect(() => {
+        setBasicFormData({...dependent.basic, birthday: new Date(dependent.basic.birthday)});
+        setEmergencyFormData(dependent.emergency);
+        setEducationFormData({
+            ...dependent.education,
+            startTime: dependent.education.startTime !== "N/A" ? new Date(dependent.education.startTime) : "",
+            endTime: dependent.education.endTime !== "N/A" ? new Date(dependent.education.endTime) : "",
+            busTime: dependent.education.busTime !== "N/A" ? new Date(dependent.education.busTime) : ""
+        });
+        setGeneralCareFormData({
+            ...dependent.generalCare,
+            bedTime: dependent.generalCare.bedTime !== "N/A" ? new Date(dependent.generalCare.bedTime) : ""
+        });
+
+        //NOTE: we don't set documentFormData to what's coming from the database
+
+    }, [dependent]);
     //keeps track of which form we want to display
     const [step, setStep] = useState(0);
 
@@ -130,9 +155,11 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
             renderedElement = (
                 <DocumentsForm
                     formData={documentsFormData}
+                    oldFormData={dependent.documents}
                     nextStep={nextStep}
                     prevStep={prevStep}
                     setFormData={setDocumentsFormData}
+                    isEditMode={true}
                 />
             );
             break;
@@ -145,18 +172,17 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
                     generalCareFormData={generalCareFormData}
                     educationFormData={educationFormData}
                     documentsFormData={documentsFormData}
+                    oldDocumentsFormData={dependent.documents}
                     prevStep={prevStep}
                     user={user}
                     allUsers={allUsers}
+                    dependentId={dependent.id}
+                    isEditMode={true}
                 />
             );
             break;
         default:
-            // renderedElement = (<div>
-            //     Placeholder
-            //     <button onClick={prevStep}>Prev</button>
-            //     <button onClick={nextStep}>Next</button>
-            // </div>);
+
             renderedElement = (
                 <ReviewPage
                     basicFormData={basicFormData}
@@ -164,20 +190,21 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
                     generalCareFormData={generalCareFormData}
                     educationFormData={educationFormData}
                     documentsFormData={documentsFormData}
+                    oldDocumentsFormData={dependent.documents}
                 />
             );
             break;
     }
 
 
-
     return (
 
         <div>
+
             <Modal title="You are about to leave this page" opened={isOpenModal} onClose={() => setIsOpenModal(false)}
-            classNames={{
-                title:styles.modalTitle
-            }}
+                   classNames={{
+                       title: styles.modalTitle
+                   }}
             >
                 <Text>
                     Do you really want to go back? You might lose information that are not saved.
@@ -191,7 +218,7 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
 
             </Modal>
             <div className={styles.formWrapper}>
-                <Button onClick={handleBack}>Back</Button>
+                <Button onClick={handleReturn}>Return</Button>
                 <div className={styles.progressBarContainer} title="Progress">
                     <Progress
                         value={(step / 5) * 100}
@@ -211,4 +238,4 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
     );
 };
 
-export default CreateDependentProfileForm;
+export default EditDependentProfileForm;

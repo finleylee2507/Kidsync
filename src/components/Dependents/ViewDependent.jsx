@@ -40,7 +40,7 @@ const ViewDependent = () => {
                         <Text fz="lg" fw="500" mt="2rem">
                             Birthday
                         </Text>
-                        <Text> {dependent.basic.birthday}</Text>
+                        <Text> {dependent.basic.birthday!=="N/A"?new Date(dependent.basic.birthday).toLocaleDateString():"N/A"}</Text>
                     </div>
 
                     <div>
@@ -137,14 +137,14 @@ const ViewDependent = () => {
                         <Text fz="lg" fw="500" mt="2rem">
                             Start Time
                         </Text>
-                        <Text> {dependent.education.startTime}</Text>
+                        <Text> {dependent.education.startTime!=="N/A"?new Date(dependent.education.startTime).toLocaleTimeString():"N/A"}</Text>
                     </div>
 
                     <div>
                         <Text fz="lg" fw="500" mt="2rem">
                             End Time
                         </Text>
-                        <Text> {dependent.education.endTime}</Text>
+                        <Text> {dependent.education.endTime!=="N/A"?new Date(dependent.education.endTime).toLocaleTimeString():"N/A"}</Text>
                     </div>
 
                     <div>
@@ -158,7 +158,7 @@ const ViewDependent = () => {
                         <Text fz="lg" fw="500" mt="2rem">
                             Bus Time
                         </Text>
-                        <Text> {dependent.education.busTime}</Text>
+                        <Text> {dependent.education.busTime!=="N/A"?new Date(dependent.education.busTime).toLocaleTimeString():"N/A"}</Text>
                     </div>
                 </SimpleGrid>
             </Paper>
@@ -200,7 +200,7 @@ const ViewDependent = () => {
                         <Text fz="lg" fw="500" mt="2rem">
                             Bed Time
                         </Text>
-                        <Text> {dependent.generalCare.bedTime}</Text>
+                        <Text> {dependent.generalCare.bedTime!=="N/A"?new Date(dependent.generalCare.bedTime).toLocaleTimeString():"N/A"}</Text>
                     </div>
 
                     <div>

@@ -14,7 +14,8 @@ const GeneralCareForm = ({formData, nextStep, prevStep, setFormData}) => {
             allergies:"",
             currentMedications:"",
         },
-        validate: {},
+        validate: {
+        },
     });
 
     useEffect(() => {
@@ -26,7 +27,6 @@ const GeneralCareForm = ({formData, nextStep, prevStep, setFormData}) => {
         <div>
             <Text fz="xl" fw="700" mb="2rem" mt="2rem">Enter General Care Information:</Text>
             <form onSubmit={form.onSubmit((values, event) => {
-                console.log("Values: ", values);
                 setFormData(values);
                 nextStep();
             })
