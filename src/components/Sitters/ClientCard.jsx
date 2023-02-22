@@ -58,9 +58,67 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const ClientCard = () => {
+const ClientCard = ({ client }) => {
+  // console.log(client);
   const { classes, theme } = useStyles();
-  return <h1>This is a client card</h1>;
+
+  //handle click card
+  const handleViewClient = (client) => {
+    // use navigate() to pass the data
+    navigate("/view-information", { state: client });
+  };
+
+  // try to find out how old is this kid
+  const birthday = new Date(client.basic.birthday);
+  const age = parseInt(
+    (new Date().getTime() - birthday.getTime()) / (1000 * 60 * 60 * 24 * 365)
+  );
+
+  return (
+    <div style={{ width: "25rem", margin: "auto" }}>
+      <Card
+        withBorder
+        radius="md"
+        className={classes.card}
+        onClick={() => {
+          console.log("View client triggered");
+          handleViewClient(client);
+        }}
+      >
+        <Card.Section className={classes.imageSection}>
+          <Image
+            src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
+            alt="Kid's image"
+            width={100}
+            height={100}
+          />
+        </Card.Section>
+        <Group position="apart" mt="md">
+          <div>
+            <Text
+              weight={500}
+            >{`${client.basic.firstName} ${client.basic.lastName}`}</Text>
+            <Text size="xs" color="dimmed">
+              {age} years old
+            </Text>
+          </div>
+          <Badge variant="outline">{client.basic.relationship}</Badge>
+        </Group>
+
+        <Card.Section className={classes.section}>
+          <Group spacing={30}>
+            <Button radius="xl" variant="outline" style={{ flex: 1 }}>
+              With me
+            </Button>
+
+            <Button radius="xl" color="red" style={{ flex: 1, color: "white" }}>
+              Emergency info
+            </Button>
+          </Group>
+        </Card.Section>
+      </Card>
+    </div>
+  );
 };
 
 export default ClientCard;
