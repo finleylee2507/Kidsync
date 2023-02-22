@@ -1,6 +1,4 @@
 import React from "react";
-
-import React from "react";
 import clients from "../../utilities/clients.json";
 
 const ClientsList = () => {
