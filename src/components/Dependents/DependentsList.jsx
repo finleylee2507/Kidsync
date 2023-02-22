@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import data from "../../utilities/Dependents.json";
 import DependentCard from "./DependentCard";
 import styles from "./DependentsList.module.css";
 import { SimpleGrid, Container, createStyles, Button } from "@mantine/core";

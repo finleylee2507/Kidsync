@@ -1,0 +1,117 @@
+{
+  "dependents": [
+    {
+      "id": 0,
+      "basic": {
+        "birthday": "2/14/07",
+        "relationship": "daughter",
+        "preferredPronoun": "She/Her",
+        "firstName": "Hailey",
+        "lastName": "Dumphy",
+        "sex": "Female",
+        "primaryAddress": "121 South Cliffwood Avenue in Brentwood",
+        "city": "Los Angeles",
+        "state": "Georgia",
+        "zip": "37027"
+      },
+      "emergency": {
+        "name": "Mitchell Pritchet",
+        "phone": "(804) 6783 9832",
+        "relationship": "Uncle",
+        "allergies": "Peanuts and Shellfish",
+        "currentMedications": "Emergency Epi & Levonorgestrel"
+      },
+      "education": {
+        "schoolName": "Los Angeles High School",
+        "teacherName": "Mrs.Mabella",
+        "grade": "10th",
+        "startTime": "8:20 AM",
+        "endTime": "2:10 PM",
+        "busNumber": "-",
+        "busTime": "-"
+      },
+      "generalCare": {
+        "routineNotes": "Text",
+        "extracurriculars": "Cheer - MW 3:30p",
+        "bedTime": "-",
+        "medicationSchedule": "Daily BC"
+      }
+    },
+    {
+      "id": 1,
+      "basic": {
+        "birthday": "8/25/08",
+        "relationship": "daughter",
+        "preferredPronoun": "She/Her",
+        "firstName": "Alex",
+        "lastName": "Dumphy",
+        "sex": "Female",
+        "primaryAddress": "121 South Cliffwood Avenue in Brentwood",
+        "city": "Los Angeles",
+        "state": "Georgia",
+        "zip": "37027"
+      },
+      "emergency": {
+        "name": "Jay Pritchet",
+        "phone": "(804) 6792 2136",
+        "relationship": "Grand-Father",
+        "allergies": "None",
+        "currentMedications": "None"
+      },
+
+      "education": {
+        "schoolName": "Los Angeles High School",
+        "teacherName": "Mr.Robella",
+        "grade": "9th",
+        "startTime": "8:20 AM",
+        "endTime": "2:10 PM",
+        "busNumber": "-",
+        "busTime": "-"
+      },
+      "generalCare": {
+        "routineNotes": "Text",
+        "extracurriculars": "Marching Band - TWR 3p",
+        "bedTime": "-",
+        "medicationSchedule": "-"
+      }
+    },
+    {
+      "id": 2,
+      "basic": {
+        "birthday": "10/15/13",
+        "relationship": "son",
+        "preferredPronoun": "He/Him",
+        "firstName": "Luke",
+        "lastName": "Dumphy",
+        "sex": "Male",
+        "primaryAddress": "121 South Cliffwood Avenue in Brentwood",
+        "city": "Los Angeles",
+        "state": "Georgia",
+        "zip": "37027"
+      },
+      "emergency": {
+        "name": "Jay Pritchet",
+        "phone": "(804) 6792 2136",
+        "relationship": "Grand-Father",
+        "allergies": "None",
+        "currentMedications": "None"
+      },
+
+      "education": {
+        "schoolName": "Los Angeles High School",
+        "teacherName": "Mr.Robella",
+        "grade": "5th",
+        "startTime": "9:20 AM",
+        "endTime": "3:30 PM",
+        "busNumber": "-",
+        "busTime": "-"
+      },
+      "generalCare": {
+        "routineNotes": "Text",
+        "extracurriculars": "Match Tutoring - MF 5pm",
+        "bedTime": "8:30 PM",
+        "medicationSchedule": "-"
+      }
+    }
+  ]
+}
