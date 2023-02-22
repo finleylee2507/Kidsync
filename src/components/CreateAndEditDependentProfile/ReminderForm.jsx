@@ -1,60 +1,88 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Button, Checkbox, Grid, Group, Popover, Select, Text, TextInput} from "@mantine/core";
 import {useForm} from "@mantine/form";
 import {DatePicker, TimeInput} from "@mantine/dates";
 import {faTrashCan} from "@fortawesome/free-regular-svg-icons";
-import {faCirclePlus,faM,faT,faW,faF,faS} from "@fortawesome/free-solid-svg-icons";
+import {faCirclePlus, faF, faM, faS, faT, faW} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import styles from "./ReminderForm.module.css";
 
-const CheckboxIconM=({indeterminate,className})=>
-    indeterminate?(
-       <FontAwesomeIcon icon={faM} className={className} fontSize="10px"/>
-    ):(<FontAwesomeIcon icon={faM} className={className} fontSize="10px"/>)
+const CheckboxIconM = ({indeterminate, className}) =>
+    indeterminate ? (
+        <FontAwesomeIcon icon={faM} className={className} fontSize="10px"/>
+    ) : (<FontAwesomeIcon icon={faM} className={className} fontSize="10px"/>);
 
-const CheckboxIconT=({indeterminate,className})=>
-    indeterminate?(
+const CheckboxIconT = ({indeterminate, className}) =>
+    indeterminate ? (
         <FontAwesomeIcon icon={faT} className={className} fontSize="10px"/>
-    ):(<FontAwesomeIcon icon={faT} className={className} fontSize="10px"/>)
+    ) : (<FontAwesomeIcon icon={faT} className={className} fontSize="10px"/>);
 
-const CheckboxIconW=({indeterminate,className})=>
-    indeterminate?(
+const CheckboxIconW = ({indeterminate, className}) =>
+    indeterminate ? (
         <FontAwesomeIcon icon={faW} className={className} fontSize="10px"/>
-    ):(<FontAwesomeIcon icon={faW} className={className} fontSize="10px"/>)
+    ) : (<FontAwesomeIcon icon={faW} className={className} fontSize="10px"/>);
 
-const CheckboxIconF=({indeterminate,className})=>
-    indeterminate?(
+const CheckboxIconF = ({indeterminate, className}) =>
+    indeterminate ? (
         <FontAwesomeIcon icon={faF} className={className} fontSize="10px"/>
-    ):(<FontAwesomeIcon icon={faF} className={className} fontSize="10px"/>)
+    ) : (<FontAwesomeIcon icon={faF} className={className} fontSize="10px"/>);
 
-const CheckboxIconS=({indeterminate,className})=>
-    indeterminate?(
+const CheckboxIconS = ({indeterminate, className}) =>
+    indeterminate ? (
         <FontAwesomeIcon icon={faS} className={className} fontSize="10px"/>
-    ):(<FontAwesomeIcon icon={faS} className={className} fontSize="10px"/>)
+    ) : (<FontAwesomeIcon icon={faS} className={className} fontSize="10px"/>);
 
 const SchedulePopUp = ({form, index}) => {
 
-    const [scheduleType, setScheduleType] = useState("");
 
     return (
         <Popover withArrow shadow="md" position="top-start">
 
             <Popover.Target>
                 <Button
-                    variant="outline">{!form.values.reminders[index].schedule ? "Add Schedule" : "Edit Schedule"}</Button>
+                    variant="outline">{form.values.reminders[index].schedule.weekdays.length == 0 && !form.values.reminders[index].schedule.eventDate ? "Add Schedule" : "Edit Schedule"}</Button>
             </Popover.Target>
             <Popover.Dropdown>
                 <Select label="Schedule type" placeholder="Select one"
-                        value={scheduleType}
-                        onChange={setScheduleType}
+                        value={form.values.reminders[index].schedule.scheduleType}
+                        onChange={(value) => {
+
+                            //clear reminders[index] first
+                            form.setFieldValue(
+                                `reminders.${index}.schedule.weekdays`,
+                                []
+                            );
+                            form.setFieldValue(
+                                `reminders.${index}.schedule.eventDate`,
+                                null
+                            );
+
+
+                            //set new value
+                            form.setFieldValue(
+                                `reminders.${index}.schedule.scheduleType`,
+                                value
+                            );
+                        }
+
+
+                        }
                         size="md"
                         data={[{value: "recurring", label: "Recurring"}, {
                             value: "oneTime",
                             label: "One-time"
-                        }]}/>
+                        }]}
+                        clearable
+                />
 
-                {scheduleType === "recurring" && (
-                    <Checkbox.Group label="Repeating on:" size="md">
+                {form.values.reminders[index].schedule.scheduleType === "recurring" && (
+                    <Checkbox.Group label="Repeating on:" size="md"
+                                    value={form.values.reminders[index].schedule.weekdays} onChange={(value) =>
+                        form.setFieldValue(
+                            `reminders.${index}.schedule.weekdays`,
+                            value
+                        )
+                    }>
                         <Checkbox value="monday" icon={CheckboxIconM} indeterminate/>
                         <Checkbox value="tuesday" icon={CheckboxIconT} indeterminate/>
                         <Checkbox value="wednesday" icon={CheckboxIconW} indeterminate/>
@@ -65,8 +93,14 @@ const SchedulePopUp = ({form, index}) => {
                     </Checkbox.Group>
                 )}
 
-                {scheduleType==="oneTime"&&(
-                    <DatePicker label="Event Date" size="md"/>
+                {form.values.reminders[index].schedule.scheduleType === "oneTime" && (
+                    <DatePicker label="Event Date" size="md" value={form.values.reminders[index].schedule.eventDate}
+                                onChange={(value) =>
+                                    form.setFieldValue(
+                                        `reminders.${index}.schedule.eventDate`,
+                                        value
+                                    )
+                                }/>
                 )}
             </Popover.Dropdown>
         </Popover>
@@ -84,13 +118,16 @@ const ReminderForm = ({formData, nextStep, prevStep, setFormData}) => {
         validate: {},
     });
 
-
     useEffect(() => {
         form.setValues(formData);
     }, [formData]);
 
     const handleAddItems = () => {
-        form.insertListItem('reminders', {time: null, taskName: "", schedule: null});
+        form.insertListItem('reminders', {
+            time: null,
+            taskName: "",
+            schedule: {scheduleType: "", eventDate: null, weekdays: []}
+        });
     };
 
     const handleRemoveItems = (index) => {

@@ -214,8 +214,8 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
                 <Button onClick={handleReturn}>Return</Button>
                 <div className={styles.progressBarContainer} title="Progress">
                     <Progress
-                        value={(step / 5) * 100}
-                        label={`${(step / 5) * 100}%`}
+                        value={(step / 6) * 100}
+                        label={`${step}/6`}
                         size="xl"
                         radius="xl"
                         striped
