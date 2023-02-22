@@ -13,7 +13,7 @@ import ClientsList from "./components/Sitters/ClientsList";
 import HomePage from "./components/Home/HomePage";
 import EditDependentProfileForm from "./components/CreateAndEditDependentProfile/EditDependentProfileForm";
 import { ToastContainer } from "react-toastify";
-import ViewInformation from './components/Sitters/ViewInformation';
+import ViewInformation from "./components/Sitters/ViewInformation";
 
 const App = () => {
   const user = useAuthState();
@@ -39,7 +39,7 @@ const App = () => {
           path="/"
           element={
             user && dbUsers && dbUsers[user.uid] ? (
-              <Navigate to="/dependents" />
+              <Navigate to="/home" />
             ) : (
               <Landing allUsers={dbUsers} />
             )

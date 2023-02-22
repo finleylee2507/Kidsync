@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { SimpleGrid, Container} from "@mantine/core";
-import DependentCard from './../Dependents/DependentCard';
+import { SimpleGrid, Container } from "@mantine/core";
+import DependentCard from "./../Dependents/DependentCard";
+import ClientsList from "../Sitters/ClientsList";
 
 const HomePage = ({ user, allUsers, allDependents }) => {
   const [allDeps, setAllDeps] = useState(allDependents);
@@ -13,13 +14,14 @@ const HomePage = ({ user, allUsers, allDependents }) => {
 
   return (
     <React.Fragment>
-      <h1>This is home page</h1>
-      <h2>This part is my dependents:</h2>
+      <h1>My Dependents:</h1>
       <Container py="xl">
         <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
-          {!(allDeps == null ||
+          {!(
+            allDeps == null ||
             allDeps.length == 1 ||
-            allUsers[user.uid]["dependents"] == null) &&
+            allUsers[user.uid]["dependents"] == null
+          ) &&
             Object.entries(allUsers[user.uid]["dependents"]).map(
               ([id, dependentID]) => (
                 <DependentCard
@@ -30,7 +32,8 @@ const HomePage = ({ user, allUsers, allDependents }) => {
             )}
         </SimpleGrid>
       </Container>
-      <h2>This part is in my care:</h2>
+      <h1>In My Care:</h1>
+      <ClientsList />
     </React.Fragment>
   );
 };
