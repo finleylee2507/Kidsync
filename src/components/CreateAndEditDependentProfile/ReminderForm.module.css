@@ -1,0 +1,27 @@
+.removeIcon{
+    cursor: pointer;
+}
+
+/*hover effect on available devices*/
+@media (hover: hover) and (pointer: fine) {
+  .removeIcon:hover{
+      animation: jiggle 0.5s infinite linear;
+  }
+
+}
+
+@keyframes jiggle {
+    /* start at 0deg and this scale size.
+       scale size is repeated here to maintain smooth scaling */
+    0% {
+        transform: rotate(0deg) scale(1.15, 1.15);
+    }
+    /* midway rotate 2deg right */
+    50% {
+        transform: rotate(10deg) scale(1.15, 1.15);
+    }
+    /* end rotate -2deg left */
+    100% {
+        transform: rotate(-10deg) scale(1.15, 1.15)
+    }
+}

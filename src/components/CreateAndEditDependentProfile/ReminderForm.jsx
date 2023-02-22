@@ -1,27 +1,26 @@
 import React, {useEffect} from 'react';
-import {Button, Group, Input, Select, Text, TextInput} from "@mantine/core";
+import {Button, Grid, Group, Input, Select, Text, TextInput} from "@mantine/core";
 import InputMask from 'react-input-mask';
 import {useForm} from "@mantine/form";
 import {DatePicker, TimeInput} from "@mantine/dates";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import {faCirclePlus} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import styles from "./ReminderForm.module.css"
 
-// const ReminderInput=({})=>{
-//
-//
-// }
 
 const ReminderForm = ({formData, nextStep, prevStep, setFormData}) => {
 
     const form = useForm({
         initialValues: {
-          reminders:[{time:null,taskName:"abc"}]
+          reminders:[]
 
         },
         validate: {
         },
     });
 
-
-    console.log(form.values);
+    
     useEffect(() => {
         form.setValues(formData);
     }, [formData]);
@@ -42,26 +41,36 @@ const ReminderForm = ({formData, nextStep, prevStep, setFormData}) => {
                 nextStep();
             })
         }>
+            <Grid>
+                <Grid.Col span={2}><Text fw="500">Time</Text></Grid.Col>
+                <Grid.Col span={9}><Text fw="500">Action</Text></Grid.Col>
+            </Grid>
             {form.values.reminders.map((item,index)=>{
                 return (
 
                     <div>
-                        <Text fw="500">Reminder {index+1}</Text>
-                        <TimeInput label="Time" format="12" {...form.getInputProps(`reminders.${index}.time`)}/>
-                        <TextInput label="Task Name" {...form.getInputProps(`reminders.${index}.taskName`)}/>
-                        {index>0&&(
-                            <Button onClick={()=>{
+
+                        <Grid align="center">
+                            <Grid.Col span={2}> <TimeInput format="12" {...form.getInputProps(`reminders.${index}.time`)} size="lg"/> </Grid.Col>
+                            <Grid.Col span={9}><TextInput {...form.getInputProps(`reminders.${index}.taskName`)} size="lg"/></Grid.Col>
+                            <Grid.Col span={1}><FontAwesomeIcon icon={faTrashCan} size="lg" className={styles.removeIcon} onClick={()=>{
                                 handleRemoveItems(index)
-                            }}>Remove</Button>
-                        )}
-                        <hr/>
+                            }}/></Grid.Col>
+                        </Grid>
+
+
                     </div>
                 )
             })}
 
-            <Button onClick={handleAddItems}>
-                Add
-            </Button>
+            <Grid>
+                <Grid.Col span={11}>
+                    <Button onClick={handleAddItems} variant="outline" fullWidth leftIcon={<FontAwesomeIcon icon={faCirclePlus} size="lg" width="2rem"/>}>
+                        Add More Actions
+                    </Button>
+                </Grid.Col>
+            </Grid>
+
             <Group position="right" mt="md" mb="20px">
                 <Button name="prevButton" onClick={prevStep}>Back</Button>
                 <Button type="submit" name="nextButton">Next</Button>
