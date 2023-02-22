@@ -9,7 +9,7 @@ import {DatePicker, TimeInput} from "@mantine/dates";
 //
 // }
 
-const ReminderForm = ({formData, nextStep, setFormData}) => {
+const ReminderForm = ({formData, nextStep, prevStep, setFormData}) => {
 
     const form = useForm({
         initialValues: {
@@ -27,27 +27,27 @@ const ReminderForm = ({formData, nextStep, setFormData}) => {
     }, [formData]);
 
     const handleAddItems=()=>{
-        // const prevReminders=form.values.reminders
-        // prevReminders.push({time:null,taskName:""})
-        // form.setFieldValue('reminders',prevReminders)
         form.insertListItem('reminders',{time:null,taskName:""})
     }
 
     const handleRemoveItems=(index)=>{
-        // const prevReminders=form.values.reminders
-        // prevReminders.splice(index,1)
-        // form.setFieldValue('reminders',prevReminders)
         form.removeListItem('reminders',index);
     }
     return (
 
         <div>
-        <form>
+            <Text fz="xl" fw="700" mb="2rem" mt="2rem">Add Reminders for Caretakers:</Text>
+        <form onSubmit={form.onSubmit((values, event) => {
+                setFormData(values);
+                nextStep();
+            })
+        }>
             {form.values.reminders.map((item,index)=>{
                 return (
 
                     <div>
-                        <TimeInput label="Time?" format="12" {...form.getInputProps(`reminders.${index}.time`)}/>
+                        <Text fw="500">Reminder {index+1}</Text>
+                        <TimeInput label="Time" format="12" {...form.getInputProps(`reminders.${index}.time`)}/>
                         <TextInput label="Task Name" {...form.getInputProps(`reminders.${index}.taskName`)}/>
                         {index>0&&(
                             <Button onClick={()=>{
@@ -62,6 +62,10 @@ const ReminderForm = ({formData, nextStep, setFormData}) => {
             <Button onClick={handleAddItems}>
                 Add
             </Button>
+            <Group position="right" mt="md" mb="20px">
+                <Button name="prevButton" onClick={prevStep}>Back</Button>
+                <Button type="submit" name="nextButton">Next</Button>
+            </Group>
         </form>
         </div>
     );

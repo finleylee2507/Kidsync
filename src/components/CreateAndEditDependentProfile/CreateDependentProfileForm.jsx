@@ -146,7 +146,14 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
             );
             break;
         case 5:
-            renderedElement = (<ReminderForm/>);
+            renderedElement = (
+                <ReminderForm
+                    formData={documentsFormData}
+                    nextStep={nextStep}
+                    prevStep={prevStep}
+                    setFormData={setDocumentsFormData}
+                />
+            );
             break;
         case 6:
             renderedElement = (
