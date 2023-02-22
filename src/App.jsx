@@ -10,6 +10,7 @@ import CreateDependentProfileForm from "./components/CreateDependentProfile/Crea
 import { Navbar } from "./components/Navbar/Navbar";
 import ViewDependent from "./components/Dependents/ViewDependent";
 import ClientsList from "./components/Sitters/ClientsList";
+import HomePage from "./components/Home/HomePage";
 
 const App = () => {
   const user = useAuthState();
@@ -44,6 +45,19 @@ const App = () => {
         <Route
           path="/create-profile"
           element={<UserDetails user={user} />}
+        ></Route>
+        <Route
+          path="/home"
+          element={
+            <div>
+              <Navbar />
+              <HomePage
+                user={user}
+                allUsers={dbUsers}
+                allDependents={dbDependents}
+              />
+            </div>
+          }
         ></Route>
         <Route
           path="/dependents"

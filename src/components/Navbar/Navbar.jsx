@@ -80,11 +80,14 @@ export function Navbar() {
             spacing={0}
             className={classes.hiddenMobile}
           >
+            <a href="/home" className={classes.link}>
+              Home
+            </a>
             <a href="/dependents" className={classes.link}>
               My Dependents
             </a>
             <a href="/clients" className={classes.link}>
-              My Clients
+              In My Care
             </a>
           </Group>
           <Group className={classes.hiddenMobile}>
@@ -112,12 +115,14 @@ export function Navbar() {
             my="sm"
             color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
           />
-
+          <a href="/home" className={classes.link}>
+            Home
+          </a>
           <a href="/dependents" className={classes.link}>
             My Dependents
           </a>
           <a href="/clients" className={classes.link}>
-            My Clients
+            In My Care
           </a>
 
           <Divider
