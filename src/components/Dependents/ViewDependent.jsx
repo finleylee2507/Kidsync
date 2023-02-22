@@ -41,7 +41,9 @@ const ViewDependent = () => {
           </Text>
           <Button
             onClick={() => {
-              navigate('/edit-dependents-profile/', {state:{...dependent, step:0}});
+              navigate("/edit-dependents-profile/", {
+                state: { ...dependent, step: 0 },
+              });
             }}
             className={styles.editButton}
           >
@@ -112,7 +114,9 @@ const ViewDependent = () => {
           </Text>
           <Button
             onClick={() => {
-                navigate('/edit-dependents-profile/', {state:{...dependent, step:1}});
+              navigate("/edit-dependents-profile/", {
+                state: { ...dependent, step: 1 },
+              });
             }}
             className={styles.editButton}
           >
@@ -151,7 +155,9 @@ const ViewDependent = () => {
           </Text>
           <Button
             onClick={() => {
-                navigate('/edit-dependents-profile/', {state:{...dependent, step:2}});
+              navigate("/edit-dependents-profile/", {
+                state: { ...dependent, step: 2 },
+              });
             }}
             className={styles.editButton}
           >
@@ -233,7 +239,9 @@ const ViewDependent = () => {
           </Text>
           <Button
             onClick={() => {
-                navigate('/edit-dependents-profile/', {state:{...dependent, step:3}});
+              navigate("/edit-dependents-profile/", {
+                state: { ...dependent, step: 3 },
+              });
             }}
             className={styles.editButton}
           >
@@ -296,7 +304,9 @@ const ViewDependent = () => {
           </Text>
           <Button
             onClick={() => {
-                navigate('/edit-dependents-profile/', {state:{...dependent, step:4}});
+              navigate("/edit-dependents-profile/", {
+                state: { ...dependent, step: 4 },
+              });
             }}
             className={styles.editButton}
           >
