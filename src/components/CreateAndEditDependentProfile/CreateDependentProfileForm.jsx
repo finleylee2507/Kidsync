@@ -8,8 +8,8 @@ import styles from "./CreateDependentProfileForm.module.css";
 import {Button, Divider, Modal, Progress, Text} from "@mantine/core";
 import ReviewPage from "./ReviewPage";
 import {useNavigate} from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ReminderForm from "./ReminderForm";
 
 const CreateDependentProfileForm = ({user, allUsers}) => {
 
@@ -70,8 +70,13 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
         esaDocuments: null,
         fsaDocuments: null,
     });
+
+    const [reminderFormData, setReminderFormData] = useState({
+        reminders: []
+    });
+
     //keeps track of which form we want to display
-    const [step, setStep] = useState(0);
+    const [step, setStep] = useState(5);
 
     //go back to the previous form step
     const prevStep = () => {
@@ -140,8 +145,10 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
                 />
             );
             break;
-
         case 5:
+            renderedElement = (<ReminderForm/>);
+            break;
+        case 6:
             renderedElement = (
                 <ReviewPage
                     basicFormData={basicFormData}
@@ -177,14 +184,13 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
     }
 
 
-
     return (
 
         <div>
             <Modal title="You are about to leave this page" opened={isOpenModal} onClose={() => setIsOpenModal(false)}
-            classNames={{
-                title:styles.modalTitle
-            }}
+                   classNames={{
+                       title: styles.modalTitle
+                   }}
             >
                 <Text>
                     Do you really want to go back? You might lose information that are not saved.
