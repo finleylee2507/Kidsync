@@ -8,6 +8,7 @@ import {
   createStyles,
   Button,
 } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -61,6 +62,7 @@ const useStyles = createStyles((theme) => ({
 const ClientCard = ({ client }) => {
   // console.log(client);
   const { classes, theme } = useStyles();
+  const navigate = useNavigate();
 
   //handle click card
   const handleViewClient = (client) => {
