@@ -148,10 +148,10 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
         case 5:
             renderedElement = (
                 <ReminderForm
-                    formData={documentsFormData}
+                    formData={reminderFormData}
                     nextStep={nextStep}
                     prevStep={prevStep}
-                    setFormData={setDocumentsFormData}
+                    setFormData={setReminderFormData}
                 />
             );
             break;
@@ -163,6 +163,7 @@ const CreateDependentProfileForm = ({user, allUsers}) => {
                     generalCareFormData={generalCareFormData}
                     educationFormData={educationFormData}
                     documentsFormData={documentsFormData}
+                    reminderFormData={reminderFormData}
                     prevStep={prevStep}
                     user={user}
                     allUsers={allUsers}

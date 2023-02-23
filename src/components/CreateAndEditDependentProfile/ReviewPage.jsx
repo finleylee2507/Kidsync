@@ -1,5 +1,5 @@
 import React from "react";
-import {Anchor, Button, Divider, Group, Text} from "@mantine/core";
+import {Anchor, Button, Divider, Grid, Group, Table, Text} from "@mantine/core";
 import styles from "./ReviewPage.module.css";
 import {addNewDependent, getNewDependentKey, updateDependent, uploadFile,} from "../../utilities/firebase";
 import {useNavigate} from "react-router-dom";
@@ -11,6 +11,7 @@ const ReviewPage = ({
                         generalCareFormData,
                         educationFormData,
                         documentsFormData,
+                        reminderFormData,
                         prevStep,
                         user,
                         allUsers,
@@ -27,7 +28,7 @@ const ReviewPage = ({
                 </Anchor>
             );
         } else {
-            if (isEditMode&&oldDocumentsFormData[fieldName] !== "N/A") {
+            if (isEditMode && oldDocumentsFormData[fieldName] !== "N/A") {
                 return (
                     <Anchor href={oldDocumentsFormData[fieldName].fileLink} target="_blank">
                         {oldDocumentsFormData[fieldName].fileName}
@@ -41,7 +42,7 @@ const ReviewPage = ({
     };
     const handleFormSubmit = async () => {
         let fileLinks = {};
-        const id = toast.loading(`${isEditMode?"Updating dependent profile...":"Creating dependent profile..."}`);
+        const id = toast.loading(`${isEditMode ? "Updating dependent profile..." : "Creating dependent profile..."}`);
         //upload dependent files
         for (const [key, file] of Object.entries(documentsFormData)) {
             // console.log("Document key: ",key," Document value: ",file.name);
@@ -144,20 +145,17 @@ const ReviewPage = ({
                     render: "Successfully updated dependent profile! 👌",
                     type: toast.TYPE.SUCCESS,
                     isLoading: false,
-                    autoClose:1000
+                    autoClose: 1000
                 });
                 navigate("/dependents");
-            }
-            else{
+            } else {
                 toast.update(id, {
                     render: "Hmm... Something went wrong. 🤯 Please try again!",
                     type: toast.TYPE.ERROR,
                     isLoading: false,
-                    autoClose:1000
+                    autoClose: 1000
                 });
             }
-
-
 
 
         } else { //if we're creating the dependent for the first time
@@ -245,7 +243,7 @@ const ReviewPage = ({
             }
 
             // Add object to database
-            let addResult=await addNewDependent(
+            let addResult = await addNewDependent(
                 newDependent,
                 updatedUserDependents,
                 newDependentID,
@@ -257,20 +255,18 @@ const ReviewPage = ({
                     render: "Successfully created dependent profile! 👌",
                     type: toast.TYPE.SUCCESS,
                     isLoading: false,
-                    autoClose:1000
+                    autoClose: 1000
                 });
                 navigate("/dependents");
-            }
-            else{
+            } else {
                 toast.update(id, {
                     render: "Hmm... Something went wrong. 🤯 Please try again!",
                     type: toast.TYPE.ERROR,
                     isLoading: false,
-                    autoClose:1000
+                    autoClose: 1000
                 });
             }
         }
-
 
 
     };
@@ -481,6 +477,8 @@ const ReviewPage = ({
             </div>
 
             <Divider mt="2rem" size="sm"/>
+
+            {/*Uploaded documents*/}
             <Text fz="xl" fw="700" mt="2rem">
                 Documents Upload
             </Text>
@@ -515,6 +513,45 @@ const ReviewPage = ({
                 {" "}
                 {determineDisplayedText("fsaDocuments")}
             </Text>
+
+            <Divider mt="2rem" size="sm"/>
+
+            {/*Reminders*/}
+            <Text fz="xl" fw="700" mt="2rem">
+                Reminders for Caretakers
+            </Text>
+
+            <Table>
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Time</th>
+                    <th>Schedule</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {reminderFormData.reminders.map((item,index)=>{
+                    return(
+
+                        <tr>
+                            <td><Text>{index+1}</Text></td>
+                            <td><Text>{item.taskName}</Text></td>
+                            <td><Text>{item.time.toLocaleTimeString()}</Text></td>
+                            <td><Text>{
+                                item.schedule.scheduleType==="recurring"?(
+                                `Weekly on ${item.schedule.weekdays.join(", ")}`
+                                ):(item.schedule.eventDate.toLocaleDateString())
+                            }</Text></td>
+                        </tr>
+
+                    )
+                })}
+                </tbody>
+            </Table>
+
+
 
             <Group position="right" mt="md">
                 <Button name="prevButton" onClick={prevStep}>

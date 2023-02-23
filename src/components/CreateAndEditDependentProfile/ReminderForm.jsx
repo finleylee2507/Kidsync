@@ -83,13 +83,13 @@ const SchedulePopUp = ({form, index}) => {
                             value
                         )
                     }>
-                        <Checkbox value="monday" icon={CheckboxIconM} indeterminate/>
-                        <Checkbox value="tuesday" icon={CheckboxIconT} indeterminate/>
-                        <Checkbox value="wednesday" icon={CheckboxIconW} indeterminate/>
-                        <Checkbox value="thursday" icon={CheckboxIconT} indeterminate/>
-                        <Checkbox value="friday" icon={CheckboxIconF} indeterminate/>
-                        <Checkbox value="saturday" icon={CheckboxIconS} indeterminate/>
-                        <Checkbox value="sunday" icon={CheckboxIconS} indeterminate/>
+                        <Checkbox value="Monday" icon={CheckboxIconM} indeterminate/>
+                        <Checkbox value="Tuesday" icon={CheckboxIconT} indeterminate/>
+                        <Checkbox value="Wednesday" icon={CheckboxIconW} indeterminate/>
+                        <Checkbox value="Thursday" icon={CheckboxIconT} indeterminate/>
+                        <Checkbox value="Friday" icon={CheckboxIconF} indeterminate/>
+                        <Checkbox value="Saturday" icon={CheckboxIconS} indeterminate/>
+                        <Checkbox value="Sunday" icon={CheckboxIconS} indeterminate/>
                     </Checkbox.Group>
                 )}
 
