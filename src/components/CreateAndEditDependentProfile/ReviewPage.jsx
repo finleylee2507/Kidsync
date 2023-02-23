@@ -1,5 +1,5 @@
 import React from "react";
-import {Anchor, Button, Divider, Grid, Group, Table, Text} from "@mantine/core";
+import {Anchor, Button, Divider, Group, Table, Text} from "@mantine/core";
 import styles from "./ReviewPage.module.css";
 import {addNewDependent, getNewDependentKey, updateDependent, uploadFile,} from "../../utilities/firebase";
 import {useNavigate} from "react-router-dom";
@@ -62,6 +62,15 @@ const ReviewPage = ({
                 fileLinks[key] = "N/A";
             }
         }
+
+        //reformat reminders
+        let reminderList = reminderFormData.reminders.map((item, index) => {
+            //reformat the date object so that it could be properly stored in firebase and retrieved later
+            let newDate = item.schedule.eventDate ? item.schedule.eventDate.toUTCString() : "N/A";
+            let newWeekdays=item.schedule.weekdays.length===0?"N/A":item.schedule.weekdays
+
+            return {...item,schedule:{...item.schedule,eventDate:newDate,weekdays:newWeekdays}}
+        });
 
         if (isEditMode) { //if we're editing
             let newDocumentObject = {};
@@ -229,6 +238,7 @@ const ReviewPage = ({
                     esaDocuments: fileLinks["esaDocuments"],
                     fsaDocuments: fileLinks["fsaDocuments"],
                 },
+                reminders: reminderList
             };
 
             let updatedUserDependents;
@@ -532,25 +542,24 @@ const ReviewPage = ({
                 </thead>
 
                 <tbody>
-                {reminderFormData.reminders.map((item,index)=>{
-                    return(
+                {reminderFormData.reminders.map((item, index) => {
+                    return (
 
-                        <tr>
-                            <td><Text>{index+1}</Text></td>
+                        <tr key={index}>
+                            <td><Text>{index + 1}</Text></td>
                             <td><Text>{item.taskName}</Text></td>
                             <td><Text>{item.time.toLocaleTimeString()}</Text></td>
                             <td><Text>{
-                                item.schedule.scheduleType==="recurring"?(
-                                `Weekly on ${item.schedule.weekdays.join(", ")}`
-                                ):(item.schedule.eventDate.toLocaleDateString())
+                                item.schedule.scheduleType === "recurring" ? (
+                                    `Weekly on ${item.schedule.weekdays.join(", ")}`
+                                ) : (item.schedule.eventDate.toLocaleDateString())
                             }</Text></td>
                         </tr>
 
-                    )
+                    );
                 })}
                 </tbody>
             </Table>
-
 
 
             <Group position="right" mt="md">

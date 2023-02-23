@@ -9,6 +9,7 @@ import {Button, Divider, Modal, Progress, Text} from "@mantine/core";
 import ReviewPage from "./ReviewPage";
 import {useLocation, useNavigate} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
+import ReminderForm from "./ReminderForm";
 
 const EditDependentProfileForm = ({user, allUsers}) => {
 
@@ -75,7 +76,9 @@ const EditDependentProfileForm = ({user, allUsers}) => {
         fsaDocuments: null,
     });
 
-
+    const [reminderFormData, setReminderFormData] = useState({
+        reminders: []
+    });
     useEffect(() => {
         setBasicFormData({...dependent.basic, birthday: new Date(dependent.basic.birthday)});
         setEmergencyFormData(dependent.emergency);
@@ -163,8 +166,17 @@ const EditDependentProfileForm = ({user, allUsers}) => {
                 />
             );
             break;
-
         case 5:
+            renderedElement = (
+                <ReminderForm
+                    formData={reminderFormData}
+                    nextStep={nextStep}
+                    prevStep={prevStep}
+                    setFormData={setReminderFormData}
+                />
+            );
+            break;
+        case 6:
             renderedElement = (
                 <ReviewPage
                     basicFormData={basicFormData}
@@ -173,6 +185,7 @@ const EditDependentProfileForm = ({user, allUsers}) => {
                     educationFormData={educationFormData}
                     documentsFormData={documentsFormData}
                     oldDocumentsFormData={dependent.documents}
+                    reminderFormData={reminderFormData}
                     prevStep={prevStep}
                     user={user}
                     allUsers={allUsers}
