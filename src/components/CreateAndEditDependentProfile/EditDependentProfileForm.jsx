@@ -79,6 +79,8 @@ const EditDependentProfileForm = ({user, allUsers}) => {
     const [reminderFormData, setReminderFormData] = useState({
         reminders: []
     });
+
+    console.log("Reminder data: ",dependent.reminders);
     useEffect(() => {
         setBasicFormData({...dependent.basic, birthday: new Date(dependent.basic.birthday)});
         setEmergencyFormData(dependent.emergency);
@@ -93,6 +95,18 @@ const EditDependentProfileForm = ({user, allUsers}) => {
             bedTime: dependent.generalCare.bedTime !== "N/A" ? new Date(dependent.generalCare.bedTime) : ""
         });
 
+        //pre-process reminder data and reconstruct
+        let processedReminders=dependent.reminders.map((item,index)=>{
+            let newWeekdays=(item.schedule.weekdays==="N/A")?[]:item.schedule.weekdays
+            let newEventDate=(item.schedule.eventDate==="N/A")?null:new Date(item.schedule.eventDate)
+            let newTime=new Date(item.time)
+
+
+            return{
+                ...item,time:newTime,schedule:{...item.schedule,weekdays:newWeekdays,eventDate:newEventDate}
+            }
+        })
+        setReminderFormData({reminders: processedReminders})
         //NOTE: we don't set documentFormData to what's coming from the database
 
     }, [dependent]);
@@ -234,8 +248,8 @@ const EditDependentProfileForm = ({user, allUsers}) => {
                 <Button onClick={handleReturn}>Return</Button>
                 <div className={styles.progressBarContainer} title="Progress">
                     <Progress
-                        value={(step / 5) * 100}
-                        label={`${(step / 5) * 100}%`}
+                        value={(step / 6) * 100}
+                        label={`${step}/6`}
                         size="xl"
                         radius="xl"
                         striped

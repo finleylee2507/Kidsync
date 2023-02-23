@@ -67,9 +67,10 @@ const ReviewPage = ({
         let reminderList = reminderFormData.reminders.map((item, index) => {
             //reformat the date object so that it could be properly stored in firebase and retrieved later
             let newDate = item.schedule.eventDate ? item.schedule.eventDate.toUTCString() : "N/A";
-            let newWeekdays=item.schedule.weekdays.length===0?"N/A":item.schedule.weekdays
+            let newWeekdays = item.schedule.weekdays.length === 0 ? "N/A" : item.schedule.weekdays;
+            let newTime = item.time.toUTCString();
 
-            return {...item,schedule:{...item.schedule,eventDate:newDate,weekdays:newWeekdays}}
+            return {...item, time: newTime, schedule: {...item.schedule, eventDate: newDate, weekdays: newWeekdays}};
         });
 
         if (isEditMode) { //if we're editing

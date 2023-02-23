@@ -40,7 +40,7 @@ const SchedulePopUp = ({form, index}) => {
 
             <Popover.Target>
                 <Button
-                    variant="outline">{form.values.reminders[index].schedule.weekdays.length == 0 && !form.values.reminders[index].schedule.eventDate ? "Add Schedule" : "Edit Schedule"}</Button>
+                    variant="outline">{form.values.reminders[index].schedule.weekdays.length === 0 && !form.values.reminders[index].schedule.eventDate ? "Add Schedule" : "Edit Schedule"}</Button>
             </Popover.Target>
             <Popover.Dropdown>
                 <Select label="Schedule type" placeholder="Select one"
@@ -118,6 +118,7 @@ const ReminderForm = ({formData, nextStep, prevStep, setFormData}) => {
         validate: {},
     });
 
+    console.log("Reminder form data: ",form.values);
     useEffect(() => {
         form.setValues(formData);
     }, [formData]);
