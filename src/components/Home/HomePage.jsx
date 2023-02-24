@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { SimpleGrid, Container } from "@mantine/core";
 import DependentCard from "./../Dependents/DependentCard";
-import ClientsList from "../Sitters/ClientsList";
+import ClientCard from "../Sitters/ClientCard";
+import clients from "../../utilities/clients.json";
+import styles from "./HomePage.module.css";
 
 const HomePage = ({ user, allUsers, allDependents }) => {
   const [allDeps, setAllDeps] = useState(allDependents);
@@ -14,26 +16,36 @@ const HomePage = ({ user, allUsers, allDependents }) => {
 
   return (
     <React.Fragment>
-      <h1>My Dependents:</h1>
-      <Container py="xl">
-        <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
-          {!(
-            allDeps == null ||
-            allDeps.length == 1 ||
-            allUsers[user.uid]["dependents"] == null
-          ) &&
-            Object.entries(allUsers[user.uid]["dependents"]).map(
-              ([id, dependentID]) => (
-                <DependentCard
-                  key={id}
-                  dependent={allDependents[dependentID]}
-                />
-              )
-            )}
-        </SimpleGrid>
-      </Container>
-      <h1>In My Care:</h1>
-      <ClientsList />
+      <div className={styles.sectionHeaderContainer}>
+        <h1 className={styles.sectionHeader}>My Dependents</h1>
+        {/* <hr className={styles.headerBorder}></hr> */}
+      </div>
+      <div className={styles.dependentsContainer}>
+        {!(
+          allDeps == null ||
+          allDeps.length == 1 ||
+          allUsers[user.uid]["dependents"] == null
+        ) &&
+          Object.entries(allUsers[user.uid]["dependents"]).map(
+            ([id, dependentID]) => (
+              <DependentCard
+                key={id}
+                dependent={allDependents[dependentID]}
+                showAll={false}
+              />
+            )
+          )}
+      </div>
+      <div className={styles.sectionHeaderContainer}>
+        <h1 className={styles.sectionHeader}>In My Care</h1>
+        {/* <hr className={styles.headerBorder}></hr> */}
+      </div>
+      <div className={styles.dependentsContainer}>
+        {Object.entries(clients["clients"]).map(([id, client]) => {
+          console.log(client);
+          return <ClientCard key={id} client={client} />;
+        })}
+      </div>
     </React.Fragment>
   );
 };

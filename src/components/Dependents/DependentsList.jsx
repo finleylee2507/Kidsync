@@ -71,6 +71,7 @@ const DependentsList = ({ user, allUsers, allDependents }) => {
                 <DependentCard
                   key={id}
                   dependent={allDependents[dependentID]}
+                  showAll={true}
                 />
               )
             )}

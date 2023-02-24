@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import {
   Card,
   Image,
@@ -7,8 +7,14 @@ import {
   Badge,
   createStyles,
   Button,
+  Switch,
+  useMantineTheme,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
+import styles from "./ClientCard.module.css";
+// // import { FaCircleCheck } from "@fortawesome/free-solid-svg-icons";
+// // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { IconCheck, IconX } from "@tabler/icons";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -64,6 +70,10 @@ const ClientCard = ({ client }) => {
   const { classes, theme } = useStyles();
   const navigate = useNavigate();
 
+  // style for the switch
+  const switchTheme = useMantineTheme();
+  const [checked, setChecked] = useState(false);
+
   //handle click card
   const handleViewClient = (client) => {
     // use navigate() to pass the data
@@ -77,7 +87,7 @@ const ClientCard = ({ client }) => {
   );
 
   return (
-    <div style={{ width: "25rem", margin: "auto" }}>
+    <div className={styles.clientContainer}>
       <Card
         withBorder
         radius="md"
@@ -109,9 +119,32 @@ const ClientCard = ({ client }) => {
 
         <Card.Section className={classes.section}>
           <Group spacing={30}>
-            <Button radius="xl" variant="outline" style={{ flex: 1 }}>
-              With me
-            </Button>
+            {/* <Switch
+              checked={checked}
+              onChange={(event) => setChecked(event.currentTarget.checked)}
+              color="teal"
+              size="md"
+              label="Switch with thumb icon"
+              thumbIcon={
+                checked ? (
+                  <IconCheck
+                    size={12}
+                    color={
+                      switchTheme.colors.teal[switchTheme.fn.primaryShade()]
+                    }
+                    stroke={3}
+                  />
+                ) : (
+                  <IconX
+                    size={12}
+                    color={
+                      switchTheme.colors.red[switchTheme.fn.primaryShade()]
+                    }
+                    stroke={3}
+                  />
+                )
+              }
+            /> */}
 
             <Button radius="xl" color="red" style={{ flex: 1, color: "white" }}>
               Emergency info
