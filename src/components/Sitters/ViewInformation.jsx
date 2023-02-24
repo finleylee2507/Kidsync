@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./ViewDependent.module.css";
+import styles from "./ViewInformation.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Anchor,
@@ -10,18 +10,18 @@ import {
   Button,
 } from "@mantine/core";
 
-const ViewDependent = () => {
+const ViewInformation = () => {
   // obtain the data passed by navigate()
   const location = useLocation();
-  const dependent = location.state;
-  const dependentDocuments = dependent.documents;
+  const client = location.state;
+  const clientDocuments = client.documents;
   const navigate = useNavigate();
 
   return (
     <Container pb={40}>
       <Button
         onClick={() => {
-          navigate("/dependents");
+          navigate("/clients");
         }}
         className={styles.backButton}
       >
@@ -29,36 +29,21 @@ const ViewDependent = () => {
       </Button>
       <div className={styles.viewTitle}>
         <Text fz="xl" fw="700" mb="2rem" className={styles.titleText}>
-          Dependent Information
+          Client Information
         </Text>
       </div>
 
       {/*basic information*/}
       <Paper withBorder radius="md" p="lg" mb="lg">
-        <div className={styles.editWrapper}>
-          <Text fz="xl" fw="700">
-            Basic Information
-          </Text>
-          <Button
-            onClick={() => {
-              navigate("/edit-dependents-profile/", {
-                state: { ...dependent, step: 0 },
-              });
-            }}
-            className={styles.editButton}
-          >
-            Edit
-          </Button>
-        </div>
+        <Text fz="xl" fw="700">
+          Basic Information
+        </Text>
         <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Name
             </Text>
-            <Text>
-              {" "}
-              {`${dependent.basic.firstName} ${dependent.basic.lastName}`}
-            </Text>
+            <Text> {`${client.basic.firstName} ${client.basic.lastName}`}</Text>
           </div>
 
           <div>
@@ -67,8 +52,8 @@ const ViewDependent = () => {
             </Text>
             <Text>
               {" "}
-              {dependent.basic.birthday !== "N/A"
-                ? new Date(dependent.basic.birthday).toLocaleDateString()
+              {client.basic.birthday !== "N/A"
+                ? new Date(client.basic.birthday).toLocaleDateString()
                 : "N/A"}
             </Text>
           </div>
@@ -77,113 +62,89 @@ const ViewDependent = () => {
             <Text fz="lg" fw="500" mt="2rem">
               Relationship
             </Text>
-            <Text> {dependent.basic.relationship}</Text>
+            <Text> {client.basic.relationship}</Text>
           </div>
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Preferred Pronouns
             </Text>
-            <Text> {dependent.basic.preferredPronouns}</Text>
+            <Text> {client.basic.preferredPronouns}</Text>
           </div>
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Sex
             </Text>
-            <Text> {dependent.basic.sex}</Text>
+            <Text> {client.basic.sex}</Text>
           </div>
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Address
             </Text>
-            <Text> {dependent.basic.address}</Text>
+            <Text> {client.basic.address}</Text>
           </div>
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Phone Number
             </Text>
-            <Text> {dependent.basic.phoneNumber}</Text>
+            <Text> {client.basic.phoneNumber}</Text>
           </div>
         </SimpleGrid>
       </Paper>
 
       {/*emergency information*/}
       <Paper withBorder radius="md" p="lg" mb="lg">
-        <div className={styles.editWrapper}>
-          <Text fz="xl" fw="700">
-            Emergency Information
-          </Text>
-          <Button
-            onClick={() => {
-              navigate("/edit-dependents-profile/", {
-                state: { ...dependent, step: 1 },
-              });
-            }}
-            className={styles.editButton}
-          >
-            Edit
-          </Button>
-        </div>
+        <Text fz="xl" fw="700">
+          Emergency Information
+        </Text>
         <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Emergency Contact Name
             </Text>
-            <Text> {dependent.emergency.emergencyContactName}</Text>
+            <Text> {client.emergency.emergencyContactName}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Emergency Contact Phone
             </Text>
-            <Text> {dependent.emergency.emergencyContactPhone}</Text>
+            <Text> {client.emergency.emergencyContactPhone}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Emergency Contact Relationship
             </Text>
-            <Text> {dependent.emergency.emergencyContactRelationship}</Text>
+            <Text> {client.emergency.emergencyContactRelationship}</Text>
           </div>
         </SimpleGrid>
       </Paper>
 
       {/* education information*/}
       <Paper withBorder radius="md" p="lg" mb="lg">
-        <div className={styles.editWrapper}>
-          <Text fz="xl" fw="700">
-            Education Information
-          </Text>
-          <Button
-            onClick={() => {
-              navigate("/edit-dependents-profile/", {
-                state: { ...dependent, step: 2 },
-              });
-            }}
-            className={styles.editButton}
-          >
-            Edit
-          </Button>
-        </div>
+        <Text fz="xl" fw="700">
+          Education Information
+        </Text>
         <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               School Name
             </Text>
-            <Text> {dependent.education.schoolName}</Text>
+            <Text> {client.education.schoolName}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Teacher Name
             </Text>
-            <Text> {dependent.education.teacherName}</Text>
+            <Text> {client.education.teacherName}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Grade
             </Text>
-            <Text> {dependent.education.grade}</Text>
+            <Text> {client.education.grade}</Text>
           </div>
 
           <div>
@@ -192,8 +153,8 @@ const ViewDependent = () => {
             </Text>
             <Text>
               {" "}
-              {dependent.education.startTime !== "N/A"
-                ? new Date(dependent.education.startTime).toLocaleTimeString()
+              {client.education.startTime !== "N/A"
+                ? new Date(client.education.startTime).toLocaleTimeString()
                 : "N/A"}
             </Text>
           </div>
@@ -204,8 +165,8 @@ const ViewDependent = () => {
             </Text>
             <Text>
               {" "}
-              {dependent.education.endTime !== "N/A"
-                ? new Date(dependent.education.endTime).toLocaleTimeString()
+              {client.education.endTime !== "N/A"
+                ? new Date(client.education.endTime).toLocaleTimeString()
                 : "N/A"}
             </Text>
           </div>
@@ -214,7 +175,7 @@ const ViewDependent = () => {
             <Text fz="lg" fw="500" mt="2rem">
               Bus Number
             </Text>
-            <Text> {dependent.education.busNumber}</Text>
+            <Text> {client.education.busNumber}</Text>
           </div>
 
           <div>
@@ -223,8 +184,8 @@ const ViewDependent = () => {
             </Text>
             <Text>
               {" "}
-              {dependent.education.busTime !== "N/A"
-                ? new Date(dependent.education.busTime).toLocaleTimeString()
+              {client.education.busTime !== "N/A"
+                ? new Date(client.education.busTime).toLocaleTimeString()
                 : "N/A"}
             </Text>
           </div>
@@ -233,48 +194,36 @@ const ViewDependent = () => {
 
       {/*general care information*/}
       <Paper withBorder radius="md" p="lg" mb="lg">
-        <div className={styles.editWrapper}>
-          <Text fz="xl" fw="700">
-            General Care Information
-          </Text>
-          <Button
-            onClick={() => {
-              navigate("/edit-dependents-profile/", {
-                state: { ...dependent, step: 3 },
-              });
-            }}
-            className={styles.editButton}
-          >
-            Edit
-          </Button>
-        </div>
+        <Text fz="xl" fw="700">
+          General Care Information
+        </Text>
         <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Routine Notes
             </Text>
-            <Text> {dependent.generalCare.routineNotes}</Text>
+            <Text> {client.generalCare.routineNotes}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Extracurriculars
             </Text>
-            <Text> {dependent.generalCare.extracurriculars}</Text>
+            <Text> {client.generalCare.extracurriculars}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Allergies
             </Text>
-            <Text> {dependent.generalCare.allergies}</Text>
+            <Text> {client.generalCare.allergies}</Text>
           </div>
 
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Current Medications
             </Text>
-            <Text> {dependent.generalCare.currentMedications}</Text>
+            <Text> {client.generalCare.currentMedications}</Text>
           </div>
           <div>
             <Text fz="lg" fw="500" mt="2rem">
@@ -282,8 +231,8 @@ const ViewDependent = () => {
             </Text>
             <Text>
               {" "}
-              {dependent.generalCare.bedTime !== "N/A"
-                ? new Date(dependent.generalCare.bedTime).toLocaleTimeString()
+              {client.generalCare.bedTime !== "N/A"
+                ? new Date(client.generalCare.bedTime).toLocaleTimeString()
                 : "N/A"}
             </Text>
           </div>
@@ -292,38 +241,26 @@ const ViewDependent = () => {
             <Text fz="lg" fw="500" mt="2rem">
               Medication Schedule
             </Text>
-            <Text> {dependent.generalCare.medicationSchedule}</Text>
+            <Text> {client.generalCare.medicationSchedule}</Text>
           </div>
         </SimpleGrid>
       </Paper>
 
-      <Paper withBorder radius="md" p="lg" mb="lg">
-        <div className={styles.editWrapper}>
-          <Text fz="xl" fw="700">
-            Documents Upload
-          </Text>
-          <Button
-            onClick={() => {
-              navigate("/edit-dependents-profile/", {
-                state: { ...dependent, step: 4 },
-              });
-            }}
-            className={styles.editButton}
-          >
-            Edit
-          </Button>
-        </div>
+      {/* <Paper withBorder radius="md" p="lg" mb="lg">
+        <Text fz="xl" fw="700">
+          Documents Upload
+        </Text>
         <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
           <div>
             <Text fz="lg" fw="500" mt="2rem">
               Immunization File
             </Text>
-            {dependentDocuments["immunizationFile"] !== "N/A" ? (
+            {clientDocuments["immunizationFile"] !== "N/A" ? (
               <Anchor
-                href={dependentDocuments["immunizationFile"]["fileLink"]}
+                href={clientDocuments["immunizationFile"]["fileLink"]}
                 target="_blank"
               >
-                {dependentDocuments["immunizationFile"]["fileName"]}
+                {clientDocuments["immunizationFile"]["fileName"]}
               </Anchor>
             ) : (
               <Text c="red"> Not uploaded</Text>
@@ -334,12 +271,12 @@ const ViewDependent = () => {
             <Text fz="lg" fw="500" mt="2rem">
               Insurance Card
             </Text>
-            {dependentDocuments["insuranceCard"] !== "N/A" ? (
+            {clientDocuments["insuranceCard"] !== "N/A" ? (
               <Anchor
-                href={dependentDocuments["insuranceCard"]["fileLink"]}
+                href={clientDocuments["insuranceCard"]["fileLink"]}
                 target="_blank"
               >
-                {dependentDocuments["insuranceCard"]["fileName"]}
+                {clientDocuments["insuranceCard"]["fileName"]}
               </Anchor>
             ) : (
               <Text c="red"> Not uploaded</Text>
@@ -350,12 +287,12 @@ const ViewDependent = () => {
             <Text fz="lg" fw="500" mt="2rem">
               ESA Documents
             </Text>
-            {dependentDocuments["esaDocuments"] !== "N/A" ? (
+            {clientDocuments["esaDocuments"] !== "N/A" ? (
               <Anchor
-                href={dependentDocuments["esaDocuments"]["fileLink"]}
+                href={clientDocuments["esaDocuments"]["fileLink"]}
                 target="_blank"
               >
-                {dependentDocuments["esaDocuments"]["fileName"]}
+                {clientDocuments["esaDocuments"]["fileName"]}
               </Anchor>
             ) : (
               <Text c="red"> Not uploaded</Text>
@@ -366,21 +303,21 @@ const ViewDependent = () => {
             <Text fz="lg" fw="500" mt="2rem">
               FSA Documents
             </Text>
-            {dependentDocuments["fsaDocuments"] !== "N/A" ? (
+            {clientDocuments["fsaDocuments"] !== "N/A" ? (
               <Anchor
-                href={dependentDocuments["fsaDocuments"]["fileLink"]}
+                href={clientDocuments["fsaDocuments"]["fileLink"]}
                 target="_blank"
               >
-                {dependentDocuments["fsaDocuments"]["fileName"]}
+                {clientDocuments["fsaDocuments"]["fileName"]}
               </Anchor>
             ) : (
               <Text c="red"> Not uploaded</Text>
             )}
           </div>
         </SimpleGrid>
-      </Paper>
+      </Paper> */}
     </Container>
   );
 };
 
-export default ViewDependent;
+export default ViewInformation;
