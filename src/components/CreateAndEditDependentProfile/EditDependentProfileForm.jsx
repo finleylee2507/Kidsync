@@ -8,7 +8,6 @@ import styles from "./CreateDependentProfileForm.module.css";
 import {Button, Divider, Modal, Progress, Text} from "@mantine/core";
 import ReviewPage from "./ReviewPage";
 import {useLocation, useNavigate} from "react-router-dom";
-import {ToastContainer} from "react-toastify";
 import ReminderForm from "./ReminderForm";
 
 const EditDependentProfileForm = ({user, allUsers}) => {
@@ -80,7 +79,6 @@ const EditDependentProfileForm = ({user, allUsers}) => {
         reminders: []
     });
 
-    console.log("Reminder data: ",dependent.reminders);
     useEffect(() => {
         setBasicFormData({...dependent.basic, birthday: new Date(dependent.basic.birthday)});
         setEmergencyFormData(dependent.emergency);
@@ -95,18 +93,24 @@ const EditDependentProfileForm = ({user, allUsers}) => {
             bedTime: dependent.generalCare.bedTime !== "N/A" ? new Date(dependent.generalCare.bedTime) : ""
         });
 
+        let processedReminders;
         //pre-process reminder data and reconstruct
-        let processedReminders=dependent.reminders.map((item,index)=>{
-            let newWeekdays=(item.schedule.weekdays==="N/A")?[]:item.schedule.weekdays
-            let newEventDate=(item.schedule.eventDate==="N/A")?null:new Date(item.schedule.eventDate)
-            let newTime=new Date(item.time)
+        if (dependent.reminders === "N/A") {
+            processedReminders = [];
+        } else {
+            processedReminders = dependent.reminders.map((item, index) => {
+                let newWeekdays = (item.schedule.weekdays === "N/A") ? [] : item.schedule.weekdays;
+                let newEventDate = (item.schedule.eventDate === "N/A") ? null : new Date(item.schedule.eventDate);
+                let newTime = new Date(item.time);
 
 
-            return{
-                ...item,time:newTime,schedule:{...item.schedule,weekdays:newWeekdays,eventDate:newEventDate}
-            }
-        })
-        setReminderFormData({reminders: processedReminders})
+                return {
+                    ...item, time: newTime, schedule: {...item.schedule, weekdays: newWeekdays, eventDate: newEventDate}
+                };
+            });
+        }
+
+        setReminderFormData({reminders: processedReminders});
         //NOTE: we don't set documentFormData to what's coming from the database
 
     }, [dependent]);

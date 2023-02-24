@@ -144,6 +144,7 @@ const ReviewPage = ({
                     allergies: generalCareFormData.allergies
                 },
                 documents: newDocumentObject,
+                reminders: (reminderList.length>0)?reminderList:"N/A"
             };
 
             // Add object to database
@@ -239,7 +240,7 @@ const ReviewPage = ({
                     esaDocuments: fileLinks["esaDocuments"],
                     fsaDocuments: fileLinks["fsaDocuments"],
                 },
-                reminders: reminderList
+                reminders: (reminderList.length>0)?reminderList:"N/A"
             };
 
             let updatedUserDependents;
@@ -531,36 +532,39 @@ const ReviewPage = ({
             <Text fz="xl" fw="700" mt="2rem">
                 Reminders for Caretakers
             </Text>
+            {reminderFormData.reminders.length > 0 ? (
+                <Table>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Time</th>
+                        <th>Schedule</th>
+                    </tr>
+                    </thead>
 
-            <Table>
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Time</th>
-                    <th>Schedule</th>
-                </tr>
-                </thead>
+                    <tbody>
+                    {reminderFormData.reminders.map((item, index) => {
+                        return (
 
-                <tbody>
-                {reminderFormData.reminders.map((item, index) => {
-                    return (
+                            <tr key={index}>
+                                <td><Text>{index + 1}</Text></td>
+                                <td><Text>{item.taskName}</Text></td>
+                                <td><Text>{item.time.toLocaleTimeString()}</Text></td>
+                                <td><Text>{
+                                    item.schedule.scheduleType === "recurring" ? (
+                                        `Weekly on ${item.schedule.weekdays.join(", ")}`
+                                    ) : (item.schedule.eventDate.toLocaleDateString())
+                                }</Text></td>
+                            </tr>
 
-                        <tr key={index}>
-                            <td><Text>{index + 1}</Text></td>
-                            <td><Text>{item.taskName}</Text></td>
-                            <td><Text>{item.time.toLocaleTimeString()}</Text></td>
-                            <td><Text>{
-                                item.schedule.scheduleType === "recurring" ? (
-                                    `Weekly on ${item.schedule.weekdays.join(", ")}`
-                                ) : (item.schedule.eventDate.toLocaleDateString())
-                            }</Text></td>
-                        </tr>
-
-                    );
-                })}
-                </tbody>
-            </Table>
+                        );
+                    })}
+                    </tbody>
+                </Table>
+            ):(
+                <Text>N/A</Text>
+            )}
 
 
             <Group position="right" mt="md">
