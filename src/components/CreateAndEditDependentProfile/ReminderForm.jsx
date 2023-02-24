@@ -57,7 +57,6 @@ const SchedulePopUp = ({form, index}) => {
                                 null
                             );
 
-
                             //set new value
                             form.setFieldValue(
                                 `reminders.${index}.schedule.scheduleType`,
@@ -115,13 +114,42 @@ const ReminderForm = ({formData, nextStep, prevStep, setFormData}) => {
             reminders: []
 
         },
-        validate: {},
+        validate: {
+            reminders:{
+                time:(value)=>(!value)?"Time is required":null,
+                taskName:(value)=>(!value)?"Task name is required":null,
+
+                //not working
+
+                // schedule:{
+                //     scheduleType:(value)=>(value==="")?"Schedule type is required":null,
+                //     eventDate:(value,values)=>{ //error message not displaying rn since the field is not input field
+                //         if (values.scheduleType === "recurring") {
+                //             return null; // do nothing if scheduleType is "recurring"
+                //         }
+                //         else{
+                //             return (!value)?"Please select a date":null
+                //         }
+                //     },
+                //     weekdays:(value,values)=>{
+                //         if(values.scheduleType==="oneTime"){
+                //             return null; //do nothing if scheduleType is "oneTime"
+                //         }
+                //         else{
+                //             return (value.length===0)?"Please select at least a day":null
+                //         }
+                //     }
+                //
+                // }
+            }
+        },
     });
 
-    console.log("Reminder form data: ",form.values);
+    // console.log("Reminder form data: ",form.values);
     useEffect(() => {
         form.setValues(formData);
     }, [formData]);
+
 
     const handleAddItems = () => {
         form.insertListItem('reminders', {
@@ -134,11 +162,45 @@ const ReminderForm = ({formData, nextStep, prevStep, setFormData}) => {
     const handleRemoveItems = (index) => {
         form.removeListItem('reminders', index);
     };
+
+    //might not need it
+    const validateInput = () => {
+
+        const errors = {};
+
+
+        form.values.reminders.forEach((reminder, index) => {
+            if (!reminder.time) {
+                errors[`reminders.${index}.time`] = "Time is required";
+            }
+
+            if (!reminder.taskName) {
+                errors[`reminders.${index}.taskName`] = "Task name is required";
+            }
+
+            if (!reminder.schedule.scheduleType) {
+                errors[`reminders.${index}.schedule.scheduleType`] = "Schedule type is required";
+            } else if (reminder.schedule.scheduleType === "recurring" && reminder.schedule.weekdays.length === 0) {
+                errors[`reminders.${index}.schedule.weekdays`] = "Please select at least one weekday";
+            } else if (reminder.schedule.scheduleType === "oneTime" && !reminder.schedule.eventDate) {
+                errors[`reminders.${index}.schedule.eventDate`] = "Event date is required";
+            }
+        });
+
+        console.log("Errors: ", errors);
+        for (const [key,value]of Object.entries(errors)){
+            form.setFieldError(key,value)
+        }
+        return errors;
+
+
+    };
     return (
 
         <div>
             <Text fz="xl" fw="700" mb="2rem" mt="2rem">Add Reminders for Caretakers:</Text>
             <form onSubmit={form.onSubmit((values, event) => {
+                // validateInput()
                 setFormData(values);
                 nextStep();
             })
