@@ -1,13 +1,14 @@
 import React from "react";
 import styles from "./ViewDependent.module.css";
 import {useLocation,useNavigate} from "react-router-dom";
-import {Anchor, Container, Paper, SimpleGrid, Text,Button} from "@mantine/core";
+import {Anchor, Container, Paper, SimpleGrid, Text,Button, Table} from "@mantine/core";
 
 const ViewDependent = () => {
     // obtain the data passed by navigate()
     const location = useLocation();
     const dependent = location.state;
     const dependentDocuments = dependent.documents;
+    console.log(dependent)
     const navigate = useNavigate();
 
     return (
@@ -267,6 +268,39 @@ const ViewDependent = () => {
                     </div>
                 </SimpleGrid>
             </Paper>
+            {dependent.reminders.length > 0 ? (
+                <Table>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Time</th>
+                        <th>Schedule</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {dependent.reminders.map((item, index) => {
+                        return (
+                            
+                            <tr key={index}>
+                                <td><Text>{index + 1}</Text></td>
+                                <td><Text>{item.taskName}</Text></td>
+                                <td><Text>{new Date(item.time).toLocaleTimeString()}</Text></td>
+                                <td><Text>{
+                                    item.schedule.scheduleType === "recurring" ? (
+                                        `Weekly on ${item.schedule.weekdays.join(", ")}`
+                                    ) : (new Date(item.schedule.eventDate).toLocaleDateString())
+                                }</Text></td>
+                            </tr>
+
+                        );
+                    })}
+                    </tbody>
+                </Table>
+            ):(
+                <Text>N/A</Text>
+            )}
         </Container>
     );
 };

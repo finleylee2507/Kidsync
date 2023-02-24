@@ -545,6 +545,7 @@ const ReviewPage = ({
 
                     <tbody>
                     {reminderFormData.reminders.map((item, index) => {
+                        // console.log(re)
                         return (
 
                             <tr key={index}>
