@@ -268,39 +268,49 @@ const ViewDependent = () => {
                     </div>
                 </SimpleGrid>
             </Paper>
-            {dependent.reminders.length > 0 ? (
-                <Table>
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Time</th>
-                        <th>Schedule</th>
-                    </tr>
-                    </thead>
 
-                    <tbody>
-                    {dependent.reminders.map((item, index) => {
-                        return (
-                            
-                            <tr key={index}>
-                                <td><Text>{index + 1}</Text></td>
-                                <td><Text>{item.taskName}</Text></td>
-                                <td><Text>{new Date(item.time).toLocaleTimeString()}</Text></td>
-                                <td><Text>{
-                                    item.schedule.scheduleType === "recurring" ? (
-                                        `Weekly on ${item.schedule.weekdays.join(", ")}`
-                                    ) : (new Date(item.schedule.eventDate).toLocaleDateString())
-                                }</Text></td>
+            <Paper withBorder radius="md" p="lg" mb="lg">
+                <Text fz="xl" fw="700">
+                    Reminders for Caretakers
+                </Text>
+                <SimpleGrid cols={1} breakpoints={[{maxWidth: "md", cols: 1}]}>
+                    {dependent.reminders.length > 0 ? (
+                        <Table>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Time</th>
+                                <th>Schedule</th>
                             </tr>
+                            </thead>
 
-                        );
-                    })}
-                    </tbody>
-                </Table>
-            ):(
-                <Text>N/A</Text>
-            )}
+                            <tbody>
+                            {dependent.reminders.map((item, index) => {
+                                return (
+
+                                    <tr key={index}>
+                                        <td><Text>{index + 1}</Text></td>
+                                        <td><Text>{item.taskName}</Text></td>
+                                        <td><Text>{new Date(item.time).toLocaleTimeString()}</Text></td>
+                                        <td><Text>{
+                                            item.schedule.scheduleType === "recurring" ? (
+                                                `Weekly on ${item.schedule.weekdays.join(", ")}`
+                                            ) : (new Date(item.schedule.eventDate).toLocaleDateString())
+                                        }</Text></td>
+                                    </tr>
+
+                                );
+                            })}
+                            </tbody>
+                        </Table>
+                    ):(
+                        <Text>N/A</Text>
+                    )}
+                </SimpleGrid>
+
+            </Paper>
+
         </Container>
     );
 };

@@ -27,7 +27,7 @@ const UserDetails = ({ user }) => {
       <form
         onSubmit={form.onSubmit((values) => {
           console.log("Values: ", values);
-          navigate("/dependents");
+          navigate("/home");
         })}
       >
         <TextInput

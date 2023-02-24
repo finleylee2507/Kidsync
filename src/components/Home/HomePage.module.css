@@ -1,0 +1,28 @@
+.sectionHeader{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #238BE6;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+
+.sectionHeaderContainer{
+    width: 12rem;
+}
+
+.headerBorder{
+    border: 1px solid #4F9FE6;
+}
+
+/* .homeContainer{
+    justify-content: right;
+} */
+
+.dependentsContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin-top: 1rem;
+    margin-left: 1.5rem;
+    margin-bottom: 3rem;
+}
