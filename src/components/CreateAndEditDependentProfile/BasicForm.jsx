@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Button, Group, Input, Select, Text, TextInput} from "@mantine/core";
+import {Button, FileInput, Group, Input, Select, Text, TextInput} from "@mantine/core";
 import InputMask from 'react-input-mask';
 import {useForm} from "@mantine/form";
 import {DatePicker} from "@mantine/dates";
@@ -17,6 +17,7 @@ const BasicForm = ({formData, nextStep, setFormData}) => {
             sex: "",
             address: "",
             phoneNumber: "",
+            profilePic:""
 
         },
         validate: {
@@ -44,7 +45,7 @@ const BasicForm = ({formData, nextStep, setFormData}) => {
                 <TextInput withAsterisk label="Last Name" {...form.getInputProps('lastName')} size="lg"
                            required/>
 
-
+                <FileInput label="Profile Picture" {...form.getInputProps('profilePic')} size="lg"/>
                 <DatePicker label="Birthday" size="lg"
                             withAsterisk {...form.getInputProps('birthday')}
 
