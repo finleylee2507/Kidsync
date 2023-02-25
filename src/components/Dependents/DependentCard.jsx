@@ -53,7 +53,7 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-const DependentCard = ({dependent, showAll,handleNewModalState,handleExistingModalState}) => {
+const DependentCard = ({dependent, showAll,handleNewModalState,handleExistingModalState, setCurrentDependentName}) => {
     const {classes, theme} = useStyles();
     const navigate = useNavigate();
 
@@ -126,6 +126,7 @@ const DependentCard = ({dependent, showAll,handleNewModalState,handleExistingMod
                                 <Menu.Target>
                                     <Button onClick={(e)=>{
                                       e.stopPropagation()
+                                      setCurrentDependentName(`${dependent.basic.firstName}`)
                                     }}>
                                         Manage Access
                                     </Button>

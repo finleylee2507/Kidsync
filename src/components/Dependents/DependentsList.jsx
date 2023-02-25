@@ -22,8 +22,9 @@ const useStyles = createStyles(() => ({
 
 const DependentsList = ({ user, allUsers, allDependents }) => {
   const [allDeps, setAllDeps] = useState(allDependents);
-  const[isOpenExistingModal,setIsOpenExistingModal]=useState(false)
+  const[isOpenExistingModal,setIsOpenExistingModal]=useState(true)
   const[isOpenNewModal,setIsOpenNewModal]=useState(false)
+  const [currentDependentName, setCurrentDependentName] = useState('')
 
   useEffect(() => {
     if (allDependents) {
@@ -45,7 +46,11 @@ const DependentsList = ({ user, allUsers, allDependents }) => {
   ) {
     return (
       <div>
+        
+        <ExistingAccessModal isOpen={isOpenExistingModal} handleModalState={setIsOpenExistingModal}/>
+        <NewAccessModal isOpen={isOpenNewModal} handleModalState={setIsOpenNewModal}/>
         <Container>
+          
           <Button
             fullWidth
             className={classes.button}
@@ -61,7 +66,7 @@ const DependentsList = ({ user, allUsers, allDependents }) => {
     return (
       <div>
         <ExistingAccessModal isOpen={isOpenExistingModal} handleModalState={setIsOpenExistingModal}/>
-        <NewAccessModal isOpen={isOpenNewModal} handleModalState={setIsOpenNewModal}/>
+        <NewAccessModal isOpen={isOpenNewModal} handleModalState={setIsOpenNewModal} dependentName={currentDependentName}/>
         <Button
           fullWidth
           className={classes.button}
@@ -80,6 +85,7 @@ const DependentsList = ({ user, allUsers, allDependents }) => {
                   showAll={true}
                   handleExistingModalState={setIsOpenExistingModal}
                   handleNewModalState={setIsOpenNewModal}
+                  setCurrentDependentName={setCurrentDependentName}
                 />
               )
             )}
