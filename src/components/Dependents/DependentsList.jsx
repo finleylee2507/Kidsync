@@ -4,6 +4,8 @@ import styles from "./DependentsList.module.css";
 import { SimpleGrid, Container, createStyles, Button } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { useDbData } from "../../utilities/firebase";
+import ExistingAccessModal from "../ExistingAccess/ExistingAccessModal";
+import NewAccessModal from "../GrantNewAccess/NewAccessModal";
 
 const useStyles = createStyles(() => ({
   button: {
@@ -20,6 +22,8 @@ const useStyles = createStyles(() => ({
 
 const DependentsList = ({ user, allUsers, allDependents }) => {
   const [allDeps, setAllDeps] = useState(allDependents);
+  const[isOpenExistingModal,setIsOpenExistingModal]=useState(false)
+  const[isOpenNewModal,setIsOpenNewModal]=useState(false)
 
   useEffect(() => {
     if (allDependents) {
@@ -56,6 +60,8 @@ const DependentsList = ({ user, allUsers, allDependents }) => {
   } else {
     return (
       <div>
+        <ExistingAccessModal isOpen={isOpenExistingModal} handleModalState={setIsOpenExistingModal}/>
+        <NewAccessModal isOpen={isOpenNewModal} handleModalState={setIsOpenNewModal}/>
         <Button
           fullWidth
           className={classes.button}
@@ -72,6 +78,8 @@ const DependentsList = ({ user, allUsers, allDependents }) => {
                   key={id}
                   dependent={allDependents[dependentID]}
                   showAll={true}
+                  handleExistingModalState={setIsOpenExistingModal}
+                  handleNewModalState={setIsOpenNewModal}
                 />
               )
             )}
