@@ -10,7 +10,7 @@ const NewAccessModal=({isOpen,handleModalState, dependentName})=> {
         initialValues: {
           name: '',
           email: '',
-          phoneNumber: null,
+          phoneNumber: "",
           accessGranted:['emergency'],
           relationship:'',
           otherRelationship:''
@@ -51,15 +51,23 @@ const NewAccessModal=({isOpen,handleModalState, dependentName})=> {
                         {...form.getInputProps('email')}
                     />
                     <Input.Wrapper label="Phone Number" withAsterisk error={form.errors.phoneNumber}>
-                        <Input component={InputMask} mask="+1 (999) 999-9999" withAsterisk {...form.getInputProps('phoneNumber')}/>
+                        <Input component={InputMask} mask="+1 (999) 999-9999" {...form.getInputProps('phoneNumber')}/>
                     </Input.Wrapper>
                     <Radio.Group
                         name="relationship"
                         label="Relationship"
-                        
-                        // description="This is anonymous"
-                        withAsterisk
                         {...form.getInputProps('relationship')}
+                        onClick={()=>{
+                            //reset otherRelationship everytime we select
+                            form.setFieldValue("otherRelationship","")
+                        }}
+                        withAsterisk
+                        // onChange={()=>{
+                        //     console.log("changing");
+                        //
+                        // }}
+
+
                         >
                         <Radio value="coparent" label="Co-Parent" />
                         <Radio value="doctor" label="Doctor" />
@@ -77,7 +85,6 @@ const NewAccessModal=({isOpen,handleModalState, dependentName})=> {
                     <Checkbox.Group
                         defaultValue={['emergency']}
                         label="Access Granted"
-                        // description="This is anonymous"
                         withAsterisk
                         {...form.getInputProps('accessGranted')}
                         >

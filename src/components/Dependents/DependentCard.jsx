@@ -133,7 +133,6 @@ const DependentCard = ({dependent, showAll,handleNewModalState,handleExistingMod
                                 </Menu.Target>
                                 <Menu.Dropdown>
                                     <Menu.Item onClick={(e)=>{
-                                        console.log("modal");
                                         e.stopPropagation()
                                         handleExistingModalState(true)
                                     }}
@@ -141,7 +140,6 @@ const DependentCard = ({dependent, showAll,handleNewModalState,handleExistingMod
                                       Existing Access
                                     </Menu.Item>
                                     <Menu.Item onClick={(e)=>{
-                                        console.log("modal");
                                         e.stopPropagation()
                                         handleNewModalState(true)
                                     }}

@@ -22,7 +22,7 @@ const useStyles = createStyles(() => ({
 
 const DependentsList = ({ user, allUsers, allDependents }) => {
   const [allDeps, setAllDeps] = useState(allDependents);
-  const[isOpenExistingModal,setIsOpenExistingModal]=useState(true)
+  const[isOpenExistingModal,setIsOpenExistingModal]=useState(false)
   const[isOpenNewModal,setIsOpenNewModal]=useState(false)
   const [currentDependentName, setCurrentDependentName] = useState('')
 
