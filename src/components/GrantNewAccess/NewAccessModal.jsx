@@ -39,7 +39,7 @@ const NewAccessModal = ({isOpen, handleModalState, dependentName}) => {
                 })
                 }>
 
-                    <Grid gutter="xl" justify="center">
+                    <Grid gutter="xl" justify="center" >
                         <Grid.Col span={6}>
                             <TextInput
                                 placeholder="Your name"
@@ -52,8 +52,9 @@ const NewAccessModal = ({isOpen, handleModalState, dependentName}) => {
                                 label="Email"
                                 withAsterisk
                                 {...form.getInputProps('email')}
+                                mt="1rem"
                             />
-                            <Input.Wrapper label="Phone Number" withAsterisk error={form.errors.phoneNumber}>
+                            <Input.Wrapper label="Phone Number" withAsterisk error={form.errors.phoneNumber} mt="1rem">
                                 <Input component={InputMask} mask="+1 (999) 999-9999" {...form.getInputProps('phoneNumber')}/>
                             </Input.Wrapper>
                         </Grid.Col>
@@ -87,6 +88,7 @@ const NewAccessModal = ({isOpen, handleModalState, dependentName}) => {
                                 label="Access Granted"
                                 withAsterisk
                                 {...form.getInputProps('accessGranted')}
+                                mt="2rem"
                             >
                                 <Checkbox value="basic" label="Basic"/>
                                 <Checkbox value="reminders" label="Reminders"/>
