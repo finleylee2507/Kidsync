@@ -41,10 +41,21 @@ const HomePage = ({ user, allUsers, allDependents }) => {
         {/* <hr className={styles.headerBorder}></hr> */}
       </div>
       <div className={styles.dependentsContainer}>
-        {Object.entries(clients["clients"]).map(([id, client]) => {
-          console.log(client);
-          return <ClientCard key={id} client={client} />;
-        })}
+        {!(
+          allDeps == null ||
+          allDeps.length == 1 ||
+          allUsers[user.uid].clients == null
+        ) &&
+          Object.entries(allUsers[user.uid].clients).map(([id, client]) => {
+            console.log(client);
+            return (
+              <ClientCard
+                key={id}
+                client={allDependents[client.id]}
+                permissions={client.permissions}
+              />
+            );
+          })}
       </div>
     </React.Fragment>
   );

@@ -20,11 +20,17 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-const DependentsList = ({ user, allUsers, allDependents }) => {
+const DependentsList = ({
+  user,
+  allUsers,
+  allDependents,
+  emailToIDMapping,
+}) => {
   const [allDeps, setAllDeps] = useState(allDependents);
-  const[isOpenExistingModal,setIsOpenExistingModal]=useState(false)
-  const[isOpenNewModal,setIsOpenNewModal]=useState(true)
-  const [currentDependentName, setCurrentDependentName] = useState('')
+  const [isOpenExistingModal, setIsOpenExistingModal] = useState(false);
+  const [isOpenNewModal, setIsOpenNewModal] = useState(false);
+  const [currentDependentName, setCurrentDependentName] = useState("");
+  const [currentDependentID, setCurrentDependentID] = useState("");
 
   useEffect(() => {
     if (allDependents) {
@@ -46,11 +52,15 @@ const DependentsList = ({ user, allUsers, allDependents }) => {
   ) {
     return (
       <div>
-        
-        <ExistingAccessModal isOpen={isOpenExistingModal} handleModalState={setIsOpenExistingModal}/>
-        <NewAccessModal isOpen={isOpenNewModal} handleModalState={setIsOpenNewModal}/>
+        <ExistingAccessModal
+          isOpen={isOpenExistingModal}
+          handleModalState={setIsOpenExistingModal}
+        />
+        <NewAccessModal
+          isOpen={isOpenNewModal}
+          handleModalState={setIsOpenNewModal}
+        />
         <Container>
-          
           <Button
             fullWidth
             className={classes.button}
@@ -65,8 +75,19 @@ const DependentsList = ({ user, allUsers, allDependents }) => {
   } else {
     return (
       <div>
-        <ExistingAccessModal isOpen={isOpenExistingModal} handleModalState={setIsOpenExistingModal}/>
-        <NewAccessModal isOpen={isOpenNewModal} handleModalState={setIsOpenNewModal} dependentName={currentDependentName}/>
+        <ExistingAccessModal
+          isOpen={isOpenExistingModal}
+          handleModalState={setIsOpenExistingModal}
+        />
+        <NewAccessModal
+          user={user}
+          allUsers={allUsers}
+          emailToIDMapping={emailToIDMapping}
+          isOpen={isOpenNewModal}
+          handleModalState={setIsOpenNewModal}
+          dependentName={currentDependentName}
+          dependentID={currentDependentID}
+        />
         <Button
           fullWidth
           className={classes.button}
@@ -86,6 +107,7 @@ const DependentsList = ({ user, allUsers, allDependents }) => {
                   handleExistingModalState={setIsOpenExistingModal}
                   handleNewModalState={setIsOpenNewModal}
                   setCurrentDependentName={setCurrentDependentName}
+                  setCurrentDependentID={setCurrentDependentID}
                 />
               )
             )}

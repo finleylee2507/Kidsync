@@ -19,6 +19,7 @@ const App = () => {
   const user = useAuthState();
   const [dbUsers, dbUsersError] = useDbData("/users");
   const [dbDependents, dbDependentsError] = useDbData("/dependents");
+  const [dbEmailToID, dbEmailToIDError] = useDbData("/emailToID");
 
   if (dbUsersError) {
     console.log(
@@ -29,6 +30,11 @@ const App = () => {
     console.log(
       "Here was the error in getting the dependents from the database: ",
       dbDependentsError
+    );
+  } else if (dbEmailToIDError) {
+    console.log(
+      "Here was the error in getting the email to ID mapping from the database",
+      dbEmailToIDError
     );
   }
 
@@ -77,6 +83,7 @@ const App = () => {
                 user={user}
                 allUsers={dbUsers}
                 allDependents={dbDependents}
+                emailToIDMapping={dbEmailToID}
               />
             </div>
           }
@@ -105,8 +112,13 @@ const App = () => {
           path="/clients"
           element={
             <div>
+              <ToastContainer position="top-right" autoClose={1000} />
               <Navbar />
-              <ClientsList />
+              <ClientsList
+                user={user}
+                allUsers={dbUsers}
+                allDependents={dbDependents}
+              />
             </div>
           }
         ></Route>

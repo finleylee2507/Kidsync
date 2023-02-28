@@ -8,13 +8,18 @@ import {
   SimpleGrid,
   Text,
   Button,
+  Table,
 } from "@mantine/core";
 
 const ViewInformation = () => {
   // obtain the data passed by navigate()
   const location = useLocation();
-  const client = location.state;
-  const clientDocuments = client.documents;
+  const client = location.state.client;
+  console.log(client);
+  const permissions = location.state.permissions;
+  const showEmergency = location.state.showEmergency;
+  console.log(showEmergency);
+  // const clientDocuments = client.documents;
   const navigate = useNavigate();
 
   return (
@@ -33,218 +38,256 @@ const ViewInformation = () => {
         </Text>
       </div>
 
-      {/*basic information*/}
-      <Paper withBorder radius="md" p="lg" mb="lg">
-        <Text fz="xl" fw="700">
-          Basic Information
-        </Text>
-        <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Name
-            </Text>
-            <Text> {`${client.basic.firstName} ${client.basic.lastName}`}</Text>
-          </div>
-
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Birthday
-            </Text>
-            <Text>
-              {" "}
-              {client.basic.birthday !== "N/A"
-                ? new Date(client.basic.birthday).toLocaleDateString()
-                : "N/A"}
-            </Text>
-          </div>
-
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Relationship
-            </Text>
-            <Text> {client.basic.relationship}</Text>
-          </div>
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Preferred Pronouns
-            </Text>
-            <Text> {client.basic.preferredPronouns}</Text>
-          </div>
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Sex
-            </Text>
-            <Text> {client.basic.sex}</Text>
-          </div>
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Address
-            </Text>
-            <Text> {client.basic.address}</Text>
-          </div>
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Phone Number
-            </Text>
-            <Text> {client.basic.phoneNumber}</Text>
-          </div>
-        </SimpleGrid>
-      </Paper>
-
       {/*emergency information*/}
-      <Paper withBorder radius="md" p="lg" mb="lg">
-        <Text fz="xl" fw="700">
-          Emergency Information
-        </Text>
-        <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Emergency Contact Name
-            </Text>
-            <Text> {client.emergency.emergencyContactName}</Text>
-          </div>
+      {permissions.includes("emergency") && showEmergency && (
+        <Paper withBorder radius="md" p="lg" mb="lg">
+          <Text fz="xl" fw="700" color="red">
+            Emergency Information
+          </Text>
+          <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem" color="red">
+                Emergency Contact Name
+              </Text>
+              <Text> {client.emergency.emergencyContactName}</Text>
+            </div>
 
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Emergency Contact Phone
-            </Text>
-            <Text> {client.emergency.emergencyContactPhone}</Text>
-          </div>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem" color="red">
+                Emergency Contact Phone
+              </Text>
+              <Text> {client.emergency.emergencyContactPhone}</Text>
+            </div>
 
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Emergency Contact Relationship
-            </Text>
-            <Text> {client.emergency.emergencyContactRelationship}</Text>
-          </div>
-        </SimpleGrid>
-      </Paper>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem" color="red">
+                Emergency Contact Relationship
+              </Text>
+              <Text> {client.emergency.emergencyContactRelationship}</Text>
+            </div>
+          </SimpleGrid>
+        </Paper>
+      )}
+
+      {/*basic information*/}
+      {permissions.includes("basic") ? (
+        <Paper withBorder radius="md" p="lg" mb="lg">
+          <Text fz="xl" fw="700">
+            Basic Information
+          </Text>
+          <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Name
+              </Text>
+              <Text>
+                {" "}
+                {`${client.basic.firstName} ${client.basic.lastName}`}
+              </Text>
+            </div>
+
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Birthday
+              </Text>
+              <Text>
+                {" "}
+                {client.basic.birthday !== "N/A"
+                  ? new Date(client.basic.birthday).toLocaleDateString()
+                  : "N/A"}
+              </Text>
+            </div>
+
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Relationship
+              </Text>
+              <Text> {client.basic.relationship}</Text>
+            </div>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Preferred Pronouns
+              </Text>
+              <Text> {client.basic.preferredPronouns}</Text>
+            </div>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Sex
+              </Text>
+              <Text> {client.basic.sex}</Text>
+            </div>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Address
+              </Text>
+              <Text> {client.basic.address}</Text>
+            </div>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Phone Number
+              </Text>
+              <Text> {client.basic.phoneNumber}</Text>
+            </div>
+          </SimpleGrid>
+        </Paper>
+      ) : (
+        <Paper withBorder radius="md" p="lg" mb="lg">
+          <Text fz="xl" fw="700">
+            Basic Information
+          </Text>
+          <Text fz="xl" fw="700">
+            You do not have access to this information.
+          </Text>
+        </Paper>
+      )}
 
       {/* education information*/}
-      <Paper withBorder radius="md" p="lg" mb="lg">
-        <Text fz="xl" fw="700">
-          Education Information
-        </Text>
-        <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              School Name
-            </Text>
-            <Text> {client.education.schoolName}</Text>
-          </div>
+      {permissions.includes("education") ? (
+        <Paper withBorder radius="md" p="lg" mb="lg">
+          <Text fz="xl" fw="700">
+            Education Information
+          </Text>
+          <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                School Name
+              </Text>
+              <Text> {client.education.schoolName}</Text>
+            </div>
 
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Teacher Name
-            </Text>
-            <Text> {client.education.teacherName}</Text>
-          </div>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Teacher Name
+              </Text>
+              <Text> {client.education.teacherName}</Text>
+            </div>
 
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Grade
-            </Text>
-            <Text> {client.education.grade}</Text>
-          </div>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Grade
+              </Text>
+              <Text> {client.education.grade}</Text>
+            </div>
 
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Start Time
-            </Text>
-            <Text>
-              {" "}
-              {client.education.startTime !== "N/A"
-                ? new Date(client.education.startTime).toLocaleTimeString()
-                : "N/A"}
-            </Text>
-          </div>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Start Time
+              </Text>
+              <Text>
+                {" "}
+                {client.education.startTime !== "N/A"
+                  ? new Date(client.education.startTime).toLocaleTimeString()
+                  : "N/A"}
+              </Text>
+            </div>
 
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              End Time
-            </Text>
-            <Text>
-              {" "}
-              {client.education.endTime !== "N/A"
-                ? new Date(client.education.endTime).toLocaleTimeString()
-                : "N/A"}
-            </Text>
-          </div>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                End Time
+              </Text>
+              <Text>
+                {" "}
+                {client.education.endTime !== "N/A"
+                  ? new Date(client.education.endTime).toLocaleTimeString()
+                  : "N/A"}
+              </Text>
+            </div>
 
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Bus Number
-            </Text>
-            <Text> {client.education.busNumber}</Text>
-          </div>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Bus Number
+              </Text>
+              <Text> {client.education.busNumber}</Text>
+            </div>
 
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Bus Time
-            </Text>
-            <Text>
-              {" "}
-              {client.education.busTime !== "N/A"
-                ? new Date(client.education.busTime).toLocaleTimeString()
-                : "N/A"}
-            </Text>
-          </div>
-        </SimpleGrid>
-      </Paper>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Bus Time
+              </Text>
+              <Text>
+                {" "}
+                {client.education.busTime !== "N/A"
+                  ? new Date(client.education.busTime).toLocaleTimeString()
+                  : "N/A"}
+              </Text>
+            </div>
+          </SimpleGrid>
+        </Paper>
+      ) : (
+        <Paper withBorder radius="md" p="lg" mb="lg">
+          <Text fz="xl" fw="700">
+            Education Information
+          </Text>
+          <Text fz="xl" fw="700">
+            You do not have access to this information.
+          </Text>
+        </Paper>
+      )}
 
       {/*general care information*/}
-      <Paper withBorder radius="md" p="lg" mb="lg">
-        <Text fz="xl" fw="700">
-          General Care Information
-        </Text>
-        <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Routine Notes
-            </Text>
-            <Text> {client.generalCare.routineNotes}</Text>
-          </div>
+      {permissions.includes("generalCare") ? (
+        <Paper withBorder radius="md" p="lg" mb="lg">
+          <Text fz="xl" fw="700">
+            General Care Information
+          </Text>
+          <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Routine Notes
+              </Text>
+              <Text> {client.generalCare.routineNotes}</Text>
+            </div>
 
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Extracurriculars
-            </Text>
-            <Text> {client.generalCare.extracurriculars}</Text>
-          </div>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Extracurriculars
+              </Text>
+              <Text> {client.generalCare.extracurriculars}</Text>
+            </div>
 
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Allergies
-            </Text>
-            <Text> {client.generalCare.allergies}</Text>
-          </div>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Allergies
+              </Text>
+              <Text> {client.generalCare.allergies}</Text>
+            </div>
 
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Current Medications
-            </Text>
-            <Text> {client.generalCare.currentMedications}</Text>
-          </div>
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Bed Time
-            </Text>
-            <Text>
-              {" "}
-              {client.generalCare.bedTime !== "N/A"
-                ? new Date(client.generalCare.bedTime).toLocaleTimeString()
-                : "N/A"}
-            </Text>
-          </div>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Current Medications
+              </Text>
+              <Text> {client.generalCare.currentMedications}</Text>
+            </div>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Bed Time
+              </Text>
+              <Text>
+                {" "}
+                {client.generalCare.bedTime !== "N/A"
+                  ? new Date(client.generalCare.bedTime).toLocaleTimeString()
+                  : "N/A"}
+              </Text>
+            </div>
 
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Medication Schedule
-            </Text>
-            <Text> {client.generalCare.medicationSchedule}</Text>
-          </div>
-        </SimpleGrid>
-      </Paper>
+            <div>
+              <Text fz="lg" fw="500" mt="2rem">
+                Medication Schedule
+              </Text>
+              <Text> {client.generalCare.medicationSchedule}</Text>
+            </div>
+          </SimpleGrid>
+        </Paper>
+      ) : (
+        <Paper withBorder radius="md" p="lg" mb="lg">
+          <Text fz="xl" fw="700">
+            General Care Information
+          </Text>
+          <Text fz="xl" fw="700">
+            You do not have access to this information.
+          </Text>
+        </Paper>
+      )}
 
       {/* <Paper withBorder radius="md" p="lg" mb="lg">
         <Text fz="xl" fw="700">
@@ -316,6 +359,74 @@ const ViewInformation = () => {
           </div>
         </SimpleGrid>
       </Paper> */}
+
+      {permissions.includes("reminders") ? (
+        <Paper withBorder radius="md" p="lg" mb="lg">
+          <Text fz="xl" fw="700">
+            Reminders for Caretakers
+          </Text>
+          {client.reminders === "N/A" ? (
+            <Text>N/A</Text>
+          ) : (
+            <SimpleGrid cols={1} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+              {client.reminders.length > 0 ? (
+                <Table>
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Name</th>
+                      <th>Time</th>
+                      <th>Schedule</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {client.reminders.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>
+                            <Text>{index + 1}</Text>
+                          </td>
+                          <td>
+                            <Text>{item.taskName}</Text>
+                          </td>
+                          <td>
+                            <Text>
+                              {new Date(item.time).toLocaleTimeString()}
+                            </Text>
+                          </td>
+                          <td>
+                            <Text>
+                              {item.schedule.scheduleType === "recurring"
+                                ? `Weekly on ${item.schedule.weekdays.join(
+                                    ", "
+                                  )}`
+                                : new Date(
+                                    item.schedule.eventDate
+                                  ).toLocaleDateString()}
+                            </Text>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </Table>
+              ) : (
+                <Text>N/A</Text>
+              )}
+            </SimpleGrid>
+          )}
+        </Paper>
+      ) : (
+        <Paper withBorder radius="md" p="lg" mb="lg">
+          <Text fz="xl" fw="700">
+            Reminders for Caretakers
+          </Text>
+          <Text fz="xl" fw="700">
+            You do not have access to this information.
+          </Text>
+        </Paper>
+      )}
     </Container>
   );
 };

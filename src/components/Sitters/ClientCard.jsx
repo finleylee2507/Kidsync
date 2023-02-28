@@ -65,7 +65,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const ClientCard = ({ client }) => {
+const ClientCard = ({ client, permissions }) => {
   // console.log(client);
   const { classes, theme } = useStyles();
   const navigate = useNavigate();
@@ -77,7 +77,18 @@ const ClientCard = ({ client }) => {
   //handle click card
   const handleViewClient = (client) => {
     // use navigate() to pass the data
-    navigate("/view-information", { state: client });
+    let showEmergency = false;
+    navigate("/view-information", {
+      state: { client, permissions, showEmergency },
+    });
+  };
+
+  const handleEmergencyClick = (client) => {
+    // use navigate() to pass the data
+    let showEmergency = true;
+    navigate("/view-information", {
+      state: { client, permissions, showEmergency },
+    });
   };
 
   // try to find out how old is this kid
@@ -114,7 +125,7 @@ const ClientCard = ({ client }) => {
               {age} years old
             </Text>
           </div>
-          <Badge variant="outline">{client.basic.relationship}</Badge>
+          {/* <Badge variant="outline">{client.basic.relationship}</Badge> */}
         </Group>
 
         <Card.Section className={classes.section}>
@@ -146,7 +157,15 @@ const ClientCard = ({ client }) => {
               }
             /> */}
 
-            <Button radius="xl" color="red" style={{ flex: 1, color: "white" }}>
+            <Button
+              radius="xl"
+              color="red"
+              style={{ flex: 1, color: "white" }}
+              onClick={(event) => {
+                event.stopPropagation();
+                handleEmergencyClick(client);
+              }}
+            >
               Emergency info
             </Button>
           </Group>

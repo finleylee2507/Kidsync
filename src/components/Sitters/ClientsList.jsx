@@ -1,5 +1,5 @@
-import React from "react";
-import clients from "../../utilities/clients.json";
+import { React, useState, useEffect } from "react";
+// import clients from "../../utilities/clients.json";
 import ClientCard from "./ClientCard";
 import { SimpleGrid, Container, createStyles, Button } from "@mantine/core";
 
@@ -16,21 +16,47 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-const ClientsList = () => {
+const ClientsList = ({ user, allUsers, allDependents }) => {
   const { classes, theme } = useStyles();
 
-  return (
-    <div>
-      <Container py="xl">
-        <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
-          {Object.entries(clients["clients"]).map(([id, client]) => {
-            console.log(client);
-            return <ClientCard key={id} client={client} />;
-          })}
-        </SimpleGrid>
-      </Container>
-    </div>
-  );
+  const [allDeps, setAllDeps] = useState(allDependents);
+
+  useEffect(() => {
+    if (allDependents) {
+      setAllDeps(allDependents);
+    }
+  });
+
+  if (
+    allDeps == null ||
+    allDeps.length == 1 ||
+    allUsers[user.uid]["clients"] == null
+  ) {
+    return (
+      <div>
+        <h1>You have no clients yet.</h1>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <Container py="xl">
+          <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+            {Object.entries(allUsers[user.uid].clients).map(([id, client]) => {
+              console.log(client);
+              return (
+                <ClientCard
+                  key={id}
+                  client={allDependents[client.id]}
+                  permissions={client.permissions}
+                />
+              );
+            })}
+          </SimpleGrid>
+        </Container>
+      </div>
+    );
+  }
 };
 
 export default ClientsList;

@@ -38,19 +38,15 @@ const Landing = (allUsers) => {
         photoURL: user.photoURL,
       };
 
-      addNewUser(newUser, user.uid);
+      addNewUser(newUser, user.email.split("@")[0], user.uid);
 
       navigate("/create-profile");
     }
   }
 
   return (
-    <div
-      className={styles.bigContainer}
-    >
-      <div
-        className={styles.heroImageContainer}
-      >
+    <div className={styles.bigContainer}>
+      <div className={styles.heroImageContainer}>
         <Image
           className={styles.heroImage}
           src="https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
