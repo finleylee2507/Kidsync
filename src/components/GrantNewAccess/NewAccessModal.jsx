@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 const NewAccessModal = ({
   user,
   allUsers,
+  allDependents,
   emailToIDMapping,
   isOpen,
   handleModalState,
@@ -96,8 +97,28 @@ const NewAccessModal = ({
               };
             }
 
+            // Add client to array of caretakers in this dependents object
+            let updatedDependentCaretakers;
+            if (!allDependents[dependentID].caretakers) {
+              updatedDependentCaretakers = {
+                caretakers: [clientID],
+              };
+            } else {
+              updatedDependentCaretakers = {
+                caretakers: [
+                  ...allDependents[dependentID].caretakers,
+                  clientID,
+                ],
+              };
+            }
+
             // Call firebase function
-            let addResult = addNewClient(updatedUserClients, clientID);
+            let addResult = addNewClient(
+              updatedUserClients,
+              updatedDependentCaretakers,
+              clientID,
+              dependentID
+            );
 
             // Update toast notification
             if (addResult) {

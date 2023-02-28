@@ -119,12 +119,19 @@ export const updateDependent = async (newDependent, did) => {
   return isUpdateSuccessful;
 };
 
-export const addNewClient = async (updatedUserClients, cid) => {
+export const addNewClient = async (
+  updatedUserClients,
+  updatedDependentCaretakers,
+  cid,
+  did
+) => {
   let isAddSuccessful = false;
 
   try {
     const userClientsRef = child(ref(database), `users/${cid}`);
+    const dependentCaretakerRef = child(ref(database), `dependents/${did}`);
     await update(userClientsRef, updatedUserClients);
+    await update(dependentCaretakerRef, updatedDependentCaretakers);
 
     isAddSuccessful = true;
   } catch (error) {

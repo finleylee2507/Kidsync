@@ -82,6 +82,7 @@ const DependentsList = ({
         <NewAccessModal
           user={user}
           allUsers={allUsers}
+          allDependents={allDependents}
           emailToIDMapping={emailToIDMapping}
           isOpen={isOpenNewModal}
           handleModalState={setIsOpenNewModal}
