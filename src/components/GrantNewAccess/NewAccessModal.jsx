@@ -51,6 +51,8 @@ const NewAccessModal = ({
     },
   });
 
+  console.log("id: ", dependentID);
+
   return (
     <div>
       <Modal

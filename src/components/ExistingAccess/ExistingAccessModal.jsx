@@ -1,20 +1,55 @@
-import React from 'react';
-import {Group, Modal,Button,Text} from "@mantine/core";
+import React from "react";
+import ExistingAccessRow from "./ExistingAccessRow";
+import { Group, Modal, Button, Text, Table, SimpleGrid } from "@mantine/core";
 
-const ExistingAccessModal=({isOpen,handleModalState, dependentName}) =>{
+const ExistingAccessModal = ({
+  allUsers,
+  allDependents,
+  isOpen,
+  handleModalState,
+  dependentID,
+  dependentName,
+}) => {
+  const getAccessIndex = (careArray, dependentID) => {
+    console.log(careArray);
+    console.log(careArray.length);
 
-    return (
-        <div>
-            <Modal
-                opened={isOpen}
-                onClose={() => handleModalState(false)}
-                title={`Share ${dependentName}'s Profile With`}
-            >
+    for (let i = 0; i < careArray.length; i++) {
+      if (careArray[i].id === dependentID) {
+        return i;
+      }
+    }
+  };
 
-            </Modal>
+  return (
+    <div>
+      <Modal
+        opened={isOpen}
+        onClose={() => handleModalState(false)}
+        title={`Update ${dependentName}'s Access`}
+      >
+        {allDependents[dependentID]["caretakers"].map((clientID, index) => {
+          let accessIndex = getAccessIndex(
+            allUsers[clientID].clients,
+            dependentID
+          );
 
-        </div>
-    );
-}
+          return (
+            <tr key={index}>
+              <td>
+                <ExistingAccessRow
+                  client={allUsers[clientID]}
+                  accessIndex={accessIndex}
+                />
+              </td>
+            </tr>
+          );
+        })}
+      </Modal>
+    </div>
+  );
+};
 
 export default ExistingAccessModal;
+
+// PASS IN allUsers[clientID].clients

@@ -27,6 +27,7 @@ const DependentsList = ({
   emailToIDMapping,
 }) => {
   const [allDeps, setAllDeps] = useState(allDependents);
+  const [allUSers, setAllUSers] = useState(allUsers);
   const [isOpenExistingModal, setIsOpenExistingModal] = useState(false);
   const [isOpenNewModal, setIsOpenNewModal] = useState(false);
   const [currentDependentName, setCurrentDependentName] = useState("");
@@ -35,6 +36,10 @@ const DependentsList = ({
   useEffect(() => {
     if (allDependents) {
       setAllDeps(allDependents);
+    }
+
+    if (allUsers) {
+      setAllUSers(allUsers);
     }
   });
 
@@ -75,10 +80,17 @@ const DependentsList = ({
   } else {
     return (
       <div>
-        <ExistingAccessModal
-          isOpen={isOpenExistingModal}
-          handleModalState={setIsOpenExistingModal}
-        />
+        {currentDependentID && (
+          <ExistingAccessModal
+            allUsers={allUsers}
+            allDependents={allDependents}
+            isOpen={isOpenExistingModal}
+            handleModalState={setIsOpenExistingModal}
+            dependentName={currentDependentName}
+            dependentID={currentDependentID}
+          />
+        )}
+
         <NewAccessModal
           user={user}
           allUsers={allUsers}
