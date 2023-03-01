@@ -32,6 +32,7 @@ const DependentsList = ({
   const [isOpenNewModal, setIsOpenNewModal] = useState(false);
   const [currentDependentName, setCurrentDependentName] = useState("");
   const [currentDependentID, setCurrentDependentID] = useState("");
+  const [existAccessDependent, setExistAccessDependent] = useState(null);
 
   useEffect(() => {
     if (allDependents) {
@@ -50,6 +51,12 @@ const DependentsList = ({
     navigate("/create-dependents-profile");
   };
 
+  // Pass the information of dependent
+  const handleExistingModal = (state, info) => {
+    setIsOpenExistingModal(state);
+    setExistAccessDependent(info);
+  };
+
   if (
     allDeps == null ||
     allDeps.length == 1 ||
@@ -57,10 +64,12 @@ const DependentsList = ({
   ) {
     return (
       <div>
-        {/* <ExistingAccessModal
+        <ExistingAccessModal
+          allUsers={allUsers}
           isOpen={isOpenExistingModal}
           handleModalState={setIsOpenExistingModal}
-        /> */}
+          dependent={existAccessDependent}
+        />
         <NewAccessModal
           isOpen={isOpenNewModal}
           handleModalState={setIsOpenNewModal}
@@ -80,16 +89,12 @@ const DependentsList = ({
   } else {
     return (
       <div>
-        {/* {currentDependentID && (
-          <ExistingAccessModal
-            allUsers={allUsers}
-            allDependents={allDependents}
-            isOpen={isOpenExistingModal}
-            handleModalState={setIsOpenExistingModal}
-            dependentName={currentDependentName}
-            dependentID={currentDependentID}
-          />
-        )} */}
+        <ExistingAccessModal
+          allUsers={allUsers}
+          isOpen={isOpenExistingModal}
+          handleModalState={setIsOpenExistingModal}
+          dependent={existAccessDependent}
+        />
 
         <NewAccessModal
           user={user}
@@ -117,7 +122,7 @@ const DependentsList = ({
                   key={id}
                   dependent={allDependents[dependentID]}
                   showAll={true}
-                  handleExistingModalState={setIsOpenExistingModal}
+                  handleExistingModalState={handleExistingModal}
                   handleNewModalState={setIsOpenNewModal}
                   setCurrentDependentName={setCurrentDependentName}
                   setCurrentDependentID={setCurrentDependentID}
