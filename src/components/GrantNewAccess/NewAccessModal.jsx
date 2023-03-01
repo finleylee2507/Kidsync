@@ -37,7 +37,25 @@ const NewAccessModal = ({
     },
 
     validate: {
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+      email: (value) => {
+        if(!value){
+          return "Please enter an email"
+        }
+        else if(!/^\S+@\S+$/.test(value) ){
+          return "Invalid email"
+        }
+        else{
+          let clientID = emailToIDMapping[value.split("@")[0]];
+          if(!allUsers[clientID]){
+            return "There's no user registered under this email address"
+          }
+          else{
+            return null
+          }
+
+        }
+
+      },
       name: (value) => (!value ? "This field is required" : null),
       phoneNumber: (value) =>
         /^\+1 \(\d{3}\) \d{3}-\d{4}$/.test(value)

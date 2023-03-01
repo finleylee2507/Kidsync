@@ -17,10 +17,8 @@ const ExistingAccessModal = ({
   handleModalState,
   dependent,
 }) => {
-  let [localDependent,setLocalDependent]=useState(null)
-  useEffect(()=>{
-    console.log("Dependent use effect run");
-  },[dependent])
+
+
   return (
     <div>
       <Modal opened={isOpen} onClose={() => handleModalState(false)} size="70%" closeOnClickOutside={false} overflow="inside">
