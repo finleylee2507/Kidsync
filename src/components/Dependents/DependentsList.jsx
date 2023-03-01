@@ -32,8 +32,9 @@ const DependentsList = ({
   const [isOpenNewModal, setIsOpenNewModal] = useState(false);
   const [currentDependentName, setCurrentDependentName] = useState("");
   const [currentDependentID, setCurrentDependentID] = useState("");
-  const [existAccessDependent, setExistAccessDependent] = useState(null);
 
+
+    console.log("All deps: ",allDependents);
   useEffect(() => {
     if (allDependents) {
       setAllDeps(allDependents);
@@ -52,9 +53,9 @@ const DependentsList = ({
   };
 
   // Pass the information of dependent
-  const handleExistingModal = (state, info) => {
+  const handleExistingModal = (state) => {
     setIsOpenExistingModal(state);
-    setExistAccessDependent(info);
+
   };
 
   if (
@@ -68,7 +69,7 @@ const DependentsList = ({
           allUsers={allUsers}
           isOpen={isOpenExistingModal}
           handleModalState={setIsOpenExistingModal}
-          dependent={existAccessDependent}
+          dependent={null}
         />
         <NewAccessModal
           isOpen={isOpenNewModal}
@@ -93,7 +94,7 @@ const DependentsList = ({
           allUsers={allUsers}
           isOpen={isOpenExistingModal}
           handleModalState={setIsOpenExistingModal}
-          dependent={existAccessDependent}
+          dependent={currentDependentID?allDependents[currentDependentID]:null}
         />
 
         <NewAccessModal

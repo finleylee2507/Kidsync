@@ -76,6 +76,20 @@ export const addNewUser = (newUser, uemail, uid) => {
   set(ref(database, "emailToID/" + uemail), uid);
 };
 
+//Update existing user
+export const updateUser=async (newUser, uid) => {
+  const userRef = child(ref(database), "users/" + uid);
+  let isUpdateSuccessful = false;
+  try {
+    await update(userRef, newUser);
+    isUpdateSuccessful = true;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return isUpdateSuccessful;
+}
+
 // Get a new key for a dependent
 export const getNewDependentKey = () => {
   const dependentKey = push(child(ref(database), "dependents"));
@@ -118,6 +132,8 @@ export const updateDependent = async (newDependent, did) => {
 
   return isUpdateSuccessful;
 };
+
+
 
 export const addNewClient = async (
   updatedUserClients,
