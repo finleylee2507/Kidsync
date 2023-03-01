@@ -67,6 +67,7 @@ const NewAccessModal = ({
         }}
         title={`Share ${dependentName}'s Profile With`}
         size="xl"
+        closeOnClickOutside={false}
       >
         <form
           onSubmit={form.onSubmit(async (values, event) => {

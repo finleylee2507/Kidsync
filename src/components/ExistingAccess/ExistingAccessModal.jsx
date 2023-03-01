@@ -23,7 +23,7 @@ const ExistingAccessModal = ({
   },[dependent])
   return (
     <div>
-      <Modal opened={isOpen} onClose={() => handleModalState(false)} size="70%">
+      <Modal opened={isOpen} onClose={() => handleModalState(false)} size="70%" closeOnClickOutside={false} overflow="inside">
         {/* Check if dependent exists */}
         {dependent && dependent.caretakers ? (
           <div>
