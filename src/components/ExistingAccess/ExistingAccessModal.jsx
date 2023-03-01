@@ -11,9 +11,6 @@ const ExistingAccessModal = ({
   dependentName,
 }) => {
   const getAccessIndex = (careArray, dependentID) => {
-    console.log(careArray);
-    console.log(careArray.length);
-
     for (let i = 0; i < careArray.length; i++) {
       if (careArray[i].id === dependentID) {
         return i;

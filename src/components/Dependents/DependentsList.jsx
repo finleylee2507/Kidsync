@@ -57,10 +57,10 @@ const DependentsList = ({
   ) {
     return (
       <div>
-        <ExistingAccessModal
+        {/* <ExistingAccessModal
           isOpen={isOpenExistingModal}
           handleModalState={setIsOpenExistingModal}
-        />
+        /> */}
         <NewAccessModal
           isOpen={isOpenNewModal}
           handleModalState={setIsOpenNewModal}
@@ -80,7 +80,7 @@ const DependentsList = ({
   } else {
     return (
       <div>
-        {currentDependentID && (
+        {/* {currentDependentID && (
           <ExistingAccessModal
             allUsers={allUsers}
             allDependents={allDependents}
@@ -89,7 +89,7 @@ const DependentsList = ({
             dependentName={currentDependentName}
             dependentID={currentDependentID}
           />
-        )}
+        )} */}
 
         <NewAccessModal
           user={user}
