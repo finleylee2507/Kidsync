@@ -86,7 +86,7 @@ const NewAccessModal = ({
             } else {
               updatedUserClients = {
                 clients: [
-                  ...allUsers[user.uid].clients,
+                  ...allUsers[clientID].clients,
                   {
                     id: dependentID,
                     permissions: values.accessGranted,
@@ -131,7 +131,7 @@ const NewAccessModal = ({
             }
 
             // Call firebase function
-            let addResult = addNewClient(
+            let addResult = await addNewClient(
               updatedUserClients,
               updatedDependentCaretakers,
               clientID,
