@@ -155,7 +155,7 @@ const DependentCard = ({
                   <Menu.Item
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleExistingModalState(true, dependent)
+                      handleExistingModalState(true)
                     }}
                   >
                     Existing Access

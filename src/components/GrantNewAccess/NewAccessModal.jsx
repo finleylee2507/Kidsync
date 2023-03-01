@@ -51,7 +51,7 @@ const NewAccessModal = ({
     },
   });
 
-  console.log("id: ", dependentID);
+
 
   return (
     <div>
@@ -63,13 +63,13 @@ const NewAccessModal = ({
       >
         <form
           onSubmit={form.onSubmit(async (values, event) => {
-            console.log(values);
 
             // Get apt user ID from email to ID mapping table
             let clientID = emailToIDMapping[values.email.split("@")[0]];
 
             // Create entry in clients array in users table (id and perms)
             let updatedUserClients;
+            console.log("Test: ",allUsers[user.uid]);
             if (!allUsers[clientID].clients) {
               updatedUserClients = {
                 clients: [
@@ -138,12 +138,16 @@ const NewAccessModal = ({
               dependentID
             );
 
+            console.log("Add result: ",addResult);
             // Update toast notification
             if (addResult) {
-              console.log("Successfully added client");
-              navigate("/clients");
+              toast.success("Successfully granted access!")
+              //close modal
+              handleModalState(false)
+              navigate("/dependents");
             } else {
-              console.log("Something went wrong");
+              toast.error("Hmm...Something went wrong. Please try again or contact the dev team.")
+              handleModalState(false)
               navigate("/dependents");
             }
           })}

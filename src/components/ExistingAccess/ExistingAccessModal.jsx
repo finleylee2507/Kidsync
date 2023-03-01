@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
   Group,
   Modal,
@@ -17,6 +17,10 @@ const ExistingAccessModal = ({
   handleModalState,
   dependent,
 }) => {
+  let [localDependent,setLocalDependent]=useState(null)
+  useEffect(()=>{
+    console.log("Dependent use effect run");
+  },[dependent])
   return (
     <div>
       <Modal opened={isOpen} onClose={() => handleModalState(false)} size="70%">
@@ -40,6 +44,7 @@ const ExistingAccessModal = ({
                   <ExistingAccessRow
                     allUsers={allUsers}
                     caretaker={caretaker}
+                    dependent={dependent}
                   />
                 );
               })

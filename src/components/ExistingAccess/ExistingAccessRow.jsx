@@ -10,8 +10,10 @@ import {
   Divider,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import {updateDependent, updateUser} from "../../utilities/firebase";
+import {toast} from "react-toastify";
 
-const ExistingAccessRow = ({ allUsers, caretaker }) => {
+const ExistingAccessRow = ({ allUsers, caretaker,dependent }) => {
   const form = useForm({
     initialValues: {
       permissions: caretaker.permissions, // get actual permissions from db
@@ -40,7 +42,6 @@ const ExistingAccessRow = ({ allUsers, caretaker }) => {
         </Text>
         <div>
           <Button
-            type="submit"
             onClick={() => {
               // submit to db
               console.log("Click submit");
@@ -49,11 +50,50 @@ const ExistingAccessRow = ({ allUsers, caretaker }) => {
             Update Access
           </Button>
           <Button
-            type="submit"
             color="red"
-            onClick={() => {
-              // submit to db
-              console.log("Click terminate");
+            onClick={async () => {
+
+                // submit to db
+
+
+                //Step 1: Delete dependent from caretaker's client list
+                let targetCaretaker = allUsers[caretaker.id]
+
+
+                //remove the dependent from client array
+                let newClientList = targetCaretaker.clients.filter((client) => client.id !== dependent.id)
+
+
+                let newUserObject = {...targetCaretaker, clients: newClientList}
+
+                let updateCareTakerResult=false
+                try {
+                    updateCareTakerResult = await updateUser(newUserObject, caretaker.id)
+
+                } catch (error) {
+                    console.log(error);
+                }
+
+                let updateDependentResult=false
+                //Step 2: Go to dependents object, delete caretaker from caretaker list
+                let newDependentCaretakers=dependent.caretakers.filter((item)=>item.id!==caretaker.id)
+                let newDependentObject={...dependent,caretakers:newDependentCaretakers}
+                try{
+                    updateDependentResult=await updateDependent(newDependentObject,dependent.id)
+                }
+                catch(error){
+                    console.log(error);
+                }
+
+                if(updateCareTakerResult&&updateDependentResult){
+                    toast.success("Successfully terminated access!")
+
+                }
+                else{
+                    toast.error("Hmm...Something went wrong. Please try again or contact the dev team.")
+                }
+
+
             }}
           >
             Terminate Access
