@@ -141,12 +141,12 @@ const NewAccessModal = ({
             console.log("Add result: ",addResult);
             // Update toast notification
             if (addResult) {
-              console.log("Successfully added caretakers");
+              toast.success("Successfully granted access!")
               //close modal
               handleModalState(false)
               navigate("/dependents");
             } else {
-              console.log("Something went wrong");
+              toast.error("Hmm...Something went wrong. Please try again or contact the dev team.")
               handleModalState(false)
               navigate("/dependents");
             }

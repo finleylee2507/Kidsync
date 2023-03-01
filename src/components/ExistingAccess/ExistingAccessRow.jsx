@@ -11,6 +11,7 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import {updateDependent, updateUser} from "../../utilities/firebase";
+import {toast} from "react-toastify";
 
 const ExistingAccessRow = ({ allUsers, caretaker,dependent }) => {
   const form = useForm({
@@ -85,11 +86,11 @@ const ExistingAccessRow = ({ allUsers, caretaker,dependent }) => {
                 }
 
                 if(updateCareTakerResult&&updateDependentResult){
-
+                    toast.success("Successfully terminated access!")
 
                 }
                 else{
-
+                    toast.error("Hmm...Something went wrong. Please try again or contact the dev team.")
                 }
 
 
