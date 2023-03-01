@@ -44,7 +44,7 @@ const SchedulePopUp = ({form, index, isOpen, handleSetPopoverState}) => {
 
             <Popover.Target>
                 <Button onClick={()=>{
-
+                    handleSetPopoverState(index,true)
                 }}
                     variant="outline">
                     {form.values.reminders[index].schedule.weekdays.length === 0 && !form.values.reminders[index].schedule.eventDate ? "Add Schedule" : "Edit Schedule"}
