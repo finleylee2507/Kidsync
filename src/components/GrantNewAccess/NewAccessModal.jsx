@@ -57,7 +57,14 @@ const NewAccessModal = ({
     <div>
       <Modal
         opened={isOpen}
-        onClose={() => handleModalState(false)}
+        onClose={() => {
+
+          //clear form
+          form.reset()
+
+          //close modal
+          handleModalState(false)
+        }}
         title={`Share ${dependentName}'s Profile With`}
         size="xl"
       >
