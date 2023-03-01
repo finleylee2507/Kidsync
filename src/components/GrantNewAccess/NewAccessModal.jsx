@@ -155,13 +155,13 @@ const NewAccessModal = ({
           <Grid gutter="xl" justify="center">
             <Grid.Col span={6}>
               <TextInput
-                placeholder="Your name"
+                placeholder="Caretaker name"
                 label="Name"
                 withAsterisk
                 {...form.getInputProps("name")}
               />
               <TextInput
-                placeholder="Your email"
+                placeholder="Caretaker email"
                 label="Email"
                 withAsterisk
                 {...form.getInputProps("email")}
@@ -175,6 +175,7 @@ const NewAccessModal = ({
               >
                 <Input
                   component={InputMask}
+                  placeholder="Caretaker phone number"
                   mask="+1 (999) 999-9999"
                   {...form.getInputProps("phoneNumber")}
                 />
@@ -191,6 +192,7 @@ const NewAccessModal = ({
                   form.setFieldValue("otherRelationship", "");
                 }}
                 withAsterisk
+
               >
                 <Radio value="coparent" label="Co-Parent" />
                 <Radio value="doctor" label="Doctor" />
