@@ -78,7 +78,7 @@ const ExistingAccessRow = ({ allUsers, caretaker,dependent }) => {
                 let newDependentCaretakers=dependent.caretakers.filter((item)=>item.id!==caretaker.id)
                 let newDependentObject={...dependent,caretakers:newDependentCaretakers}
                 try{
-                    let updateDependentResult=await updateDependent(newDependentObject,dependent.id)
+                    updateDependentResult=await updateDependent(newDependentObject,dependent.id)
                 }
                 catch(error){
                     console.log(error);
