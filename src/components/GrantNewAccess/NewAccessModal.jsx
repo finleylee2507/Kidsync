@@ -103,13 +103,29 @@ const NewAccessModal = ({
             let updatedDependentCaretakers;
             if (!allDependents[dependentID].caretakers) {
               updatedDependentCaretakers = {
-                caretakers: [clientID],
+                caretakers: [
+                  {
+                    id: clientID,
+                    permissions: values.accessGranted,
+                    relationship:
+                      values.relationship == "other"
+                        ? values.otherRelationship
+                        : values.relationship,
+                  },
+                ],
               };
             } else {
               updatedDependentCaretakers = {
                 caretakers: [
                   ...allDependents[dependentID].caretakers,
-                  clientID,
+                  {
+                    id: clientID,
+                    permissions: values.accessGranted,
+                    relationship:
+                      values.relationship == "other"
+                        ? values.otherRelationship
+                        : values.relationship,
+                  },
                 ],
               };
             }
