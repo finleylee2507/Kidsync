@@ -21,7 +21,7 @@ const ExistingAccessModal = ({
     <div>
       <Modal opened={isOpen} onClose={() => handleModalState(false)} size="70%">
         {/* Check if dependent exists */}
-        {dependent ? (
+        {dependent && dependent.caretakers ? (
           <div>
             <Text fz="xl" ta="center" c="blue" mb={30} fw={700}>
               {`Currently Sharing ${dependent.basic.firstName} ${dependent.basic.lastName}'s Profile With:`}
@@ -47,7 +47,7 @@ const ExistingAccessModal = ({
           </div>
         ) : (
           <Text fz="xl" ta="center" c="blue" mb={30} fw={700}>
-            No dependent
+            No Caretakers
           </Text>
         )}
       </Modal>

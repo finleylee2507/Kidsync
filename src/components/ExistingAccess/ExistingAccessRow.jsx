@@ -38,7 +38,7 @@ const ExistingAccessRow = ({ allUsers, caretaker }) => {
             <Checkbox value="documents" label="Documents" />
           </Checkbox.Group>
         </Text>
-        <Text>
+        <div>
           <Button
             type="submit"
             onClick={() => {
@@ -48,7 +48,17 @@ const ExistingAccessRow = ({ allUsers, caretaker }) => {
           >
             Update Access
           </Button>
-        </Text>
+          <Button
+            type="submit"
+            color="red"
+            onClick={() => {
+              // submit to db
+              console.log("Click terminate");
+            }}
+          >
+            Terminate Access
+          </Button>
+        </div>
       </SimpleGrid>
     </form>
   );
