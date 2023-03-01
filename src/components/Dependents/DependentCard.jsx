@@ -9,9 +9,11 @@ import {
   Text,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
+import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
 import ExistingAccessModal from "../ExistingAccess/ExistingAccessModal";
 import NewAccessModal from "../GrantNewAccess/NewAccessModal";
 import { useState } from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -125,13 +127,13 @@ const DependentCard = ({
           <Card.Section className={classes.section}>
             <Group spacing={30}>
               <Button
-                radius="xl"
                 style={{ flex: 1 }}
+                variant="outline"
                 onClick={(event) => {
                   handleEditDependent(dependent, event);
                 }}
               >
-                Edit Info
+                Update Info
               </Button>
 
               {/*share access dropdown*/}
@@ -147,6 +149,7 @@ const DependentCard = ({
                       setCurrentDependentName(`${dependent.basic.firstName}`);
                       setCurrentDependentID(`${dependent.id}`);
                     }}
+                    rightIcon={ <FontAwesomeIcon icon={faAngleDown} />}
                   >
                     Manage Access
                   </Button>
