@@ -37,27 +37,27 @@ const ViewDependent = () => {
         </Text>
       </div>
 
-      <Accordion variant="contained" radius="md">
+      <Accordion variant="default" radius="md">
         <Accordion.Item value="emergency">
           <Accordion.Control>Emergency Information</Accordion.Control>
           <Accordion.Panel>
             <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
               <div>
-                <Text fz="lg" fw="500" mt="2rem">
+                <Text fz="lg" fw="500" mt="2rem" color="red">
                   Emergency Contact Name
                 </Text>
                 <Text> {dependent.emergency.emergencyContactName}</Text>
               </div>
 
               <div>
-                <Text fz="lg" fw="500" mt="2rem">
+                <Text fz="lg" fw="500" mt="2rem" color="red">
                   Emergency Contact Phone
                 </Text>
                 <Text> {dependent.emergency.emergencyContactPhone}</Text>
               </div>
 
               <div>
-                <Text fz="lg" fw="500" mt="2rem">
+                <Text fz="lg" fw="500" mt="2rem" color="red">
                   Emergency Contact Relationship
                 </Text>
                 <Text> {dependent.emergency.emergencyContactRelationship}</Text>
