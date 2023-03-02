@@ -28,46 +28,90 @@ const NewAccessModal = ({
             otherRelationship: "",
         },
 
-        validate: {
-            //note: emails are validate manually on submit
-            name: (value) => (!value ? "This field is required" : null),
-            phoneNumber: (value) =>
-                /^\+1 \(\d{3}\) \d{3}-\d{4}$/.test(value)
-                    ? null
-                    : "Invalid phone number",
-            relationship: (value) => (!value ? "This field is required" : null),
-            otherRelationship: (value) =>
-                !value && form.values.relationship === "other"
-                    ? "This field is required"
-                    : null,
-        },
     });
 
+    //returns an object containing error messages and the clientID if it exists
+    const validateForm = async () => {
+        const errors = {};
 
-    const validateEmail = async () => {
-        let isError = false;
+        //validate name
+        if (!form.values.name) {
+            form.setFieldError('name', 'This field is required');
+            errors.name = 'This field is required';
+        }
+
+        //validate phone number
+        if (
+            !form.values.phoneNumber &&
+            !/^\+1 \(\d{3}\) \d{3}-\d{4}$/.test(form.values.phoneNumber)
+        ) {
+            console.log("phone number");
+            form.setFieldError('phoneNumber', 'Invalid phone number');
+            errors.phoneNumber = 'Invalid phone number';
+        }
+
+        //validate relationship
+        if (!form.values.relationship) {
+            form.setFieldError('relationship', 'This field is required');
+            errors.relationship = 'This field is required';
+        }
+
+        //validate other relationship
+        if (
+            !form.values.otherRelationship &&
+            form.values.relationship === 'other'
+        ) {
+            form.setFieldError('otherRelationship', 'This field is required');
+            errors.otherRelationship = 'This field is required';
+        }
+
+        //validate email
         let emailValue = form.values.email;
-        let clientID=null
+        let clientID = null;
         if (!emailValue) {
             form.setFieldError("email", "Please enter an email");
-            isError = true;
+            errors.emailError = "Please enter an email";
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
-            form.setFieldError("email", "Please enter an email");
-            isError = true;
+            form.setFieldError("email", "Please enter a valid email");
+            errors.emailError = "Please enter a valid email";
         } else {
 
             clientID = emailToIDMapping[await fromEmailToDbString(emailValue)];
             if (!allUsers[clientID]) {
                 form.setFieldError("email", "There's no user registered under this email address");
-                isError = true;
+                errors.emailError = "There's no user registered under this email address";
             }
 
 
         }
 
-        return [isError,clientID];
-
+        return [errors, clientID];
     };
+
+    // const validateEmail = async () => {
+    //     let isError = false;
+    //     let emailValue = form.values.email;
+    //     let clientID = null;
+    //     if (!emailValue) {
+    //         form.setFieldError("email", "Please enter an email");
+    //         isError = true;
+    //     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
+    //         form.setFieldError("email", "Please enter a valid email");
+    //         isError = true;
+    //     } else {
+    //
+    //         clientID = emailToIDMapping[await fromEmailToDbString(emailValue)];
+    //         if (!allUsers[clientID]) {
+    //             form.setFieldError("email", "There's no user registered under this email address");
+    //             isError = true;
+    //         }
+    //
+    //
+    //     }
+    //
+    //     return [isError, clientID];
+    //
+    // };
 
     return (
         <div>
@@ -88,8 +132,8 @@ const NewAccessModal = ({
                 <form
                     onSubmit={form.onSubmit(async (values, event) => {
                         //validate email
-                        let [isError,clientID] = await validateEmail();
-                        if (isError) { //prevent the form from submitting if the email field contains errors
+                        let [errors, clientID] = await validateForm();
+                        if (Object.keys(errors).length > 0) { //prevent the form from submitting if the email field contains errors
                             event.preventDefault();
                             return;
                         }
