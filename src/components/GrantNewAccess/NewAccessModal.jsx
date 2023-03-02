@@ -41,7 +41,7 @@ const NewAccessModal = ({
         if(!value){
           return "Please enter an email"
         }
-        else if(!/^\S+@\S+$/.test(value) ){
+        else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ){
           return "Invalid email"
         }
         else{
