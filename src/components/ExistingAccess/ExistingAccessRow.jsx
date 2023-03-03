@@ -68,7 +68,18 @@ const ExistingAccessRow = ({
                   ...caretaker,
                   permissions: form.values.permissions,
                 };
-                let newDependent = { ...dependent, caretakers: [newCaretaker] };
+
+                let newCareTakers = dependent.caretakers.map((item) => {
+                  if (item.id === caretaker.id) {
+                    return newCaretaker;
+                  } else {
+                    return item;
+                  }
+                });
+                let newDependent = {
+                  ...dependent,
+                  caretakers: newCareTakers,
+                };
 
                 let updateDependentResult = false;
                 try {
@@ -81,7 +92,6 @@ const ExistingAccessRow = ({
                 }
                 if (updateDependentResult) {
                   toast.success("Successfully updated access!");
-                  handleModalState(false);
                 } else {
                   toast.error(
                     "Hmm...Something went wrong. Please try again or contact the dev team."
