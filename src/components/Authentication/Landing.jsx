@@ -1,4 +1,4 @@
-import { React } from "react";
+import {React, useEffect} from "react";
 import {
   addNewUser,
   signInWithGoogle,
@@ -8,6 +8,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import styles from "./Landing.module.css";
 import { FcGoogle } from "react-icons/fc";
 import { Image, Title } from "@mantine/core";
+import {fromEmailToDbString} from "../../utilities/emailFormatter";
 
 const SignInButton = () => {
   return (
@@ -30,19 +31,28 @@ const Landing = (allUsers) => {
   const user = useAuthState();
   const navigate = useNavigate();
 
-  if (user && allUsers && allUsers["allUsers"]) {
-    if (!allUsers["allUsers"][user.uid]) {
-      const newUser = {
-        displayName: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
-      };
+    const checkAndAddUser = async () => {
+        if (user && allUsers && allUsers["allUsers"]) {
+            if (!allUsers["allUsers"][user.uid]) {
+                const newUser = {
+                    displayName: user.displayName,
+                    email: user.email,
+                    photoURL: user.photoURL,
+                };
+                try {
+                    const dbString = await fromEmailToDbString(user.email);
+                    addNewUser(newUser, dbString, user.uid);
+                } catch (error) {
+                    console.log("Error while creating dbString: ", error);
+                }
+                navigate("/create-profile");
+            }
+        }
+    };
 
-      addNewUser(newUser, user.email.split("@")[0], user.uid);
-
-      navigate("/create-profile");
-    }
-  }
+    useEffect(() => {
+        checkAndAddUser();
+    });
 
   return (
     <div className={styles.bigContainer}>

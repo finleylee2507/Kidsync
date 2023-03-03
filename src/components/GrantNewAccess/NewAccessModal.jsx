@@ -1,271 +1,316 @@
 import React from "react";
-import {
-  Button,
-  Checkbox,
-  Grid,
-  Group,
-  Input,
-  Modal,
-  Radio,
-  TextInput,
-} from "@mantine/core";
-import { useForm } from "@mantine/form";
+import {Button, Checkbox, Grid, Input, Modal, Radio, TextInput,} from "@mantine/core";
+import {useForm} from "@mantine/form";
 import InputMask from "react-input-mask";
-import { toast } from "react-toastify";
-import { addNewClient } from "../../utilities/firebase";
-import { useNavigate } from "react-router-dom";
+import {toast} from "react-toastify";
+import {addNewClient} from "../../utilities/firebase";
+import {useNavigate} from "react-router-dom";
+import {fromEmailToDbString} from "../../utilities/emailFormatter";
 
 const NewAccessModal = ({
-  user,
-  allUsers,
-  allDependents,
-  emailToIDMapping,
-  isOpen,
-  handleModalState,
-  dependentName,
-  dependentID,
-}) => {
-  const navigate = useNavigate();
-  const form = useForm({
-    initialValues: {
-      name: "",
-      email: "",
-      phoneNumber: "",
-      accessGranted: ["emergency"],
-      relationship: "",
-      otherRelationship: "",
-    },
+                            user,
+                            allUsers,
+                            allDependents,
+                            emailToIDMapping,
+                            isOpen,
+                            handleModalState,
+                            dependentName,
+                            dependentID,
+                        }) => {
+    const navigate = useNavigate();
+    const form = useForm({
+        initialValues: {
+            name: "",
+            email: "",
+            phoneNumber: "",
+            accessGranted: ["emergency"],
+            relationship: "",
+            otherRelationship: "",
+        },
 
-    validate: {
-      email: (value) => {
-        if(!value){
-          return "Please enter an email"
-        }
-        else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ){
-          return "Invalid email"
-        }
-        else{
-          let clientID = emailToIDMapping[value.split("@")[0]];
-          if(!allUsers[clientID]){
-            return "There's no user registered under this email address"
-          }
-          else{
-            return null
-          }
+    });
 
+    //returns an object containing error messages and the clientID if it exists
+    const validateForm = async () => {
+        const errors = {};
+
+        //validate name
+        if (!form.values.name) {
+            form.setFieldError('name', 'This field is required');
+            errors.name = 'This field is required';
         }
 
-      },
-      name: (value) => (!value ? "This field is required" : null),
-      phoneNumber: (value) =>
-        /^\+1 \(\d{3}\) \d{3}-\d{4}$/.test(value)
-          ? null
-          : "Invalid phone number",
-      relationship: (value) => (!value ? "This field is required" : null),
-      otherRelationship: (value) =>
-        !value && form.values.relationship === "other"
-          ? "This field is required"
-          : null,
-    },
-  });
+        //validate phone number
+        if (
+            !form.values.phoneNumber &&
+            !/^\+1 \(\d{3}\) \d{3}-\d{4}$/.test(form.values.phoneNumber)
+        ) {
+            console.log("phone number");
+            form.setFieldError('phoneNumber', 'Invalid phone number');
+            errors.phoneNumber = 'Invalid phone number';
+        }
 
+        //validate relationship
+        if (!form.values.relationship) {
+            form.setFieldError('relationship', 'This field is required');
+            errors.relationship = 'This field is required';
+        }
 
+        //validate other relationship
+        if (
+            !form.values.otherRelationship &&
+            form.values.relationship === 'other'
+        ) {
+            form.setFieldError('otherRelationship', 'This field is required');
+            errors.otherRelationship = 'This field is required';
+        }
 
-  return (
-    <div>
-      <Modal
-        opened={isOpen}
-        onClose={() => {
+        //validate email
+        let emailValue = form.values.email;
+        let clientID = null;
+        if (!emailValue) {
+            form.setFieldError("email", "Please enter an email");
+            errors.emailError = "Please enter an email";
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
+            form.setFieldError("email", "Please enter a valid email");
+            errors.emailError = "Please enter a valid email";
+        } else {
 
-          //clear form
-          form.reset()
-
-          //close modal
-          handleModalState(false)
-        }}
-        title={`Share ${dependentName}'s Profile With`}
-        size="xl"
-        closeOnClickOutside={false}
-      >
-        <form
-          onSubmit={form.onSubmit(async (values, event) => {
-
-            // Get apt user ID from email to ID mapping table
-            let clientID = emailToIDMapping[values.email.split("@")[0]];
-
-            // Create entry in clients array in users table (id and perms)
-            let updatedUserClients;
-            console.log("Test: ",allUsers[user.uid]);
-            if (!allUsers[clientID].clients) {
-              updatedUserClients = {
-                clients: [
-                  {
-                    id: dependentID,
-                    permissions: values.accessGranted,
-                    relationship:
-                      values.relationship == "other"
-                        ? values.otherRelationship
-                        : values.relationship,
-                  },
-                ],
-              };
-            } else {
-              updatedUserClients = {
-                clients: [
-                  ...allUsers[clientID].clients,
-                  {
-                    id: dependentID,
-                    permissions: values.accessGranted,
-                    relationship:
-                      values.relationship == "other"
-                        ? values.otherRelationship
-                        : values.relationship,
-                  },
-                ],
-              };
+            clientID = emailToIDMapping[await fromEmailToDbString(emailValue)];
+            if (!allUsers[clientID]) {
+                form.setFieldError("email", "There's no user registered under this email address");
+                errors.emailError = "There's no user registered under this email address";
             }
 
-            // Add client to array of caretakers in this dependents object
-            let updatedDependentCaretakers;
-            if (!allDependents[dependentID].caretakers) {
-              updatedDependentCaretakers = {
-                caretakers: [
-                  {
-                    id: clientID,
-                    permissions: values.accessGranted,
-                    relationship:
-                      values.relationship == "other"
-                        ? values.otherRelationship
-                        : values.relationship,
-                  },
-                ],
-              };
-            } else {
-              updatedDependentCaretakers = {
-                caretakers: [
-                  ...allDependents[dependentID].caretakers,
-                  {
-                    id: clientID,
-                    permissions: values.accessGranted,
-                    relationship:
-                      values.relationship == "other"
-                        ? values.otherRelationship
-                        : values.relationship,
-                  },
-                ],
-              };
-            }
 
-            // Call firebase function
-            let addResult = await addNewClient(
-              updatedUserClients,
-              updatedDependentCaretakers,
-              clientID,
-              dependentID
-            );
+        }
 
-            console.log("Add result: ",addResult);
-            // Update toast notification
-            if (addResult) {
-              toast.success("Successfully granted access!")
-              //close modal
-              handleModalState(false)
-              navigate("/dependents");
-            } else {
-              toast.error("Hmm...Something went wrong. Please try again or contact the dev team.")
-              handleModalState(false)
-              navigate("/dependents");
-            }
-          })}
-        >
-          <Grid gutter="xl" justify="center">
-            <Grid.Col span={6}>
-              <TextInput
-                placeholder="Caretaker name"
-                label="Name"
-                withAsterisk
-                {...form.getInputProps("name")}
-              />
-              <TextInput
-                placeholder="Caretaker email"
-                label="Email"
-                withAsterisk
-                {...form.getInputProps("email")}
-                mt="1rem"
-              />
-              <Input.Wrapper
-                label="Phone Number"
-                withAsterisk
-                error={form.errors.phoneNumber}
-                mt="1rem"
-              >
-                <Input
-                  component={InputMask}
-                  placeholder="Caretaker phone number"
-                  mask="+1 (999) 999-9999"
-                  {...form.getInputProps("phoneNumber")}
-                />
-              </Input.Wrapper>
-            </Grid.Col>
+        return [errors, clientID];
+    };
 
-            <Grid.Col span={6}>
-              <Radio.Group
-                name="relationship"
-                label="Relationship"
-                {...form.getInputProps("relationship")}
-                onClick={() => {
-                  //reset otherRelationship everytime we select
-                  form.setFieldValue("otherRelationship", "");
+    // const validateEmail = async () => {
+    //     let isError = false;
+    //     let emailValue = form.values.email;
+    //     let clientID = null;
+    //     if (!emailValue) {
+    //         form.setFieldError("email", "Please enter an email");
+    //         isError = true;
+    //     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
+    //         form.setFieldError("email", "Please enter a valid email");
+    //         isError = true;
+    //     } else {
+    //
+    //         clientID = emailToIDMapping[await fromEmailToDbString(emailValue)];
+    //         if (!allUsers[clientID]) {
+    //             form.setFieldError("email", "There's no user registered under this email address");
+    //             isError = true;
+    //         }
+    //
+    //
+    //     }
+    //
+    //     return [isError, clientID];
+    //
+    // };
+
+    return (
+        <div>
+            <Modal
+                opened={isOpen}
+                onClose={() => {
+
+                    //clear form
+                    form.reset();
+
+                    //close modal
+                    handleModalState(false);
                 }}
-                withAsterisk
+                title={`Share ${dependentName}'s Profile With`}
+                size="xl"
+                closeOnClickOutside={false}
+            >
+                <form
+                    onSubmit={form.onSubmit(async (values, event) => {
+                        //validate email
+                        let [errors, clientID] = await validateForm();
+                        if (Object.keys(errors).length > 0) { //prevent the form from submitting if the email field contains errors
+                            event.preventDefault();
+                            return;
+                        }
 
-              >
-                <Radio value="coparent" label="Co-Parent" />
-                <Radio value="doctor" label="Doctor" />
-                <Radio value="babysitter" label="Babysitter" />
-                <Radio value="schoolstaff" label="School Staff" />
-                <Radio value="other" label="Other" />
-              </Radio.Group>
-              {form.values.relationship === "other" && (
-                <TextInput
-                  placeholder="Other"
-                  label="Please specify"
-                  withAsterisk
-                  {...form.getInputProps("otherRelationship")}
-                />
-              )}
+                        // Create entry in clients array in users table (id and perms)
+                        let updatedUserClients;
+                        console.log("Test: ", allUsers[user.uid]);
+                        if (!allUsers[clientID].clients) {
+                            updatedUserClients = {
+                                clients: [
+                                    {
+                                        id: dependentID,
+                                        permissions: values.accessGranted,
+                                        relationship:
+                                            values.relationship == "other"
+                                                ? values.otherRelationship
+                                                : values.relationship,
+                                    },
+                                ],
+                            };
+                        } else {
+                            updatedUserClients = {
+                                clients: [
+                                    ...allUsers[clientID].clients,
+                                    {
+                                        id: dependentID,
+                                        permissions: values.accessGranted,
+                                        relationship:
+                                            values.relationship == "other"
+                                                ? values.otherRelationship
+                                                : values.relationship,
+                                    },
+                                ],
+                            };
+                        }
 
-              <Checkbox.Group
-                defaultValue={["emergency"]}
-                label="Access Granted"
-                withAsterisk
-                {...form.getInputProps("accessGranted")}
-                mt="2rem"
-              >
-                <Checkbox value="basic" label="Basic" />
-                <Checkbox value="reminders" label="Reminders" />
-                <Checkbox value="generalCare" label="General Care" />
-                <Checkbox
-                  value="emergency"
-                  label="Emergency"
-                  checked
-                  disabled
-                />
-                <Checkbox value="education" label="Education" />
-                <Checkbox value="documents" label="Documents" />
-              </Checkbox.Group>
-            </Grid.Col>
+                        // Add client to array of caretakers in this dependents object
+                        let updatedDependentCaretakers;
+                        if (!allDependents[dependentID].caretakers) {
+                            updatedDependentCaretakers = {
+                                caretakers: [
+                                    {
+                                        id: clientID,
+                                        permissions: values.accessGranted,
+                                        relationship:
+                                            values.relationship == "other"
+                                                ? values.otherRelationship
+                                                : values.relationship,
+                                    },
+                                ],
+                            };
+                        } else {
+                            updatedDependentCaretakers = {
+                                caretakers: [
+                                    ...allDependents[dependentID].caretakers,
+                                    {
+                                        id: clientID,
+                                        permissions: values.accessGranted,
+                                        relationship:
+                                            values.relationship == "other"
+                                                ? values.otherRelationship
+                                                : values.relationship,
+                                    },
+                                ],
+                            };
+                        }
 
-            <Grid.Col span={10}>
-              <Button type="submit" fullWidth>
-                Grant Access
-              </Button>
-            </Grid.Col>
-          </Grid>
-        </form>
-      </Modal>
-    </div>
-  );
+                        // Call firebase function
+                        let addResult = await addNewClient(
+                            updatedUserClients,
+                            updatedDependentCaretakers,
+                            clientID,
+                            dependentID
+                        );
+
+                        console.log("Add result: ", addResult);
+                        // Update toast notification
+                        if (addResult) {
+                            toast.success("Successfully granted access!");
+                            //close modal
+                            handleModalState(false);
+                            navigate("/dependents");
+                        } else {
+                            toast.error("Hmm...Something went wrong. Please try again or contact the dev team.");
+                            handleModalState(false);
+                            navigate("/dependents");
+                        }
+                    })}
+                >
+                    <Grid gutter="xl" justify="center">
+                        <Grid.Col span={6}>
+                            <TextInput
+                                placeholder="Caretaker name"
+                                label="Name"
+                                withAsterisk
+                                {...form.getInputProps("name")}
+                            />
+                            <TextInput
+                                placeholder="Caretaker email"
+                                label="Email"
+                                withAsterisk
+                                {...form.getInputProps("email")}
+                                mt="1rem"
+                            />
+                            <Input.Wrapper
+                                label="Phone Number"
+                                withAsterisk
+                                error={form.errors.phoneNumber}
+                                mt="1rem"
+                            >
+                                <Input
+                                    component={InputMask}
+                                    placeholder="Caretaker phone number"
+                                    mask="+1 (999) 999-9999"
+                                    {...form.getInputProps("phoneNumber")}
+                                />
+                            </Input.Wrapper>
+                        </Grid.Col>
+
+                        <Grid.Col span={6}>
+                            <Radio.Group
+                                name="relationship"
+                                label="Relationship"
+                                {...form.getInputProps("relationship")}
+                                onClick={() => {
+                                    //reset otherRelationship everytime we select
+                                    form.setFieldValue("otherRelationship", "");
+                                }}
+                                withAsterisk
+
+                            >
+                                <Radio value="coparent" label="Co-Parent"/>
+                                <Radio value="doctor" label="Doctor"/>
+                                <Radio value="babysitter" label="Babysitter"/>
+                                <Radio value="schoolstaff" label="School Staff"/>
+                                <Radio value="other" label="Other"/>
+                            </Radio.Group>
+                            {form.values.relationship === "other" && (
+                                <TextInput
+                                    placeholder="Other"
+                                    label="Please specify"
+                                    withAsterisk
+                                    {...form.getInputProps("otherRelationship")}
+                                />
+                            )}
+
+                            <Checkbox.Group
+                                defaultValue={["emergency"]}
+                                label="Access Granted"
+                                withAsterisk
+                                {...form.getInputProps("accessGranted")}
+                                mt="2rem"
+                            >
+                                <Checkbox value="basic" label="Basic"/>
+                                <Checkbox value="reminders" label="Reminders"/>
+                                <Checkbox value="generalCare" label="General Care"/>
+                                <Checkbox
+                                    value="emergency"
+                                    label="Emergency"
+                                    checked
+                                    disabled
+                                />
+                                <Checkbox value="education" label="Education"/>
+                                <Checkbox value="documents" label="Documents"/>
+                            </Checkbox.Group>
+                        </Grid.Col>
+
+                        <Grid.Col span={10}>
+                            <Button type="submit" fullWidth>
+                                Grant Access
+                            </Button>
+                        </Grid.Col>
+                    </Grid>
+                </form>
+            </Modal>
+        </div>
+    );
 };
 
 export default NewAccessModal;

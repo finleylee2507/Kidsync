@@ -55,7 +55,6 @@ const ExistingAccessRow = ({ allUsers, caretaker,dependent }) => {
 
                 // submit to db
 
-
                 //Step 1: Delete dependent from caretaker's client list
                 let targetCaretaker = allUsers[caretaker.id]
 
