@@ -1,9 +1,17 @@
 import React, { useEffect } from "react";
 import styles from "./UserDetails.module.css";
-import { Button, Group, NumberInput, Text, TextInput } from "@mantine/core";
+import {
+  Button,
+  Group,
+  NumberInput,
+  Text,
+  TextInput,
+  Input,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useAuthState } from "../../utilities/firebase";
-import { useNavigate } from "react-router-dom";
+import { useAuthState, addNewUser, updateUser } from "../../utilities/firebase";
+import { useNavigate, useLocation } from "react-router-dom";
+import InputMask from "react-input-mask";
 
 const UserDetails = ({ user }) => {
   const navigate = useNavigate();
@@ -11,7 +19,8 @@ const UserDetails = ({ user }) => {
     initialValues: {
       firstName: user ? user.displayName.split(" ")[0] : "",
       lastName: user ? user.displayName.split(" ")[1] : "",
-      email: user.email,
+      email: user ? user.email : "",
+      phoneNumber: "",
     },
 
     validate: {
@@ -25,8 +34,21 @@ const UserDetails = ({ user }) => {
         Enter Account Information:
       </Text>
       <form
-        onSubmit={form.onSubmit((values) => {
+        onSubmit={form.onSubmit(async (values) => {
           console.log("Values: ", values);
+
+          const updatedUser = {
+            displayName: `${values.firstName} ${values.lastName}`,
+            email: values.email,
+            phoneNumber: values.phoneNumber,
+          };
+
+          try {
+            updateUser(updatedUser, user.uid);
+          } catch (error) {
+            console.log("Error while creating dbString: ", error);
+          }
+
           navigate("/home");
         })}
       >
@@ -55,6 +77,19 @@ const UserDetails = ({ user }) => {
           value={form.values.email}
           required
         />
+
+        <Input.Wrapper
+          label="Phone Number"
+          size="lg"
+          error={"Please enter a valid phone number"}
+        >
+          <Input
+            component={InputMask}
+            mask="+1 (999) 999-9999"
+            size="lg"
+            {...form.getInputProps("phoneNumber")}
+          />
+        </Input.Wrapper>
 
         <Group position="right" mt="md">
           <Button type="submit" name="nextButton">
