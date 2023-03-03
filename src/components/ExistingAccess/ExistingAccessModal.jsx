@@ -22,7 +22,7 @@ const ExistingAccessModal = ({
       <Modal
         opened={isOpen}
         onClose={() => handleModalState(false)}
-        size="70%"
+        size="80%"
         closeOnClickOutside={false}
         overflow="inside"
       >
@@ -39,10 +39,10 @@ const ExistingAccessModal = ({
               <Grid.Col span={2}>
                 <Text fw={700}>Relationship:</Text>
               </Grid.Col>
-              <Grid.Col span={3}>
+              <Grid.Col span={4}>
                 <Text fw={700}>Access Granted:</Text>
               </Grid.Col>
-              <Grid.Col span={5}>
+              <Grid.Col span={4}>
                 <Text fw={700}>Options:</Text>
               </Grid.Col>
             </Grid>

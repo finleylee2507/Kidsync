@@ -33,7 +33,7 @@ const ExistingAccessRow = ({
             <Grid.Col span={2}>
                 <Text>{caretaker.relationship}</Text>
             </Grid.Col>
-           <Grid.Col span={3}>
+           <Grid.Col span={4}>
                <Text>
                    <Checkbox.Group {...form.getInputProps("permissions")}>
                        <SimpleGrid cols={2}>
@@ -49,7 +49,7 @@ const ExistingAccessRow = ({
                </Text>
            </Grid.Col>
 
-            <Grid.Col span={5}>
+            <Grid.Col span={4}>
                 <div>
 
 
