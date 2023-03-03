@@ -97,31 +97,6 @@ const NewAccessModal = ({
     return [errors, clientID];
   };
 
-  // const validateEmail = async () => {
-  //     let isError = false;
-  //     let emailValue = form.values.email;
-  //     let clientID = null;
-  //     if (!emailValue) {
-  //         form.setFieldError("email", "Please enter an email");
-  //         isError = true;
-  //     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
-  //         form.setFieldError("email", "Please enter a valid email");
-  //         isError = true;
-  //     } else {
-  //
-  //         clientID = emailToIDMapping[await fromEmailToDbString(emailValue)];
-  //         if (!allUsers[clientID]) {
-  //             form.setFieldError("email", "There's no user registered under this email address");
-  //             isError = true;
-  //         }
-  //
-  //
-  //     }
-  //
-  //     return [isError, clientID];
-  //
-  // };
-
   return (
     <div>
       <Modal
@@ -226,13 +201,12 @@ const NewAccessModal = ({
               handleModalState(false);
               const message = `This is an automated message from KidSync. ${allDependents[dependentID].basic.firstName} ${allDependents[dependentID].basic.lastName}'s profile has been shared with you.`;
               sendSMS(allUsers[clientID].phoneNumber, message);
+              form.reset();
               navigate("/dependents");
             } else {
               toast.error(
                 "Hmm...Something went wrong. Please try again or contact the dev team."
               );
-              handleModalState(false);
-              navigate("/dependents");
             }
           })}
         >
