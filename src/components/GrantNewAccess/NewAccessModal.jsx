@@ -224,9 +224,7 @@ const NewAccessModal = ({
               toast.success("Successfully granted access!");
               //close modal
               handleModalState(false);
-              const message = `From KidSync 
-                            ${allDependents[dependentID].basic.firstName} ${allDependents[dependentID].basic.lastName}'s profile has been shared with you.
-                            `;
+              const message = `This is an automated message from KidSync. ${allDependents[dependentID].basic.firstName} ${allDependents[dependentID].basic.lastName}'s profile has been shared with you.`;
               sendSMS(allUsers[clientID].phoneNumber, message);
               navigate("/dependents");
             } else {
