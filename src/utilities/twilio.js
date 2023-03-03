@@ -36,7 +36,7 @@ export const sendSMS = (toNumber, message) => {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: `From=${encodeURIComponent(fromNumber)}&To=${encodeURIComponent(
-        "+1" + toNumber
+        "+" + toNumber
       )}&Body=${encodeURIComponent(message)}`,
     }
   )

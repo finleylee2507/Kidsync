@@ -224,13 +224,14 @@ const NewAccessModal = ({
               toast.success("Successfully granted access!");
               //close modal
               handleModalState(false);
-              sendSMS("8722353406", "test");
+              const message = `This is an automated message from KidSync. ${allDependents[dependentID].basic.firstName} ${allDependents[dependentID].basic.lastName}'s profile has been shared with you.`;
+              sendSMS(allUsers[clientID].phoneNumber, message);
               navigate("/dependents");
             } else {
               toast.error(
                 "Hmm...Something went wrong. Please try again or contact the dev team."
               );
-              //   handleModalState(false);
+              handleModalState(false);
               navigate("/dependents");
             }
           })}
