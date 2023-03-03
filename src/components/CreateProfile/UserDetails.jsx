@@ -37,10 +37,12 @@ const UserDetails = ({ user }) => {
         onSubmit={form.onSubmit(async (values) => {
           console.log("Values: ", values);
 
+          const newPhoneNumber = values.phoneNumber.replace(/[+\s()-]/g, '');
+
           const updatedUser = {
             displayName: `${values.firstName} ${values.lastName}`,
             email: values.email,
-            phoneNumber: values.phoneNumber,
+            phoneNumber: newPhoneNumber,
           };
 
           try {
