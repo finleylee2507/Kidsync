@@ -84,6 +84,24 @@ const NewAccessModal = ({
       errors.emailError = "Please enter a valid email";
     } else {
       clientID = emailToIDMapping[await fromEmailToDbString(emailValue)];
+
+      //check the to-be-added caretaker already exists
+      let alreadyExist = false;
+      for (let careTaker of allDependents[dependentID].caretakers) {
+        if (careTaker.id === clientID) {
+          alreadyExist = true;
+        }
+      }
+
+      if (alreadyExist) {
+        form.setFieldError(
+          "email",
+          "This person has already been granted access to the dependent."
+        );
+        errors.emailError =
+          "This person has already been granted access to the dependent.";
+      }
+
       if (!allUsers[clientID]) {
         form.setFieldError(
           "email",
@@ -298,5 +316,4 @@ const NewAccessModal = ({
     </div>
   );
 };
-
 export default NewAccessModal;
