@@ -6,6 +6,7 @@ import {toast} from "react-toastify";
 import {addNewClient} from "../../utilities/firebase";
 import {useNavigate} from "react-router-dom";
 import {fromEmailToDbString} from "../../utilities/emailFormatter";
+import { sendSMS } from './../../utilities/twilio';
 
 const NewAccessModal = ({
                             user,
@@ -215,6 +216,7 @@ const NewAccessModal = ({
                             toast.success("Successfully granted access!");
                             //close modal
                             handleModalState(false);
+                            sendSMS("2248660992", "test");
                             navigate("/dependents");
                         } else {
                             toast.error("Hmm...Something went wrong. Please try again or contact the dev team.");
