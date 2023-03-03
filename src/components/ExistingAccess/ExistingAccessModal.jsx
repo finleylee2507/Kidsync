@@ -6,7 +6,7 @@ import {
   Text,
   Checkbox,
   SimpleGrid,
-  Divider,
+  Divider, Grid,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import ExistingAccessRow from "./ExistingAccessRow";
@@ -28,16 +28,26 @@ const ExistingAccessModal = ({
       >
         {/* Check if dependent exists */}
         {dependent && dependent.caretakers ? (
-          <div>
+          <div style={{width:"99%"}}>
             <Text fz="xl" ta="center" c="blue" mb={30} fw={700}>
               {`Currently Sharing ${dependent.basic.firstName} ${dependent.basic.lastName}'s Profile With:`}
             </Text>
-            <SimpleGrid cols={4} mb={20}>
-              <Text fw={700}>Name:</Text>
-              <Text fw={700}>Relationship:</Text>
-              <Text fw={700}>Access Granted:</Text>
-              <Text fw={700}>Options:</Text>
-            </SimpleGrid>
+            <Grid>
+              <Grid.Col span={2}>
+                <Text fw={700}>Name:</Text>
+              </Grid.Col>
+              <Grid.Col span={2}>
+                <Text fw={700}>Relationship:</Text>
+              </Grid.Col>
+              <Grid.Col span={3}>
+                <Text fw={700}>Access Granted:</Text>
+              </Grid.Col>
+              <Grid.Col span={5}>
+                <Text fw={700}>Options:</Text>
+              </Grid.Col>
+            </Grid>
+
+
             {
               // dependent.caretakers
               dependent.caretakers.map((caretaker) => {

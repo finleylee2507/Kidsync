@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Button, Checkbox, Divider, SimpleGrid, Text,} from "@mantine/core";
+import {Button, Checkbox, Divider, Grid, SimpleGrid, Text,} from "@mantine/core";
 import {useForm} from "@mantine/form";
 import {updateDependent, updateUser} from "../../utilities/firebase";
 import {toast} from "react-toastify";
@@ -24,22 +24,32 @@ const ExistingAccessRow = ({
     return (
         <form onSubmit={form.onSubmit((values) => console.log(values.permissions))}>
             <Divider my="sm"/>
-            <SimpleGrid cols={4} mb={10}>
-                <Text>{allUsers[caretaker.id].displayName}</Text>
-                <Text>{caretaker.relationship}</Text>
-                <Text>
-                    <Checkbox.Group {...form.getInputProps("permissions")}>
-                        <SimpleGrid cols={2}>
-                            <Checkbox value="basic" label="Basic"/>
-                            <Checkbox value="reminders" label="Reminders"/>
-                            <Checkbox value="generalCare" label="General Care"/>
-                            <Checkbox value="education" label="Education"/>
-                            <Checkbox value="documents" label="Documents"/>
-                            <Checkbox value="emergency" label="Emergency" checked disabled/>
-                        </SimpleGrid>
+        <Grid>
 
-                    </Checkbox.Group>
-                </Text>
+            <Grid.Col span={2}>
+                <Text>{allUsers[caretaker.id].displayName}</Text>
+            </Grid.Col>
+
+            <Grid.Col span={2}>
+                <Text>{caretaker.relationship}</Text>
+            </Grid.Col>
+           <Grid.Col span={3}>
+               <Text>
+                   <Checkbox.Group {...form.getInputProps("permissions")}>
+                       <SimpleGrid cols={2}>
+                           <Checkbox value="basic" label="Basic"/>
+                           <Checkbox value="reminders" label="Reminders"/>
+                           <Checkbox value="generalCare" label="General Care"/>
+                           <Checkbox value="education" label="Education"/>
+                           <Checkbox value="documents" label="Documents"/>
+                           <Checkbox value="emergency" label="Emergency" checked disabled/>
+                       </SimpleGrid>
+
+                   </Checkbox.Group>
+               </Text>
+           </Grid.Col>
+
+            <Grid.Col span={5}>
                 <div>
 
 
@@ -75,6 +85,7 @@ const ExistingAccessRow = ({
                     </Button>
                     <Button
                         ml="20px"
+
                         color="red"
                         onClick={async () => {
                             // submit to db
@@ -134,7 +145,12 @@ const ExistingAccessRow = ({
 
 
                 </div>
-            </SimpleGrid>
+            </Grid.Col>
+
+
+        </Grid>
+
+
         </form>
     );
 };
