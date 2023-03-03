@@ -7,6 +7,8 @@ import {
   Modal,
   Radio,
   TextInput,
+  Text,
+  Space,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import InputMask from "react-input-mask";
@@ -285,6 +287,13 @@ const NewAccessModal = ({
                 <Checkbox value="education" label="Education" />
                 <Checkbox value="documents" label="Documents" />
               </Checkbox.Group>
+
+              <Space h="xs" />
+
+              <Text fz="xs" c="blue">
+                Emergency information will be available to caretakers on demand.
+                You will be notified when this information is accessed.
+              </Text>
             </Grid.Col>
 
             <Grid.Col span={10}>
