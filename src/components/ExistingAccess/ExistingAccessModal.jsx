@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
   Group,
   Modal,
@@ -17,11 +17,15 @@ const ExistingAccessModal = ({
   handleModalState,
   dependent,
 }) => {
-
-
   return (
     <div>
-      <Modal opened={isOpen} onClose={() => handleModalState(false)} size="70%" closeOnClickOutside={false} overflow="inside">
+      <Modal
+        opened={isOpen}
+        onClose={() => handleModalState(false)}
+        size="70%"
+        closeOnClickOutside={false}
+        overflow="inside"
+      >
         {/* Check if dependent exists */}
         {dependent && dependent.caretakers ? (
           <div>
@@ -40,9 +44,11 @@ const ExistingAccessModal = ({
                 console.log(caretaker);
                 return (
                   <ExistingAccessRow
+                    key={caretaker.id}
                     allUsers={allUsers}
                     caretaker={caretaker}
                     dependent={dependent}
+                    handleModalState={handleModalState}
                   />
                 );
               })
