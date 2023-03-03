@@ -1,14 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Group,
-  Modal,
-  Button,
-  Text,
-  Checkbox,
-  SimpleGrid,
-  Divider, Grid,
-} from "@mantine/core";
-import { useForm } from "@mantine/form";
+import React from "react";
+import { Grid, Modal, Text } from "@mantine/core";
 import ExistingAccessRow from "./ExistingAccessRow";
 
 const ExistingAccessModal = ({
@@ -28,25 +19,24 @@ const ExistingAccessModal = ({
       >
         {/* Check if dependent exists */}
         {dependent && dependent.caretakers ? (
-          <div style={{width:"99%"}}>
+          <div style={{ width: "99%" }}>
             <Text fz="xl" ta="center" c="blue" mb={30} fw={700}>
               {`Currently Sharing ${dependent.basic.firstName} ${dependent.basic.lastName}'s Profile With:`}
             </Text>
-            <Grid>
-              <Grid.Col span={2}>
+            <Grid columns={30}>
+              <Grid.Col span={4}>
                 <Text fw={700}>Name:</Text>
               </Grid.Col>
-              <Grid.Col span={2}>
+              <Grid.Col span={4}>
                 <Text fw={700}>Relationship:</Text>
               </Grid.Col>
-              <Grid.Col span={4}>
+              <Grid.Col span={10}>
                 <Text fw={700}>Access Granted:</Text>
               </Grid.Col>
-              <Grid.Col span={4}>
+              <Grid.Col span={12}>
                 <Text fw={700}>Options:</Text>
               </Grid.Col>
             </Grid>
-
 
             {
               // dependent.caretakers
