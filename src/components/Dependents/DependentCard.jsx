@@ -9,11 +9,8 @@ import {
   Text,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
-import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
-import ExistingAccessModal from "../ExistingAccess/ExistingAccessModal";
-import NewAccessModal from "../GrantNewAccess/NewAccessModal";
-import { useState } from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -99,13 +96,16 @@ const DependentCard = ({
         radius="md"
         className={classes.card}
         onClick={() => {
-          console.log("View dependent triggered");
           handleViewDependent(dependent);
         }}
       >
         <Card.Section className={classes.imageSection}>
           <Image
-            src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
+            src={
+              dependent.basic.profilePic && dependent.basic.profilePic !== "N/A"
+                ? dependent.basic.profilePic.fileLink
+                : "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
+            }
             alt="Kid's image"
             width={100}
             height={100}
@@ -149,7 +149,7 @@ const DependentCard = ({
                       setCurrentDependentName(`${dependent.basic.firstName}`);
                       setCurrentDependentID(`${dependent.id}`);
                     }}
-                    rightIcon={ <FontAwesomeIcon icon={faAngleDown} />}
+                    rightIcon={<FontAwesomeIcon icon={faAngleDown} />}
                   >
                     Manage Access
                   </Button>
@@ -158,7 +158,7 @@ const DependentCard = ({
                   <Menu.Item
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleExistingModalState(true)
+                      handleExistingModalState(true);
                     }}
                   >
                     Existing Access

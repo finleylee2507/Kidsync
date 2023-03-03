@@ -43,7 +43,6 @@ const GeneralCareForm = ({ formData, nextStep, prevStep, setFormData }) => {
           size="lg"
         />
         <TextInput
-          withAsterisk
           label="Allergies"
           {...form.getInputProps("allergies")}
           size="lg"

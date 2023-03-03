@@ -21,11 +21,36 @@ const ReviewPage = ({
   user,
   allUsers,
   oldDocumentsFormData,
+  oldBasicFormData,
   dependentId,
   isEditMode,
 }) => {
   const navigate = useNavigate();
-  const determineDisplayedText = (fieldName) => {
+  const determineDisplayedTextProfilePic = () => {
+    if (basicFormData.profilePic) {
+      //the user uploaded a new profile pic
+      return (
+        <Anchor
+          href={URL.createObjectURL(basicFormData.profilePic)}
+          target="_blank"
+        >
+          {basicFormData.profilePic.name}
+        </Anchor>
+      );
+    } else {
+      if (isEditMode && oldBasicFormData.profilePic !== "N/A") {
+        //the user previously uploaded a picture
+        return (
+          <Anchor href={oldBasicFormData.profilePic.fileLink} target="_blank">
+            {oldBasicFormData.profilePic.fileName}
+          </Anchor>
+        );
+      } else {
+        return "Not Uploaded";
+      }
+    }
+  };
+  const determineDisplayedTextDocuments = (fieldName) => {
     if (documentsFormData[fieldName]) {
       //the user uploaded a new file
       return (
@@ -51,6 +76,7 @@ const ReviewPage = ({
       }
     }
   };
+
   const handleFormSubmit = async () => {
     let fileLinks = {};
     const id = toast.loading(
@@ -60,6 +86,27 @@ const ReviewPage = ({
           : "Creating dependent profile..."
       }`
     );
+
+    let profilePicURL = null;
+    let profilePicName = null;
+    //upload dependent profile picture
+    const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
+    if (
+      basicFormData.profilePic &&
+      acceptedFileTypes.includes(basicFormData.profilePic.type)
+    ) {
+      //if the user uploaded dependent picture
+      profilePicName = basicFormData.profilePic.name;
+      let [isUploadProfilePicSuccessful, profilePicLink] = await uploadFile(
+        basicFormData.profilePic,
+        "dependent-profile-pictures"
+      );
+
+      if (isUploadProfilePicSuccessful) {
+        profilePicURL = profilePicLink;
+      }
+    }
+
     //upload dependent files
     for (const [key, file] of Object.entries(documentsFormData)) {
       // console.log("Document key: ",key," Document value: ",file.name);
@@ -103,6 +150,19 @@ const ReviewPage = ({
 
     if (isEditMode) {
       //if we're editing
+      let newProfilePic;
+      if (profilePicURL) {
+        //if the user successfully uploaded a new profile pic
+        newProfilePic = { fileName: profilePicName, fileLink: profilePicURL };
+      } else {
+        //check if there's an existing profile pic
+        if (oldBasicFormData.profilePic !== "N/A") {
+          newProfilePic = oldBasicFormData.profilePic;
+        } else {
+          newProfilePic = "N/A";
+        }
+      }
+
       let newDocumentObject = {};
       for (const [key, file] of Object.entries(fileLinks)) {
         if (fileLinks[key] === "N/A") {
@@ -135,6 +195,7 @@ const ReviewPage = ({
           phoneNumber: basicFormData.phoneNumber
             ? basicFormData.phoneNumber
             : "N/A",
+          profilePic: newProfilePic,
         },
         emergency: {
           emergencyContactName: emergencyFormData.emergencyContactName,
@@ -223,6 +284,9 @@ const ReviewPage = ({
           address: basicFormData.address ? basicFormData.address : "N/A",
           phoneNumber: basicFormData.phoneNumber
             ? basicFormData.phoneNumber
+            : "N/A",
+          profilePic: profilePicURL
+            ? { fileName: profilePicName, fileLink: profilePicURL }
             : "N/A",
         },
         emergency: {
@@ -327,7 +391,12 @@ const ReviewPage = ({
         <Text fz="lg" fw="500" mt="2rem">
           Name
         </Text>
+
         <Text> {`${basicFormData.firstName} ${basicFormData.lastName}`}</Text>
+        <Text fz="lg" fw="500" mt="2rem">
+          Profile Picture
+        </Text>
+        <Text c="red"> {determineDisplayedTextProfilePic()}</Text>
 
         <Text fz="lg" fw="500" mt="2rem">
           Birthday
@@ -523,22 +592,25 @@ const ReviewPage = ({
       <Text fz="lg" fw="500" mt="2rem">
         Immunization File
       </Text>
-      <Text c="red"> {determineDisplayedText("immunizationFile")}</Text>
+      <Text c="red">
+        {" "}
+        {determineDisplayedTextDocuments("immunizationFile")}
+      </Text>
 
       <Text fz="lg" fw="500" mt="2rem">
         Insurance Card
       </Text>
-      <Text c="red"> {determineDisplayedText("insuranceCard")}</Text>
+      <Text c="red"> {determineDisplayedTextDocuments("insuranceCard")}</Text>
 
       <Text fz="lg" fw="500" mt="2rem">
         ESA Documents
       </Text>
-      <Text c="red"> {determineDisplayedText("esaDocuments")}</Text>
+      <Text c="red"> {determineDisplayedTextDocuments("esaDocuments")}</Text>
 
       <Text fz="lg" fw="500" mt="2rem">
         FSA Documents
       </Text>
-      <Text c="red"> {determineDisplayedText("fsaDocuments")}</Text>
+      <Text c="red"> {determineDisplayedTextDocuments("fsaDocuments")}</Text>
 
       <Divider mt="2rem" size="sm" />
 
