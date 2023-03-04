@@ -87,9 +87,11 @@ const NewAccessModal = ({
 
       //check the to-be-added caretaker already exists
       let alreadyExist = false;
-      for (let careTaker of allDependents[dependentID].caretakers) {
-        if (careTaker.id === clientID) {
-          alreadyExist = true;
+      if (allDependents[dependentID].caretakers) {
+        for (let careTaker of allDependents[dependentID].caretakers) {
+          if (careTaker.id === clientID) {
+            alreadyExist = true;
+          }
         }
       }
 
