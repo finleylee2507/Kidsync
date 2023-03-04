@@ -49,11 +49,9 @@ const GeneralCareForm = ({ formData, nextStep, prevStep, setFormData }) => {
         />
 
         <TextInput
-          withAsterisk
           label="Current Medications"
           {...form.getInputProps("currentMedications")}
           size="lg"
-          required
         />
 
         <TextInput
