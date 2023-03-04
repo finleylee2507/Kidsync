@@ -95,6 +95,7 @@ const NewAccessModal = ({
         }
       }
 
+      let isMyself = user.uid === clientID;
       if (alreadyExist) {
         form.setFieldError(
           "email",
@@ -104,6 +105,10 @@ const NewAccessModal = ({
           "This person has already been granted access to the dependent.";
       }
 
+      if (isMyself) {
+        form.setFieldError("email", "You can't grant access to yourself.");
+        errors.emailError = "You can't grant access to yourself.";
+      }
       if (!allUsers[clientID]) {
         form.setFieldError(
           "email",
