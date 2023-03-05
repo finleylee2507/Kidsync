@@ -13,6 +13,7 @@ import {
   ref,
   set,
   update,
+  remove,
 } from "firebase/database";
 
 import {
@@ -77,7 +78,7 @@ export const addNewUser = (newUser, uemail, uid) => {
 };
 
 //Update existing user
-export const updateUser=async (newUser, uid) => {
+export const updateUser = async (newUser, uid) => {
   const userRef = child(ref(database), "users/" + uid);
   let isUpdateSuccessful = false;
   try {
@@ -88,7 +89,7 @@ export const updateUser=async (newUser, uid) => {
   }
 
   return isUpdateSuccessful;
-}
+};
 
 // Get a new key for a dependent
 export const getNewDependentKey = () => {
@@ -133,7 +134,18 @@ export const updateDependent = async (newDependent, did) => {
   return isUpdateSuccessful;
 };
 
+//Delete dependent
+export const deleteDependent = async (did) => {
+  let isSuccessful = false;
+  try {
+    await remove(ref(database, "dependents/" + did));
+    isSuccessful = true;
+  } catch (error) {
+    console.log(error);
+  }
 
+  return isSuccessful;
+};
 
 export const addNewClient = async (
   updatedUserClients,

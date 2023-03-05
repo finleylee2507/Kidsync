@@ -119,19 +119,21 @@ const DependentCard = ({
             height={100}
           />
 
-          <ActionIcon
-            className={classes.trashIcon}
-            onClick={(e) => {
-              e.stopPropagation();
-              setCurrentDependentName(
-                `${dependent.basic.firstName} ${dependent.basic.lastName}`
-              );
-              setCurrentDependentID(`${dependent.id}`);
-              setIsConfirmationModalOpen(true);
-            }}
-          >
-            <FontAwesomeIcon icon={faTrashCan} size="lg" />
-          </ActionIcon>
+          {showAll && (
+            <ActionIcon
+              className={classes.trashIcon}
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentDependentName(
+                  `${dependent.basic.firstName} ${dependent.basic.lastName}`
+                );
+                setCurrentDependentID(`${dependent.id}`);
+                setIsConfirmationModalOpen(true);
+              }}
+            >
+              <FontAwesomeIcon icon={faTrashCan} size="lg" />
+            </ActionIcon>
+          )}
         </Card.Section>
         <Group position="apart" mt="md">
           <div>

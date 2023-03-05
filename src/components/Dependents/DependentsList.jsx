@@ -11,9 +11,14 @@ import {
   Divider,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
-import { useDbData } from "../../utilities/firebase";
+import {
+  deleteDependent,
+  updateUser,
+  useDbData,
+} from "../../utilities/firebase";
 import ExistingAccessModal from "../ExistingAccess/ExistingAccessModal";
 import NewAccessModal from "../GrantNewAccess/NewAccessModal";
+import { toast } from "react-toastify";
 
 const useStyles = createStyles(() => ({
   button: {
@@ -69,8 +74,69 @@ const DependentsList = ({
     setIsConfirmationModalOpen(false);
   };
 
-  const handleModalConfirm = () => {
+  const handleModalConfirm = async () => {
     console.log("Deleting dependent...");
+
+    //step 1: delete dependent from users' dependent array
+    let newDependents = allUsers[user.uid].dependents.filter(
+      (dependent) => dependent !== currentDependentID
+    );
+    let newUserObject = { ...allUsers[user.uid], dependents: newDependents };
+
+    let deleteDependentFromUserResult = true;
+
+    try {
+      deleteDependentFromUserResult = await updateUser(newUserObject, user.uid);
+    } catch (e) {
+      deleteDependentFromUserResult = false;
+      console.log("Delete dependent from users error: ", e);
+    }
+
+    //Step 2: if the dependent has caretakers, delete the dependent from the caretakers' clients array
+    let deleteDependentFromCareTakersResult = true;
+
+    if (allDependents[currentDependentID].caretakers) {
+      for (let caretaker of allDependents[currentDependentID].caretakers) {
+        let newClients = allUsers[caretaker.id].clients.filter(
+          (client) => client.id !== currentDependentID
+        );
+
+        let newUserObject = { ...allUsers[caretaker.id], clients: newClients };
+        try {
+          deleteDependentFromCareTakersResult = await updateUser(
+            newUserObject,
+            caretaker.id
+          );
+        } catch (e) {
+          deleteDependentFromCareTakersResult = false;
+          console.log("Delete dependent from caretakers error: ", e);
+        }
+      }
+    }
+
+    //Step 3: delete the dependent from the dependents array
+    let deleteDependentFromDependentsResult = true;
+    try {
+      deleteDependentFromDependentsResult = await deleteDependent(
+        currentDependentID
+      );
+    } catch (e) {
+      deleteDependentFromDependentsResult = false;
+      console.log("Delete dependent from dependent results error: ", e);
+    }
+
+    if (
+      deleteDependentFromUserResult &&
+      deleteDependentFromCareTakersResult &&
+      deleteDependentFromDependentsResult
+    ) {
+      toast.success("Successfully deleted dependent!");
+      setIsConfirmationModalOpen(false);
+    } else {
+      toast.error(
+        "Hmm...Something went wrong. Please try again or contact the dev team."
+      );
+    }
   };
   if (
     allDeps == null ||
