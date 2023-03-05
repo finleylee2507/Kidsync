@@ -7,9 +7,11 @@ import {
   Image,
   Menu,
   Text,
+  ActionIcon,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const useStyles = createStyles((theme) => ({
@@ -29,11 +31,16 @@ const useStyles = createStyles((theme) => ({
   imageSection: {
     padding: theme.spacing.md,
     display: "flex",
-    alignItems: "center",
+    alignItems: "start",
     justifyContent: "center",
     borderBottom: `1px solid ${
       theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
     }`,
+  },
+
+  trashIcon: {
+    position: "absolute",
+    right: "2%",
   },
 
   label: {
@@ -68,6 +75,7 @@ const DependentCard = ({
   handleExistingModalState,
   setCurrentDependentName,
   setCurrentDependentID,
+  setIsConfirmationModalOpen,
 }) => {
   const { classes, theme } = useStyles();
   const navigate = useNavigate();
@@ -110,6 +118,22 @@ const DependentCard = ({
             width={100}
             height={100}
           />
+
+          {showAll && (
+            <ActionIcon
+              className={classes.trashIcon}
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentDependentName(
+                  `${dependent.basic.firstName} ${dependent.basic.lastName}`
+                );
+                setCurrentDependentID(`${dependent.id}`);
+                setIsConfirmationModalOpen(true);
+              }}
+            >
+              <FontAwesomeIcon icon={faTrashCan} size="lg" />
+            </ActionIcon>
+          )}
         </Card.Section>
         <Group position="apart" mt="md">
           <div>
@@ -146,7 +170,9 @@ const DependentCard = ({
                   <Button
                     onClick={(e) => {
                       e.stopPropagation();
-                      setCurrentDependentName(`${dependent.basic.firstName}`);
+                      setCurrentDependentName(
+                        `${dependent.basic.firstName} ${dependent.basic.lastName}`
+                      );
                       setCurrentDependentID(`${dependent.id}`);
                     }}
                     rightIcon={<FontAwesomeIcon icon={faAngleDown} />}

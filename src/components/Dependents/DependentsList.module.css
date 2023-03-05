@@ -4,3 +4,17 @@
     width: 100%;
     margin-top: 20px;
 }
+
+.modalButtonContainer {
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+}
+
+/*overriding default mantine style*/
+.modalTitle{
+    font-weight: 700;
+    font-size: 20px;
+}
