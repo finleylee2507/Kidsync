@@ -76,7 +76,7 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
   });
 
   //keeps track of which form we want to display
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(5);
 
   //go back to the previous form step
   const prevStep = () => {
