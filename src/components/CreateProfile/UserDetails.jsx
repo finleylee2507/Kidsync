@@ -25,6 +25,13 @@ const UserDetails = ({ user }) => {
 
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+      phoneNumber: (value) => {
+        if (value && !/^\+1 \(\d{3}\) \d{3}-\d{4}$/.test(value)) {
+          return "Invalid phone number";
+        } else {
+          return null;
+        }
+      },
     },
   });
 
@@ -37,7 +44,7 @@ const UserDetails = ({ user }) => {
         onSubmit={form.onSubmit(async (values) => {
           console.log("Values: ", values);
 
-          const newPhoneNumber = values.phoneNumber.replace(/[+\s()-]/g, '');
+          const newPhoneNumber = values.phoneNumber.replace(/[+\s()-]/g, "");
 
           const updatedUser = {
             displayName: `${values.firstName} ${values.lastName}`,
@@ -83,7 +90,7 @@ const UserDetails = ({ user }) => {
         <Input.Wrapper
           label="Phone Number"
           size="lg"
-          error={"Please enter a valid phone number"}
+          error={form.errors.phoneNumber}
         >
           <Input
             component={InputMask}

@@ -35,6 +35,13 @@ const BasicForm = ({
     validate: {
       birthday: (value) => (!value ? "Please enter a birthday" : null),
       sex: (value) => (!value ? "Please select sex" : null),
+      phoneNumber: (value) => {
+        if (value && !/^\+1 \(\d{3}\) \d{3}-\d{4}$/.test(value)) {
+          return "Invalid phone number";
+        } else {
+          return null;
+        }
+      },
     },
   });
 
