@@ -5,38 +5,14 @@ import GeneralCareForm from "./GeneralCareForm";
 import DocumentsForm from "./DocumentsForm";
 import EducationForm from "./EducationForm";
 import styles from "./CreateDependentProfileForm.module.css";
-import {
-  Button,
-  createStyles,
-  Divider,
-  Modal,
-  Progress,
-  Text,
-} from "@mantine/core";
+import { Button, Divider, Modal, Progress, Text } from "@mantine/core";
 import ReviewPage from "./ReviewPage";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import ReminderForm from "./ReminderForm";
 
-//define custom style for mantine components
-const useStyles = createStyles((theme) => ({
-  returnButton: {
-    "@media (max-width: 600px)": {
-      width: "100%",
-      height: 60,
-      fontSize: 30,
-    },
-  },
-  formHeader: {
-    "@media (max-width: 600px)": {
-      fontSize: 45,
-    },
-  },
-}));
-
 const CreateDependentProfileForm = ({ user, allUsers }) => {
   const navigate = useNavigate();
-  const { classes } = useStyles();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const handleReturn = () => {
     setIsOpenModal(true);
@@ -100,7 +76,7 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
   });
 
   //keeps track of which form we want to display
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(5);
 
   //go back to the previous form step
   const prevStep = () => {
@@ -124,7 +100,6 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
           setFormData={setBasicFormData}
           isEditMode={false}
           oldFormData={null}
-          classes={classes}
         />
       );
       break;
@@ -136,7 +111,6 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
           nextStep={nextStep}
           prevStep={prevStep}
           setFormData={setEmergencyFormData}
-          classes={classes}
         />
       );
       break;
@@ -147,7 +121,6 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
           nextStep={nextStep}
           prevStep={prevStep}
           setFormData={setEducationFormData}
-          classes={classes}
         />
       );
 
@@ -159,7 +132,6 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
           nextStep={nextStep}
           prevStep={prevStep}
           setFormData={setGeneralCareFormData}
-          classes={classes}
         />
       );
       break;
@@ -172,7 +144,6 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
           setFormData={setDocumentsFormData}
           isEditMode={false}
           oldFormData={null}
-          classes={classes}
         />
       );
       break;
@@ -183,7 +154,6 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
           nextStep={nextStep}
           prevStep={prevStep}
           setFormData={setReminderFormData}
-          classes={classes}
         />
       );
       break;
@@ -202,7 +172,6 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
           oldDocumentsFormData={null}
           dependentId={null}
           isEditMode={false}
-          classes={classes}
         />
       );
       break;
@@ -214,7 +183,6 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
           setFormData={setBasicFormData}
           isEditMode={false}
           oldFormData={null}
-          classes={classes}
         />
       );
       break;
@@ -245,9 +213,12 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
       </Modal>
 
       <div className={styles.formWrapper}>
-        <Button onClick={handleReturn} className={classes.returnButton}>
-          Return
-        </Button>
+        <div className={styles.returnButtonContainer}>
+          <Button onClick={handleReturn} className={styles.returnButton}>
+            Return
+          </Button>
+        </div>
+
         <div className={styles.progressBarContainer} title="Progress">
           <Progress
             value={(step / 6) * 100}
@@ -255,6 +226,10 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
             size="xl"
             radius="xl"
             striped
+            classNames={{
+              root: styles.progressBar,
+              label: styles.progressBarLabel,
+            }}
           />
         </div>
         <div className={`${styles.formContent}${step === 5 ? "inReview" : ""}`}>

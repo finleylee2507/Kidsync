@@ -28,9 +28,72 @@
 
 }
 
+
 /*overriding default mantine style*/
-.modalTitle{
+.modalTitle {
     font-weight: 700;
     font-size: 20px;
+}
+
+
+/*Responsive styles*/
+@media screen and (max-width: 600px) {
+    .returnButtonContainer{
+        display: flex;
+        justify-content: center;
+    }
+    .returnButton {
+        font-size: 30px;
+        width: 70%;
+        height: 50px;
+    }
+
+    .formHeader {
+        font-size: 30px;
+    }
+
+    .inputLabel {
+        font-size: 25px;
+    }
+
+    .input {
+        height: 60px;
+        font-size: 25px;
+    }
+
+    .selectItem {
+        font-size: 25px;
+    }
+
+    .nextButton {
+        font-size: 30px;
+        width: 100%;
+        height: 50px;
+
+    }
+
+    .backButton {
+        font-size: 30px;
+        width: 100%;
+        height: 50px;
+        margin-top: 10px;
+    }
+
+    .progressBar {
+        height: 30px;
+        width: 70%;
+        margin: auto;
+    }
+
+    .progressBarLabel {
+        font-size: 20px;
+    }
+
+    .timeInput{
+        font-size: 25px;
+        margin: 5px;
+    }
+
+
 }
 
