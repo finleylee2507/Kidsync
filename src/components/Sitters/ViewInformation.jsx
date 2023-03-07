@@ -277,10 +277,76 @@ const ViewInformation = () => {
           </Accordion.Panel>
         </Accordion.Item>
 
-        {/* <Accordion.Item value="documents">
+        <Accordion.Item value="documents">
           <Accordion.Control>Documents</Accordion.Control>
-          <Accordion.Panel></Accordion.Panel>
-        </Accordion.Item> */}
+          <Accordion.Panel>
+            <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Immunization File
+                </Text>
+                {client.documents["immunizationFile"] !== "N/A" ? (
+                  <Anchor
+                    href={client.documents["immunizationFile"]["fileLink"]}
+                    target="_blank"
+                  >
+                    {client.documents["immunizationFile"]["fileName"]}
+                  </Anchor>
+                ) : (
+                  <Text c="red"> Not uploaded</Text>
+                )}
+              </div>
+
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Insurance Card
+                </Text>
+                {client.documents["insuranceCard"] !== "N/A" ? (
+                  <Anchor
+                    href={client.documents["insuranceCard"]["fileLink"]}
+                    target="_blank"
+                  >
+                    {client.documents["insuranceCard"]["fileName"]}
+                  </Anchor>
+                ) : (
+                  <Text c="red"> Not uploaded</Text>
+                )}
+              </div>
+
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  ESA Documents
+                </Text>
+                {client.documents["esaDocuments"] !== "N/A" ? (
+                  <Anchor
+                    href={client.documents["esaDocuments"]["fileLink"]}
+                    target="_blank"
+                  >
+                    {client.documents["esaDocuments"]["fileName"]}
+                  </Anchor>
+                ) : (
+                  <Text c="red"> Not uploaded</Text>
+                )}
+              </div>
+
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  FSA Documents
+                </Text>
+                {client.documents["fsaDocuments"] !== "N/A" ? (
+                  <Anchor
+                    href={client.documents["fsaDocuments"]["fileLink"]}
+                    target="_blank"
+                  >
+                    {client.documents["fsaDocuments"]["fileName"]}
+                  </Anchor>
+                ) : (
+                  <Text c="red"> Not uploaded</Text>
+                )}
+              </div>
+            </SimpleGrid>
+          </Accordion.Panel>
+        </Accordion.Item>
 
         <Accordion.Item value="reminders">
           <Accordion.Control>Reminders for Caretakers</Accordion.Control>
