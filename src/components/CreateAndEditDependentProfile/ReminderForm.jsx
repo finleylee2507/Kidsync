@@ -22,7 +22,8 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "./ReminderForm.module.css";
+import reminderStyles from "./ReminderForm.module.css";
+import styles from "./CreateDependentProfileForm.module.css";
 
 const CheckboxIconM = ({ indeterminate, className }) =>
   indeterminate ? (
@@ -249,7 +250,7 @@ const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
   };
   return (
     <div>
-      <Text fz="xl" fw="700" mb="2rem" mt="2rem">
+      <Text fz="xl" fw="700" mb="2rem" mt="2rem" className={styles.formHeader}>
         Add Reminders for Caretakers:
       </Text>
       <form
@@ -304,7 +305,7 @@ const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
                   <FontAwesomeIcon
                     icon={faTrashCan}
                     size="lg"
-                    className={styles.removeIcon}
+                    className={reminderStyles.removeIcon}
                     onClick={() => {
                       handleRemoveItems(index);
                     }}
@@ -331,10 +332,14 @@ const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
         </Grid>
 
         <Group position="right" mt="md" mb="20px">
-          <Button name="prevButton" onClick={prevStep}>
+          <Button
+            name="prevButton"
+            onClick={prevStep}
+            className={styles.backButton}
+          >
             Back
           </Button>
-          <Button type="submit" name="nextButton">
+          <Button type="submit" name="nextButton" className={styles.nextButton}>
             Next
           </Button>
         </Group>

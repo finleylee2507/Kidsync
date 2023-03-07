@@ -9,16 +9,21 @@
     /*border: 1px solid black;*/
 }
 
-.formContent {
+.normalContent{
     width: 70%;
     margin: auto;
 
 }
 
-.formContent.inReview {
+.reminderContent{
     width: 100%;
-
 }
+
+.reviewContent{
+    width:100%
+}
+
+
 
 .modalButtonContainer {
     margin-top: 5px;
@@ -44,7 +49,7 @@
     }
     .returnButton {
         font-size: 30px;
-        width: 70%;
+        width: 90%;
         height: 50px;
     }
 
@@ -81,7 +86,7 @@
 
     .progressBar {
         height: 30px;
-        width: 70%;
+        width: 90%;
         margin: auto;
     }
 
@@ -94,6 +99,15 @@
         margin: 5px;
     }
 
+
+    .normalContent{
+        width: 90%;
+        margin: auto;
+    }
+    .reminderContent{
+        width: 90%;
+        margin: auto;
+    }
 
 }
 
