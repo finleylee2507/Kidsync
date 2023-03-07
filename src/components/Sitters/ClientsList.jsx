@@ -49,6 +49,8 @@ const ClientsList = ({ user, allUsers, allDependents }) => {
                   key={id}
                   client={allDependents[client.id]}
                   permissions={client.permissions}
+                  creator={allUsers[allDependents[client.id].creator]}
+                  currentUser={allUsers[user.uid]}
                 />
               );
             })}

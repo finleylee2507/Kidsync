@@ -12,6 +12,7 @@ import {
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import styles from "./ClientCard.module.css";
+import { sendSMS } from "../../utilities/twilio";
 // // import { FaCircleCheck } from "@fortawesome/free-solid-svg-icons";
 // // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { IconCheck, IconX } from "@tabler/icons";
@@ -65,7 +66,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const ClientCard = ({ client, permissions }) => {
+const ClientCard = ({ client, permissions, creator, currentUser }) => {
   // console.log(client);
   const { classes, theme } = useStyles();
   const navigate = useNavigate();
@@ -85,7 +86,10 @@ const ClientCard = ({ client, permissions }) => {
 
   const handleEmergencyClick = (client) => {
     // use navigate() to pass the data
+    // Send text notification to creator of dependent
     let showEmergency = true;
+    const message = `IMPORTANT: This is an automated message from KidSync. The emergency information for your dependent, ${client.basic.firstName} ${client.basic.lastName}, was just accessed by their caretaker, ${currentUser.displayName}. Please contact them as soon as possible to get more information.`;
+    sendSMS(creator.phoneNumber, message);
     navigate("/view-information", {
       state: { client, permissions, showEmergency },
     });

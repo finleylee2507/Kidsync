@@ -44,6 +44,7 @@ const HomePage = ({ user, allUsers, allDependents }) => {
         {!(
           allDeps == null ||
           allDeps.length == 1 ||
+          allUsers[user.uid] == undefined ||
           allUsers[user.uid].clients == null
         ) &&
           Object.entries(allUsers[user.uid].clients).map(([id, client]) => {
@@ -53,6 +54,8 @@ const HomePage = ({ user, allUsers, allDependents }) => {
                 key={id}
                 client={allDependents[client.id]}
                 permissions={client.permissions}
+                creator={allUsers[allDependents[client.id].creator]}
+                currentUser={allUsers[user.uid]}
               />
             );
           })}

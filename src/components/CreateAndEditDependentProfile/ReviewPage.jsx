@@ -178,6 +178,7 @@ const ReviewPage = ({
       // Create new dependent object
       let newDependent = {
         id: dependentId,
+        creator: user.uid,
         basic: {
           firstName: basicFormData.firstName,
           lastName: basicFormData.lastName,
@@ -268,6 +269,7 @@ const ReviewPage = ({
       // Create new dependent object
       let newDependent = {
         id: newDependentID,
+        creator: user.uid,
         basic: {
           firstName: basicFormData.firstName,
           lastName: basicFormData.lastName,
