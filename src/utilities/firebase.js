@@ -208,3 +208,23 @@ export const useAuthState = () => {
 
   return user;
 };
+
+// Clear entire database of all unessential fields
+export const clearDatabase = () => {
+  console.log("Clearing database");
+
+  const data = {
+    dependents: {
+      0: "Initialize",
+    },
+    emailToID: {
+      0: "Initialize",
+    },
+    users: {
+      0: "Initialize",
+    },
+  };
+
+  // Update messages and users tables in database with above data
+  update(ref(database), data);
+};

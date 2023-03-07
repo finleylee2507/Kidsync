@@ -1,13 +1,14 @@
 import { React, useEffect } from "react";
 import {
   addNewUser,
+  clearDatabase,
   signInWithGoogle,
   useAuthState,
 } from "../../utilities/firebase";
 import { Navigate, useNavigate } from "react-router-dom";
 import styles from "./Landing.module.css";
 import { FcGoogle } from "react-icons/fc";
-import { Image, Title } from "@mantine/core";
+import { Button, Image, Title } from "@mantine/core";
 import { fromEmailToDbString } from "../../utilities/emailFormatter";
 
 const SignInButton = () => {
@@ -67,6 +68,7 @@ const Landing = (allUsers) => {
       <div className={styles.signInColumn}>
         <Title className={styles.title}>YourTurn👋</Title>
         <SignInButton />
+        <Button onClick={clearDatabase()}>Clear Database</Button>
       </div>
     </div>
   );
