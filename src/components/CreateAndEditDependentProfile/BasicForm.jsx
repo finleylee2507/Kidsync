@@ -19,6 +19,7 @@ const BasicForm = ({
   setFormData,
   isEditMode,
   oldFormData,
+  classes,
 }) => {
   const form = useForm({
     initialValues: {
@@ -53,7 +54,7 @@ const BasicForm = ({
   console.log("Form test: ", form.values.profilePic);
   return (
     <div>
-      <Text fz="xl" fw="700" mb="2rem" mt="2rem">
+      <Text fz="xl" fw="700" mb="2rem" mt="2rem" className={classes.formHeader}>
         Enter Basic Information:
       </Text>
       <form
