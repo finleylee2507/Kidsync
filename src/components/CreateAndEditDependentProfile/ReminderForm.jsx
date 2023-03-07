@@ -11,19 +11,20 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { DatePicker, TimeInput } from "@mantine/dates";
-import { faTrashCan, faPenToSquare } from "@fortawesome/free-regular-svg-icons";
+import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import {
   faCirclePlus,
   faF,
   faM,
+  faPlus,
   faS,
   faT,
   faW,
-  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import reminderStyles from "./ReminderForm.module.css";
 import styles from "./CreateDependentProfileForm.module.css";
+import { useMediaQuery } from "@mantine/hooks";
 
 const CheckboxIconM = ({ indeterminate, className }) =>
   indeterminate ? (
@@ -60,7 +61,13 @@ const CheckboxIconS = ({ indeterminate, className }) =>
     <FontAwesomeIcon icon={faS} className={className} fontSize="10px" />
   );
 
-const SchedulePopUp = ({ form, index, isOpen, handleSetPopoverState }) => {
+const SchedulePopUp = ({
+  form,
+  index,
+  isOpen,
+  handleSetPopoverState,
+  isMobile,
+}) => {
   return (
     <Popover
       withArrow
@@ -94,10 +101,11 @@ const SchedulePopUp = ({ form, index, isOpen, handleSetPopoverState }) => {
             />
           }
         >
-          {form.values.reminders[index].schedule.weekdays.length === 0 &&
-          !form.values.reminders[index].schedule.eventDate
-            ? "Add Schedule"
-            : "Edit Schedule"}
+          {!isMobile &&
+            (form.values.reminders[index].schedule.weekdays.length === 0 &&
+            !form.values.reminders[index].schedule.eventDate
+              ? "Add Schedule"
+              : "Edit Schedule")}
         </Button>
       </Popover.Target>
       <Popover.Dropdown>
@@ -155,6 +163,8 @@ const SchedulePopUp = ({ form, index, isOpen, handleSetPopoverState }) => {
 };
 
 const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
+  const isMobile = useMediaQuery("(max-width:600px)");
+  console.log("Is mobile: ", isMobile);
   const [popOverStates, setPopOverStates] = useState([]); //controls whether the popovers should be displayed
   const handleSetPopoverState = (index, value) => {
     setPopOverStates((prevState) => {
@@ -267,38 +277,52 @@ const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
         })}
       >
         <Grid>
-          <Grid.Col span={2}>
-            <Text fw="500">Time</Text>
+          <Grid.Col span={isMobile ? 3 : 2}>
+            <Text fw="500" className={styles.inputLabel}>
+              Time
+            </Text>
           </Grid.Col>
           <Grid.Col span={9}>
-            <Text fw="500">Action</Text>
+            <Text fw="500" className={styles.inputLabel}>
+              Action
+            </Text>
           </Grid.Col>
         </Grid>
         {form.values.reminders.map((item, index) => {
           return (
             <div key={index}>
               <Grid align="center">
-                <Grid.Col span={2}>
+                <Grid.Col span={isMobile ? 3 : 2}>
                   {" "}
                   <TimeInput
                     format="12"
                     {...form.getInputProps(`reminders.${index}.time`)}
                     size="lg"
+                    classNames={{
+                      label: styles.inputLabel,
+                      input: styles.input,
+                      timeInput: styles.timeInput,
+                    }}
                   />
                 </Grid.Col>
-                <Grid.Col span={5}>
+                <Grid.Col span={isMobile ? 7 : 3}>
                   <TextInput
                     {...form.getInputProps(`reminders.${index}.taskName`)}
                     size="lg"
+                    classNames={{
+                      label: styles.inputLabel,
+                      input: styles.input,
+                    }}
                   />
                 </Grid.Col>
-                <Grid.Col span={4}>
+                <Grid.Col span={isMobile ? 1 : 4}>
                   <SchedulePopUp
                     form={form}
                     index={index}
                     key={index}
                     isOpen={popOverStates[index]}
                     handleSetPopoverState={handleSetPopoverState}
+                    isMobile={isMobile}
                   />
                 </Grid.Col>
                 <Grid.Col span={1}>
@@ -325,6 +349,9 @@ const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
               leftIcon={
                 <FontAwesomeIcon icon={faCirclePlus} size="lg" width="2rem" />
               }
+              classNames={{
+                root: styles.addMoreActionsButton,
+              }}
             >
               Add More Actions
             </Button>

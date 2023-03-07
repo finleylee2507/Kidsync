@@ -28,7 +28,6 @@ const EmergencyForm = ({ formData, nextStep, prevStep, setFormData }) => {
       </Text>
       <form
         onSubmit={form.onSubmit((values, event) => {
-          console.log("Values: ", values);
           setFormData(values);
           nextStep();
         })}
