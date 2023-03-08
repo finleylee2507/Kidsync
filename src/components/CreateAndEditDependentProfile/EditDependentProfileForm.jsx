@@ -285,7 +285,15 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
             striped
           />
         </div>
-        <div className={`${styles.formContent}${step === 5 ? "inReview" : ""}`}>
+        <div
+          className={
+            step < 5
+              ? styles.normalContent
+              : step === 5
+              ? styles.reminderContent
+              : styles.reviewContent
+          }
+        >
           {renderedElement}
         </div>
       </div>
