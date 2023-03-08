@@ -15,7 +15,7 @@ const ExistingAccessModal = ({
       <Modal
         opened={isOpen}
         onClose={() => handleModalState(false)}
-        // size="80%"
+        size="80%"
         closeOnClickOutside={false}
         overflow="inside"
         fullScreen={isMobile}
