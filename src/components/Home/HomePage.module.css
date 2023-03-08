@@ -18,6 +18,10 @@
     justify-content: right;
 } */
 
+.wrapper{
+    background-color: #EEE1C4;
+}
+
 .dependentsContainer{
     display: flex;
     flex-direction: row;

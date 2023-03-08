@@ -163,8 +163,13 @@ const ClientCard = ({ client, permissions, creator, currentUser }) => {
 
             <Button
               radius="xl"
-              color="red"
-              style={{ flex: 1, color: "white" }}
+              style={{
+                flex: 1,
+                backgroundColor: "#FF7676",
+                "&:not([data-disabled])": theme.fn.hover({
+                  opacity: 0.7,
+                }),
+              }}
               onClick={(event) => {
                 event.stopPropagation();
                 handleEmergencyClick(client);
