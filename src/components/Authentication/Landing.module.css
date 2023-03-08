@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600&family=Graduate&family=Inter:wght@100;200&family=Montserrat:ital,wght@0,100;0,200;0,300;1,100;1,200;1,400&family=Old+Standard+TT:wght@700&family=Play:wght@400;700&family=Yeseva+One&display=swap');
+
 .signInBtnContainer {
     display: flex;
     justify-content: center;
@@ -14,8 +16,9 @@
 
 .heroImageContainer {
     display: flex;
-    min-width: 60vw;
-    min-height: 100vh;
+    flex-direction: column;
+    width: 60vw;
+    height: 60vh;
     align-items: center;
 }
 
@@ -44,15 +47,37 @@
 }
 
 .heroImage {
+    width: 40rem !important;
+    min-height: 30rem !important;
     padding-left: 2rem;
     padding-top: 2rem;
+    margin: auto;
+}
+
+.heroImageOverlay{
+    width: 80%;
+}
+
+.heroHeader{
+    color: #252238;
+    font-family: 'Yeseva One', cursive;
+    margin: 0;
+}
+
+.heroParagraph{
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    padding-right: 2rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    text-align: left;
 }
 
 .signInColumn {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: #D9D9D9;
+    background-color: #EEE1C4;
     padding-left: 2rem;
     padding-right: 2rem;
     min-height: 100vh;
@@ -61,8 +86,8 @@
 
 .title {
     font-size: 2rem;
-    font-family: "Montserrat", sans-serif;
-    font-weight: bold;
+    font-family: 'Yeseva One', cursive;    
+    font-weight: 400;
 }
 
 

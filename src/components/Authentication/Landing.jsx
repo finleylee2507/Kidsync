@@ -59,16 +59,27 @@ const Landing = (allUsers) => {
   return (
     <div className={styles.bigContainer}>
       <div className={styles.heroImageContainer}>
-        <Image
+        <img
           className={styles.heroImage}
-          src="https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
+          src="dist/assets/Group6195.png"
           alt="Placeholder for Hero image"
         />
+        <div className={styles.heroImageOverlay}>
+          <h1 className={styles.heroHeader}>
+            Say goodbye to anxiety and hello to peace of mind!
+          </h1>
+          <p className={styles.heroParagraph}>
+            Kidsync keeps your children safe by bridging the communication gap
+            between co-parents, caretakers, and babysitters and ensuring that
+            all parties have the most updated information to care for your
+            child.{" "}
+          </p>
+        </div>
       </div>
       <div className={styles.signInColumn}>
-        <Title className={styles.title}>YourTurn👋</Title>
+        <Title className={styles.title}>Sign In</Title>
         <SignInButton />
-        <Button onClick={clearDatabase}>Clear Database</Button>
+        {/* <Button onClick={clearDatabase}>Clear Database</Button> */}
       </div>
     </div>
   );
