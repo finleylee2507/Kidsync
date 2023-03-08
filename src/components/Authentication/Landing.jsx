@@ -1,14 +1,13 @@
 import { React, useEffect } from "react";
 import {
   addNewUser,
-  clearDatabase,
   signInWithGoogle,
   useAuthState,
 } from "../../utilities/firebase";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./Landing.module.css";
 import { FcGoogle } from "react-icons/fc";
-import { Button, Image, Title } from "@mantine/core";
+import { Title } from "@mantine/core";
 import landingImage from "../../../dist/assets/Group6195.png";
 import { fromEmailToDbString } from "../../utilities/emailFormatter";
 
@@ -59,12 +58,15 @@ const Landing = (allUsers) => {
 
   return (
     <div className={styles.bigContainer}>
-      <div className={styles.heroImageContainer}>
-        <img
-          className={styles.heroImage}
-          src={landingImage}
-          alt="Placeholder for Hero image"
-        />
+      <div className={styles.leftContainer}>
+        <div className={styles.heroImageContainer}>
+          <img
+            className={styles.heroImage}
+            src={landingImage}
+            alt="Placeholder for Hero image"
+          />
+        </div>
+
         <div className={styles.heroImageOverlay}>
           <h1 className={styles.heroHeader}>
             Say goodbye to anxiety and hello to peace of mind!

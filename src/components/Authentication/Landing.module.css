@@ -12,14 +12,34 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+
+}
+
+.leftContainer {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    height: 100%;
+    align-items: center;
+
 }
 
 .heroImageContainer {
-    display: flex;
-    flex-direction: column;
-    width: 60vw;
-    height: 60vh;
-    align-items: center;
+    height: 60%;
+    width: 100%;
+}
+
+.heroImage {
+    height: 100%;
+    margin: auto;
+    padding-left: 10%;
+    padding-top: 2rem;
+}
+
+.heroImageOverlay {
+    width: 100%;
+    height: 40%;
+
 }
 
 #signInButton {
@@ -46,26 +66,16 @@
     margin-right: 0.5rem;
 }
 
-.heroImage {
-    width: 40rem !important;
-    min-height: 30rem !important;
-    padding-left: 2rem;
-    padding-top: 2rem;
-    margin: auto;
-}
 
-.heroImageOverlay{
-    width: 80%;
-}
-
-.heroHeader{
+.heroHeader {
     color: #252238;
     font-family: 'Yeseva One', cursive;
+    font-size: 2.2vw;
     margin: 0;
 }
 
-.heroParagraph{
-    font-size: 1rem;
+.heroParagraph {
+    font-size: 1.4vw;
     font-family: 'Inter', sans-serif;
     padding-right: 2rem;
     padding-top: 0.1rem;
@@ -86,17 +96,17 @@
 
 .title {
     font-size: 2rem;
-    font-family: 'Yeseva One', cursive;    
+    font-family: 'Yeseva One', cursive;
     font-weight: 400;
 }
 
 
 @media screen and (max-width: 630px) {
-    .heroImageContainer {
+    .leftContainer {
         display: none;
     }
 
-    .signInColumn{
+    .signInColumn {
         width: 100vw;
     }
 }
