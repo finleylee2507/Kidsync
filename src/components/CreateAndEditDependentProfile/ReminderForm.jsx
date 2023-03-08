@@ -23,43 +23,47 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import reminderStyles from "./ReminderForm.module.css";
-import styles from "./CreateDependentProfileForm.module.css";
 import { useMediaQuery } from "@mantine/hooks";
 
-const CheckboxIconM = ({ indeterminate, className }) =>
-  indeterminate ? (
+const CheckboxIconM = ({ indeterminate, className }) => {
+  return indeterminate ? (
     <FontAwesomeIcon icon={faM} className={className} fontSize="10px" />
   ) : (
     <FontAwesomeIcon icon={faM} className={className} fontSize="10px" />
   );
+};
 
-const CheckboxIconT = ({ indeterminate, className }) =>
-  indeterminate ? (
+const CheckboxIconT = ({ indeterminate, className }) => {
+  return indeterminate ? (
     <FontAwesomeIcon icon={faT} className={className} fontSize="10px" />
   ) : (
     <FontAwesomeIcon icon={faT} className={className} fontSize="10px" />
   );
+};
 
-const CheckboxIconW = ({ indeterminate, className }) =>
-  indeterminate ? (
+const CheckboxIconW = ({ indeterminate, className }) => {
+  return indeterminate ? (
     <FontAwesomeIcon icon={faW} className={className} fontSize="10px" />
   ) : (
     <FontAwesomeIcon icon={faW} className={className} fontSize="10px" />
   );
+};
 
-const CheckboxIconF = ({ indeterminate, className }) =>
-  indeterminate ? (
+const CheckboxIconF = ({ indeterminate, className }) => {
+  return indeterminate ? (
     <FontAwesomeIcon icon={faF} className={className} fontSize="10px" />
   ) : (
-    <FontAwesomeIcon icon={faF} className={className} fontSize="10px" />
+    <FontAwesomeIcon icon={faF} className={className} />
   );
+};
 
-const CheckboxIconS = ({ indeterminate, className }) =>
-  indeterminate ? (
+const CheckboxIconS = ({ indeterminate, className }) => {
+  return indeterminate ? (
     <FontAwesomeIcon icon={faS} className={className} fontSize="10px" />
   ) : (
     <FontAwesomeIcon icon={faS} className={className} fontSize="10px" />
   );
+};
 
 const SchedulePopUp = ({
   form,
@@ -82,31 +86,49 @@ const SchedulePopUp = ({
       }}
     >
       <Popover.Target>
-        <Button
-          onClick={() => {
-            handleSetPopoverState(index, true);
-          }}
-          variant={
-            form.values.reminders[index].schedule.weekdays.length === 0
-              ? "light"
-              : "outlined"
-          }
-          leftIcon={
-            <FontAwesomeIcon
-              icon={
-                form.values.reminders[index].schedule.weekdays.length === 0
-                  ? faPlus
-                  : faPenToSquare
-              }
-            />
-          }
-        >
-          {!isMobile &&
-            (form.values.reminders[index].schedule.weekdays.length === 0 &&
+        {!isMobile ? (
+          <Button
+            onClick={() => {
+              handleSetPopoverState(index, true);
+            }}
+            variant={
+              form.values.reminders[index].schedule.weekdays.length === 0
+                ? "light"
+                : "outlined"
+            }
+            leftIcon={
+              <FontAwesomeIcon
+                icon={
+                  form.values.reminders[index].schedule.weekdays.length === 0
+                    ? faPlus
+                    : faPenToSquare
+                }
+              />
+            }
+          >
+            {form.values.reminders[index].schedule.weekdays.length === 0 &&
             !form.values.reminders[index].schedule.eventDate
               ? "Add Schedule"
-              : "Edit Schedule")}
-        </Button>
+              : "Edit Schedule"}
+          </Button>
+        ) : form.values.reminders[index].schedule.weekdays.length === 0 &&
+          !form.values.reminders[index].schedule.eventDate ? (
+          <FontAwesomeIcon
+            icon={faPlus}
+            size="2xl"
+            onClick={() => {
+              handleSetPopoverState(index, true);
+            }}
+          />
+        ) : (
+          <FontAwesomeIcon
+            icon={faPenToSquare}
+            size="2xl"
+            onClick={() => {
+              handleSetPopoverState(index, true);
+            }}
+          />
+        )}
       </Popover.Target>
       <Popover.Dropdown>
         <Select
@@ -136,8 +158,8 @@ const SchedulePopUp = ({
           .value === "recurring" && (
           <Checkbox.Group
             label="Repeating on:"
-            size="md"
             {...form.getInputProps(`reminders.${index}.schedule.weekdays`)}
+            size="md"
           >
             <Checkbox value="Monday" icon={CheckboxIconM} indeterminate />
             <Checkbox value="Tuesday" icon={CheckboxIconT} indeterminate />
@@ -163,7 +185,7 @@ const SchedulePopUp = ({
 };
 
 const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery("(max-width:1000px)");
   console.log("Is mobile: ", isMobile);
   const [popOverStates, setPopOverStates] = useState([]); //controls whether the popovers should be displayed
   const handleSetPopoverState = (index, value) => {
@@ -260,7 +282,7 @@ const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
   };
   return (
     <div>
-      <Text fz="xl" fw="700" mb="2rem" mt="2rem" className={styles.formHeader}>
+      <Text fz="xl" fw="700" mb="2rem" mt="2rem">
         Add Reminders for Caretakers:
       </Text>
       <form
@@ -276,46 +298,33 @@ const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
           nextStep();
         })}
       >
-        <Grid>
-          <Grid.Col span={isMobile ? 3 : 2}>
-            <Text fw="500" className={styles.inputLabel}>
-              Time
-            </Text>
+        <Grid columns={30}>
+          <Grid.Col span={isMobile ? 10 : 5}>
+            <Text fw="500">Time</Text>
           </Grid.Col>
-          <Grid.Col span={9}>
-            <Text fw="500" className={styles.inputLabel}>
-              Action
-            </Text>
+          <Grid.Col span={isMobile ? 10 : 25}>
+            <Text fw="500">Action</Text>
           </Grid.Col>
         </Grid>
         {form.values.reminders.map((item, index) => {
           return (
             <div key={index}>
-              <Grid align="center">
-                <Grid.Col span={isMobile ? 3 : 2}>
+              <Grid align="center" columns={30} gutter={isMobile ? "xs" : "md"}>
+                <Grid.Col span={isMobile ? 10 : 5}>
                   {" "}
                   <TimeInput
                     format="12"
                     {...form.getInputProps(`reminders.${index}.time`)}
                     size="lg"
-                    classNames={{
-                      label: styles.inputLabel,
-                      input: styles.input,
-                      timeInput: styles.timeInput,
-                    }}
                   />
                 </Grid.Col>
-                <Grid.Col span={isMobile ? 7 : 3}>
+                <Grid.Col span={isMobile ? 15 : 19}>
                   <TextInput
                     {...form.getInputProps(`reminders.${index}.taskName`)}
                     size="lg"
-                    classNames={{
-                      label: styles.inputLabel,
-                      input: styles.input,
-                    }}
                   />
                 </Grid.Col>
-                <Grid.Col span={isMobile ? 1 : 4}>
+                <Grid.Col span={isMobile ? 3 : 5}>
                   <SchedulePopUp
                     form={form}
                     index={index}
@@ -328,7 +337,7 @@ const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
                 <Grid.Col span={1}>
                   <FontAwesomeIcon
                     icon={faTrashCan}
-                    size="lg"
+                    size={isMobile ? "2xl" : "lg"}
                     className={reminderStyles.removeIcon}
                     onClick={() => {
                       handleRemoveItems(index);
@@ -341,7 +350,7 @@ const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
         })}
 
         <Grid>
-          <Grid.Col span={11}>
+          <Grid.Col span={12}>
             <Button
               onClick={handleAddItems}
               variant="outline"
@@ -349,9 +358,6 @@ const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
               leftIcon={
                 <FontAwesomeIcon icon={faCirclePlus} size="lg" width="2rem" />
               }
-              classNames={{
-                root: styles.addMoreActionsButton,
-              }}
             >
               Add More Actions
             </Button>
@@ -359,14 +365,10 @@ const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
         </Grid>
 
         <Group position="right" mt="md" mb="20px">
-          <Button
-            name="prevButton"
-            onClick={prevStep}
-            className={styles.backButton}
-          >
+          <Button name="prevButton" onClick={prevStep}>
             Back
           </Button>
-          <Button type="submit" name="nextButton" className={styles.nextButton}>
+          <Button type="submit" name="nextButton">
             Next
           </Button>
         </Group>

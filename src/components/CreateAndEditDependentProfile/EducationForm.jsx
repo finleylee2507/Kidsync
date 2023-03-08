@@ -26,7 +26,7 @@ const EducationForm = ({ formData, nextStep, prevStep, setFormData }) => {
 
   return (
     <div>
-      <Text fz="xl" fw="700" mb="2rem" mt="2rem" className={styles.formHeader}>
+      <Text fz="xl" fw="700" mb="2rem" mt="2rem">
         Enter Education Information:
       </Text>
       <form
@@ -41,10 +41,6 @@ const EducationForm = ({ formData, nextStep, prevStep, setFormData }) => {
           {...form.getInputProps("schoolName")}
           size="lg"
           required
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         />
         <TextInput
           withAsterisk
@@ -52,10 +48,6 @@ const EducationForm = ({ formData, nextStep, prevStep, setFormData }) => {
           {...form.getInputProps("teacherName")}
           size="lg"
           required
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         />
 
         <NumberInput
@@ -66,10 +58,6 @@ const EducationForm = ({ formData, nextStep, prevStep, setFormData }) => {
           {...form.getInputProps("grade")}
           size="lg"
           required
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         />
 
         <TimeInput
@@ -77,11 +65,6 @@ const EducationForm = ({ formData, nextStep, prevStep, setFormData }) => {
           size="lg"
           format="12"
           {...form.getInputProps("startTime")}
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-            timeInput: styles.timeInput,
-          }}
         />
 
         <TimeInput
@@ -89,20 +72,11 @@ const EducationForm = ({ formData, nextStep, prevStep, setFormData }) => {
           size="lg"
           format="12"
           {...form.getInputProps("endTime")}
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-            timeInput: styles.timeInput,
-          }}
         />
         <TextInput
           label="Bus Number"
           {...form.getInputProps("busNumber")}
           size="lg"
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         />
 
         <TimeInput
@@ -110,21 +84,12 @@ const EducationForm = ({ formData, nextStep, prevStep, setFormData }) => {
           size="lg"
           format="12"
           {...form.getInputProps("busTime")}
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-            timeInput: styles.timeInput,
-          }}
         />
         <Group position="right" mt="md" mb="20px">
-          <Button
-            name="prevButton"
-            onClick={prevStep}
-            className={styles.backButton}
-          >
+          <Button name="prevButton" onClick={prevStep}>
             Back
           </Button>
-          <Button type="submit" name="nextButton" className={styles.nextButton}>
+          <Button type="submit" name="nextButton">
             Next
           </Button>
         </Group>

@@ -12,7 +12,6 @@ import {
 import InputMask from "react-input-mask";
 import { useForm } from "@mantine/form";
 import { DatePicker } from "@mantine/dates";
-import styles from "./CreateDependentProfileForm.module.css";
 
 const BasicForm = ({
   formData,
@@ -20,7 +19,6 @@ const BasicForm = ({
   setFormData,
   isEditMode,
   oldFormData,
-  classes,
 }) => {
   const form = useForm({
     initialValues: {
@@ -55,7 +53,7 @@ const BasicForm = ({
   console.log("Form test: ", form.values.profilePic);
   return (
     <div>
-      <Text fz="xl" fw="700" mb="2rem" mt="2rem" className={styles.formHeader}>
+      <Text fz="xl" fw="700" mb="2rem" mt="2rem">
         Enter Basic Information:
       </Text>
       <form
@@ -70,10 +68,6 @@ const BasicForm = ({
           {...form.getInputProps("firstName")}
           size="lg"
           required
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         />
 
         <TextInput
@@ -82,10 +76,6 @@ const BasicForm = ({
           {...form.getInputProps("lastName")}
           size="lg"
           required
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         />
 
         <FileInput
@@ -93,10 +83,6 @@ const BasicForm = ({
           {...form.getInputProps("profilePic")}
           accept="image/png,image/jpeg"
           size="lg"
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         />
 
         {isEditMode &&
@@ -118,30 +104,18 @@ const BasicForm = ({
           size="lg"
           withAsterisk
           {...form.getInputProps("birthday")}
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         />
 
         <TextInput
           label="Relationship"
           {...form.getInputProps("relationship")}
           size="lg"
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         />
 
         <TextInput
           label="Preferred Pronouns"
           {...form.getInputProps("preferredPronouns")}
           size="lg"
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         />
 
         <Select
@@ -154,46 +128,29 @@ const BasicForm = ({
             { value: "non-binary", label: "Non-binary" },
           ]}
           {...form.getInputProps("sex")}
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-            item: styles.selectItem,
-          }}
         />
 
         <TextInput
           label="Address"
           {...form.getInputProps("address")}
           size="lg"
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         />
 
         <Input.Wrapper
           label="Phone Number"
           size="lg"
           error={form.errors.phoneNumber}
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         >
           <Input
             component={InputMask}
             mask="+1 (999) 999-9999"
             size="lg"
             {...form.getInputProps("phoneNumber")}
-            classNames={{
-              label: styles.inputLabel,
-              input: styles.input,
-            }}
           />
         </Input.Wrapper>
 
         <Group position="right" mt="md" mb="20px">
-          <Button type="submit" name="nextButton" className={styles.nextButton}>
+          <Button type="submit" name="nextButton">
             Next
           </Button>
         </Group>

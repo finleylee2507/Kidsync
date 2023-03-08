@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Button, Group, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { TimeInput } from "@mantine/dates";
-import styles from "./CreateDependentProfileForm.module.css";
+
 const GeneralCareForm = ({ formData, nextStep, prevStep, setFormData }) => {
   const form = useForm({
     initialValues: {
@@ -22,7 +22,7 @@ const GeneralCareForm = ({ formData, nextStep, prevStep, setFormData }) => {
 
   return (
     <div>
-      <Text fz="xl" fw="700" mb="2rem" mt="2rem" className={styles.formHeader}>
+      <Text fz="xl" fw="700" mb="2rem" mt="2rem">
         Enter General Care Information:
       </Text>
       <form
@@ -35,49 +35,29 @@ const GeneralCareForm = ({ formData, nextStep, prevStep, setFormData }) => {
           label="Routine Notes"
           {...form.getInputProps("routineNotes")}
           size="lg"
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         />
 
         <TextInput
           label="Extracurriculars"
           {...form.getInputProps("extracurriculars")}
           size="lg"
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         />
         <TextInput
           label="Allergies"
           {...form.getInputProps("allergies")}
           size="lg"
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         />
 
         <TextInput
           label="Current Medications"
           {...form.getInputProps("currentMedications")}
           size="lg"
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         />
 
         <TextInput
           label="Medication Schedule"
           {...form.getInputProps("medicationSchedule")}
           size="lg"
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-          }}
         />
 
         <TimeInput
@@ -85,21 +65,12 @@ const GeneralCareForm = ({ formData, nextStep, prevStep, setFormData }) => {
           format="12"
           {...form.getInputProps("bedTime")}
           size="lg"
-          classNames={{
-            label: styles.inputLabel,
-            input: styles.input,
-            timeInput: styles.timeInput,
-          }}
         />
         <Group position="right" mt="md">
-          <Button
-            name="prevButton"
-            onClick={prevStep}
-            className={styles.backButton}
-          >
+          <Button name="prevButton" onClick={prevStep}>
             Back
           </Button>
-          <Button type="submit" name="nextButton" className={styles.nextButton}>
+          <Button type="submit" name="nextButton">
             Next
           </Button>
         </Group>

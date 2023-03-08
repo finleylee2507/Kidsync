@@ -1,5 +1,5 @@
 .formWrapper {
-    width: 50rem;
+    width: 60rem;
     margin: auto;
 }
 
@@ -42,77 +42,13 @@
 
 
 /*Responsive styles*/
-@media screen and (max-width: 600px) {
-    .returnButtonContainer{
-        display: flex;
-        justify-content: center;
-    }
-    .returnButton {
-        font-size: 30px;
+
+@media screen and (max-width: 1005px){
+    .formWrapper{
         width: 90%;
-        height: 50px;
     }
-
-    .formHeader {
-        font-size: 30px;
-    }
-
-    .inputLabel {
-        font-size: 25px;
-    }
-
-    .input {
-        height: 60px;
-        font-size: 25px;
-    }
-
-    .selectItem {
-        font-size: 25px;
-    }
-
-    .nextButton {
-        font-size: 30px;
-        width: 100%;
-        height: 50px;
-
-    }
-
-    .backButton {
-        font-size: 30px;
-        width: 100%;
-        height: 50px;
-        margin-top: 10px;
-    }
-
-    .progressBar {
-        height: 30px;
-        width: 90%;
-        margin: auto;
-    }
-
-    .progressBarLabel {
-        font-size: 20px;
-    }
-
-    .timeInput{
-        font-size: 25px;
-        margin: 5px;
-    }
-
-
-    .normalContent{
-        width: 90%;
-        margin: auto;
-    }
-    .reminderContent{
-        width: 90%;
-        margin: auto;
-    }
-
-    .addMoreActionsButton{
-        font-size: 25px;
-        height: 50px;
-    }
-
 }
+
+
+
 
