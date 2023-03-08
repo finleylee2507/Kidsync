@@ -79,7 +79,9 @@ const SchedulePopUp = ({ form, index, isOpen, handleSetPopoverState }) => {
             handleSetPopoverState(index, true);
           }}
           variant={
-            form.values.reminders[index].schedule.weekdays.length === 0
+            form.values.reminders[index].schedule.weekdays.length === 0 &&
+                  (form.values.reminders[index].schedule.scheduleType != "oneTime" 
+                  || !form.values.reminders[index].schedule.eventDate)
               ? "light"
               : "outlined"
           }
