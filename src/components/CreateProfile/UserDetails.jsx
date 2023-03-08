@@ -28,6 +28,8 @@ const UserDetails = ({ user }) => {
       phoneNumber: (value) => {
         if (value && !/^\+1 \(\d{3}\) \d{3}-\d{4}$/.test(value)) {
           return "Invalid phone number";
+        } else if (!value) {
+          return "Please enter a phone number";
         } else {
           return null;
         }
@@ -91,6 +93,7 @@ const UserDetails = ({ user }) => {
           label="Phone Number"
           size="lg"
           error={form.errors.phoneNumber}
+          withAsterisk
         >
           <Input
             component={InputMask}

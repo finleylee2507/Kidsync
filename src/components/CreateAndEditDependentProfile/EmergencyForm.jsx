@@ -11,8 +11,15 @@ const EmergencyForm = ({ formData, nextStep, prevStep, setFormData }) => {
       emergencyContactRelationship: "",
     },
     validate: {
-      emergencyContactPhone: (value) =>
-        !value ? "Please enter a phone number" : null,
+      emergencyContactPhone: (value) => {
+        if (value && !/^\+1 \(\d{3}\) \d{3}-\d{4}$/.test(value)) {
+          return "Invalid phone number";
+        } else if (!value) {
+          return "Please enter a phone number";
+        } else {
+          return null;
+        }
+      },
     },
   });
 

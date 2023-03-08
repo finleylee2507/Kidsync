@@ -279,7 +279,12 @@ const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
     for (const [key, value] of Object.entries(errors)) {
       //set field errors
       form.setFieldError(key, value.message);
-      handleSetPopoverState(value.index, true);
+      if (
+        value.message === "Schedule type is required" ||
+        value.message === "Please select at least one weekday" ||
+        value.message === "Event date is required"
+      )
+        handleSetPopoverState(value.index, true);
     }
     return errors;
   };
