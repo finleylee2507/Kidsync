@@ -490,24 +490,27 @@ const ReviewPage = ({
           <Accordion.Panel>
             <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
               <div>
-                <Text fz="xl" fw="700" mt="2rem">
-                  Emergency Information
-                </Text>
                 <Text fz="lg" fw="500" mt="2rem">
                   Emergency Contact Name
                 </Text>
                 <Text> {emergencyFormData.emergencyContactName}</Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Emergency Contact Phone
                 </Text>
                 <Text> {emergencyFormData.emergencyContactPhone}</Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Emergency Contact Relationship
                 </Text>
                 <Text> {emergencyFormData.emergencyContactRelationship}</Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Current Medications
                 </Text>
@@ -522,24 +525,27 @@ const ReviewPage = ({
           <Accordion.Panel>
             <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
               <div>
-                <Text fz="xl" fw="700" mt="2rem">
-                  Education Information
-                </Text>
                 <Text fz="lg" fw="500" mt="2rem">
                   School Name
                 </Text>
                 <Text> {educationFormData.schoolName}</Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Teacher Name
                 </Text>
                 <Text> {educationFormData.teacherName}</Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Grade
                 </Text>
                 <Text> {educationFormData.grade}</Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Start Time
                 </Text>
@@ -549,7 +555,9 @@ const ReviewPage = ({
                     ? educationFormData.startTime.toLocaleTimeString()
                     : "N/A"}
                 </Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   End Time
                 </Text>
@@ -559,7 +567,9 @@ const ReviewPage = ({
                     ? educationFormData.endTime.toLocaleTimeString()
                     : "N/A"}
                 </Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Bus Number
                 </Text>
@@ -569,7 +579,9 @@ const ReviewPage = ({
                     ? educationFormData.busNumber
                     : "N/A"}
                 </Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Bus Time
                 </Text>
@@ -589,9 +601,6 @@ const ReviewPage = ({
           <Accordion.Panel>
             <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
               <div>
-                <Text fz="xl" fw="700" mt="2rem">
-                  General Care Information
-                </Text>
                 <Text fz="lg" fw="500" mt="2rem">
                   Routine Notes
                 </Text>
@@ -601,7 +610,9 @@ const ReviewPage = ({
                     ? generalCareFormData.routineNotes
                     : "N/A"}
                 </Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Extracurriculars
                 </Text>
@@ -611,7 +622,9 @@ const ReviewPage = ({
                     ? generalCareFormData.extracurriculars
                     : "N/A"}
                 </Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Bed Time
                 </Text>
@@ -621,11 +634,16 @@ const ReviewPage = ({
                     ? generalCareFormData.bedTime.toLocaleTimeString()
                     : "N/A"}
                 </Text>
+              </div>
+
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Allergies
                 </Text>
                 <Text> {generalCareFormData.allergies}</Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Medication Schedule
                 </Text>
@@ -645,9 +663,6 @@ const ReviewPage = ({
           <Accordion.Panel>
             <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
               <div>
-                <Text fz="xl" fw="700" mt="2rem">
-                  Documents Upload
-                </Text>
                 <Text fz="lg" fw="500" mt="2rem">
                   Immunization File
                 </Text>
@@ -655,7 +670,9 @@ const ReviewPage = ({
                   {" "}
                   {determineDisplayedTextDocuments("immunizationFile")}
                 </Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Insurance Card
                 </Text>
@@ -663,7 +680,9 @@ const ReviewPage = ({
                   {" "}
                   {determineDisplayedTextDocuments("insuranceCard")}
                 </Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   ESA Documents
                 </Text>
@@ -671,7 +690,9 @@ const ReviewPage = ({
                   {" "}
                   {determineDisplayedTextDocuments("esaDocuments")}
                 </Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   FSA Documents
                 </Text>
@@ -687,11 +708,8 @@ const ReviewPage = ({
         <Accordion.Item value="reminders">
           <Accordion.Control>Reminders</Accordion.Control>
           <Accordion.Panel>
-            <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+            <SimpleGrid cols={1} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
               <div>
-                <Text fz="xl" fw="700" mt="2rem">
-                  Reminders for Caretakers
-                </Text>
                 {reminderFormData.reminders.length > 0 ? (
                   <Table>
                     <thead>
@@ -739,6 +757,14 @@ const ReviewPage = ({
           </Accordion.Panel>
         </Accordion.Item>
       </Accordion>
+      <Group position="right" mt="md">
+        <Button name="prevButton" onClick={prevStep}>
+          Back
+        </Button>
+        <Button name="nextButton" onClick={handleFormSubmit}>
+          Submit
+        </Button>
+      </Group>
     </Container>
   );
 
@@ -760,14 +786,14 @@ const ReviewPage = ({
 
   //     {/*Reminders*/}
 
-  //     <Group position="right" mt="md">
-  //       <Button name="prevButton" onClick={prevStep}>
-  //         Back
-  //       </Button>
-  //       <Button name="nextButton" onClick={handleFormSubmit}>
-  //         Submit
-  //       </Button>
-  //     </Group>
+  // <Group position="right" mt="md">
+  //   <Button name="prevButton" onClick={prevStep}>
+  //     Back
+  //   </Button>
+  //   <Button name="nextButton" onClick={handleFormSubmit}>
+  //     Submit
+  //   </Button>
+  // </Group>
   //   </div>
   // );
 };
