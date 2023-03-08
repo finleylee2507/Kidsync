@@ -9,6 +9,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import styles from "./Landing.module.css";
 import { FcGoogle } from "react-icons/fc";
 import { Button, Image, Title } from "@mantine/core";
+import landingImage from "../../../dist/assets/Group6195.png";
 import { fromEmailToDbString } from "../../utilities/emailFormatter";
 
 const SignInButton = () => {
@@ -61,7 +62,7 @@ const Landing = (allUsers) => {
       <div className={styles.heroImageContainer}>
         <img
           className={styles.heroImage}
-          src="dist/assets/Group6195.png"
+          src={landingImage}
           alt="Placeholder for Hero image"
         />
         <div className={styles.heroImageOverlay}>
