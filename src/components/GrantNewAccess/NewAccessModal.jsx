@@ -17,6 +17,7 @@ import { addNewClient } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 import { fromEmailToDbString } from "../../utilities/emailFormatter";
 import { sendSMS } from "./../../utilities/twilio";
+import { useMediaQuery } from "@mantine/hooks";
 
 const NewAccessModal = ({
   user,
@@ -29,6 +30,7 @@ const NewAccessModal = ({
   dependentID,
 }) => {
   const navigate = useNavigate();
+  const isMobile = useMediaQuery("(max-width:850px)");
   const form = useForm({
     initialValues: {
       name: "",
@@ -138,6 +140,7 @@ const NewAccessModal = ({
         title={`Share ${dependentName}'s Profile With`}
         size="xl"
         closeOnClickOutside={false}
+        fullScreen={isMobile}
       >
         <form
           onSubmit={form.onSubmit(async (values, event) => {

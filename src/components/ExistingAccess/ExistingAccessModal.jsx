@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, Modal, Text } from "@mantine/core";
 import ExistingAccessRow from "./ExistingAccessRow";
+import { useMediaQuery } from "@mantine/hooks";
 
 const ExistingAccessModal = ({
   allUsers,
@@ -8,14 +9,16 @@ const ExistingAccessModal = ({
   handleModalState,
   dependent,
 }) => {
+  const isMobile = useMediaQuery("(max-width:850px)");
   return (
     <div>
       <Modal
         opened={isOpen}
         onClose={() => handleModalState(false)}
-        size="80%"
+        // size="80%"
         closeOnClickOutside={false}
         overflow="inside"
+        fullScreen={isMobile}
       >
         {/* Check if dependent exists */}
         {dependent && dependent.caretakers ? (
