@@ -8,6 +8,7 @@ import {
   Text,
   Accordion,
   Container,
+  SimpleGrid,
 } from "@mantine/core";
 import styles from "./ReviewPage.module.css";
 import {
@@ -387,7 +388,7 @@ const ReviewPage = ({
   };
 
   return (
-    <Container>
+    <Container pb={40}>
       <div className={styles.pageTitle}>
         <Text fz="xl" fw="700" mb="2rem" mt="2rem">
           Review
@@ -400,10 +401,6 @@ const ReviewPage = ({
           <Accordion.Panel>
             <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
               <div>
-                <Text fz="xl" fw="700" mt="2rem">
-                  Basic Information
-                </Text>
-
                 <Text fz="lg" fw="500" mt="2rem">
                   Name
                 </Text>
@@ -412,11 +409,16 @@ const ReviewPage = ({
                   {" "}
                   {`${basicFormData.firstName} ${basicFormData.lastName}`}
                 </Text>
+              </div>
+
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Profile Picture
                 </Text>
                 <Text c="red"> {determineDisplayedTextProfilePic()}</Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Birthday
                 </Text>
@@ -425,7 +427,9 @@ const ReviewPage = ({
                   {basicFormData.birthday &&
                     basicFormData.birthday.toLocaleDateString()}
                 </Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Relationship
                 </Text>
@@ -435,7 +439,9 @@ const ReviewPage = ({
                     ? basicFormData.relationship
                     : "N/A"}
                 </Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Preferred Pronouns
                 </Text>
@@ -445,12 +451,16 @@ const ReviewPage = ({
                     ? basicFormData.preferredPronouns
                     : "N/A"}
                 </Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Sex
                 </Text>
                 <Text> {basicFormData.sex}</Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Address
                 </Text>
@@ -458,7 +468,9 @@ const ReviewPage = ({
                   {" "}
                   {basicFormData.address ? basicFormData.address : "N/A"}
                 </Text>
+              </div>
 
+              <div>
                 <Text fz="lg" fw="500" mt="2rem">
                   Phone Number
                 </Text>
@@ -475,27 +487,256 @@ const ReviewPage = ({
 
         <Accordion.Item value="emergency">
           <Accordion.Control>Emergency Information</Accordion.Control>
-          <Accordion.Panel></Accordion.Panel>
+          <Accordion.Panel>
+            <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+              <div>
+                <Text fz="xl" fw="700" mt="2rem">
+                  Emergency Information
+                </Text>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Emergency Contact Name
+                </Text>
+                <Text> {emergencyFormData.emergencyContactName}</Text>
+
+                <Text fz="lg" fw="500" mt="2rem">
+                  Emergency Contact Phone
+                </Text>
+                <Text> {emergencyFormData.emergencyContactPhone}</Text>
+
+                <Text fz="lg" fw="500" mt="2rem">
+                  Emergency Contact Relationship
+                </Text>
+                <Text> {emergencyFormData.emergencyContactRelationship}</Text>
+
+                <Text fz="lg" fw="500" mt="2rem">
+                  Current Medications
+                </Text>
+                <Text> {emergencyFormData.currentMedications}</Text>
+              </div>
+            </SimpleGrid>
+          </Accordion.Panel>
         </Accordion.Item>
 
         <Accordion.Item value="education">
           <Accordion.Control>Education Information</Accordion.Control>
-          <Accordion.Panel></Accordion.Panel>
+          <Accordion.Panel>
+            <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+              <div>
+                <Text fz="xl" fw="700" mt="2rem">
+                  Education Information
+                </Text>
+                <Text fz="lg" fw="500" mt="2rem">
+                  School Name
+                </Text>
+                <Text> {educationFormData.schoolName}</Text>
+
+                <Text fz="lg" fw="500" mt="2rem">
+                  Teacher Name
+                </Text>
+                <Text> {educationFormData.teacherName}</Text>
+
+                <Text fz="lg" fw="500" mt="2rem">
+                  Grade
+                </Text>
+                <Text> {educationFormData.grade}</Text>
+
+                <Text fz="lg" fw="500" mt="2rem">
+                  Start Time
+                </Text>
+                <Text>
+                  {" "}
+                  {educationFormData.startTime
+                    ? educationFormData.startTime.toLocaleTimeString()
+                    : "N/A"}
+                </Text>
+
+                <Text fz="lg" fw="500" mt="2rem">
+                  End Time
+                </Text>
+                <Text>
+                  {" "}
+                  {educationFormData.endTime
+                    ? educationFormData.endTime.toLocaleTimeString()
+                    : "N/A"}
+                </Text>
+
+                <Text fz="lg" fw="500" mt="2rem">
+                  Bus Number
+                </Text>
+                <Text>
+                  {" "}
+                  {educationFormData.busNumber
+                    ? educationFormData.busNumber
+                    : "N/A"}
+                </Text>
+
+                <Text fz="lg" fw="500" mt="2rem">
+                  Bus Time
+                </Text>
+                <Text>
+                  {" "}
+                  {educationFormData.busTime
+                    ? educationFormData.busTime.toLocaleTimeString()
+                    : "N/A"}
+                </Text>
+              </div>
+            </SimpleGrid>
+          </Accordion.Panel>
         </Accordion.Item>
 
         <Accordion.Item value="generalCare">
           <Accordion.Control>General Care Information</Accordion.Control>
-          <Accordion.Panel></Accordion.Panel>
+          <Accordion.Panel>
+            <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+              <div>
+                <Text fz="xl" fw="700" mt="2rem">
+                  General Care Information
+                </Text>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Routine Notes
+                </Text>
+                <Text>
+                  {" "}
+                  {generalCareFormData.routineNotes
+                    ? generalCareFormData.routineNotes
+                    : "N/A"}
+                </Text>
+
+                <Text fz="lg" fw="500" mt="2rem">
+                  Extracurriculars
+                </Text>
+                <Text>
+                  {" "}
+                  {generalCareFormData.extracurriculars
+                    ? generalCareFormData.extracurriculars
+                    : "N/A"}
+                </Text>
+
+                <Text fz="lg" fw="500" mt="2rem">
+                  Bed Time
+                </Text>
+                <Text>
+                  {" "}
+                  {generalCareFormData.bedTime
+                    ? generalCareFormData.bedTime.toLocaleTimeString()
+                    : "N/A"}
+                </Text>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Allergies
+                </Text>
+                <Text> {generalCareFormData.allergies}</Text>
+
+                <Text fz="lg" fw="500" mt="2rem">
+                  Medication Schedule
+                </Text>
+                <Text>
+                  {" "}
+                  {generalCareFormData.medicationSchedule
+                    ? generalCareFormData.medicationSchedule
+                    : "N/A"}
+                </Text>
+              </div>
+            </SimpleGrid>
+          </Accordion.Panel>
         </Accordion.Item>
 
         <Accordion.Item value="documents">
           <Accordion.Control>Documents</Accordion.Control>
-          <Accordion.Panel></Accordion.Panel>
+          <Accordion.Panel>
+            <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+              <div>
+                <Text fz="xl" fw="700" mt="2rem">
+                  Documents Upload
+                </Text>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Immunization File
+                </Text>
+                <Text c="red">
+                  {" "}
+                  {determineDisplayedTextDocuments("immunizationFile")}
+                </Text>
+
+                <Text fz="lg" fw="500" mt="2rem">
+                  Insurance Card
+                </Text>
+                <Text c="red">
+                  {" "}
+                  {determineDisplayedTextDocuments("insuranceCard")}
+                </Text>
+
+                <Text fz="lg" fw="500" mt="2rem">
+                  ESA Documents
+                </Text>
+                <Text c="red">
+                  {" "}
+                  {determineDisplayedTextDocuments("esaDocuments")}
+                </Text>
+
+                <Text fz="lg" fw="500" mt="2rem">
+                  FSA Documents
+                </Text>
+                <Text c="red">
+                  {" "}
+                  {determineDisplayedTextDocuments("fsaDocuments")}
+                </Text>
+              </div>
+            </SimpleGrid>
+          </Accordion.Panel>
         </Accordion.Item>
 
         <Accordion.Item value="reminders">
           <Accordion.Control>Reminders</Accordion.Control>
-          <Accordion.Panel></Accordion.Panel>
+          <Accordion.Panel>
+            <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+              <div>
+                <Text fz="xl" fw="700" mt="2rem">
+                  Reminders for Caretakers
+                </Text>
+                {reminderFormData.reminders.length > 0 ? (
+                  <Table>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Time</th>
+                        <th>Schedule</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {reminderFormData.reminders.map((item, index) => {
+                        // console.log(re)
+                        return (
+                          <tr key={index}>
+                            <td>
+                              <Text>{index + 1}</Text>
+                            </td>
+                            <td>
+                              <Text>{item.taskName}</Text>
+                            </td>
+                            <td>
+                              <Text>{item.time.toLocaleTimeString()}</Text>
+                            </td>
+                            <td>
+                              <Text>
+                                {item.schedule.scheduleType === "recurring"
+                                  ? `Weekly on ${item.schedule.weekdays.join(
+                                      ", "
+                                    )}`
+                                  : item.schedule.eventDate.toLocaleDateString()}
+                              </Text>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </Table>
+                ) : (
+                  <Text>N/A</Text>
+                )}
+              </div>
+            </SimpleGrid>
+          </Accordion.Panel>
         </Accordion.Item>
       </Accordion>
     </Container>
@@ -504,281 +745,20 @@ const ReviewPage = ({
   // return (
   //   <div className={styles.pageWrapper}>
   //     {/*basic information*/}
-  // <div>
-  //   <Text fz="xl" fw="700" mt="2rem">
-  //     Basic Information
-  //   </Text>
-
-  //   <Text fz="lg" fw="500" mt="2rem">
-  //     Name
-  //   </Text>
-
-  //   <Text> {`${basicFormData.firstName} ${basicFormData.lastName}`}</Text>
-  //   <Text fz="lg" fw="500" mt="2rem">
-  //     Profile Picture
-  //   </Text>
-  //   <Text c="red"> {determineDisplayedTextProfilePic()}</Text>
-
-  //   <Text fz="lg" fw="500" mt="2rem">
-  //     Birthday
-  //   </Text>
-  //   <Text>
-  //     {" "}
-  //     {basicFormData.birthday &&
-  //       basicFormData.birthday.toLocaleDateString()}
-  //   </Text>
-
-  //   <Text fz="lg" fw="500" mt="2rem">
-  //     Relationship
-  //   </Text>
-  //   <Text>
-  //     {" "}
-  //     {basicFormData.relationship ? basicFormData.relationship : "N/A"}
-  //   </Text>
-
-  //   <Text fz="lg" fw="500" mt="2rem">
-  //     Preferred Pronouns
-  //   </Text>
-  //   <Text>
-  //     {" "}
-  //     {basicFormData.preferredPronouns
-  //       ? basicFormData.preferredPronouns
-  //       : "N/A"}
-  //   </Text>
-
-  //   <Text fz="lg" fw="500" mt="2rem">
-  //     Sex
-  //   </Text>
-  //   <Text> {basicFormData.sex}</Text>
-
-  //   <Text fz="lg" fw="500" mt="2rem">
-  //     Address
-  //   </Text>
-  //   <Text> {basicFormData.address ? basicFormData.address : "N/A"}</Text>
-
-  //   <Text fz="lg" fw="500" mt="2rem">
-  //     Phone Number
-  //   </Text>
-  //   <Text>
-  //     {" "}
-  //     {basicFormData.phoneNumber ? basicFormData.phoneNumber : "N/A"}
-  //   </Text>
-  // </div>
-
-  //     <Divider mt="2rem" size="sm" />
-
-  //     {/*emergency information*/}
-  //     <div>
-  //       <Text fz="xl" fw="700" mt="2rem">
-  //         Emergency Information
-  //       </Text>
-  //       <Text fz="lg" fw="500" mt="2rem">
-  //         Emergency Contact Name
-  //       </Text>
-  //       <Text> {emergencyFormData.emergencyContactName}</Text>
-
-  //       <Text fz="lg" fw="500" mt="2rem">
-  //         Emergency Contact Phone
-  //       </Text>
-  //       <Text> {emergencyFormData.emergencyContactPhone}</Text>
-
-  //       <Text fz="lg" fw="500" mt="2rem">
-  //         Emergency Contact Relationship
-  //       </Text>
-  //       <Text> {emergencyFormData.emergencyContactRelationship}</Text>
-
-  //       <Text fz="lg" fw="500" mt="2rem">
-  //         Current Medications
-  //       </Text>
-  //       <Text> {emergencyFormData.currentMedications}</Text>
-  //     </div>
-  //     <Divider mt="2rem" size="sm" />
 
   //     {/* education information*/}
-  //     <div>
-  //       <Text fz="xl" fw="700" mt="2rem">
-  //         Education Information
-  //       </Text>
-  //       <Text fz="lg" fw="500" mt="2rem">
-  //         School Name
-  //       </Text>
-  //       <Text> {educationFormData.schoolName}</Text>
-
-  //       <Text fz="lg" fw="500" mt="2rem">
-  //         Teacher Name
-  //       </Text>
-  //       <Text> {educationFormData.teacherName}</Text>
-
-  //       <Text fz="lg" fw="500" mt="2rem">
-  //         Grade
-  //       </Text>
-  //       <Text> {educationFormData.grade}</Text>
-
-  //       <Text fz="lg" fw="500" mt="2rem">
-  //         Start Time
-  //       </Text>
-  //       <Text>
-  //         {" "}
-  //         {educationFormData.startTime
-  //           ? educationFormData.startTime.toLocaleTimeString()
-  //           : "N/A"}
-  //       </Text>
-
-  //       <Text fz="lg" fw="500" mt="2rem">
-  //         End Time
-  //       </Text>
-  //       <Text>
-  //         {" "}
-  //         {educationFormData.endTime
-  //           ? educationFormData.endTime.toLocaleTimeString()
-  //           : "N/A"}
-  //       </Text>
-
-  //       <Text fz="lg" fw="500" mt="2rem">
-  //         Bus Number
-  //       </Text>
-  //       <Text>
-  //         {" "}
-  //         {educationFormData.busNumber ? educationFormData.busNumber : "N/A"}
-  //       </Text>
-
-  //       <Text fz="lg" fw="500" mt="2rem">
-  //         Bus Time
-  //       </Text>
-  //       <Text>
-  //         {" "}
-  //         {educationFormData.busTime
-  //           ? educationFormData.busTime.toLocaleTimeString()
-  //           : "N/A"}
-  //       </Text>
-  //     </div>
 
   //     <Divider mt="2rem" size="sm" />
   //     {/*general care information*/}
-  //     <div>
-  //       <Text fz="xl" fw="700" mt="2rem">
-  //         General Care Information
-  //       </Text>
-  //       <Text fz="lg" fw="500" mt="2rem">
-  //         Routine Notes
-  //       </Text>
-  //       <Text>
-  //         {" "}
-  //         {generalCareFormData.routineNotes
-  //           ? generalCareFormData.routineNotes
-  //           : "N/A"}
-  //       </Text>
-
-  //       <Text fz="lg" fw="500" mt="2rem">
-  //         Extracurriculars
-  //       </Text>
-  //       <Text>
-  //         {" "}
-  //         {generalCareFormData.extracurriculars
-  //           ? generalCareFormData.extracurriculars
-  //           : "N/A"}
-  //       </Text>
-
-  //       <Text fz="lg" fw="500" mt="2rem">
-  //         Bed Time
-  //       </Text>
-  //       <Text>
-  //         {" "}
-  //         {generalCareFormData.bedTime
-  //           ? generalCareFormData.bedTime.toLocaleTimeString()
-  //           : "N/A"}
-  //       </Text>
-  //       <Text fz="lg" fw="500" mt="2rem">
-  //         Allergies
-  //       </Text>
-  //       <Text> {generalCareFormData.allergies}</Text>
-
-  //       <Text fz="lg" fw="500" mt="2rem">
-  //         Medication Schedule
-  //       </Text>
-  //       <Text>
-  //         {" "}
-  //         {generalCareFormData.medicationSchedule
-  //           ? generalCareFormData.medicationSchedule
-  //           : "N/A"}
-  //       </Text>
-  //     </div>
 
   //     <Divider mt="2rem" size="sm" />
 
   //     {/*Uploaded documents*/}
-  //     <Text fz="xl" fw="700" mt="2rem">
-  //       Documents Upload
-  //     </Text>
-  //     <Text fz="lg" fw="500" mt="2rem">
-  //       Immunization File
-  //     </Text>
-  //     <Text c="red">
-  //       {" "}
-  //       {determineDisplayedTextDocuments("immunizationFile")}
-  //     </Text>
-
-  //     <Text fz="lg" fw="500" mt="2rem">
-  //       Insurance Card
-  //     </Text>
-  //     <Text c="red"> {determineDisplayedTextDocuments("insuranceCard")}</Text>
-
-  //     <Text fz="lg" fw="500" mt="2rem">
-  //       ESA Documents
-  //     </Text>
-  //     <Text c="red"> {determineDisplayedTextDocuments("esaDocuments")}</Text>
-
-  //     <Text fz="lg" fw="500" mt="2rem">
-  //       FSA Documents
-  //     </Text>
-  //     <Text c="red"> {determineDisplayedTextDocuments("fsaDocuments")}</Text>
+  //
 
   //     <Divider mt="2rem" size="sm" />
 
   //     {/*Reminders*/}
-  //     <Text fz="xl" fw="700" mt="2rem">
-  //       Reminders for Caretakers
-  //     </Text>
-  //     {reminderFormData.reminders.length > 0 ? (
-  //       <Table>
-  //         <thead>
-  //           <tr>
-  //             <th></th>
-  //             <th>Name</th>
-  //             <th>Time</th>
-  //             <th>Schedule</th>
-  //           </tr>
-  //         </thead>
-
-  //         <tbody>
-  //           {reminderFormData.reminders.map((item, index) => {
-  //             // console.log(re)
-  //             return (
-  //               <tr key={index}>
-  //                 <td>
-  //                   <Text>{index + 1}</Text>
-  //                 </td>
-  //                 <td>
-  //                   <Text>{item.taskName}</Text>
-  //                 </td>
-  //                 <td>
-  //                   <Text>{item.time.toLocaleTimeString()}</Text>
-  //                 </td>
-  //                 <td>
-  //                   <Text>
-  //                     {item.schedule.scheduleType === "recurring"
-  //                       ? `Weekly on ${item.schedule.weekdays.join(", ")}`
-  //                       : item.schedule.eventDate.toLocaleDateString()}
-  //                   </Text>
-  //                 </td>
-  //               </tr>
-  //             );
-  //           })}
-  //         </tbody>
-  //       </Table>
-  //     ) : (
-  //       <Text>N/A</Text>
-  //     )}
 
   //     <Group position="right" mt="md">
   //       <Button name="prevButton" onClick={prevStep}>
