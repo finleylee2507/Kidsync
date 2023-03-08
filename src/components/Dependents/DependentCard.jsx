@@ -168,6 +168,11 @@ const DependentCard = ({
               >
                 <Menu.Target>
                   <Button
+                    styles={(theme) => ({
+                      root: {
+                        backgroundColor: "#6147FF",
+                      },
+                    })}
                     onClick={(e) => {
                       e.stopPropagation();
                       setCurrentDependentName(
