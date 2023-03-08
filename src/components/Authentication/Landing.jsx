@@ -79,7 +79,7 @@ const Landing = (allUsers) => {
       <div className={styles.signInColumn}>
         <Title className={styles.title}>Sign In</Title>
         <SignInButton />
-        <Button onClick={clearDatabase}>Clear Database</Button>
+        {/* <Button onClick={clearDatabase}>Clear Database</Button> */}
       </div>
     </div>
   );
