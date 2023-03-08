@@ -11,6 +11,7 @@ import {
   Table,
   Accordion,
 } from "@mantine/core";
+import { DependentImage } from "./DependentImage";
 
 const ViewDependent = () => {
   // obtain the data passed by navigate()
@@ -32,9 +33,11 @@ const ViewDependent = () => {
       </Button>
 
       <div className={styles.viewTitle}>
-        <Text fz="xl" fw="700" mb="2rem" className={styles.titleText}>
-          Dependent Information
-        </Text>
+        <DependentImage
+          avatar={dependent.basic.profilePic.fileLink}
+          name={`${dependent.basic.firstName} ${dependent.basic.lastName}`}
+          title="Dependent"
+        />
       </div>
 
       <Accordion variant="default" radius="md">
