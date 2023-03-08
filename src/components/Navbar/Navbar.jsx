@@ -118,7 +118,7 @@ export function Navbar() {
     <Box pb={30}>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: "100%" }}>
-          YourTurn
+          KidSync
           <Group
             sx={{ height: "100%" }}
             spacing={0}
