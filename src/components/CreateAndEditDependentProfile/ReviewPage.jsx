@@ -1,5 +1,15 @@
 import React from "react";
-import { Anchor, Button, Divider, Group, Table, Text } from "@mantine/core";
+import {
+  Anchor,
+  Button,
+  Divider,
+  Group,
+  Table,
+  Text,
+  Accordion,
+  Container,
+  SimpleGrid,
+} from "@mantine/core";
 import styles from "./ReviewPage.module.css";
 import {
   addNewDependent,
@@ -376,291 +386,377 @@ const ReviewPage = ({
       }
     }
   };
+
   return (
-    <div className={styles.pageWrapper}>
+    <Container pb={40}>
       <div className={styles.pageTitle}>
         <Text fz="xl" fw="700" mb="2rem" mt="2rem">
           Review
         </Text>
       </div>
 
-      {/*basic information*/}
-      <div>
-        <Text fz="xl" fw="700" mt="2rem">
-          Basic Information
-        </Text>
+      <Accordion variant="default" radius="md">
+        <Accordion.Item value="basic">
+          <Accordion.Control>Basic Information</Accordion.Control>
+          <Accordion.Panel>
+            <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Name
+                </Text>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Name
-        </Text>
+                <Text>
+                  {" "}
+                  {`${basicFormData.firstName} ${basicFormData.lastName}`}
+                </Text>
+              </div>
 
-        <Text> {`${basicFormData.firstName} ${basicFormData.lastName}`}</Text>
-        <Text fz="lg" fw="500" mt="2rem">
-          Profile Picture
-        </Text>
-        <Text c="red"> {determineDisplayedTextProfilePic()}</Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Profile Picture
+                </Text>
+                <Text c="red"> {determineDisplayedTextProfilePic()}</Text>
+              </div>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Birthday
-        </Text>
-        <Text>
-          {" "}
-          {basicFormData.birthday &&
-            basicFormData.birthday.toLocaleDateString()}
-        </Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Birthday
+                </Text>
+                <Text>
+                  {" "}
+                  {basicFormData.birthday &&
+                    basicFormData.birthday.toLocaleDateString()}
+                </Text>
+              </div>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Relationship
-        </Text>
-        <Text>
-          {" "}
-          {basicFormData.relationship ? basicFormData.relationship : "N/A"}
-        </Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Relationship
+                </Text>
+                <Text>
+                  {" "}
+                  {basicFormData.relationship
+                    ? basicFormData.relationship
+                    : "N/A"}
+                </Text>
+              </div>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Preferred Pronouns
-        </Text>
-        <Text>
-          {" "}
-          {basicFormData.preferredPronouns
-            ? basicFormData.preferredPronouns
-            : "N/A"}
-        </Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Preferred Pronouns
+                </Text>
+                <Text>
+                  {" "}
+                  {basicFormData.preferredPronouns
+                    ? basicFormData.preferredPronouns
+                    : "N/A"}
+                </Text>
+              </div>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Sex
-        </Text>
-        <Text> {basicFormData.sex}</Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Sex
+                </Text>
+                <Text> {basicFormData.sex}</Text>
+              </div>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Address
-        </Text>
-        <Text> {basicFormData.address ? basicFormData.address : "N/A"}</Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Address
+                </Text>
+                <Text>
+                  {" "}
+                  {basicFormData.address ? basicFormData.address : "N/A"}
+                </Text>
+              </div>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Phone Number
-        </Text>
-        <Text>
-          {" "}
-          {basicFormData.phoneNumber ? basicFormData.phoneNumber : "N/A"}
-        </Text>
-      </div>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Phone Number
+                </Text>
+                <Text>
+                  {" "}
+                  {basicFormData.phoneNumber
+                    ? basicFormData.phoneNumber
+                    : "N/A"}
+                </Text>
+              </div>
+            </SimpleGrid>
+          </Accordion.Panel>
+        </Accordion.Item>
 
-      <Divider mt="2rem" size="sm" />
+        <Accordion.Item value="emergency">
+          <Accordion.Control>Emergency Information</Accordion.Control>
+          <Accordion.Panel>
+            <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Emergency Contact Name
+                </Text>
+                <Text> {emergencyFormData.emergencyContactName}</Text>
+              </div>
 
-      {/*emergency information*/}
-      <div>
-        <Text fz="xl" fw="700" mt="2rem">
-          Emergency Information
-        </Text>
-        <Text fz="lg" fw="500" mt="2rem">
-          Emergency Contact Name
-        </Text>
-        <Text> {emergencyFormData.emergencyContactName}</Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Emergency Contact Phone
+                </Text>
+                <Text> {emergencyFormData.emergencyContactPhone}</Text>
+              </div>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Emergency Contact Phone
-        </Text>
-        <Text> {emergencyFormData.emergencyContactPhone}</Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Emergency Contact Relationship
+                </Text>
+                <Text> {emergencyFormData.emergencyContactRelationship}</Text>
+              </div>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Emergency Contact Relationship
-        </Text>
-        <Text> {emergencyFormData.emergencyContactRelationship}</Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Current Medications
+                </Text>
+                <Text> {emergencyFormData.currentMedications}</Text>
+              </div>
+            </SimpleGrid>
+          </Accordion.Panel>
+        </Accordion.Item>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Current Medications
-        </Text>
-        <Text> {emergencyFormData.currentMedications}</Text>
-      </div>
-      <Divider mt="2rem" size="sm" />
+        <Accordion.Item value="education">
+          <Accordion.Control>Education Information</Accordion.Control>
+          <Accordion.Panel>
+            <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  School Name
+                </Text>
+                <Text> {educationFormData.schoolName}</Text>
+              </div>
 
-      {/* education information*/}
-      <div>
-        <Text fz="xl" fw="700" mt="2rem">
-          Education Information
-        </Text>
-        <Text fz="lg" fw="500" mt="2rem">
-          School Name
-        </Text>
-        <Text> {educationFormData.schoolName}</Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Teacher Name
+                </Text>
+                <Text> {educationFormData.teacherName}</Text>
+              </div>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Teacher Name
-        </Text>
-        <Text> {educationFormData.teacherName}</Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Grade
+                </Text>
+                <Text> {educationFormData.grade}</Text>
+              </div>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Grade
-        </Text>
-        <Text> {educationFormData.grade}</Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Start Time
+                </Text>
+                <Text>
+                  {" "}
+                  {educationFormData.startTime
+                    ? educationFormData.startTime.toLocaleTimeString()
+                    : "N/A"}
+                </Text>
+              </div>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Start Time
-        </Text>
-        <Text>
-          {" "}
-          {educationFormData.startTime
-            ? educationFormData.startTime.toLocaleTimeString()
-            : "N/A"}
-        </Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  End Time
+                </Text>
+                <Text>
+                  {" "}
+                  {educationFormData.endTime
+                    ? educationFormData.endTime.toLocaleTimeString()
+                    : "N/A"}
+                </Text>
+              </div>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          End Time
-        </Text>
-        <Text>
-          {" "}
-          {educationFormData.endTime
-            ? educationFormData.endTime.toLocaleTimeString()
-            : "N/A"}
-        </Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Bus Number
+                </Text>
+                <Text>
+                  {" "}
+                  {educationFormData.busNumber
+                    ? educationFormData.busNumber
+                    : "N/A"}
+                </Text>
+              </div>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Bus Number
-        </Text>
-        <Text>
-          {" "}
-          {educationFormData.busNumber ? educationFormData.busNumber : "N/A"}
-        </Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Bus Time
+                </Text>
+                <Text>
+                  {" "}
+                  {educationFormData.busTime
+                    ? educationFormData.busTime.toLocaleTimeString()
+                    : "N/A"}
+                </Text>
+              </div>
+            </SimpleGrid>
+          </Accordion.Panel>
+        </Accordion.Item>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Bus Time
-        </Text>
-        <Text>
-          {" "}
-          {educationFormData.busTime
-            ? educationFormData.busTime.toLocaleTimeString()
-            : "N/A"}
-        </Text>
-      </div>
+        <Accordion.Item value="generalCare">
+          <Accordion.Control>General Care Information</Accordion.Control>
+          <Accordion.Panel>
+            <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Routine Notes
+                </Text>
+                <Text>
+                  {" "}
+                  {generalCareFormData.routineNotes
+                    ? generalCareFormData.routineNotes
+                    : "N/A"}
+                </Text>
+              </div>
 
-      <Divider mt="2rem" size="sm" />
-      {/*general care information*/}
-      <div>
-        <Text fz="xl" fw="700" mt="2rem">
-          General Care Information
-        </Text>
-        <Text fz="lg" fw="500" mt="2rem">
-          Routine Notes
-        </Text>
-        <Text>
-          {" "}
-          {generalCareFormData.routineNotes
-            ? generalCareFormData.routineNotes
-            : "N/A"}
-        </Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Extracurriculars
+                </Text>
+                <Text>
+                  {" "}
+                  {generalCareFormData.extracurriculars
+                    ? generalCareFormData.extracurriculars
+                    : "N/A"}
+                </Text>
+              </div>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Extracurriculars
-        </Text>
-        <Text>
-          {" "}
-          {generalCareFormData.extracurriculars
-            ? generalCareFormData.extracurriculars
-            : "N/A"}
-        </Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Bed Time
+                </Text>
+                <Text>
+                  {" "}
+                  {generalCareFormData.bedTime
+                    ? generalCareFormData.bedTime.toLocaleTimeString()
+                    : "N/A"}
+                </Text>
+              </div>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Bed Time
-        </Text>
-        <Text>
-          {" "}
-          {generalCareFormData.bedTime
-            ? generalCareFormData.bedTime.toLocaleTimeString()
-            : "N/A"}
-        </Text>
-        <Text fz="lg" fw="500" mt="2rem">
-          Allergies
-        </Text>
-        <Text> {generalCareFormData.allergies}</Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Allergies
+                </Text>
+                <Text> {generalCareFormData.allergies}</Text>
+              </div>
 
-        <Text fz="lg" fw="500" mt="2rem">
-          Medication Schedule
-        </Text>
-        <Text>
-          {" "}
-          {generalCareFormData.medicationSchedule
-            ? generalCareFormData.medicationSchedule
-            : "N/A"}
-        </Text>
-      </div>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Medication Schedule
+                </Text>
+                <Text>
+                  {" "}
+                  {generalCareFormData.medicationSchedule
+                    ? generalCareFormData.medicationSchedule
+                    : "N/A"}
+                </Text>
+              </div>
+            </SimpleGrid>
+          </Accordion.Panel>
+        </Accordion.Item>
 
-      <Divider mt="2rem" size="sm" />
+        <Accordion.Item value="documents">
+          <Accordion.Control>Documents</Accordion.Control>
+          <Accordion.Panel>
+            <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Immunization File
+                </Text>
+                <Text c="red">
+                  {" "}
+                  {determineDisplayedTextDocuments("immunizationFile")}
+                </Text>
+              </div>
 
-      {/*Uploaded documents*/}
-      <Text fz="xl" fw="700" mt="2rem">
-        Documents Upload
-      </Text>
-      <Text fz="lg" fw="500" mt="2rem">
-        Immunization File
-      </Text>
-      <Text c="red">
-        {" "}
-        {determineDisplayedTextDocuments("immunizationFile")}
-      </Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  Insurance Card
+                </Text>
+                <Text c="red">
+                  {" "}
+                  {determineDisplayedTextDocuments("insuranceCard")}
+                </Text>
+              </div>
 
-      <Text fz="lg" fw="500" mt="2rem">
-        Insurance Card
-      </Text>
-      <Text c="red"> {determineDisplayedTextDocuments("insuranceCard")}</Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  ESA Documents
+                </Text>
+                <Text c="red">
+                  {" "}
+                  {determineDisplayedTextDocuments("esaDocuments")}
+                </Text>
+              </div>
 
-      <Text fz="lg" fw="500" mt="2rem">
-        ESA Documents
-      </Text>
-      <Text c="red"> {determineDisplayedTextDocuments("esaDocuments")}</Text>
+              <div>
+                <Text fz="lg" fw="500" mt="2rem">
+                  FSA Documents
+                </Text>
+                <Text c="red">
+                  {" "}
+                  {determineDisplayedTextDocuments("fsaDocuments")}
+                </Text>
+              </div>
+            </SimpleGrid>
+          </Accordion.Panel>
+        </Accordion.Item>
 
-      <Text fz="lg" fw="500" mt="2rem">
-        FSA Documents
-      </Text>
-      <Text c="red"> {determineDisplayedTextDocuments("fsaDocuments")}</Text>
+        <Accordion.Item value="reminders">
+          <Accordion.Control>Reminders</Accordion.Control>
+          <Accordion.Panel>
+            <SimpleGrid cols={1} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+              <div>
+                {reminderFormData.reminders.length > 0 ? (
+                  <Table>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Time</th>
+                        <th>Schedule</th>
+                      </tr>
+                    </thead>
 
-      <Divider mt="2rem" size="sm" />
-
-      {/*Reminders*/}
-      <Text fz="xl" fw="700" mt="2rem">
-        Reminders for Caretakers
-      </Text>
-      {reminderFormData.reminders.length > 0 ? (
-        <Table>
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Time</th>
-              <th>Schedule</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {reminderFormData.reminders.map((item, index) => {
-              // console.log(re)
-              return (
-                <tr key={index}>
-                  <td>
-                    <Text>{index + 1}</Text>
-                  </td>
-                  <td>
-                    <Text>{item.taskName}</Text>
-                  </td>
-                  <td>
-                    <Text>{item.time.toLocaleTimeString()}</Text>
-                  </td>
-                  <td>
-                    <Text>
-                      {item.schedule.scheduleType === "recurring"
-                        ? `Weekly on ${item.schedule.weekdays.join(", ")}`
-                        : item.schedule.eventDate.toLocaleDateString()}
-                    </Text>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      ) : (
-        <Text>N/A</Text>
-      )}
-
+                    <tbody>
+                      {reminderFormData.reminders.map((item, index) => {
+                        // console.log(re)
+                        return (
+                          <tr key={index}>
+                            <td>
+                              <Text>{index + 1}</Text>
+                            </td>
+                            <td>
+                              <Text>{item.taskName}</Text>
+                            </td>
+                            <td>
+                              <Text>{item.time.toLocaleTimeString()}</Text>
+                            </td>
+                            <td>
+                              <Text>
+                                {item.schedule.scheduleType === "recurring"
+                                  ? `Weekly on ${item.schedule.weekdays.join(
+                                      ", "
+                                    )}`
+                                  : item.schedule.eventDate.toLocaleDateString()}
+                              </Text>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </Table>
+                ) : (
+                  <Text>N/A</Text>
+                )}
+              </div>
+            </SimpleGrid>
+          </Accordion.Panel>
+        </Accordion.Item>
+      </Accordion>
       <Group position="right" mt="md">
         <Button name="prevButton" onClick={prevStep}>
           Back
@@ -669,8 +765,37 @@ const ReviewPage = ({
           Submit
         </Button>
       </Group>
-    </div>
+    </Container>
   );
+
+  // return (
+  //   <div className={styles.pageWrapper}>
+  //     {/*basic information*/}
+
+  //     {/* education information*/}
+
+  //     <Divider mt="2rem" size="sm" />
+  //     {/*general care information*/}
+
+  //     <Divider mt="2rem" size="sm" />
+
+  //     {/*Uploaded documents*/}
+  //
+
+  //     <Divider mt="2rem" size="sm" />
+
+  //     {/*Reminders*/}
+
+  // <Group position="right" mt="md">
+  //   <Button name="prevButton" onClick={prevStep}>
+  //     Back
+  //   </Button>
+  //   <Button name="nextButton" onClick={handleFormSubmit}>
+  //     Submit
+  //   </Button>
+  // </Group>
+  //   </div>
+  // );
 };
 
 export default ReviewPage;
