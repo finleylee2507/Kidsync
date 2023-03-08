@@ -195,14 +195,14 @@ const ReviewPage = ({
           birthday: basicFormData.birthday
             ? basicFormData.birthday.toUTCString()
             : "N/A",
-          relationship: basicFormData.relationship
+          relationship: basicFormData.relationship.trim()
             ? basicFormData.relationship
             : "N/A",
-          preferredPronouns: basicFormData.preferredPronouns
+          preferredPronouns: basicFormData.preferredPronouns.trim()
             ? basicFormData.preferredPronouns
             : "N/A",
           sex: basicFormData.sex,
-          address: basicFormData.address ? basicFormData.address : "N/A",
+          address: basicFormData.address.trim() ? basicFormData.address : "N/A",
           phoneNumber: basicFormData.phoneNumber
             ? basicFormData.phoneNumber
             : "N/A",
@@ -224,7 +224,7 @@ const ReviewPage = ({
           endTime: educationFormData.endTime
             ? educationFormData.endTime.toUTCString()
             : "N/A",
-          busNumber: educationFormData.busNumber
+          busNumber: educationFormData.busNumber.trim()
             ? educationFormData.busNumber
             : "N/A",
           busTime: educationFormData.busTime
@@ -232,20 +232,24 @@ const ReviewPage = ({
             : "N/A",
         },
         generalCare: {
-          routineNotes: generalCareFormData.routineNotes
+          routineNotes: generalCareFormData.routineNotes.trim()
             ? generalCareFormData.routineNotes
             : "N/A",
-          extracurriculars: generalCareFormData.extracurriculars
+          extracurriculars: generalCareFormData.extracurriculars.trim()
             ? generalCareFormData.extracurriculars
             : "N/A",
           bedTime: generalCareFormData.bedTime
             ? generalCareFormData.bedTime.toUTCString()
             : "N/A",
-          currentMedications: generalCareFormData.currentMedications,
-          medicationSchedule: generalCareFormData.medicationSchedule
+          currentMedications: generalCareFormData.currentMedications.trim()
+            ? generalCareFormData.currentMedications
+            : "N/A",
+          medicationSchedule: generalCareFormData.medicationSchedule.trim()
             ? generalCareFormData.medicationSchedule
             : "N/A",
-          allergies: generalCareFormData.allergies,
+          allergies: generalCareFormData.allergies.trim()
+            ? generalCareFormData.allergies
+            : "N/A",
         },
         documents: newDocumentObject,
         reminders: reminderList.length > 0 ? reminderList : "N/A",
@@ -286,14 +290,14 @@ const ReviewPage = ({
           birthday: basicFormData.birthday
             ? basicFormData.birthday.toUTCString()
             : "N/A",
-          relationship: basicFormData.relationship
+          relationship: basicFormData.relationship.trim()
             ? basicFormData.relationship
             : "N/A",
-          preferredPronouns: basicFormData.preferredPronouns
+          preferredPronouns: basicFormData.preferredPronouns.trim()
             ? basicFormData.preferredPronouns
             : "N/A",
           sex: basicFormData.sex,
-          address: basicFormData.address ? basicFormData.address : "N/A",
+          address: basicFormData.address.trim() ? basicFormData.address : "N/A",
           phoneNumber: basicFormData.phoneNumber
             ? basicFormData.phoneNumber
             : "N/A",
@@ -317,7 +321,7 @@ const ReviewPage = ({
           endTime: educationFormData.endTime
             ? educationFormData.endTime.toUTCString()
             : "N/A",
-          busNumber: educationFormData.busNumber
+          busNumber: educationFormData.busNumber.trim()
             ? educationFormData.busNumber
             : "N/A",
           busTime: educationFormData.busTime
@@ -325,20 +329,24 @@ const ReviewPage = ({
             : "N/A",
         },
         generalCare: {
-          routineNotes: generalCareFormData.routineNotes
+          routineNotes: generalCareFormData.routineNotes.trim()
             ? generalCareFormData.routineNotes
             : "N/A",
-          extracurriculars: generalCareFormData.extracurriculars
+          extracurriculars: generalCareFormData.extracurriculars.trim()
             ? generalCareFormData.extracurriculars
             : "N/A",
           bedTime: generalCareFormData.bedTime
             ? generalCareFormData.bedTime.toUTCString()
             : "N/A",
-          currentMedications: generalCareFormData.currentMedications,
-          medicationSchedule: generalCareFormData.medicationSchedule
+          currentMedications: generalCareFormData.currentMedications.trim()
+            ? generalCareFormData.currentMedications
+            : "N/A",
+          medicationSchedule: generalCareFormData.medicationSchedule.trim()
             ? generalCareFormData.medicationSchedule
             : "N/A",
-          allergies: generalCareFormData.allergies,
+          allergies: generalCareFormData.allergies.trim()
+            ? generalCareFormData.allergies
+            : "N/A",
         },
         documents: {
           immunizationFile: fileLinks["immunizationFile"],
@@ -435,9 +443,9 @@ const ReviewPage = ({
                 </Text>
                 <Text>
                   {" "}
-                  {basicFormData.relationship
-                    ? basicFormData.relationship
-                    : "N/A"}
+                  {basicFormData.relationship.trim() === ""
+                    ? "N/A"
+                    : basicFormData.relationship}
                 </Text>
               </div>
 
@@ -447,9 +455,9 @@ const ReviewPage = ({
                 </Text>
                 <Text>
                   {" "}
-                  {basicFormData.preferredPronouns
-                    ? basicFormData.preferredPronouns
-                    : "N/A"}
+                  {basicFormData.preferredPronouns.trim() === ""
+                    ? "N/A"
+                    : basicFormData.preferredPronouns}
                 </Text>
               </div>
 
@@ -466,7 +474,9 @@ const ReviewPage = ({
                 </Text>
                 <Text>
                   {" "}
-                  {basicFormData.address ? basicFormData.address : "N/A"}
+                  {basicFormData.address.trim() === ""
+                    ? "N/A"
+                    : basicFormData.address}
                 </Text>
               </div>
 
@@ -514,7 +524,12 @@ const ReviewPage = ({
                 <Text fz="lg" fw="500" mt="2rem">
                   Current Medications
                 </Text>
-                <Text> {emergencyFormData.currentMedications}</Text>
+                <Text>
+                  {" "}
+                  {emergencyFormData.currentMedications
+                    ? emergencyFormData.currentMedications
+                    : "N/A"}
+                </Text>
               </div>
             </SimpleGrid>
           </Accordion.Panel>
@@ -575,9 +590,9 @@ const ReviewPage = ({
                 </Text>
                 <Text>
                   {" "}
-                  {educationFormData.busNumber
-                    ? educationFormData.busNumber
-                    : "N/A"}
+                  {educationFormData.busNumber.trim() === ""
+                    ? "N/A"
+                    : educationFormData.busNumber}
                 </Text>
               </div>
 
@@ -587,9 +602,9 @@ const ReviewPage = ({
                 </Text>
                 <Text>
                   {" "}
-                  {educationFormData.busTime
-                    ? educationFormData.busTime.toLocaleTimeString()
-                    : "N/A"}
+                  {educationFormData.busTime === ""
+                    ? "N/A"
+                    : educationFormData.busTime.toLocaleTimeString()}
                 </Text>
               </div>
             </SimpleGrid>
@@ -606,9 +621,9 @@ const ReviewPage = ({
                 </Text>
                 <Text>
                   {" "}
-                  {generalCareFormData.routineNotes
-                    ? generalCareFormData.routineNotes
-                    : "N/A"}
+                  {generalCareFormData.routineNotes === ""
+                    ? "N/A"
+                    : generalCareFormData.routineNotes}
                 </Text>
               </div>
 
@@ -618,9 +633,9 @@ const ReviewPage = ({
                 </Text>
                 <Text>
                   {" "}
-                  {generalCareFormData.extracurriculars
-                    ? generalCareFormData.extracurriculars
-                    : "N/A"}
+                  {generalCareFormData.extracurriculars === ""
+                    ? "N/A"
+                    : generalCareFormData.extracurriculars}
                 </Text>
               </div>
 
@@ -630,9 +645,9 @@ const ReviewPage = ({
                 </Text>
                 <Text>
                   {" "}
-                  {generalCareFormData.bedTime
-                    ? generalCareFormData.bedTime.toLocaleTimeString()
-                    : "N/A"}
+                  {generalCareFormData.bedTime === ""
+                    ? "N/A"
+                    : generalCareFormData.bedTime.toLocaleTimeString()}
                 </Text>
               </div>
 
@@ -640,7 +655,12 @@ const ReviewPage = ({
                 <Text fz="lg" fw="500" mt="2rem">
                   Allergies
                 </Text>
-                <Text> {generalCareFormData.allergies}</Text>
+                <Text>
+                  {" "}
+                  {generalCareFormData.allergies === ""
+                    ? "N/A"
+                    : generalCareFormData.allergies}
+                </Text>
               </div>
 
               <div>
@@ -649,9 +669,9 @@ const ReviewPage = ({
                 </Text>
                 <Text>
                   {" "}
-                  {generalCareFormData.medicationSchedule
-                    ? generalCareFormData.medicationSchedule
-                    : "N/A"}
+                  {generalCareFormData.medicationSchedule === ""
+                    ? "N/A"
+                    : generalCareFormData.medicationSchedule}
                 </Text>
               </div>
             </SimpleGrid>
