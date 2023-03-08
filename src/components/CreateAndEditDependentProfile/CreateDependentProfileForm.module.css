@@ -1,5 +1,5 @@
 .formWrapper {
-    width: 50rem;
+    width: 60rem;
     margin: auto;
 }
 
@@ -9,16 +9,21 @@
     /*border: 1px solid black;*/
 }
 
-.formContent {
+.normalContent{
     width: 70%;
     margin: auto;
 
 }
 
-.formContent.inReview {
+.reminderContent{
     width: 100%;
-
 }
+
+.reviewContent{
+    width:100%
+}
+
+
 
 .modalButtonContainer {
     margin-top: 5px;
@@ -28,9 +33,22 @@
 
 }
 
+
 /*overriding default mantine style*/
-.modalTitle{
+.modalTitle {
     font-weight: 700;
     font-size: 20px;
 }
+
+
+/*Responsive styles*/
+
+@media screen and (max-width: 1005px){
+    .formWrapper{
+        width: 90%;
+    }
+}
+
+
+
 

@@ -76,7 +76,7 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
   });
 
   //keeps track of which form we want to display
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(5);
 
   //go back to the previous form step
   const prevStep = () => {
@@ -211,8 +211,14 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
           <Button onClick={handleModalConfirm}>Confirm</Button>
         </div>
       </Modal>
+
       <div className={styles.formWrapper}>
-        <Button onClick={handleReturn}>Return</Button>
+        <div className={styles.returnButtonContainer}>
+          <Button onClick={handleReturn} className={styles.returnButton}>
+            Return
+          </Button>
+        </div>
+
         <div className={styles.progressBarContainer} title="Progress">
           <Progress
             value={(step / 6) * 100}
@@ -220,9 +226,21 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
             size="xl"
             radius="xl"
             striped
+            classNames={{
+              root: styles.progressBar,
+              label: styles.progressBarLabel,
+            }}
           />
         </div>
-        <div className={`${styles.formContent}${step === 5 ? "inReview" : ""}`}>
+        <div
+          className={
+            step < 5
+              ? styles.normalContent
+              : step === 5
+              ? styles.reminderContent
+              : styles.reviewContent
+          }
+        >
           {renderedElement}
         </div>
       </div>
