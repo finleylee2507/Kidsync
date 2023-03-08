@@ -98,7 +98,13 @@ const DependentCard = ({
   );
 
   return (
-    <div style={{ width: "25rem", marginRight: "50px" }}>
+    <div
+      style={
+        showAll
+          ? { maxWidth: "25rem", margin: "0 auto" }
+          : { width: "25rem", margin: "2rem" }
+      }
+    >
       <Card
         withBorder
         radius="md"

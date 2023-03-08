@@ -9,6 +9,7 @@ import {
   Modal,
   Text,
   Divider,
+  Grid,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import {
@@ -19,6 +20,7 @@ import {
 import ExistingAccessModal from "../ExistingAccess/ExistingAccessModal";
 import NewAccessModal from "../GrantNewAccess/NewAccessModal";
 import { toast } from "react-toastify";
+import { useMediaQuery } from "@mantine/hooks";
 
 const useStyles = createStyles(() => ({
   button: {
@@ -46,7 +48,7 @@ const DependentsList = ({
   const [currentDependentName, setCurrentDependentName] = useState("");
   const [currentDependentID, setCurrentDependentID] = useState("");
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
-
+  const isMobile = useMediaQuery("(max-width:850px)");
   console.log("All deps: ", allDependents);
   useEffect(() => {
     if (allDependents) {
@@ -220,22 +222,24 @@ const DependentsList = ({
           <div className={classes.label}>Add Dependent</div>
         </Button>
         <Container py="xl">
-          <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+          <Grid>
             {Object.entries(allUsers[user.uid]["dependents"]).map(
               ([id, dependentID]) => (
-                <DependentCard
-                  key={id}
-                  dependent={allDependents[dependentID]}
-                  showAll={true}
-                  handleExistingModalState={handleExistingModal}
-                  handleNewModalState={setIsOpenNewModal}
-                  setCurrentDependentName={setCurrentDependentName}
-                  setCurrentDependentID={setCurrentDependentID}
-                  setIsConfirmationModalOpen={setIsConfirmationModalOpen}
-                />
+                <Grid.Col span={isMobile ? 12 : 6}>
+                  <DependentCard
+                    key={id}
+                    dependent={allDependents[dependentID]}
+                    showAll={true}
+                    handleExistingModalState={handleExistingModal}
+                    handleNewModalState={setIsOpenNewModal}
+                    setCurrentDependentName={setCurrentDependentName}
+                    setCurrentDependentID={setCurrentDependentID}
+                    setIsConfirmationModalOpen={setIsConfirmationModalOpen}
+                  />
+                </Grid.Col>
               )
             )}
-          </SimpleGrid>
+          </Grid>
         </Container>
       </div>
     );

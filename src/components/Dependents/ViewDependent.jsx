@@ -25,7 +25,7 @@ const ViewDependent = () => {
     <Container pb={40}>
       <Button
         onClick={() => {
-          navigate("/dependents");
+          navigate("/home");
         }}
         className={styles.backButton}
       >
