@@ -11,10 +11,12 @@ import {
   ScrollArea,
   Anchor,
   Text,
+  Image,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { signOut } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
+import kidSyncLogo from "../../../dist/assets/KidSync.png";
 
 const useStyles = createStyles((theme) => ({
   logoText: {
@@ -135,8 +137,7 @@ export function Navbar() {
     <Box pb={30}>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: "100%" }}>
-          <Text className={classes.logoText}>KidSync</Text>
-
+          <Image src={kidSyncLogo} height={45} width={200} fit="contain" />
           <Group
             sx={{ height: "100%" }}
             spacing={0}

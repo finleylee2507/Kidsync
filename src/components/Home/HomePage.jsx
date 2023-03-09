@@ -32,7 +32,10 @@ const HomePage = ({ user, allUsers, allDependents }) => {
             <Grid>
               {Object.entries(allUsers[user.uid]["dependents"]).map(
                 ([id, dependentID]) => (
-                  <Grid.Col span={isMobileSmall ? 12 : isMobileMedium ? 6 : 4}>
+                  <Grid.Col
+                    span={isMobileSmall ? 12 : isMobileMedium ? 6 : 4}
+                    key={dependentID}
+                  >
                     <DependentCard
                       key={id}
                       dependent={allDependents[dependentID]}
@@ -61,6 +64,7 @@ const HomePage = ({ user, allUsers, allDependents }) => {
                   return (
                     <Grid.Col
                       span={isMobileSmall ? 12 : isMobileMedium ? 6 : 4}
+                      key={id}
                     >
                       <ClientCard
                         key={id}
