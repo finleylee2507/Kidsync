@@ -46,7 +46,6 @@ const useStyles = createStyles((theme) => ({
     borderColor: "#6147FF",
   },
   imageSection: {
-    padding: theme.spacing.md,
     display: "flex",
     alignItems: "start",
     justifyContent: "center",
@@ -119,7 +118,7 @@ const DependentCard = ({
       style={
         showAll
           ? { maxWidth: "25rem", margin: "0 auto" }
-          : { width: "25rem", margin: "2rem" }
+          : { width: "20rem", margin: "2rem" }
       }
     >
       <Card
@@ -138,8 +137,8 @@ const DependentCard = ({
                 : "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
             }
             alt="Kid's image"
-            width={100}
-            height={100}
+            width="100%"
+            height={350}
           />
 
           {showAll && (
@@ -153,8 +152,9 @@ const DependentCard = ({
                 setCurrentDependentID(`${dependent.id}`);
                 setIsConfirmationModalOpen(true);
               }}
+              variant="transparent"
             >
-              <FontAwesomeIcon icon={faTrashCan} size="lg" />
+              <FontAwesomeIcon icon={faTrashCan} size="lg" color="#FFFFFF" />
             </ActionIcon>
           )}
         </Card.Section>

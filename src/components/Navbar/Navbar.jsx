@@ -10,12 +10,17 @@ import {
   Drawer,
   ScrollArea,
   Anchor,
+  Text,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { signOut } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
+  logoText: {
+    fontFamily: "'Comfortaa'",
+    fontSize: "25px",
+  },
   hiddenMobile: {
     [theme.fn.smallerThan("sm")]: {
       display: "none",
@@ -130,7 +135,8 @@ export function Navbar() {
     <Box pb={30}>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: "100%" }}>
-          KidSync
+          <Text className={classes.logoText}>KidSync</Text>
+
           <Group
             sx={{ height: "100%" }}
             spacing={0}
