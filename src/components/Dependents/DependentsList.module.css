@@ -13,6 +13,18 @@
 
 }
 
+.label{
+    position: relative;
+    zIndex:1
+}
+
+.button{
+    position: relative;
+    transition: background-color 150ms ease;
+    width: 150px;
+    margin: auto;
+    background-color: #6147FF;
+}
 /*overriding default mantine style*/
 .modalTitle{
     font-weight: 700;

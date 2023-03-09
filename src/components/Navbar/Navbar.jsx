@@ -34,6 +34,9 @@ const useStyles = createStyles((theme) => ({
       theme.colors[theme.primaryColor][theme.colorScheme === "dark" ? 5 : 6],
   },
 
+  signOutButton: {
+    backgroundColor: "#6147FF",
+  },
   mainLink: {
     textTransform: "uppercase",
     fontSize: 13,
@@ -57,6 +60,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const SignOutButton = () => {
+  const { classes, theme, cx } = useStyles();
   const navigate = useNavigate();
 
   async function signOutUser() {
@@ -64,7 +68,11 @@ const SignOutButton = () => {
     navigate("/");
   }
 
-  return <Button onClick={signOutUser}>Sign out</Button>;
+  return (
+    <Button onClick={signOutUser} className={classes.signOutButton}>
+      Sign out
+    </Button>
+  );
 };
 
 const mainLinks = [

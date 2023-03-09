@@ -27,7 +27,18 @@ const useStyles = createStyles((theme) => ({
 
     cursor: "pointer",
   },
+  manageAccessButton: {
+    backgroundColor: "#6147FF",
+    "&:not([data-disabled])": theme.fn.hover({
+      opacity: 0.7,
+    }),
+  },
 
+  updateAccessButton: {
+    flex: 1,
+    color: "#6147FF",
+    borderColor: "#6147FF",
+  },
   imageSection: {
     padding: theme.spacing.md,
     display: "flex",
@@ -157,7 +168,7 @@ const DependentCard = ({
           <Card.Section className={classes.section}>
             <Group spacing={30}>
               <Button
-                style={{ flex: 1 }}
+                classNames={{ root: classes.updateAccessButton }}
                 variant="outline"
                 onClick={(event) => {
                   handleEditDependent(dependent, event);
@@ -174,14 +185,9 @@ const DependentCard = ({
               >
                 <Menu.Target>
                   <Button
-                    styles={(theme) => ({
-                      root: {
-                        backgroundColor: "#6147FF",
-                        "&:not([data-disabled])": theme.fn.hover({
-                          opacity: 0.7,
-                        }),
-                      },
-                    })}
+                    classNames={{
+                      root: classes.manageAccessButton,
+                    }}
                     onClick={(e) => {
                       e.stopPropagation();
                       setCurrentDependentName(

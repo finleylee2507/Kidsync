@@ -22,19 +22,6 @@ import NewAccessModal from "../GrantNewAccess/NewAccessModal";
 import { toast } from "react-toastify";
 import { useMediaQuery } from "@mantine/hooks";
 
-const useStyles = createStyles(() => ({
-  button: {
-    position: "relative",
-    transition: "background-color 150ms ease",
-    width: "150px",
-    margin: "auto",
-  },
-  label: {
-    position: "relative",
-    zIndex: 1,
-  },
-}));
-
 const DependentsList = ({
   user,
   allUsers,
@@ -60,7 +47,6 @@ const DependentsList = ({
     }
   });
 
-  const { classes, theme } = useStyles();
   const navigate = useNavigate();
 
   const handleAddDependentClick = () => {
@@ -160,11 +146,10 @@ const DependentsList = ({
         <Container>
           <Button
             fullWidth
-            className={classes.button}
+            className={styles.button}
             onClick={handleAddDependentClick}
-            color={theme.primaryColor}
           >
-            <div className={classes.label}>Add Dependent</div>
+            <div className={styles.label}>Add Dependent</div>
           </Button>
         </Container>
       </div>
@@ -215,11 +200,10 @@ const DependentsList = ({
         />
         <Button
           fullWidth
-          className={classes.button}
+          className={styles.button}
           onClick={handleAddDependentClick}
-          color={theme.primaryColor}
         >
-          <div className={classes.label}>Add Dependent</div>
+          <div className={styles.label}>Add Dependent</div>
         </Button>
         <Container py="xl">
           <Grid>
