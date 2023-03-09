@@ -53,11 +53,12 @@ const NewAccessModal = ({
     }
 
     //validate phone number
-    if (
-      !form.values.phoneNumber &&
-      !/^\+1 \(\d{3}\) \d{3}-\d{4}$/.test(form.values.phoneNumber)
-    ) {
-      console.log("phone number");
+    if (!form.values.phoneNumber) {
+      console.log("no phone number");
+      form.setFieldError("phoneNumber", "Please enter a phone number");
+      errors.phoneNumber = "Please enter a phone number";
+    } else if (!/^\+1 \(\d{3}\) \d{3}-\d{4}$/.test(form.values.phoneNumber)) {
+      console.log("invalid phone number");
       form.setFieldError("phoneNumber", "Invalid phone number");
       errors.phoneNumber = "Invalid phone number";
     }

@@ -9,7 +9,8 @@ const ExistingAccessModal = ({
   handleModalState,
   dependent,
 }) => {
-  const isMobile = useMediaQuery("(max-width:850px)");
+  const isMobileMedium = useMediaQuery("(max-width:1200px)");
+  const isMobileExtraSmall = useMediaQuery("(max-width:500px)");
   return (
     <div>
       <Modal
@@ -18,26 +19,40 @@ const ExistingAccessModal = ({
         size="80%"
         closeOnClickOutside={false}
         overflow="inside"
-        fullScreen={isMobile}
+        fullScreen={isMobileMedium}
       >
         {/* Check if dependent exists */}
         {dependent && dependent.caretakers ? (
           <div style={{ width: "99%" }}>
-            <Text fz="xl" ta="center" c="blue" mb={30} fw={700}>
+            <Text
+              size={isMobileExtraSmall ? "sm" : "xl"}
+              ta="center"
+              c="blue"
+              mb={30}
+              fw={700}
+            >
               {`Currently Sharing ${dependent.basic.firstName} ${dependent.basic.lastName}'s Profile With:`}
             </Text>
             <Grid columns={30}>
-              <Grid.Col span={4}>
-                <Text fw={700}>Name:</Text>
+              <Grid.Col span={isMobileExtraSmall ? 5 : 4}>
+                <Text fw={700} size={isMobileExtraSmall ? "xs" : "md"}>
+                  Name:
+                </Text>
               </Grid.Col>
-              <Grid.Col span={4}>
-                <Text fw={700}>Relationship:</Text>
+              <Grid.Col span={isMobileExtraSmall ? 6 : 4}>
+                <Text fw={700} size={isMobileExtraSmall ? "xs" : "md"}>
+                  Relationship:
+                </Text>
               </Grid.Col>
               <Grid.Col span={10}>
-                <Text fw={700}>Access Granted:</Text>
+                <Text fw={700} size={isMobileExtraSmall ? "xs" : "md"}>
+                  Access Granted:
+                </Text>
               </Grid.Col>
-              <Grid.Col span={12}>
-                <Text fw={700}>Options:</Text>
+              <Grid.Col span={isMobileExtraSmall ? 9 : 12}>
+                <Text fw={700} size={isMobileExtraSmall ? "xs" : "md"}>
+                  Options:
+                </Text>
               </Grid.Col>
             </Grid>
 

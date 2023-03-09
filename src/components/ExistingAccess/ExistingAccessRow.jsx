@@ -4,6 +4,7 @@ import {
   Button,
   Checkbox,
   Divider,
+  Flex,
   Grid,
   SimpleGrid,
   Text,
@@ -11,6 +12,7 @@ import {
 import { useForm } from "@mantine/form";
 import { updateDependent, updateUser } from "../../utilities/firebase";
 import { toast } from "react-toastify";
+import { useMediaQuery } from "@mantine/hooks";
 
 const ExistingAccessRow = ({
   allUsers,
@@ -18,6 +20,9 @@ const ExistingAccessRow = ({
   dependent,
   handleModalState,
 }) => {
+  const isMobileMedium = useMediaQuery("(max-width:1200px)");
+  const isMobileSmall = useMediaQuery("(max-width:750px)");
+  const isMobileExtraSmall = useMediaQuery("(max-width:500px)");
   const form = useForm({
     initialValues: {
       permissions: caretaker.permissions, // get actual permissions from db
@@ -31,18 +36,25 @@ const ExistingAccessRow = ({
   return (
     <form onSubmit={form.onSubmit((values) => console.log(values.permissions))}>
       <Divider my="sm" />
-      <Grid columns={30}>
-        <Grid.Col span={4}>
-          <Text>{allUsers[caretaker.id].displayName}</Text>
+      <Grid columns={30} gutter={isMobileSmall ? "xs" : "md"}>
+        <Grid.Col span={isMobileExtraSmall ? 5 : 4}>
+          <Text size={isMobileExtraSmall ? "xs" : "md"}>
+            {allUsers[caretaker.id].displayName}
+          </Text>
         </Grid.Col>
 
-        <Grid.Col span={4}>
-          <Text>{caretaker.relationship}</Text>
+        <Grid.Col span={isMobileExtraSmall ? 6 : 4}>
+          <Text size={isMobileExtraSmall ? "xs" : "md"}>
+            {caretaker.relationship}
+          </Text>
         </Grid.Col>
         <Grid.Col span={10}>
           <Text>
-            <Checkbox.Group {...form.getInputProps("permissions")}>
-              <SimpleGrid cols={2}>
+            <Checkbox.Group
+              {...form.getInputProps("permissions")}
+              size={isMobileExtraSmall ? "xs" : "sm"}
+            >
+              <SimpleGrid cols={isMobileSmall ? 1 : 2}>
                 <Checkbox value="basic" label="Basic" />
                 <Checkbox value="reminders" label="Reminders" />
                 <Checkbox value="generalCare" label="General Care" />
@@ -59,10 +71,14 @@ const ExistingAccessRow = ({
           </Text>
         </Grid.Col>
 
-        <Grid.Col span={12}>
-          <div>
+        <Grid.Col span={isMobileExtraSmall ? 9 : 12}>
+          <Flex
+            direction={isMobileSmall ? "column" : "row"}
+            gap={isMobileSmall ? "10px" : "2rem"}
+          >
             <Button
               variant="outline"
+              size={isMobileMedium ? "xs" : "sm"}
               onClick={async () => {
                 let newCaretaker = {
                   ...caretaker,
@@ -99,11 +115,11 @@ const ExistingAccessRow = ({
                 }
               }}
             >
-              Update Access
+              {isMobileExtraSmall ? "Update" : "Update Access"}
             </Button>
             <Button
-              ml="20px"
               color="red"
+              size={isMobileMedium ? "xs" : "sm"}
               onClick={async () => {
                 // submit to db
 
@@ -157,9 +173,9 @@ const ExistingAccessRow = ({
                 }
               }}
             >
-              Terminate Access
+              {isMobileExtraSmall ? "Terminate" : "Terminate Access"}
             </Button>
-          </div>
+          </Flex>
         </Grid.Col>
       </Grid>
     </form>

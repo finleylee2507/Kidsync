@@ -326,13 +326,13 @@ const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
                     size="lg"
                   />
                 </Grid.Col>
-                <Grid.Col span={isMobile ? 15 : 19}>
+                <Grid.Col span={15}>
                   <TextInput
                     {...form.getInputProps(`reminders.${index}.taskName`)}
                     size="lg"
                   />
                 </Grid.Col>
-                <Grid.Col span={isMobile ? 3 : 5}>
+                <Grid.Col span={isMobile ? 3 : 8}>
                   <SchedulePopUp
                     form={form}
                     index={index}
