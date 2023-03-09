@@ -10,6 +10,7 @@ const HomePage = ({ user, allUsers, allDependents }) => {
   const [allDeps, setAllDeps] = useState(allDependents);
   const isMobileSmall = useMediaQuery("(max-width:700px)");
   const isMobileMedium = useMediaQuery("(max-width:1200px)");
+  const isBigScreen = useMediaQuery("(min-width:1800px)");
 
   useEffect(() => {
     if (allDependents) {
@@ -23,7 +24,7 @@ const HomePage = ({ user, allUsers, allDependents }) => {
         <div className={styles.sectionHeaderContainer}>
           <h1 className={styles.sectionHeader}>My Dependents</h1>
         </div>
-        <Container size="xl" mx={0}>
+        <Container fluid mx={0}>
           {!(
             allDeps == null ||
             allDeps.length == 1 ||
@@ -33,7 +34,15 @@ const HomePage = ({ user, allUsers, allDependents }) => {
               {Object.entries(allUsers[user.uid]["dependents"]).map(
                 ([id, dependentID]) => (
                   <Grid.Col
-                    span={isMobileSmall ? 12 : isMobileMedium ? 6 : 4}
+                    span={
+                      isBigScreen
+                        ? 3
+                        : isMobileSmall
+                        ? 12
+                        : isMobileMedium
+                        ? 6
+                        : 4
+                    }
                     key={dependentID}
                   >
                     <DependentCard
@@ -63,7 +72,15 @@ const HomePage = ({ user, allUsers, allDependents }) => {
                 ([id, client]) => {
                   return (
                     <Grid.Col
-                      span={isMobileSmall ? 12 : isMobileMedium ? 6 : 4}
+                      span={
+                        isBigScreen
+                          ? 3
+                          : isMobileSmall
+                          ? 12
+                          : isMobileMedium
+                          ? 6
+                          : 4
+                      }
                       key={id}
                     >
                       <ClientCard
