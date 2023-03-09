@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Button, Group, NumberInput, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { TimeInput } from "@mantine/dates";
-import styles from "./CreateDependentProfileForm.module.css";
+import styles from "./CreateEditDependentProfileForm.module.css";
 
 const EducationForm = ({ formData, nextStep, prevStep, setFormData }) => {
   const form = useForm({
@@ -86,10 +86,18 @@ const EducationForm = ({ formData, nextStep, prevStep, setFormData }) => {
           {...form.getInputProps("busTime")}
         />
         <Group position="right" mt="md" mb="20px">
-          <Button name="prevButton" onClick={prevStep}>
+          <Button
+            name="prevButton"
+            onClick={prevStep}
+            classNames={{ root: styles.backButton }}
+          >
             Back
           </Button>
-          <Button type="submit" name="nextButton">
+          <Button
+            type="submit"
+            name="nextButton"
+            classNames={{ root: styles.nextButton }}
+          >
             Next
           </Button>
         </Group>

@@ -10,7 +10,6 @@ import {
   Container,
   SimpleGrid,
 } from "@mantine/core";
-import styles from "./ReviewPage.module.css";
 import {
   addNewDependent,
   getNewDependentKey,
@@ -19,6 +18,7 @@ import {
 } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import styles from "./CreateEditDependentProfileForm.module.css";
 
 const ReviewPage = ({
   basicFormData,
@@ -778,44 +778,23 @@ const ReviewPage = ({
         </Accordion.Item>
       </Accordion>
       <Group position="right" mt="md">
-        <Button name="prevButton" onClick={prevStep}>
+        <Button
+          name="prevButton"
+          onClick={prevStep}
+          classNames={{ root: styles.backButton }}
+        >
           Back
         </Button>
-        <Button name="nextButton" onClick={handleFormSubmit}>
+        <Button
+          name="nextButton"
+          onClick={handleFormSubmit}
+          classNames={{ root: styles.submitButton }}
+        >
           Submit
         </Button>
       </Group>
     </Container>
   );
-
-  // return (
-  //   <div className={styles.pageWrapper}>
-  //     {/*basic information*/}
-
-  //     {/* education information*/}
-
-  //     <Divider mt="2rem" size="sm" />
-  //     {/*general care information*/}
-
-  //     <Divider mt="2rem" size="sm" />
-
-  //     {/*Uploaded documents*/}
-  //
-
-  //     <Divider mt="2rem" size="sm" />
-
-  //     {/*Reminders*/}
-
-  // <Group position="right" mt="md">
-  //   <Button name="prevButton" onClick={prevStep}>
-  //     Back
-  //   </Button>
-  //   <Button name="nextButton" onClick={handleFormSubmit}>
-  //     Submit
-  //   </Button>
-  // </Group>
-  //   </div>
-  // );
 };
 
 export default ReviewPage;

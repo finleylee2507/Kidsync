@@ -36,6 +36,10 @@ const useStyles = createStyles((theme) => ({
 
   signOutButton: {
     backgroundColor: "#6147FF",
+    "&:hover": {
+      backgroundColor: "#6147FF",
+      opacity: 0.9,
+    },
   },
   mainLink: {
     textTransform: "uppercase",

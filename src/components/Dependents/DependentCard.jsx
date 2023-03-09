@@ -27,10 +27,16 @@ const useStyles = createStyles((theme) => ({
 
     cursor: "pointer",
   },
+
+  badge: {
+    color: "#6147FF",
+    borderColor: "#6147FF",
+  },
   manageAccessButton: {
     backgroundColor: "#6147FF",
     "&:not([data-disabled])": theme.fn.hover({
-      opacity: 0.7,
+      backgroundColor: "#6147FF",
+      opacity: 0.9,
     }),
   },
 
@@ -161,7 +167,9 @@ const DependentCard = ({
               {age} years old
             </Text>
           </div>
-          <Badge variant="outline">{dependent.basic.relationship}</Badge>
+          <Badge variant="outline" classNames={{ root: classes.badge }}>
+            {dependent.basic.relationship}
+          </Badge>
         </Group>
 
         {showAll && (

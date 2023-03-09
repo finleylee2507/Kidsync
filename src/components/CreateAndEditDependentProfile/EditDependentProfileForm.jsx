@@ -4,7 +4,7 @@ import EmergencyForm from "./EmergencyForm";
 import GeneralCareForm from "./GeneralCareForm";
 import DocumentsForm from "./DocumentsForm";
 import EducationForm from "./EducationForm";
-import styles from "./CreateDependentProfileForm.module.css";
+import styles from "./CreateEditDependentProfileForm.module.css";
 import { Button, Divider, Modal, Progress, Text } from "@mantine/core";
 import ReviewPage from "./ReviewPage";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -268,14 +268,28 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
 
         <Divider my="sm" />
         <div className={styles.modalButtonContainer}>
-          <Button variant="outline" onClick={handleModalCancel}>
+          <Button
+            variant="outline"
+            onClick={handleModalCancel}
+            classNames={{ root: styles.cancelButton }}
+          >
             Cancel
           </Button>
-          <Button onClick={handleModalConfirm}>Confirm</Button>
+          <Button
+            onClick={handleModalConfirm}
+            classNames={{ root: styles.confirmButton }}
+          >
+            Confirm
+          </Button>
         </div>
       </Modal>
       <div className={styles.formWrapper}>
-        <Button onClick={handleReturn}>Return</Button>
+        <Button
+          onClick={handleReturn}
+          classNames={{ root: styles.returnButton }}
+        >
+          Return
+        </Button>
         <div className={styles.progressBarContainer} title="Progress">
           <Progress
             value={(step / 6) * 100}
@@ -283,6 +297,7 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
             size="xl"
             radius="xl"
             striped
+            color="#6147FF"
           />
         </div>
         <div

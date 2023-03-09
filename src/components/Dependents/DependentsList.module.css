@@ -1,4 +1,4 @@
-.dependentsList{
+.dependentsList {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -13,20 +13,35 @@
 
 }
 
-.label{
+.label {
     position: relative;
-    zIndex:1
+    zIndex: 1
 }
 
-.button{
+.button {
     position: relative;
     transition: background-color 150ms ease;
     width: 150px;
     margin: auto;
     background-color: #6147FF;
 }
+
+.button:hover, .confirmButton:hover{
+    background-color: #6147FF;
+    opacity: 0.9;
+}
+
+.cancelButton {
+    border-color: #6147FF;
+    color: #6147FF;
+}
+
+.confirmButton {
+    background-color: #6147FF;
+}
+
 /*overriding default mantine style*/
-.modalTitle{
+.modalTitle {
     font-weight: 700;
     font-size: 20px;
 }

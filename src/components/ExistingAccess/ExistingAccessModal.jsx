@@ -27,7 +27,7 @@ const ExistingAccessModal = ({
             <Text
               size={isMobileExtraSmall ? "sm" : "xl"}
               ta="center"
-              c="blue"
+              c="black"
               mb={30}
               fw={700}
             >

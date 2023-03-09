@@ -12,6 +12,7 @@ import {
 import InputMask from "react-input-mask";
 import { useForm } from "@mantine/form";
 import { DatePicker } from "@mantine/dates";
+import styles from "./CreateEditDependentProfileForm.module.css";
 
 const BasicForm = ({
   formData,
@@ -150,7 +151,11 @@ const BasicForm = ({
         </Input.Wrapper>
 
         <Group position="right" mt="md" mb="20px">
-          <Button type="submit" name="nextButton">
+          <Button
+            type="submit"
+            name="nextButton"
+            classNames={{ root: styles.nextButton }}
+          >
             Next
           </Button>
         </Group>

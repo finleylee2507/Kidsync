@@ -1,0 +1,77 @@
+.formWrapper {
+    width: 45rem;
+    margin: auto;
+}
+
+.progressBarContainer {
+    margin-top: 3rem;
+    width: 100%;
+    /*border: 1px solid black;*/
+}
+
+.normalContent {
+    width: 70%;
+    margin: auto;
+
+}
+
+.reminderContent {
+    width: 100%;
+}
+
+.reviewContent {
+    width: 100%
+}
+
+.confirmButton {
+    background-color: #6147FF;
+}
+
+.confirmButton:hover, .returnButton:hover, .nextButton:hover, .backButton:hover, .submitButton:hover {
+    background-color: #6147FF;
+    opacity: 0.9;
+}
+
+.cancelButton {
+    color: #6147FF;
+    border-color: #6147FF;
+}
+
+.returnButton, .nextButton, .backButton {
+    background-color: #6147FF;
+}
+
+.submitButton {
+    background-color: #6147FF;
+}
+
+.modalButtonContainer {
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+}
+
+
+/*overriding default mantine style*/
+.modalTitle {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.progressBar {
+    color: #6147FF;
+}
+
+/*Responsive styles*/
+
+@media screen and (max-width: 1005px) {
+    .formWrapper {
+        width: 90%;
+    }
+}
+
+
+
+

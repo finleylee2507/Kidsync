@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Anchor, Button, FileInput, Group, Text } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import styles from "./CreateDependentProfileForm.module.css";
+import styles from "./CreateEditDependentProfileForm.module.css";
 
 const DocumentsForm = ({
   formData,
@@ -117,10 +117,18 @@ const DocumentsForm = ({
           )}
 
         <Group position="right" mt="md">
-          <Button name="prevButton" onClick={prevStep}>
+          <Button
+            name="prevButton"
+            onClick={prevStep}
+            classNames={{ root: styles.backButton }}
+          >
             Back
           </Button>
-          <Button type="submit" name="nextButton">
+          <Button
+            type="submit"
+            name="nextButton"
+            classNames={{ root: styles.nextButton }}
+          >
             Next
           </Button>
         </Group>

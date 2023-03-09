@@ -4,7 +4,7 @@ import EmergencyForm from "./EmergencyForm";
 import GeneralCareForm from "./GeneralCareForm";
 import DocumentsForm from "./DocumentsForm";
 import EducationForm from "./EducationForm";
-import styles from "./CreateDependentProfileForm.module.css";
+import styles from "./CreateEditDependentProfileForm.module.css";
 import { Button, Divider, Modal, Progress, Text } from "@mantine/core";
 import ReviewPage from "./ReviewPage";
 import { useNavigate } from "react-router-dom";
@@ -205,16 +205,28 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
 
         <Divider my="sm" />
         <div className={styles.modalButtonContainer}>
-          <Button variant="outline" onClick={handleModalCancel}>
+          <Button
+            variant="outline"
+            onClick={handleModalCancel}
+            classNames={{ root: styles.cancelButton }}
+          >
             Cancel
           </Button>
-          <Button onClick={handleModalConfirm}>Confirm</Button>
+          <Button
+            onClick={handleModalConfirm}
+            classNames={{ root: styles.confirmButton }}
+          >
+            Confirm
+          </Button>
         </div>
       </Modal>
 
       <div className={styles.formWrapper}>
-        <div className={styles.returnButtonContainer}>
-          <Button onClick={handleReturn} className={styles.returnButton}>
+        <div>
+          <Button
+            onClick={handleReturn}
+            classNames={{ root: styles.returnButton }}
+          >
             Return
           </Button>
         </div>
@@ -226,10 +238,7 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
             size="xl"
             radius="xl"
             striped
-            classNames={{
-              root: styles.progressBar,
-              label: styles.progressBarLabel,
-            }}
+            color="#6147FF"
           />
         </div>
         <div

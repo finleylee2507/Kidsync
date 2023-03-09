@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Button, Group, Input, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import InputMask from "react-input-mask";
+import styles from "./CreateEditDependentProfileForm.module.css";
 
 const EmergencyForm = ({ formData, nextStep, prevStep, setFormData }) => {
   const form = useForm({
@@ -69,10 +70,18 @@ const EmergencyForm = ({ formData, nextStep, prevStep, setFormData }) => {
         />
 
         <Group position="right" mt="md">
-          <Button name="prevButton" onClick={prevStep}>
+          <Button
+            name="prevButton"
+            onClick={prevStep}
+            classNames={{ root: styles.backButton }}
+          >
             Back
           </Button>
-          <Button type="submit" name="nextButton">
+          <Button
+            type="submit"
+            name="nextButton"
+            classNames={{ root: styles.nextButton }}
+          >
             Next
           </Button>
         </Group>

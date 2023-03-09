@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Button, Group, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { TimeInput } from "@mantine/dates";
+import styles from "./CreateEditDependentProfileForm.module.css";
 
 const GeneralCareForm = ({ formData, nextStep, prevStep, setFormData }) => {
   const form = useForm({
@@ -67,10 +68,18 @@ const GeneralCareForm = ({ formData, nextStep, prevStep, setFormData }) => {
           size="lg"
         />
         <Group position="right" mt="md">
-          <Button name="prevButton" onClick={prevStep}>
+          <Button
+            name="prevButton"
+            onClick={prevStep}
+            classNames={{ root: styles.backButton }}
+          >
             Back
           </Button>
-          <Button type="submit" name="nextButton">
+          <Button
+            type="submit"
+            name="nextButton"
+            classNames={{ root: styles.nextButton }}
+          >
             Next
           </Button>
         </Group>

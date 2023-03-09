@@ -23,6 +23,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import reminderStyles from "./ReminderForm.module.css";
+import styles from "./CreateEditDependentProfileForm.module.css";
 import { useMediaQuery } from "@mantine/hooks";
 
 const CheckboxIconM = ({ indeterminate, className }) => {
@@ -373,10 +374,20 @@ const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
         </Grid>
 
         <Group position="right" mt="md" mb="20px">
-          <Button name="prevButton" onClick={prevStep}>
+          <Button
+            name="prevButton"
+            onClick={prevStep}
+            classNames={{
+              root: styles.backButton,
+            }}
+          >
             Back
           </Button>
-          <Button type="submit" name="nextButton">
+          <Button
+            type="submit"
+            name="nextButton"
+            classNames={{ root: styles.nextButton }}
+          >
             Next
           </Button>
         </Group>

@@ -13,6 +13,7 @@ import { useForm } from "@mantine/form";
 import { updateDependent, updateUser } from "../../utilities/firebase";
 import { toast } from "react-toastify";
 import { useMediaQuery } from "@mantine/hooks";
+import styles from "./ExistingAccessRow.module.css";
 
 const ExistingAccessRow = ({
   allUsers,
@@ -55,11 +56,15 @@ const ExistingAccessRow = ({
               size={isMobileExtraSmall ? "xs" : "sm"}
             >
               <SimpleGrid cols={isMobileSmall ? 1 : 2}>
-                <Checkbox value="basic" label="Basic" />
-                <Checkbox value="reminders" label="Reminders" />
-                <Checkbox value="generalCare" label="General Care" />
-                <Checkbox value="education" label="Education" />
-                <Checkbox value="documents" label="Documents" />
+                <Checkbox value="basic" label="Basic" color="indigo" />
+                <Checkbox value="reminders" label="Reminders" color="indigo" />
+                <Checkbox
+                  value="generalCare"
+                  label="General Care"
+                  color="indigo"
+                />
+                <Checkbox value="education" label="Education" color="indigo" />
+                <Checkbox value="documents" label="Documents" color="indigo" />
                 <Checkbox
                   value="emergency"
                   label="Emergency"
@@ -78,6 +83,9 @@ const ExistingAccessRow = ({
           >
             <Button
               variant="outline"
+              classNames={{
+                root: styles.updateAccessButton,
+              }}
               size={isMobileMedium ? "xs" : "sm"}
               onClick={async () => {
                 let newCaretaker = {

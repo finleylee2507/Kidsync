@@ -1,22 +1,9 @@
 import React, { useEffect, useState } from "react";
 import DependentCard from "./DependentCard";
 import styles from "./DependentsList.module.css";
-import {
-  SimpleGrid,
-  Container,
-  createStyles,
-  Button,
-  Modal,
-  Text,
-  Divider,
-  Grid,
-} from "@mantine/core";
+import { Button, Container, Divider, Grid, Modal, Text } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
-import {
-  deleteDependent,
-  updateUser,
-  useDbData,
-} from "../../utilities/firebase";
+import { deleteDependent, updateUser } from "../../utilities/firebase";
 import ExistingAccessModal from "../ExistingAccess/ExistingAccessModal";
 import NewAccessModal from "../GrantNewAccess/NewAccessModal";
 import { toast } from "react-toastify";
@@ -173,10 +160,21 @@ const DependentsList = ({
 
           <Divider my="sm" />
           <div className={styles.modalButtonContainer}>
-            <Button variant="outline" onClick={handleModalCancel}>
+            <Button
+              variant="outline"
+              onClick={handleModalCancel}
+              classNames={{ root: styles.cancelButton }}
+            >
               Cancel
             </Button>
-            <Button onClick={handleModalConfirm}>Confirm</Button>
+            <Button
+              onClick={handleModalConfirm}
+              classNames={{
+                root: styles.confirmButton,
+              }}
+            >
+              Confirm
+            </Button>
           </div>
         </Modal>
         <ExistingAccessModal

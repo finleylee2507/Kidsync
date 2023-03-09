@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { fromEmailToDbString } from "../../utilities/emailFormatter";
 import { sendSMS } from "./../../utilities/twilio";
 import { useMediaQuery } from "@mantine/hooks";
+import styles from "./NewAccessModal.module.css";
 
 const NewAccessModal = ({
   user,
@@ -282,11 +283,15 @@ const NewAccessModal = ({
                 }}
                 withAsterisk
               >
-                <Radio value="coparent" label="Co-Parent" />
-                <Radio value="doctor" label="Doctor" />
-                <Radio value="babysitter" label="Babysitter" />
-                <Radio value="schoolstaff" label="School Staff" />
-                <Radio value="other" label="Other" />
+                <Radio value="coparent" label="Co-Parent" color="indigo" />
+                <Radio value="doctor" label="Doctor" color="indigo" />
+                <Radio value="babysitter" label="Babysitter" color="indigo" />
+                <Radio
+                  value="schoolstaff"
+                  label="School Staff"
+                  color="indigo"
+                />
+                <Radio value="other" label="Other" color="indigo" />
               </Radio.Group>
               {form.values.relationship === "other" && (
                 <TextInput
@@ -304,29 +309,37 @@ const NewAccessModal = ({
                 {...form.getInputProps("accessGranted")}
                 mt="2rem"
               >
-                <Checkbox value="basic" label="Basic" />
-                <Checkbox value="reminders" label="Reminders" />
-                <Checkbox value="generalCare" label="General Care" />
+                <Checkbox value="basic" label="Basic" color="indigo" />
+                <Checkbox value="reminders" label="Reminders" color="indigo" />
+                <Checkbox
+                  value="generalCare"
+                  label="General Care"
+                  color="indigo"
+                />
                 <Checkbox
                   value="emergency"
                   label="Emergency"
                   checked
                   disabled
                 />
-                <Checkbox value="education" label="Education" />
-                <Checkbox value="documents" label="Documents" />
+                <Checkbox value="education" label="Education" color="indigo" />
+                <Checkbox value="documents" label="Documents" color="indigo" />
               </Checkbox.Group>
 
               <Space h="xs" />
 
-              <Text fz="xs" c="blue">
+              <Text fz="xs" c="#6147FF">
                 Emergency information will be available to caretakers on demand.
                 You will be notified when this information is accessed.
               </Text>
             </Grid.Col>
 
             <Grid.Col span={10}>
-              <Button type="submit" fullWidth>
+              <Button
+                type="submit"
+                fullWidth
+                classNames={{ root: styles.grantAccessButton }}
+              >
                 Grant Access
               </Button>
             </Grid.Col>
