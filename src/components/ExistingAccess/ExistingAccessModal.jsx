@@ -73,7 +73,7 @@ const ExistingAccessModal = ({
             }
           </div>
         ) : (
-          <Text fz="xl" ta="center" c="blue" mb={30} fw={700}>
+          <Text fz="xl" ta="center" c="black" mb={30} fw={700}>
             No Caretakers
           </Text>
         )}
