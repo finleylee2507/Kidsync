@@ -15,7 +15,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { signOut } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
-import kidSyncLogo from "../../../dist/assets/KidSync.png";
+import kidSyncLogo from "../../images/KidSync.png";
 
 const useStyles = createStyles((theme) => ({
   logoText: {
