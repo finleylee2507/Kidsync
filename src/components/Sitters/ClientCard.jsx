@@ -32,7 +32,6 @@ const useStyles = createStyles((theme) => ({
   },
 
   imageSection: {
-    padding: theme.spacing.md,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -103,7 +102,7 @@ const ClientCard = ({ client, permissions, creator, currentUser }) => {
   return (
     <div
       className={styles.clientContainer}
-      style={{ maxWidth: "25rem", margin: "0 auto" }}
+      style={{ maxWidth: "20rem", margin: "0 auto" }}
     >
       <Card
         withBorder
