@@ -13,6 +13,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import styles from "./ClientCard.module.css";
 import { sendSMS } from "../../utilities/twilio";
+import { updateUser, useAuthState } from "../../utilities/firebase";
 // // import { FaCircleCheck } from "@fortawesome/free-solid-svg-icons";
 // // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { IconCheck, IconX } from "@tabler/icons";
@@ -72,6 +73,38 @@ const ClientCard = ({ client, permissions, creator, currentUser }) => {
   // style for the switch
   const switchTheme = useMantineTheme();
   const [checked, setChecked] = useState(false);
+
+  const user = useAuthState();
+
+  const handlePickUp = async () => {
+    // Add current client to current user's currentlyInCare list
+    let updatedUser;
+
+    if (!currentUser.currentlyInCare) {
+      updatedUser = {
+        currentlyInCare: [client.id],
+      };
+    } else {
+      updatedUser = {
+        ...currentUser,
+        currentlyInCare: [...currentUser.currentlyInCare, client.id],
+      };
+    }
+
+    await updateUser(updatedUser, currentUser.id);
+  };
+
+  const handleDropOff = async () => {
+    // Remove current client from current user's currentlyInCare list
+    let updatedUser = {
+      ...currentUser,
+      currentlyInCare: currentUser.currentlyInCare.filter(
+        (item) => item != client.id
+      ),
+    };
+
+    await updatedUser(updatedUser, currentUser.id);
+  };
 
   //handle click card
   const handleViewClient = (client) => {
@@ -139,35 +172,8 @@ const ClientCard = ({ client, permissions, creator, currentUser }) => {
 
         <Card.Section className={classes.section}>
           <Group spacing={30}>
-            {/* <Switch
-              checked={checked}
-              onChange={(event) => setChecked(event.currentTarget.checked)}
-              color="teal"
-              size="md"
-              label="Switch with thumb icon"
-              thumbIcon={
-                checked ? (
-                  <IconCheck
-                    size={12}
-                    color={
-                      switchTheme.colors.teal[switchTheme.fn.primaryShade()]
-                    }
-                    stroke={3}
-                  />
-                ) : (
-                  <IconX
-                    size={12}
-                    color={
-                      switchTheme.colors.red[switchTheme.fn.primaryShade()]
-                    }
-                    stroke={3}
-                  />
-                )
-              }
-            /> */}
-
             <Button
-              radius="xl"
+              radius="md"
               style={{
                 flex: 1,
                 backgroundColor: "#FF7676",
@@ -182,6 +188,30 @@ const ClientCard = ({ client, permissions, creator, currentUser }) => {
             >
               Emergency info
             </Button>
+
+            {currentUser.currentlyInCare.includes(client.id) ? (
+              <Button
+                radius="md"
+                style={{
+                  flex: 1,
+                  backgroundColor: "grey",
+                }}
+                onClick={handleDropOff}
+              >
+                Drop Off
+              </Button>
+            ) : (
+              <Button
+                radius="md"
+                style={{
+                  flex: 1,
+                  backgroundColor: "green",
+                }}
+                onClick={handlePickUp}
+              >
+                Pick Up
+              </Button>
+            )}
           </Group>
         </Card.Section>
       </Card>

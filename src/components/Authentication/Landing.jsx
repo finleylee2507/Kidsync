@@ -40,6 +40,7 @@ const Landing = (allUsers) => {
           email: user.email,
           photoURL: user.photoURL,
           phoneNumber: "",
+          id: user.uid,
         };
         try {
           const dbString = await fromEmailToDbString(user.email);

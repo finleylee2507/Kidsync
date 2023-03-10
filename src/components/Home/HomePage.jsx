@@ -68,7 +68,7 @@ const HomePage = ({ user, allUsers, allDependents }) => {
             allUsers[user.uid].clients == null
           ) && (
             <Grid>
-              {Object.entries(allUsers[user.uid].clients).map(
+              {Object.entries(allUsers[user.uid].currentlyInCare).map(
                 ([id, client]) => {
                   return (
                     <Grid.Col
