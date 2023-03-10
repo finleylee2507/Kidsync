@@ -101,7 +101,10 @@ const ClientCard = ({ client, permissions, creator, currentUser }) => {
   );
 
   return (
-    <div className={styles.clientContainer}>
+    <div
+      className={styles.clientContainer}
+      style={{ maxWidth: "25rem", margin: "0 auto" }}
+    >
       <Card
         withBorder
         radius="md"
