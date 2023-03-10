@@ -4,7 +4,12 @@
 }
 
 .backButton {
+background-color: #6147FF;
+}
 
+.backButton:hover{
+    background-color: #6147FF;
+    opacity: 0.9;
 }
 
 .editWrapper {

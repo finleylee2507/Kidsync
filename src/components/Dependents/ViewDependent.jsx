@@ -27,7 +27,7 @@ const ViewDependent = () => {
         onClick={() => {
           navigate("/home");
         }}
-        className={styles.backButton}
+        classNames={{ root: styles.backButton }}
       >
         Back
       </Button>

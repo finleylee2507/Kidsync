@@ -67,7 +67,6 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const ClientCard = ({ client, permissions, creator, currentUser }) => {
-  // console.log(client);
   const { classes, theme } = useStyles();
   const navigate = useNavigate();
 
@@ -114,10 +113,14 @@ const ClientCard = ({ client, permissions, creator, currentUser }) => {
       >
         <Card.Section className={classes.imageSection}>
           <Image
-            src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
+            src={
+              client.basic.profilePic && client.basic.profilePic !== "N/A"
+                ? client.basic.profilePic.fileLink
+                : "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
+            }
             alt="Kid's image"
-            width={100}
-            height={100}
+            width="100%"
+            height={350}
           />
         </Card.Section>
         <Group position="apart" mt="md">

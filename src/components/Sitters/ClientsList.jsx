@@ -1,7 +1,8 @@
-import { React, useState, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 // import clients from "../../utilities/clients.json";
 import ClientCard from "./ClientCard";
-import { SimpleGrid, Container, createStyles, Button } from "@mantine/core";
+import { Container, createStyles, Grid } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 
 const useStyles = createStyles(() => ({
   button: {
@@ -18,7 +19,7 @@ const useStyles = createStyles(() => ({
 
 const ClientsList = ({ user, allUsers, allDependents }) => {
   const { classes, theme } = useStyles();
-
+  const isMobile = useMediaQuery("(max-width:850px)");
   const [allDeps, setAllDeps] = useState(allDependents);
 
   useEffect(() => {
@@ -41,20 +42,21 @@ const ClientsList = ({ user, allUsers, allDependents }) => {
     return (
       <div>
         <Container py="xl">
-          <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+          <Grid>
             {Object.entries(allUsers[user.uid].clients).map(([id, client]) => {
-              console.log(client);
               return (
-                <ClientCard
-                  key={id}
-                  client={allDependents[client.id]}
-                  permissions={client.permissions}
-                  creator={allUsers[allDependents[client.id].creator]}
-                  currentUser={allUsers[user.uid]}
-                />
+                <Grid.Col span={isMobile ? 12 : 6}>
+                  <ClientCard
+                    key={id}
+                    client={allDependents[client.id]}
+                    permissions={client.permissions}
+                    creator={allUsers[allDependents[client.id].creator]}
+                    currentUser={allUsers[user.uid]}
+                  />
+                </Grid.Col>
               );
             })}
-          </SimpleGrid>
+          </Grid>
         </Container>
       </div>
     );
