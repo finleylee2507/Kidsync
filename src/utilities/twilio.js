@@ -10,8 +10,7 @@ export const sendSMS = (toNumber, message) => {
     {
       method: "POST",
       headers: {
-        Authorization:
-          "Basic" + btoa(`${accountSid}:${authToken}`),
+        Authorization: "Basic" + btoa(`${accountSid}:${authToken}`),
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: `From=${encodeURIComponent(fromNumber)}&To=${encodeURIComponent(

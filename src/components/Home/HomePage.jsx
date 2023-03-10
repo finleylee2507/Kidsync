@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { SimpleGrid, Container, Grid } from "@mantine/core";
+import React, { useEffect, useState } from "react";
+import { Container, Grid } from "@mantine/core";
 import DependentCard from "./../Dependents/DependentCard";
 import ClientCard from "../Sitters/ClientCard";
-import clients from "../../utilities/clients.json";
 import styles from "./HomePage.module.css";
 import { useMediaQuery } from "@mantine/hooks";
 
@@ -72,7 +71,7 @@ const HomePage = ({ user, allUsers, allDependents }) => {
         <div className={styles.sectionHeaderContainer}>
           <h1 className={styles.sectionHeader}>In My Care</h1>
         </div>
-        <div className={styles.dependentsContainer}>
+        <Container fluid mx={0}>
           {!(
             allDeps == null ||
             allDeps.length == 1 ||
@@ -104,36 +103,14 @@ const HomePage = ({ user, allUsers, allDependents }) => {
                       )}
                       creator={allUsers[allDependents[clientID].creator]}
                       currentUser={allUsers[user.uid]}
+                      isOnHomePage={true}
                     />
                   </Grid.Col>
                 );
-
-                // return (
-                //   <Grid.Col
-                //     span={
-                //       isBigScreen
-                //         ? 3
-                //         : isMobileSmall
-                //         ? 12
-                //         : isMobileMedium
-                //         ? 6
-                //         : 4
-                //     }
-                //     key={id}
-                //   >
-                //     <ClientCard
-                //       key={id}
-                //       client={allDependents[client.id]}
-                //       permissions={client.permissions}
-                //       creator={allUsers[allDependents[client.id].creator]}
-                //       currentUser={allUsers[user.uid]}
-                //     />
-                //   </Grid.Col>
-                // );
               })}
             </Grid>
           )}
-        </div>
+        </Container>
       </div>
     </React.Fragment>
   );

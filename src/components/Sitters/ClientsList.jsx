@@ -52,6 +52,7 @@ const ClientsList = ({ user, allUsers, allDependents }) => {
                     permissions={client.permissions}
                     creator={allUsers[allDependents[client.id].creator]}
                     currentUser={allUsers[user.uid]}
+                    isOnHomePage={false}
                   />
                 </Grid.Col>
               );

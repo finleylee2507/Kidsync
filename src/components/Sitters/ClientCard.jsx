@@ -1,13 +1,11 @@
 import { React, useState } from "react";
 import {
+  Button,
   Card,
+  createStyles,
+  Group,
   Image,
   Text,
-  Group,
-  Badge,
-  createStyles,
-  Button,
-  Switch,
   useMantineTheme,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
@@ -66,7 +64,13 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const ClientCard = ({ client, permissions, creator, currentUser }) => {
+const ClientCard = ({
+  client,
+  permissions,
+  creator,
+  currentUser,
+  isOnHomePage,
+}) => {
   const { classes, theme } = useStyles();
   const navigate = useNavigate();
 
@@ -135,14 +139,17 @@ const ClientCard = ({ client, permissions, creator, currentUser }) => {
   return (
     <div
       className={styles.clientContainer}
-      style={{ maxWidth: "20rem", margin: "0 auto" }}
+      style={
+        !isOnHomePage
+          ? { maxWidth: "25rem", margin: "0 auto" }
+          : { width: "20rem", margin: "2rem" }
+      }
     >
       <Card
         withBorder
         radius="md"
         className={classes.card}
         onClick={() => {
-          console.log("View client triggered");
           handleViewClient(client);
         }}
       >

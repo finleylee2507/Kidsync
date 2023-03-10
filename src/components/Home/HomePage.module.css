@@ -1,4 +1,4 @@
-.sectionHeader{
+.sectionHeader {
     font-size: 1.5rem;
     font-weight: 600;
     color: #6147FF;
@@ -6,11 +6,11 @@
     margin-left: 1rem;
 }
 
-.sectionHeaderContainer{
+.sectionHeaderContainer {
     width: 12rem;
 }
 
-.headerBorder{
+.headerBorder {
     border: 1px solid #4F9FE6;
 }
 
@@ -18,11 +18,11 @@
     justify-content: right;
 } */
 
-.wrapper{
+.wrapper {
     background-color: #EEE1C4;
 }
 
-.dependentsContainer{
+.dependentsContainer {
     display: flex;
     flex-direction: row;
     justify-content: left;

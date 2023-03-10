@@ -1,16 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./UserDetails.module.css";
-import {
-  Button,
-  Group,
-  NumberInput,
-  Text,
-  TextInput,
-  Input,
-} from "@mantine/core";
+import { Button, Group, Input, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useAuthState, addNewUser, updateUser } from "../../utilities/firebase";
-import { useNavigate, useLocation } from "react-router-dom";
+import { updateUser } from "../../utilities/firebase";
+import { useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
 
 const UserDetails = ({ user }) => {

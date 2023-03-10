@@ -2,7 +2,6 @@ import { useState } from "react";
 import logo from "../logo.svg";
 import styles from "./Default.module.css";
 
-
 const Default = () => {
   const [count, setCount] = useState(0);
 
@@ -38,8 +37,6 @@ const Default = () => {
           >
             Vite Docs
           </a>
-
-
         </p>
         <Button variant="primary">Primary</Button>
       </header>

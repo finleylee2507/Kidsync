@@ -1,14 +1,13 @@
 import React from "react";
 import {
+  Accordion,
   Anchor,
   Button,
-  Divider,
+  Container,
   Group,
+  SimpleGrid,
   Table,
   Text,
-  Accordion,
-  Container,
-  SimpleGrid,
 } from "@mantine/core";
 import {
   addNewDependent,

@@ -2,14 +2,14 @@ import React from "react";
 import styles from "./ViewInformation.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
+  Accordion,
   Anchor,
+  Button,
   Container,
   Paper,
   SimpleGrid,
-  Text,
-  Button,
   Table,
-  Accordion,
+  Text,
 } from "@mantine/core";
 
 const ViewInformation = () => {
@@ -29,12 +29,14 @@ const ViewInformation = () => {
         onClick={() => {
           navigate("/clients");
         }}
-        className={styles.backButton}
+        classNames={{
+          root: styles.backButton,
+        }}
       >
         Back
       </Button>
       <div className={styles.viewTitle}>
-        <Text fz="xl" fw="700" mb="2rem" className={styles.titleText}>
+        <Text fz="xl" fw="700" mb="2rem">
           Client Information
         </Text>
       </div>
@@ -280,71 +282,77 @@ const ViewInformation = () => {
         <Accordion.Item value="documents">
           <Accordion.Control>Documents</Accordion.Control>
           <Accordion.Panel>
-            <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
-              <div>
-                <Text fz="lg" fw="500" mt="2rem">
-                  Immunization File
-                </Text>
-                {client.documents["immunizationFile"] !== "N/A" ? (
-                  <Anchor
-                    href={client.documents["immunizationFile"]["fileLink"]}
-                    target="_blank"
-                  >
-                    {client.documents["immunizationFile"]["fileName"]}
-                  </Anchor>
-                ) : (
-                  <Text c="red"> Not uploaded</Text>
-                )}
-              </div>
+            {permissions.includes("documents") ? (
+              <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+                <div>
+                  <Text fz="lg" fw="500" mt="2rem">
+                    Immunization File
+                  </Text>
+                  {client.documents["immunizationFile"] !== "N/A" ? (
+                    <Anchor
+                      href={client.documents["immunizationFile"]["fileLink"]}
+                      target="_blank"
+                    >
+                      {client.documents["immunizationFile"]["fileName"]}
+                    </Anchor>
+                  ) : (
+                    <Text c="red"> Not uploaded</Text>
+                  )}
+                </div>
 
-              <div>
-                <Text fz="lg" fw="500" mt="2rem">
-                  Insurance Card
-                </Text>
-                {client.documents["insuranceCard"] !== "N/A" ? (
-                  <Anchor
-                    href={client.documents["insuranceCard"]["fileLink"]}
-                    target="_blank"
-                  >
-                    {client.documents["insuranceCard"]["fileName"]}
-                  </Anchor>
-                ) : (
-                  <Text c="red"> Not uploaded</Text>
-                )}
-              </div>
+                <div>
+                  <Text fz="lg" fw="500" mt="2rem">
+                    Insurance Card
+                  </Text>
+                  {client.documents["insuranceCard"] !== "N/A" ? (
+                    <Anchor
+                      href={client.documents["insuranceCard"]["fileLink"]}
+                      target="_blank"
+                    >
+                      {client.documents["insuranceCard"]["fileName"]}
+                    </Anchor>
+                  ) : (
+                    <Text c="red"> Not uploaded</Text>
+                  )}
+                </div>
 
-              <div>
-                <Text fz="lg" fw="500" mt="2rem">
-                  ESA Documents
-                </Text>
-                {client.documents["esaDocuments"] !== "N/A" ? (
-                  <Anchor
-                    href={client.documents["esaDocuments"]["fileLink"]}
-                    target="_blank"
-                  >
-                    {client.documents["esaDocuments"]["fileName"]}
-                  </Anchor>
-                ) : (
-                  <Text c="red"> Not uploaded</Text>
-                )}
-              </div>
+                <div>
+                  <Text fz="lg" fw="500" mt="2rem">
+                    ESA Documents
+                  </Text>
+                  {client.documents["esaDocuments"] !== "N/A" ? (
+                    <Anchor
+                      href={client.documents["esaDocuments"]["fileLink"]}
+                      target="_blank"
+                    >
+                      {client.documents["esaDocuments"]["fileName"]}
+                    </Anchor>
+                  ) : (
+                    <Text c="red"> Not uploaded</Text>
+                  )}
+                </div>
 
-              <div>
-                <Text fz="lg" fw="500" mt="2rem">
-                  FSA Documents
-                </Text>
-                {client.documents["fsaDocuments"] !== "N/A" ? (
-                  <Anchor
-                    href={client.documents["fsaDocuments"]["fileLink"]}
-                    target="_blank"
-                  >
-                    {client.documents["fsaDocuments"]["fileName"]}
-                  </Anchor>
-                ) : (
-                  <Text c="red"> Not uploaded</Text>
-                )}
-              </div>
-            </SimpleGrid>
+                <div>
+                  <Text fz="lg" fw="500" mt="2rem">
+                    FSA Documents
+                  </Text>
+                  {client.documents["fsaDocuments"] !== "N/A" ? (
+                    <Anchor
+                      href={client.documents["fsaDocuments"]["fileLink"]}
+                      target="_blank"
+                    >
+                      {client.documents["fsaDocuments"]["fileName"]}
+                    </Anchor>
+                  ) : (
+                    <Text c="red"> Not uploaded</Text>
+                  )}
+                </div>
+              </SimpleGrid>
+            ) : (
+              <Text fz="xl" fw="700">
+                You do not have access to this information.
+              </Text>
+            )}
           </Accordion.Panel>
         </Accordion.Item>
 
@@ -416,81 +424,6 @@ const ViewInformation = () => {
           </Accordion.Panel>
         </Accordion.Item>
       </Accordion>
-
-      {/* education information*/}
-
-      {/*general care information*/}
-
-      {/* <Paper withBorder radius="md" p="lg" mb="lg">
-        <Text fz="xl" fw="700">
-          Documents Upload
-        </Text>
-        <SimpleGrid cols={2} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Immunization File
-            </Text>
-            {clientDocuments["immunizationFile"] !== "N/A" ? (
-              <Anchor
-                href={clientDocuments["immunizationFile"]["fileLink"]}
-                target="_blank"
-              >
-                {clientDocuments["immunizationFile"]["fileName"]}
-              </Anchor>
-            ) : (
-              <Text c="red"> Not uploaded</Text>
-            )}
-          </div>
-
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              Insurance Card
-            </Text>
-            {clientDocuments["insuranceCard"] !== "N/A" ? (
-              <Anchor
-                href={clientDocuments["insuranceCard"]["fileLink"]}
-                target="_blank"
-              >
-                {clientDocuments["insuranceCard"]["fileName"]}
-              </Anchor>
-            ) : (
-              <Text c="red"> Not uploaded</Text>
-            )}
-          </div>
-
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              ESA Documents
-            </Text>
-            {clientDocuments["esaDocuments"] !== "N/A" ? (
-              <Anchor
-                href={clientDocuments["esaDocuments"]["fileLink"]}
-                target="_blank"
-              >
-                {clientDocuments["esaDocuments"]["fileName"]}
-              </Anchor>
-            ) : (
-              <Text c="red"> Not uploaded</Text>
-            )}
-          </div>
-
-          <div>
-            <Text fz="lg" fw="500" mt="2rem">
-              FSA Documents
-            </Text>
-            {clientDocuments["fsaDocuments"] !== "N/A" ? (
-              <Anchor
-                href={clientDocuments["fsaDocuments"]["fileLink"]}
-                target="_blank"
-              >
-                {clientDocuments["fsaDocuments"]["fileName"]}
-              </Anchor>
-            ) : (
-              <Text c="red"> Not uploaded</Text>
-            )}
-          </div>
-        </SimpleGrid>
-      </Paper> */}
     </Container>
   );
 };

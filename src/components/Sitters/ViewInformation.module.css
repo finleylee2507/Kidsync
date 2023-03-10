@@ -1,4 +1,13 @@
 .viewTitle {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
+}
+
+.backButton {
+    background-color: #6147FF;
+}
+
+.backButton:hover {
+    opacity: 0.9;
+    background-color: #6147FF;
 }

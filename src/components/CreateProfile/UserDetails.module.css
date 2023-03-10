@@ -1,8 +1,9 @@
-.userDetailsFormContainer{
+.userDetailsFormContainer {
     width: 30%;
     margin: auto;
 }
-.userDetailsForm{
+
+.userDetailsForm {
     width: 90%;
     margin: 50px auto auto;
 }

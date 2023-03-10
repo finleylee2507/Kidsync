@@ -1,12 +1,13 @@
-.pageTitle{
+.pageTitle {
     display: flex;
     justify-content: center;
 }
 
-.pageWrapper{
+.pageWrapper {
     margin-bottom: 2rem;
 }
-.basicInformationContainer{
+
+.basicInformationContainer {
 
 }
 

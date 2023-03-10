@@ -2,14 +2,13 @@ import React from "react";
 import styles from "./ViewDependent.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
-  Anchor,
-  Container,
-  Paper,
-  SimpleGrid,
-  Text,
-  Button,
-  Table,
   Accordion,
+  Anchor,
+  Button,
+  Container,
+  SimpleGrid,
+  Table,
+  Text,
 } from "@mantine/core";
 import { DependentImage } from "./DependentImage";
 

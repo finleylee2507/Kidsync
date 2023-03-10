@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Badge,
   Button,
   Card,
@@ -7,7 +8,6 @@ import {
   Image,
   Menu,
   Text,
-  ActionIcon,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";

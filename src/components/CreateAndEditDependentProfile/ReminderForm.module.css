@@ -1,12 +1,12 @@
-.removeIcon{
+.removeIcon {
     cursor: pointer;
 }
 
 /*hover effect on available devices*/
 @media (hover: hover) and (pointer: fine) {
-  .removeIcon:hover{
-      animation: jiggle 0.5s infinite linear;
-  }
+    .removeIcon:hover {
+        animation: jiggle 0.5s infinite linear;
+    }
 
 }
 

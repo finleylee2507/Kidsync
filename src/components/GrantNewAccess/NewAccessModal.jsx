@@ -6,9 +6,9 @@ import {
   Input,
   Modal,
   Radio,
-  TextInput,
-  Text,
   Space,
+  Text,
+  TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import InputMask from "react-input-mask";

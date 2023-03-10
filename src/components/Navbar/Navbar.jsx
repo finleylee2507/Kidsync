@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  createStyles,
-  Header,
-  Group,
-  Button,
-  Divider,
+  Anchor,
   Box,
   Burger,
+  Button,
+  createStyles,
+  Divider,
   Drawer,
-  ScrollArea,
-  Anchor,
-  Text,
+  Group,
+  Header,
   Image,
+  ScrollArea,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { signOut } from "../../utilities/firebase";
@@ -89,7 +88,7 @@ const SignOutButton = () => {
 const mainLinks = [
   { label: "Home", link: "/home" },
   { label: "My Dependents", link: "/dependents" },
-  { label: "In My Care", link: "/clients" },
+  { label: "My Clients", link: "/clients" },
 ];
 
 function GetUrlRelativePath() {
