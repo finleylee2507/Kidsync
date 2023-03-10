@@ -18,6 +18,18 @@ const HomePage = ({ user, allUsers, allDependents }) => {
     }
   });
 
+  if (user && allUsers) {
+    console.log("currentlyInCare: ", allUsers[user.uid].currentlyInCare);
+  }
+
+  const getPermissions = (clients, clientID) => {
+    for (let i = 0; i < clients.length; i++) {
+      if (clients[i].id == clientID) {
+        return clients[i].permissions;
+      }
+    }
+  };
+
   return (
     <React.Fragment>
       <div className="wrapper">
@@ -65,35 +77,60 @@ const HomePage = ({ user, allUsers, allDependents }) => {
             allDeps == null ||
             allDeps.length == 1 ||
             allUsers[user.uid] == undefined ||
-            allUsers[user.uid].clients == null
+            allUsers[user.uid].currentlyInCare == null
           ) && (
             <Grid>
-              {Object.entries(allUsers[user.uid].currentlyInCare).map(
-                ([id, client]) => {
-                  return (
-                    <Grid.Col
-                      span={
-                        isBigScreen
-                          ? 3
-                          : isMobileSmall
-                          ? 12
-                          : isMobileMedium
-                          ? 6
-                          : 4
-                      }
-                      key={id}
-                    >
-                      <ClientCard
-                        key={id}
-                        client={allDependents[client.id]}
-                        permissions={client.permissions}
-                        creator={allUsers[allDependents[client.id].creator]}
-                        currentUser={allUsers[user.uid]}
-                      />
-                    </Grid.Col>
-                  );
-                }
-              )}
+              {allUsers[user.uid].currentlyInCare.map((clientID) => {
+                console.log(clientID);
+                return (
+                  <Grid.Col
+                    span={
+                      isBigScreen
+                        ? 3
+                        : isMobileSmall
+                        ? 12
+                        : isMobileMedium
+                        ? 6
+                        : 4
+                    }
+                    key={clientID}
+                  >
+                    <ClientCard
+                      key={clientID}
+                      client={allDependents[clientID]}
+                      permissions={getPermissions(
+                        allUsers[user.uid].clients,
+                        clientID
+                      )}
+                      creator={allUsers[allDependents[clientID].creator]}
+                      currentUser={allUsers[user.uid]}
+                    />
+                  </Grid.Col>
+                );
+
+                // return (
+                //   <Grid.Col
+                //     span={
+                //       isBigScreen
+                //         ? 3
+                //         : isMobileSmall
+                //         ? 12
+                //         : isMobileMedium
+                //         ? 6
+                //         : 4
+                //     }
+                //     key={id}
+                //   >
+                //     <ClientCard
+                //       key={id}
+                //       client={allDependents[client.id]}
+                //       permissions={client.permissions}
+                //       creator={allUsers[allDependents[client.id].creator]}
+                //       currentUser={allUsers[user.uid]}
+                //     />
+                //   </Grid.Col>
+                // );
+              })}
             </Grid>
           )}
         </div>

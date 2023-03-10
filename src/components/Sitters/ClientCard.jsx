@@ -103,7 +103,7 @@ const ClientCard = ({ client, permissions, creator, currentUser }) => {
       ),
     };
 
-    await updatedUser(updatedUser, currentUser.id);
+    await updateUser(updatedUser, currentUser.id);
   };
 
   //handle click card
@@ -188,28 +188,34 @@ const ClientCard = ({ client, permissions, creator, currentUser }) => {
             >
               Emergency info
             </Button>
-
-            {currentUser.currentlyInCare.includes(client.id) ? (
-              <Button
-                radius="md"
-                style={{
-                  flex: 1,
-                  backgroundColor: "grey",
-                }}
-                onClick={handleDropOff}
-              >
-                Drop Off
-              </Button>
-            ) : (
+            {!currentUser.currentlyInCare ||
+            !currentUser.currentlyInCare.includes(client.id) ? (
               <Button
                 radius="md"
                 style={{
                   flex: 1,
                   backgroundColor: "green",
                 }}
-                onClick={handlePickUp}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handlePickUp();
+                }}
               >
                 Pick Up
+              </Button>
+            ) : (
+              <Button
+                radius="md"
+                style={{
+                  flex: 1,
+                  backgroundColor: "grey",
+                }}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleDropOff();
+                }}
+              >
+                Drop Off
               </Button>
             )}
           </Group>
