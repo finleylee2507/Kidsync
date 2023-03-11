@@ -4,23 +4,18 @@
     color: #6147FF;
     margin-bottom: 1rem;
     margin-left: 1rem;
+    padding-top: 1rem;
 }
 
 .sectionHeaderContainer {
     width: 12rem;
+
 }
 
 .headerBorder {
     border: 1px solid #4F9FE6;
 }
 
-/* .homeContainer{
-    justify-content: right;
-} */
-
-.wrapper {
-    background-color: #EEE1C4;
-}
 
 .dependentsContainer {
     display: flex;

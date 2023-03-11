@@ -133,7 +133,7 @@ export function Navbar() {
   ));
 
   return (
-    <Box pb={30}>
+    <Box>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: "100%" }}>
           <Image src={kidSyncLogo} height={45} width={200} fit="contain" />

@@ -40,7 +40,7 @@ const ClientsList = ({ user, allUsers, allDependents }) => {
     );
   } else {
     return (
-      <div>
+      <Container fluid style={{ backgroundColor: "#EEE1C4", height: "100vh" }}>
         <Container py="xl">
           <Grid>
             {Object.entries(allUsers[user.uid].clients).map(([id, client]) => {
@@ -59,7 +59,7 @@ const ClientsList = ({ user, allUsers, allDependents }) => {
             })}
           </Grid>
         </Container>
-      </div>
+      </Container>
     );
   }
 };

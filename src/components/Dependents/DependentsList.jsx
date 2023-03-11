@@ -119,7 +119,7 @@ const DependentsList = ({
     allUsers[user.uid]["dependents"] == null
   ) {
     return (
-      <div>
+      <Container fluid style={{ backgroundColor: "#EEE1C4", height: "100vh" }}>
         <ExistingAccessModal
           allUsers={allUsers}
           isOpen={isOpenExistingModal}
@@ -130,7 +130,7 @@ const DependentsList = ({
           isOpen={isOpenNewModal}
           handleModalState={setIsOpenNewModal}
         />
-        <Container>
+        <Container pt={30}>
           <Button
             fullWidth
             className={styles.button}
@@ -139,11 +139,11 @@ const DependentsList = ({
             <div className={styles.label}>Add Dependent</div>
           </Button>
         </Container>
-      </div>
+      </Container>
     );
   } else {
     return (
-      <div>
+      <Container fluid style={{ backgroundColor: "#EEE1C4", height: "100vh" }}>
         <Modal
           title={`You are about to delete ${currentDependentName}`}
           opened={isConfirmationModalOpen}
@@ -196,13 +196,17 @@ const DependentsList = ({
           dependentName={currentDependentName}
           dependentID={currentDependentID}
         />
-        <Button
-          fullWidth
-          className={styles.button}
-          onClick={handleAddDependentClick}
-        >
-          <div className={styles.label}>Add Dependent</div>
-        </Button>
+
+        <Container pt={30}>
+          <Button
+            fullWidth
+            className={styles.button}
+            onClick={handleAddDependentClick}
+          >
+            <div className={styles.label}>Add Dependent</div>
+          </Button>
+        </Container>
+
         <Container py="xl">
           <Grid>
             {Object.entries(allUsers[user.uid]["dependents"]).map(
@@ -223,7 +227,7 @@ const DependentsList = ({
             )}
           </Grid>
         </Container>
-      </div>
+      </Container>
     );
   }
 };

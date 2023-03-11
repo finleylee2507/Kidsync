@@ -16,6 +16,3 @@ export const fromDbStringToEmail = (dbString) => {
   let originalEmail = dbString.replace(",", ".");
   return originalEmail;
 };
-
-
-
