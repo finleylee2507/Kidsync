@@ -150,7 +150,7 @@ const BasicForm = ({
           />
         </Input.Wrapper>
 
-        <Group position="right" mt="md" mb="20px">
+        <Group position="right" mt="md" pb="md">
           <Button
             type="submit"
             name="nextButton"

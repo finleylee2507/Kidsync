@@ -85,7 +85,7 @@ const EducationForm = ({ formData, nextStep, prevStep, setFormData }) => {
           format="12"
           {...form.getInputProps("busTime")}
         />
-        <Group position="right" mt="md" mb="20px">
+        <Group position="right" mt="md" pb="md">
           <Button
             name="prevButton"
             onClick={prevStep}

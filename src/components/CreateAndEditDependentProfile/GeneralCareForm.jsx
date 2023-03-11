@@ -67,7 +67,7 @@ const GeneralCareForm = ({ formData, nextStep, prevStep, setFormData }) => {
           {...form.getInputProps("bedTime")}
           size="lg"
         />
-        <Group position="right" mt="md">
+        <Group position="right" mt="md" pb="md">
           <Button
             name="prevButton"
             onClick={prevStep}

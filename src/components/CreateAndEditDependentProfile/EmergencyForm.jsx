@@ -69,7 +69,7 @@ const EmergencyForm = ({ formData, nextStep, prevStep, setFormData }) => {
           required
         />
 
-        <Group position="right" mt="md">
+        <Group position="right" mt="md" pb="md">
           <Button
             name="prevButton"
             onClick={prevStep}

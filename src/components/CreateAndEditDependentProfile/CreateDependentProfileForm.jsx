@@ -5,7 +5,14 @@ import GeneralCareForm from "./GeneralCareForm";
 import DocumentsForm from "./DocumentsForm";
 import EducationForm from "./EducationForm";
 import styles from "./CreateEditDependentProfileForm.module.css";
-import { Button, Divider, Modal, Progress, Text } from "@mantine/core";
+import {
+  Button,
+  Container,
+  Divider,
+  Modal,
+  Progress,
+  Text,
+} from "@mantine/core";
 import ReviewPage from "./ReviewPage";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
@@ -76,7 +83,7 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
   });
 
   //keeps track of which form we want to display
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(4);
 
   //go back to the previous form step
   const prevStep = () => {
@@ -189,7 +196,14 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
   }
 
   return (
-    <div>
+    <Container
+      fluid
+      style={{
+        backgroundColor: "#E7E5F4",
+        height: "100%",
+        minHeight: "calc(100vh - 0px)",
+      }}
+    >
       <Modal
         title="You are about to leave this page"
         opened={isOpenModal}
@@ -226,6 +240,7 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
           <Button
             onClick={handleReturn}
             classNames={{ root: styles.returnButton }}
+            mt={10}
           >
             Return
           </Button>
@@ -253,7 +268,7 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
           {renderedElement}
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

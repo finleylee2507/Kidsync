@@ -5,7 +5,14 @@ import GeneralCareForm from "./GeneralCareForm";
 import DocumentsForm from "./DocumentsForm";
 import EducationForm from "./EducationForm";
 import styles from "./CreateEditDependentProfileForm.module.css";
-import { Button, Divider, Modal, Progress, Text } from "@mantine/core";
+import {
+  Button,
+  Container,
+  Divider,
+  Modal,
+  Progress,
+  Text,
+} from "@mantine/core";
 import ReviewPage from "./ReviewPage";
 import { useLocation, useNavigate } from "react-router-dom";
 import ReminderForm from "./ReminderForm";
@@ -252,7 +259,14 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
   }
 
   return (
-    <div>
+    <Container
+      fluid
+      style={{
+        backgroundColor: "#E7E5F4",
+        height: "100%",
+        minHeight: "calc(100vh - 0px)",
+      }}
+    >
       <Modal
         title="You are about to leave this page"
         opened={isOpenModal}
@@ -312,7 +326,7 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
           {renderedElement}
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
