@@ -34,13 +34,27 @@ const ClientsList = ({ user, allUsers, allDependents }) => {
     allUsers[user.uid]["clients"] == null
   ) {
     return (
-      <div>
+      <Container
+        fluid
+        style={{
+          backgroundColor: "#EEE1C4",
+          height: "100%",
+          minHeight: "calc(100vh - 0px)",
+        }}
+      >
         <h1>You have no clients yet.</h1>
-      </div>
+      </Container>
     );
   } else {
     return (
-      <Container fluid style={{ backgroundColor: "#EEE1C4", height: "100vh" }}>
+      <Container
+        fluid
+        style={{
+          backgroundColor: "#EEE1C4",
+          height: "100%",
+          minHeight: "calc(100vh - 0px)",
+        }}
+      >
         <Container py="xl">
           <Grid>
             {Object.entries(allUsers[user.uid].clients).map(([id, client]) => {

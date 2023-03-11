@@ -119,7 +119,14 @@ const DependentsList = ({
     allUsers[user.uid]["dependents"] == null
   ) {
     return (
-      <Container fluid style={{ backgroundColor: "#EEE1C4", height: "100vh" }}>
+      <Container
+        fluid
+        style={{
+          backgroundColor: "#EEE1C4",
+          height: "100%",
+          minHeight: "calc(100vh - 0px)",
+        }}
+      >
         <ExistingAccessModal
           allUsers={allUsers}
           isOpen={isOpenExistingModal}
@@ -143,7 +150,14 @@ const DependentsList = ({
     );
   } else {
     return (
-      <Container fluid style={{ backgroundColor: "#EEE1C4", height: "100vh" }}>
+      <Container
+        fluid
+        style={{
+          backgroundColor: "#EEE1C4",
+          height: "100%",
+          minHeight: "calc(100vh - 0px)",
+        }}
+      >
         <Modal
           title={`You are about to delete ${currentDependentName}`}
           opened={isConfirmationModalOpen}

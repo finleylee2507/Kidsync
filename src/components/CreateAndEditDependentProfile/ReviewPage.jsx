@@ -396,13 +396,13 @@ const ReviewPage = ({
 
   return (
     <Container pb={40}>
-      <div className={styles.pageTitle}>
+      <div>
         <Text fz="xl" fw="700" mb="2rem" mt="2rem">
           Review
         </Text>
       </div>
 
-      <Accordion variant="default" radius="md">
+      <Accordion variant="separated" radius="md">
         <Accordion.Item value="basic">
           <Accordion.Control>Basic Information</Accordion.Control>
           <Accordion.Panel>

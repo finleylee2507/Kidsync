@@ -30,7 +30,14 @@ const HomePage = ({ user, allUsers, allDependents }) => {
   };
 
   return (
-    <Container fluid style={{ backgroundColor: "#EEE1C4", height: "100vh" }}>
+    <Container
+      fluid
+      style={{
+        backgroundColor: "#EEE1C4",
+        height: "100%",
+        minHeight: "calc(100vh - 0px)",
+      }}
+    >
       <div className={styles.sectionHeaderContainer}>
         <h1 className={styles.sectionHeader}>My Dependents</h1>
       </div>
