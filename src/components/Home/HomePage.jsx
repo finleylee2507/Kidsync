@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid } from "@mantine/core";
+import { Container, Grid, Image, Text } from "@mantine/core";
 import DependentCard from "./../Dependents/DependentCard";
 import ClientCard from "../Sitters/ClientCard";
 import styles from "./HomePage.module.css";
 import { useMediaQuery } from "@mantine/hooks";
+import emptyState1 from "../../images/empty_state1.png";
+import emptyState2 from "../../images/empty_state2.png";
 
 const HomePage = ({ user, allUsers, allDependents }) => {
   const [allDeps, setAllDeps] = useState(allDependents);
@@ -42,7 +44,7 @@ const HomePage = ({ user, allUsers, allDependents }) => {
           allDeps == null ||
           allDeps.length == 1 ||
           allUsers[user.uid]["dependents"] == null
-        ) && (
+        ) ? (
           <Grid>
             {Object.entries(allUsers[user.uid]["dependents"]).map(
               ([id, dependentID]) => (
@@ -67,6 +69,24 @@ const HomePage = ({ user, allUsers, allDependents }) => {
               )
             )}
           </Grid>
+        ) : (
+          <Grid>
+            <Grid.Col>
+              <Image
+                src={emptyState1}
+                height={300}
+                width={300}
+                fit="contain"
+                alt="No dependent"
+              />
+            </Grid.Col>
+
+            <Grid.Col>
+              <Text fz="xl" fw={500} ml={40}>
+                You have no dependent...
+              </Text>
+            </Grid.Col>
+          </Grid>
         )}
       </Container>
 
@@ -79,7 +99,7 @@ const HomePage = ({ user, allUsers, allDependents }) => {
           allDeps.length == 1 ||
           allUsers[user.uid] == undefined ||
           allUsers[user.uid].currentlyInCare == null
-        ) && (
+        ) ? (
           <Grid>
             {allUsers[user.uid].currentlyInCare.map((clientID) => {
               return (
@@ -109,6 +129,24 @@ const HomePage = ({ user, allUsers, allDependents }) => {
                 </Grid.Col>
               );
             })}
+          </Grid>
+        ) : (
+          <Grid>
+            <Grid.Col>
+              <Image
+                src={emptyState2}
+                height={300}
+                width={300}
+                fit="contain"
+                alt="No one in care"
+              />
+            </Grid.Col>
+
+            <Grid.Col>
+              <Text fz="xl" fw={500} ml={40}>
+                You have no one in your care...
+              </Text>
+            </Grid.Col>
           </Grid>
         )}
       </Container>

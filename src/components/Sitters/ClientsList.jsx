@@ -1,8 +1,9 @@
 import { React, useEffect, useState } from "react";
 // import clients from "../../utilities/clients.json";
 import ClientCard from "./ClientCard";
-import { Container, createStyles, Grid } from "@mantine/core";
+import { Box, Container, createStyles, Grid, Image, Text } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import emptyState from "../../images/empty_state3.png";
 
 const useStyles = createStyles(() => ({
   button: {
@@ -42,7 +43,25 @@ const ClientsList = ({ user, allUsers, allDependents }) => {
           minHeight: "calc(100vh - 0px)",
         }}
       >
-        <h1>You have no clients yet.</h1>
+        <Box
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Image
+            src={emptyState}
+            height={300}
+            width={300}
+            fit="contain"
+            alt="No dependent"
+          />
+          <Text fz="xl" fw={500}>
+            You have no client...
+          </Text>
+        </Box>
       </Container>
     );
   } else {

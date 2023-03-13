@@ -62,6 +62,7 @@ const UserDetails = ({ user }) => {
           size="lg"
           {...form.getInputProps("firstName")}
           value={form.values.firstName}
+          radius="md"
           required
         />
         <TextInput
@@ -70,6 +71,7 @@ const UserDetails = ({ user }) => {
           size="lg"
           {...form.getInputProps("lastName")}
           value={form.values.lastName}
+          radius="md"
           required
         />
         <TextInput
@@ -79,6 +81,7 @@ const UserDetails = ({ user }) => {
           size="lg"
           {...form.getInputProps("email")}
           value={form.values.email}
+          radius="md"
           required
         />
 
@@ -93,11 +96,16 @@ const UserDetails = ({ user }) => {
             mask="+1 (999) 999-9999"
             size="lg"
             {...form.getInputProps("phoneNumber")}
+            radius="md"
           />
         </Input.Wrapper>
 
         <Group position="right" mt="md">
-          <Button type="submit" name="nextButton">
+          <Button
+            type="submit"
+            name="nextButton"
+            classNames={{ root: styles.confirmButton }}
+          >
             Confirm Account
           </Button>
         </Group>
