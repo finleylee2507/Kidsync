@@ -1,7 +1,6 @@
 import { React, useEffect } from "react";
 import {
   addNewUser,
-  clearDatabase,
   signInWithGoogle,
   useAuthState,
 } from "../../utilities/firebase";
