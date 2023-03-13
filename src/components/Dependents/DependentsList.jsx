@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from "react";
 import DependentCard from "./DependentCard";
 import styles from "./DependentsList.module.css";
-import { Button, Container, Divider, Grid, Modal, Text } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Image,
+  Modal,
+  Text,
+} from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { deleteDependent, updateUser } from "../../utilities/firebase";
 import ExistingAccessModal from "../ExistingAccess/ExistingAccessModal";
 import NewAccessModal from "../GrantNewAccess/NewAccessModal";
 import { toast } from "react-toastify";
 import { useMediaQuery } from "@mantine/hooks";
+import emptyState1 from "../../images/empty_state1.png";
 
 const DependentsList = ({
   user,
@@ -23,6 +33,7 @@ const DependentsList = ({
   const [currentDependentID, setCurrentDependentID] = useState("");
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width:850px)");
+
   useEffect(() => {
     if (allDependents) {
       setAllDeps(allDependents);
@@ -145,6 +156,26 @@ const DependentsList = ({
             <div className={styles.label}>Add Dependent</div>
           </Button>
         </Container>
+
+        <Box
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Image
+            src={emptyState1}
+            height={300}
+            width={300}
+            fit="contain"
+            alt="No dependent"
+          />
+          <Text fz="xl" fw={500}>
+            You have no dependent. Go create one above!
+          </Text>
+        </Box>
       </Container>
     );
   } else {

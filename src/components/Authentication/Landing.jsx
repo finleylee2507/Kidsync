@@ -1,6 +1,7 @@
 import { React, useEffect } from "react";
 import {
   addNewUser,
+  clearDatabase,
   signInWithGoogle,
   useAuthState,
 } from "../../utilities/firebase";
@@ -83,6 +84,14 @@ const Landing = (allUsers) => {
       <div className={styles.signInColumn}>
         <Title className={styles.title}>Sign In</Title>
         <SignInButton />
+        {/*<button*/}
+        {/*  onClick={clearDatabase}*/}
+        {/*  style={{*/}
+        {/*    border: "1px solid black",*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  Clear Database*/}
+        {/*</button>*/}
       </div>
     </div>
   );

@@ -8,3 +8,12 @@
     margin: 50px auto auto;
 }
 
+.confirmButton{
+    background-color: #6147FF;
+}
+
+.confirmButton:hover{
+    background-color: #6147FF;
+    opacity: 0.9;
+}
+
