@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./ClientCard.module.css";
 import { sendSMS } from "../../utilities/twilio";
 import { updateUser, useAuthState } from "../../utilities/firebase";
+import { toast } from "react-toastify";
 // // import { FaCircleCheck } from "@fortawesome/free-solid-svg-icons";
 // // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { IconCheck, IconX } from "@tabler/icons";
@@ -95,7 +96,15 @@ const ClientCard = ({
       };
     }
 
-    await updateUser(updatedUser, currentUser.id);
+    let pickUpResult = await updateUser(updatedUser, currentUser.id);
+
+    if (pickUpResult) {
+      toast.success("You've picked up the client. He/she is now in your care.");
+    } else {
+      toast.error(
+        "Hmm something went wrong... Please try again or contact the dev team."
+      );
+    }
   };
 
   const handleDropOff = async () => {
@@ -107,7 +116,17 @@ const ClientCard = ({
       ),
     };
 
-    await updateUser(updatedUser, currentUser.id);
+    let dropOffResult = await updateUser(updatedUser, currentUser.id);
+
+    if (dropOffResult) {
+      toast.warning(
+        "You've dropped off the client. He/she is no longer in your care."
+      );
+    } else {
+      toast.error(
+        "Hmm something went wrong... Please try again or contact the dev team."
+      );
+    }
   };
 
   //handle click card

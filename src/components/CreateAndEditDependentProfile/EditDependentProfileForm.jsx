@@ -301,6 +301,7 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
         <Button
           onClick={handleReturn}
           classNames={{ root: styles.returnButton }}
+          mt={10}
         >
           Return
         </Button>
@@ -312,6 +313,9 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
             radius="xl"
             striped
             color="#6147FF"
+            classNames={{
+              root: styles.progressBar,
+            }}
           />
         </div>
         <div

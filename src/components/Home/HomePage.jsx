@@ -17,10 +17,6 @@ const HomePage = ({ user, allUsers, allDependents }) => {
     }
   });
 
-  if (user && allUsers) {
-    console.log("currentlyInCare: ", allUsers[user.uid].currentlyInCare);
-  }
-
   const getPermissions = (clients, clientID) => {
     for (let i = 0; i < clients.length; i++) {
       if (clients[i].id == clientID) {
@@ -86,7 +82,6 @@ const HomePage = ({ user, allUsers, allDependents }) => {
         ) && (
           <Grid>
             {allUsers[user.uid].currentlyInCare.map((clientID) => {
-              console.log(clientID);
               return (
                 <Grid.Col
                   span={

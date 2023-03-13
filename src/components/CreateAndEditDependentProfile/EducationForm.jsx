@@ -41,6 +41,7 @@ const EducationForm = ({ formData, nextStep, prevStep, setFormData }) => {
           {...form.getInputProps("schoolName")}
           size="lg"
           required
+          radius="md"
         />
         <TextInput
           withAsterisk
@@ -48,6 +49,7 @@ const EducationForm = ({ formData, nextStep, prevStep, setFormData }) => {
           {...form.getInputProps("teacherName")}
           size="lg"
           required
+          radius="md"
         />
 
         <NumberInput
@@ -58,6 +60,7 @@ const EducationForm = ({ formData, nextStep, prevStep, setFormData }) => {
           {...form.getInputProps("grade")}
           size="lg"
           required
+          radius="md"
         />
 
         <TimeInput
@@ -65,6 +68,7 @@ const EducationForm = ({ formData, nextStep, prevStep, setFormData }) => {
           size="lg"
           format="12"
           {...form.getInputProps("startTime")}
+          radius="md"
         />
 
         <TimeInput
@@ -72,11 +76,13 @@ const EducationForm = ({ formData, nextStep, prevStep, setFormData }) => {
           size="lg"
           format="12"
           {...form.getInputProps("endTime")}
+          radius="md"
         />
         <TextInput
           label="Bus Number"
           {...form.getInputProps("busNumber")}
           size="lg"
+          radius="md"
         />
 
         <TimeInput
@@ -84,6 +90,7 @@ const EducationForm = ({ formData, nextStep, prevStep, setFormData }) => {
           size="lg"
           format="12"
           {...form.getInputProps("busTime")}
+          radius="md"
         />
         <Group position="right" mt="md" pb="md">
           <Button

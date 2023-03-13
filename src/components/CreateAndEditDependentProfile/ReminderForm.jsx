@@ -92,6 +92,7 @@ const SchedulePopUp = ({
             onClick={() => {
               handleSetPopoverState(index, true);
             }}
+            color="violet"
             variant={
               form.values.reminders[index].schedule.weekdays.length === 0 &&
               (form.values.reminders[index].schedule.scheduleType !=
@@ -137,6 +138,7 @@ const SchedulePopUp = ({
       <Popover.Dropdown>
         <Select
           label="Schedule type"
+          radius="md"
           placeholder="Select one"
           {...form.getInputProps(`reminders.${index}.schedule.scheduleType`)}
           onChange={(value) => {
@@ -181,6 +183,7 @@ const SchedulePopUp = ({
             label="Event Date"
             size="md"
             {...form.getInputProps(`reminders.${index}.schedule.eventDate`)}
+            radius="md"
           />
         )}
       </Popover.Dropdown>
@@ -325,12 +328,14 @@ const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
                     format="12"
                     {...form.getInputProps(`reminders.${index}.time`)}
                     size="lg"
+                    radius="md"
                   />
                 </Grid.Col>
                 <Grid.Col span={15}>
                   <TextInput
                     {...form.getInputProps(`reminders.${index}.taskName`)}
                     size="lg"
+                    radius="md"
                   />
                 </Grid.Col>
                 <Grid.Col span={isMobile ? 3 : 8}>
@@ -367,6 +372,9 @@ const ReminderForm = ({ formData, nextStep, prevStep, setFormData }) => {
               leftIcon={
                 <FontAwesomeIcon icon={faCirclePlus} size="lg" width="2rem" />
               }
+              classNames={{
+                root: styles.addMoreActionsButton,
+              }}
             >
               Add More Actions
             </Button>

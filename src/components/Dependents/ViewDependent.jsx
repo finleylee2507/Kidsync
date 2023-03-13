@@ -17,7 +17,6 @@ const ViewDependent = () => {
   const location = useLocation();
   const dependent = location.state;
   const dependentDocuments = dependent.documents;
-  console.log(dependent);
   const navigate = useNavigate();
 
   return (

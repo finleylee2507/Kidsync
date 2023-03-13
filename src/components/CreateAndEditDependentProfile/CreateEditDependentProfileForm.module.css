@@ -62,6 +62,16 @@
 
 .progressBar {
     color: #6147FF;
+    background-color: white;
+}
+
+.addMoreActionsButton {
+    color: #6147FF;
+    border-color: #6147FF;;
+}
+
+.addMoreActionsButton:hover {
+    opacity: 0.9;
 }
 
 /*Responsive styles*/

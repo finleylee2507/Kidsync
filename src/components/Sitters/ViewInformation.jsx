@@ -16,10 +16,8 @@ const ViewInformation = () => {
   // obtain the data passed by navigate()
   const location = useLocation();
   const client = location.state.client;
-  console.log(client);
   const permissions = location.state.permissions;
   const showEmergency = location.state.showEmergency;
-  console.log(showEmergency);
   // const clientDocuments = client.documents;
   const navigate = useNavigate();
 
