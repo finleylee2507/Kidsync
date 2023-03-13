@@ -64,6 +64,7 @@ const App = () => {
           path="/home"
           element={
             <div>
+              <ToastContainer position="top-right" autoClose={1000} />
               <Navbar />
               <HomePage
                 user={user}

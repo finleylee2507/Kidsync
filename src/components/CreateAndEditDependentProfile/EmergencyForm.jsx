@@ -45,6 +45,7 @@ const EmergencyForm = ({ formData, nextStep, prevStep, setFormData }) => {
           {...form.getInputProps("emergencyContactName")}
           size="lg"
           required
+          radius="md"
         />
 
         <Input.Wrapper
@@ -58,6 +59,7 @@ const EmergencyForm = ({ formData, nextStep, prevStep, setFormData }) => {
             mask="+1 (999) 999-9999"
             size="lg"
             {...form.getInputProps("emergencyContactPhone")}
+            radius="md"
           />
         </Input.Wrapper>
 
@@ -66,6 +68,7 @@ const EmergencyForm = ({ formData, nextStep, prevStep, setFormData }) => {
           label="Emergency Contact Relationship"
           {...form.getInputProps("emergencyContactRelationship")}
           size="lg"
+          radius="md"
           required
         />
 

@@ -23,7 +23,6 @@ const DependentsList = ({
   const [currentDependentID, setCurrentDependentID] = useState("");
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width:850px)");
-  console.log("All deps: ", allDependents);
   useEffect(() => {
     if (allDependents) {
       setAllDeps(allDependents);
@@ -225,7 +224,7 @@ const DependentsList = ({
           <Grid>
             {Object.entries(allUsers[user.uid]["dependents"]).map(
               ([id, dependentID]) => (
-                <Grid.Col span={isMobile ? 12 : 6}>
+                <Grid.Col span={isMobile ? 12 : 6} key={id}>
                   <DependentCard
                     key={id}
                     dependent={allDependents[dependentID]}

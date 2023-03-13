@@ -36,29 +36,34 @@ const GeneralCareForm = ({ formData, nextStep, prevStep, setFormData }) => {
           label="Routine Notes"
           {...form.getInputProps("routineNotes")}
           size="lg"
+          radius="md"
         />
 
         <TextInput
           label="Extracurriculars"
           {...form.getInputProps("extracurriculars")}
           size="lg"
+          radius="md"
         />
         <TextInput
           label="Allergies"
           {...form.getInputProps("allergies")}
           size="lg"
+          radius="md"
         />
 
         <TextInput
           label="Current Medications"
           {...form.getInputProps("currentMedications")}
           size="lg"
+          radius="md"
         />
 
         <TextInput
           label="Medication Schedule"
           {...form.getInputProps("medicationSchedule")}
           size="lg"
+          radius="md"
         />
 
         <TimeInput
@@ -66,6 +71,7 @@ const GeneralCareForm = ({ formData, nextStep, prevStep, setFormData }) => {
           format="12"
           {...form.getInputProps("bedTime")}
           size="lg"
+          radius="md"
         />
         <Group position="right" mt="md" pb="md">
           <Button

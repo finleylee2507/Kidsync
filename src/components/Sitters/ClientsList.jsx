@@ -59,7 +59,7 @@ const ClientsList = ({ user, allUsers, allDependents }) => {
           <Grid>
             {Object.entries(allUsers[user.uid].clients).map(([id, client]) => {
               return (
-                <Grid.Col span={isMobile ? 12 : 6}>
+                <Grid.Col span={isMobile ? 12 : 6} key={id}>
                   <ClientCard
                     key={id}
                     client={allDependents[client.id]}

@@ -50,8 +50,6 @@ const BasicForm = ({
     form.setValues(formData);
   }, [formData]);
 
-  console.log("Old form data: ", oldFormData);
-  console.log("Form test: ", form.values.profilePic);
   return (
     <div>
       <Text fz="xl" fw="700" mb="2rem" mt="2rem">
@@ -69,6 +67,7 @@ const BasicForm = ({
           {...form.getInputProps("firstName")}
           size="lg"
           required
+          radius="md"
         />
 
         <TextInput
@@ -77,6 +76,7 @@ const BasicForm = ({
           {...form.getInputProps("lastName")}
           size="lg"
           required
+          radius="md"
         />
 
         <FileInput
@@ -84,6 +84,7 @@ const BasicForm = ({
           {...form.getInputProps("profilePic")}
           accept="image/png,image/jpeg"
           size="lg"
+          radius="md"
         />
 
         {isEditMode &&
@@ -105,18 +106,21 @@ const BasicForm = ({
           size="lg"
           withAsterisk
           {...form.getInputProps("birthday")}
+          radius="md"
         />
 
         <TextInput
           label="Relationship"
           {...form.getInputProps("relationship")}
           size="lg"
+          radius="md"
         />
 
         <TextInput
           label="Preferred Pronouns"
           {...form.getInputProps("preferredPronouns")}
           size="lg"
+          radius="md"
         />
 
         <Select
@@ -129,12 +133,14 @@ const BasicForm = ({
             { value: "non-binary", label: "Non-binary" },
           ]}
           {...form.getInputProps("sex")}
+          radius="md"
         />
 
         <TextInput
           label="Address"
           {...form.getInputProps("address")}
           size="lg"
+          radius="md"
         />
 
         <Input.Wrapper
@@ -147,6 +153,7 @@ const BasicForm = ({
             mask="+1 (999) 999-9999"
             size="lg"
             {...form.getInputProps("phoneNumber")}
+            radius="md"
           />
         </Input.Wrapper>
 

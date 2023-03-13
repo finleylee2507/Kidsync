@@ -42,6 +42,7 @@ const DocumentsForm = ({
           label="Immunization Records"
           {...form.getInputProps("immunizationFile")}
           size="lg"
+          radius="md"
         />
         {isEditMode &&
           !form.values.immunizationFile &&
@@ -61,6 +62,7 @@ const DocumentsForm = ({
           label="Insurance Card"
           {...form.getInputProps("insuranceCard")}
           size="lg"
+          radius="md"
         />
         {isEditMode &&
           !form.values.insuranceCard &&
@@ -80,6 +82,7 @@ const DocumentsForm = ({
           label="ESA Documents"
           {...form.getInputProps("esaDocuments")}
           size="lg"
+          radius="md"
         />
 
         {isEditMode &&
@@ -100,6 +103,7 @@ const DocumentsForm = ({
           label="FSA Documents"
           {...form.getInputProps("fsaDocuments")}
           size="lg"
+          radius="md"
         />
         {isEditMode &&
           !form.values.fsaDocuments &&

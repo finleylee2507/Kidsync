@@ -83,7 +83,7 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
   });
 
   //keeps track of which form we want to display
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useState(0);
 
   //go back to the previous form step
   const prevStep = () => {
@@ -254,6 +254,9 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
             radius="xl"
             striped
             color="#6147FF"
+            classNames={{
+              root: styles.progressBar,
+            }}
           />
         </div>
         <div
