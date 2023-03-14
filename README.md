@@ -88,9 +88,14 @@ Upon running the command, you will be prompted with a localhost URL, which can b
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+After creating an account, users can enter their dependent's information after selecting 'Add Dependent.' 
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+After creating their dependent, users can share access to their dependent's information with another account. They can select which sections of information will be available to the caretaker. 
+
+Caretakers can view their dependent's information in the app and select when the child is physically with them.
+
+When the caretaker has finished watching the dependent, the orgiinal caretaker can revoke the caretaker's access to the information.
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
