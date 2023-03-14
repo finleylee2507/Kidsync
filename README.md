@@ -154,9 +154,9 @@ Don't forget to give the project a star! Thanks again!
 
 ## Contact
 
-Vedant Apte - email@example.com
+Vedant Apte - vedantapte2023@u.northwestern.edu
 
-Hongle Che - email@example.com
+Hongle Che - HongleChe2024@u.northwestern.edu
 
 Shiyuan Duan - shiyuanduan2023@u.northwestern.edu
 
@@ -168,7 +168,7 @@ Elina Rawat - elinarawat2024@u.northwestern.edu
 
 Evan Waite - evanwaite2024@u.northwestern.edu
 
-Vincent Wei - email@example.com
+Vincent Wei - vincentwei2024@u.northwestern.edu
 
 Project Link: [https://github.com/394-w23/YourTurn](https://github.com/394-w23/YourTurn)
 
