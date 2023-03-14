@@ -45,7 +45,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 * [![React][React.js]][React-url]
 * [![Mantine][Mantine.js]][Mantine-url]
-# [![Firebase][Firebase.js][Firebase-url]
+* [![Firebase][Firebase.js][Firebase-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
