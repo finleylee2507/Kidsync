@@ -207,4 +207,6 @@ Use this space to list resources you find helpful and would like to give credit 
 [bootstrap-url]: https://getbootstrap.com
 [jquery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [jquery-url]: https://jquery.com
-[firebase-url]: https://firebase.google.com/?gclid=Cj0KCQjwk7ugBhDIARIsAGuvgPaXztBG1WOHMVisbV3i18VWTbtCzTxjGAoxienTAk6auK9SXV35mzgaAsCdEALw_wcB&gclsrc=aw.ds
+[firebase-js]: https://img.shields.io/badge/-Firebase-red
+[firebase-url]: https://firebase.google.com/?
+gclid=Cj0KCQjwk7ugBhDIARIsAGuvgPaXztBG1WOHMVisbV3i18VWTbtCzTxjGAoxienTAk6auK9SXV35mzgaAsCdEALw_wcB&gclsrc=aw.ds
