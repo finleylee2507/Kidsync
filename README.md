@@ -50,15 +50,24 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 ## Getting Started
 
-The following section outlines the steps for building and running KidSync. Firstly, clone the repository to your local directory. It is important to note that this project requires Node Package Manager (npm) to be installed on your system. If you do not have it installed, you can refer to the following link for installation instructions: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm.
+The following section outlines the steps for building and running KidSync. Firstly, clone the repository to your local directory.
 
 ### Prerequisites
 
+It is important to note that this project requires Node Package Manager (npm) to be installed on your system. If you do not have it installed, you can refer to the following link for installation instructions: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm.
+
+Also, you need to set up a firbase account following this tutorial: https://cloud.google.com/firestore/docs/client/get-firebase
+Once you have npm and firebase CLI installed, you can start running the project.
 To install the required packages, simply use the following command:
 
 - npm
   ```sh
   npm install
+  ```
+
+* firebase
+  ```
+  firebase init
   ```
 
 ### Run
@@ -76,9 +85,13 @@ Upon running the command, you will be prompted with a localhost URL, which can b
 
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+After creating an account, users can enter their dependent's information after selecting 'Add Dependent.'
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+After creating their dependent, users can share access to their dependent's information with another account. They can select which sections of information will be available to the caretaker.
+
+Caretakers can view their dependent's information in the app and select when the child is physically with them.
+
+When the caretaker has finished watching the dependent, the orgiinal caretaker can revoke the caretaker's access to the information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -86,13 +99,9 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Roadmap
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-  - [ ] Chinese
-  - [ ] Spanish
+- [ ] Add support for sharing information to caretakers without account
+- [ ] Add automated limited-time access to information for caretakers
+- [ ] Add task list for caretakers to check off items
 
 See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
 
@@ -129,7 +138,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/394-w23/YourTurn](https://github.com/394-w23/YourTurn)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
