@@ -194,6 +194,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [react-url]: https://reactjs.org/
 [mantine-url]: https://mantine.dev/
+[mantine-js]: https://img.shields.io/badge/-Mantine-blue
 [vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
 [vue-url]: https://vuejs.org/
 [angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
