@@ -104,7 +104,8 @@ const SchedulePopUp = ({
             leftIcon={
               <FontAwesomeIcon
                 icon={
-                  form.values.reminders[index].schedule.weekdays.length === 0
+                  form.values.reminders[index].schedule.weekdays.length === 0 &&
+                  !form.values.reminders[index].schedule.eventDate
                     ? faPlus
                     : faPenToSquare
                 }
