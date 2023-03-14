@@ -30,7 +30,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://yourturn-bb7ce.web.app/)
+![Kidsync Landing Page](https://user-images.githubusercontent.com/61121081/224862444-9d3269a0-5106-4164-831b-6cbbdd89b276.jpeg)
 
 Kidsync is an information sharing app that bridges the communication gap between co-parents, caretakers, and babysitters to ensure that all parties have the most complete information about their children at all times.
 
@@ -124,7 +124,6 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 <!-- CONTACT -->
 
 ## Contact
@@ -202,4 +201,5 @@ Use this space to list resources you find helpful and would like to give credit 
 [jquery-url]: https://jquery.com
 [firebase-js]: https://img.shields.io/badge/-Firebase-red
 [firebase-url]: https://firebase.google.com/?
+
 gclid=Cj0KCQjwk7ugBhDIARIsAGuvgPaXztBG1WOHMVisbV3i18VWTbtCzTxjGAoxienTAk6auK9SXV35mzgaAsCdEALw_wcB&gclsrc=aw.ds
