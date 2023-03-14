@@ -1,0 +1,8 @@
+.grantAccessButton {
+    background-color: #6147FF;
+}
+
+.grantAccessButton:hover {
+    background-color: #6147FF;
+    opacity: 0.9;
+}
