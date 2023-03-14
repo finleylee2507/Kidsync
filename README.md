@@ -55,13 +55,22 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <!-- GETTING STARTED -->
 ## Getting Started
 
-The following section outlines the steps for building and running KidSync. Firstly, clone the repository to your local directory. It is important to note that this project requires Node Package Manager (npm) to be installed on your system. If you do not have it installed, you can refer to the following link for installation instructions: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm.
+The following section outlines the steps for building and running KidSync. Firstly, clone the repository to your local directory. 
 
 ### Prerequisites
+It is important to note that this project requires Node Package Manager (npm) to be installed on your system. If you do not have it installed, you can refer to the following link for installation instructions: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm.
+
+Also, you need to set up a firbase account following this tutorial: https://cloud.google.com/firestore/docs/client/get-firebase
+Once you have npm and firebase CLI installed, you can start running the project.
 To install the required packages, simply use the following command:
 * npm
   ```sh
   npm install
+  ```
+
+* firebase
+  ```
+  firebase init
   ```
 
 ### Run
@@ -136,7 +145,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/394-w23/YourTurn](https://github.com/394-w23/YourTurn)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
