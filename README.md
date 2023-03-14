@@ -30,16 +30,9 @@
 
 ## About The Project
 
-![Kidsync Landing Page](https://user-images.githubusercontent.com/61121081/224862444-9d3269a0-5106-4164-831b-6cbbdd89b276.jpeg)
+[![Product Name Screen Shot][product-screenshot]](https://yourturn-bb7ce.web.app/)
 
 Kidsync is an information sharing app that bridges the communication gap between co-parents, caretakers, and babysitters to ensure that all parties have the most complete information about their children at all times.
-
-As a parent, Kidsync enables you to:
-
-- Stay updated about changes to your child’s schedule in real-time.
-- Enable your friends and family to care for your children with all the information they will need upfront.
-- If in an emergency, have all of the information easily accessible for emergency professionals to administer the best care.
-- Spend less time searching and making duplicates of documents like insurance cards, vaccination records, etc.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -131,6 +124,7 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+
 <!-- CONTACT -->
 
 ## Contact
@@ -161,12 +155,6 @@ Project Link: [https://github.com/394-w23/YourTurn](https://github.com/394-w23/Y
 
 Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
-- [Choose an Open Source License](https://choosealicense.com)
-- [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-- [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-- [Malven's Grid Cheatsheet](https://grid.malven.co/)
-- [Img Shields](https://shields.io)
-- [GitHub Pages](https://pages.github.com)
 - [Font Awesome](https://fontawesome.com)
 - [React Icons](https://react-icons.github.io/react-icons/search)
 
@@ -207,6 +195,4 @@ Use this space to list resources you find helpful and would like to give credit 
 [jquery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [jquery-url]: https://jquery.com
 [firebase-js]: https://img.shields.io/badge/-Firebase-red
-[firebase-url]: https://firebase.google.com/?
-
-gclid=Cj0KCQjwk7ugBhDIARIsAGuvgPaXztBG1WOHMVisbV3i18VWTbtCzTxjGAoxienTAk6auK9SXV35mzgaAsCdEALw_wcB&gclsrc=aw.ds
+[firebase-url]: https://firebase.google.com/?gclid=Cj0KCQjwk7ugBhDIARIsAGuvgPaXztBG1WOHMVisbV3i18VWTbtCzTxjGAoxienTAk6auK9SXV35mzgaAsCdEALw_wcB&gclsrc=aw.ds
