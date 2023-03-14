@@ -137,13 +137,21 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 ## Contact
 
 Vedant Apte - email@example.com
+
 Hongle Che - email@example.com
+
 Shiyuan Duan - shiyuanduan2023@u.northwestern.edu
+
 Finley Li - fenglieli2024@u.northwestern.edu
+
 Rawan Mohamed - rawanmohamed2023@u.northwestern.edu
+
 Elina Rawat - elinarawat2024@u.northwestern.edu
+
 Evan Waite - evanwaite2024@u.northwestern.edu
+
 Vincent Wei - email@example.com
+
 Project Link: [https://github.com/394-w23/YourTurn](https://github.com/394-w23/YourTurn)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
