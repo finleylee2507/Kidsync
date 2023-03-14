@@ -14,13 +14,12 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#known-bugs">Known Bugs</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
@@ -30,11 +29,18 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://yourturn-bb7ce.web.app/)
+![Kidsync Landing Page](https://user-images.githubusercontent.com/61121081/224862444-9d3269a0-5106-4164-831b-6cbbdd89b276.jpeg)
 
 Kidsync is an information sharing app that bridges the communication gap between co-parents, caretakers, and babysitters to ensure that all parties have the most complete information about their children at all times.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+As a parent, Kidsync enables you to:
+
+- Stay updated about changes to your child’s schedule in real-time.
+- Enable your friends and family to care for your children with all the information they will need upfront.
+- If in an emergency, have all of the information easily accessible for emergency professionals to administer the best care.
+- Spend less time searching and making duplicates of documents like insurance cards, vaccination records, etc.
+
+<p align="right">(<a href="#kidsync">back to top</a>)</p>
 
 ### Built With
 
@@ -42,9 +48,9 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 - [![React][react.js]][react-url]
 - [![Mantine][mantine.js]][mantine-url]
-- [![Firebase][firebase.js][Firebase-url]
+- [![Firebase][firebase.js]][Firebase-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#kidsync">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 
@@ -54,21 +60,36 @@ The following section outlines the steps for building and running KidSync. First
 
 ### Prerequisites
 
-It is important to note that this project requires Node Package Manager (npm) to be installed on your system. If you do not have it installed, you can refer to the following link for installation instructions: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm.
+It is important to note that this project requires Node Package Manager (npm) to be installed on your system. If you do not have it installed, you can follow the following commands: 
 
-Also, you need to set up a firbase account following this tutorial: https://cloud.google.com/firestore/docs/client/get-firebase
-Once you have npm and firebase CLI installed, you can start running the project.
-To install the required packages, simply use the following command:
-
-- npm
+- To download the latest version of npm, on the command line, run the following command
   ```sh
   npm install
   ```
 
-* firebase
+- To see if you already have Node.js and npm installed and check the installed version, run the following commands:
+  ```sh
+  node -v
+  npm -v
+  ```
+Refer to this link for detailed installation instructions: <a href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm">Downloading and installing Node.js and npm</a>.
+
+After installing Node.js and Npm, you need to set up a firbase account following this tutorial: <a href="https://cloud.google.com/firestore/docs/client/get-firebase">Getting started with Firebase</a>
+
+* Log into your Firebase Account on the command line
+  ```
+  firebase login
+  ```
+
+* Now that you’re logged in, you will need to initialize Firebase in your React app
   ```
   firebase init
   ```
+
+For help configuring Firebase, check out this useful tutorial: <a href="[https://cloud.google.com/firestore/docs/client/get-firebase](https://medium.com/swlh/how-to-deploy-a-react-app-with-firebase-hosting-98063c5bf425)">How to Deploy a React App with Firebase Hosting
+</a>
+
+Once you have npm and firebase CLI installed, you can start running the project.
 
 ### Run
 
@@ -85,15 +106,15 @@ Upon running the command, you will be prompted with a localhost URL, which can b
 
 ## Usage
 
-After creating an account, users can enter their dependent's information after selecting 'Add Dependent.'
+After creating an account, users can enter their dependent's information by clicking on the 'Add Dependent' button.
 
 After creating their dependent, users can share access to their dependent's information with another account. They can select which sections of information will be available to the caretaker.
 
 Caretakers can view their dependent's information in the app and select when the child is physically with them.
 
-When the caretaker has finished watching the dependent, the orgiinal caretaker can revoke the caretaker's access to the information.
+When the caretaker is no longer responsible for the dependent, the original caretaker can revoke the caretaker's access to the information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#kidsync">back to top</a>)</p>
 
 <!-- ROADMAP -->
 
@@ -103,9 +124,13 @@ When the caretaker has finished watching the dependent, the orgiinal caretaker c
 - [ ] Add automated limited-time access to information for caretakers
 - [ ] Add task list for caretakers to check off items
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+<p align="right">(<a href="#kidsync">back to top</a>)</p>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+## Known Bugs
+
+- [ ] This app doesn't support the most current version of Mantine UI. It currently supports @mantine/core: "^5.10.4"
+
+<p align="right">(<a href="#kidsync">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
 
@@ -122,7 +147,7 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#kidsync">back to top</a>)</p>
 
 
 <!-- CONTACT -->
@@ -147,7 +172,7 @@ Vincent Wei - email@example.com
 
 Project Link: [https://github.com/394-w23/YourTurn](https://github.com/394-w23/YourTurn)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#kidsync">back to top</a>)</p>
 
 <!-- ACKNOWLEDGMENTS -->
 
@@ -158,7 +183,7 @@ Use this space to list resources you find helpful and would like to give credit 
 - [Font Awesome](https://fontawesome.com)
 - [React Icons](https://react-icons.github.io/react-icons/search)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#kidsync">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -181,7 +206,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [react-url]: https://reactjs.org/
 [mantine-url]: https://mantine.dev/
-[mantine-js]: https://img.shields.io/badge/-Mantine-blue
+[mantine.js]: https://img.shields.io/badge/-Mantine-blue
 [vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
 [vue-url]: https://vuejs.org/
 [angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
@@ -194,5 +219,5 @@ Use this space to list resources you find helpful and would like to give credit 
 [bootstrap-url]: https://getbootstrap.com
 [jquery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [jquery-url]: https://jquery.com
-[firebase-js]: https://img.shields.io/badge/-Firebase-red
+[firebase.js]: https://img.shields.io/badge/-Firebase-red
 [firebase-url]: https://firebase.google.com/?gclid=Cj0KCQjwk7ugBhDIARIsAGuvgPaXztBG1WOHMVisbV3i18VWTbtCzTxjGAoxienTAk6auK9SXV35mzgaAsCdEALw_wcB&gclsrc=aw.ds
