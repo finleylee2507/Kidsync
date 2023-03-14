@@ -34,6 +34,11 @@
 
 Kidsync is an information sharing app that bridges the communication gap between co-parents, caretakers, and babysitters to ensure that all parties have the most complete information about their children at all times.
 
+- Stay updated about changes to your child’s schedule in real-time.
+- Enable your friends and family to care for your children with all the information they will need upfront.
+- If in an emergency, have all of the information easily accessible for emergency professionals to administer the best care.
+- Spend less time searching and making duplicates of documents like insurance cards, vaccination records, etc.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
