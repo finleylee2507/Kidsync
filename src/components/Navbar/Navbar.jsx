@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Anchor,
+  Avatar,
   Box,
   Burger,
   Button,
@@ -10,12 +11,16 @@ import {
   Group,
   Header,
   Image,
+  Menu,
   ScrollArea,
+  Text,
+  UnstyledButton,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { signOut } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 import kidSyncLogo from "../../images/KidSync.png";
+import { ChevronDown, Settings, Logout } from "tabler-icons-react";
 
 const useStyles = createStyles((theme) => ({
   logoText: {
@@ -69,23 +74,6 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const ProfileCard = ({ userName, profilePic, email }) => {};
-const SignOutButton = () => {
-  const { classes, theme, cx } = useStyles();
-  const navigate = useNavigate();
-
-  async function signOutUser() {
-    await signOut();
-    navigate("/");
-  }
-
-  return (
-    <Button onClick={signOutUser} className={classes.signOutButton}>
-      Sign out
-    </Button>
-  );
-};
-
 const mainLinks = [
   { label: "Home", link: "/home" },
   { label: "My Dependents", link: "/dependents" },
@@ -105,7 +93,7 @@ function GetUrlRelativePath() {
   return relUrl;
 }
 
-export function Navbar() {
+export const Navbar = ({ user }) => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes, theme, cx } = useStyles();
@@ -116,6 +104,19 @@ export function Navbar() {
     setActive(GetUrlRelativePath());
   });
 
+  async function signOutUser() {
+    await signOut();
+    navigate("/");
+  }
+  const SignOutButton = () => {
+    const { classes, theme, cx } = useStyles();
+
+    return (
+      <Button onClick={signOutUser} className={classes.signOutButton}>
+        Sign out
+      </Button>
+    );
+  };
   const mainItems = mainLinks.map((item) => (
     <Anchor
       href={item.link}
@@ -145,9 +146,41 @@ export function Navbar() {
           >
             {mainItems}
           </Group>
-          <Group className={classes.hiddenMobile}>
-            <SignOutButton />
+          <Group>
+            <Menu withArrow width={250}>
+              <Menu.Target>
+                <UnstyledButton>
+                  <Group>
+                    <Avatar src={user.photoURL} radius="xl" />
+                    <div style={{ flex: 1 }}>
+                      <Text size="sm" weight={500}>
+                        {user.displayName}
+                      </Text>
+                      <Text color="dimmed" size="xs">
+                        {user.email}
+                      </Text>
+                    </div>
+                    <ChevronDown size={16} />
+                  </Group>
+                </UnstyledButton>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Item icon={<Settings size={14} />}>
+                  Profile Settings
+                </Menu.Item>
+                <Menu.Item
+                  color="red"
+                  icon={<Logout size={14} />}
+                  onClick={signOutUser}
+                >
+                  Sign Out
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
           </Group>
+          {/*<Group className={classes.hiddenMobile}>*/}
+          {/*  <SignOutButton />*/}
+          {/*</Group>*/}
           <Burger
             opened={drawerOpened}
             onClick={toggleDrawer}
@@ -184,4 +217,4 @@ export function Navbar() {
       </Drawer>
     </Box>
   );
-}
+};
