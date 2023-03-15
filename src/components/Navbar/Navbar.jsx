@@ -69,6 +69,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+const ProfileCard = ({ userName, profilePic, email }) => {};
 const SignOutButton = () => {
   const { classes, theme, cx } = useStyles();
   const navigate = useNavigate();
