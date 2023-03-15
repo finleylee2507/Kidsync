@@ -151,13 +151,13 @@ export const Navbar = ({ user }) => {
               <Menu.Target>
                 <UnstyledButton>
                   <Group>
-                    <Avatar src={user.photoURL} radius="xl" />
+                    <Avatar src={user && user.photoURL} radius="xl" />
                     <div style={{ flex: 1 }}>
                       <Text size="sm" weight={500}>
-                        {user.displayName}
+                        {user && user.displayName}
                       </Text>
                       <Text color="dimmed" size="xs">
-                        {user.email}
+                        {user && user.email}
                       </Text>
                     </div>
                     <ChevronDown size={16} />
