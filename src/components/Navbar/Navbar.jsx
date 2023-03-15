@@ -28,13 +28,13 @@ const useStyles = createStyles((theme) => ({
     fontSize: "25px",
   },
   hiddenMobile: {
-    [theme.fn.smallerThan("sm")]: {
+    [`@media (max-width: 800px)`]: {
       display: "none",
     },
   },
 
   hiddenDesktop: {
-    [theme.fn.largerThan("sm")]: {
+    [`@media (min-width: 800px)`]: {
       display: "none",
     },
   },
@@ -74,10 +74,17 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const mainLinks = [
+const mainLinksDesktop = [
   { label: "Home", link: "/home" },
   { label: "My Dependents", link: "/dependents" },
   { label: "My Clients", link: "/clients" },
+];
+
+const mainLinksMobile = [
+  { label: "Home", link: "/home" },
+  { label: "My Dependents", link: "/dependents" },
+  { label: "My Clients", link: "/clients" },
+  { label: "Profile Settings", link: "/profile-settings" },
 ];
 
 function GetUrlRelativePath() {
@@ -117,7 +124,7 @@ export const Navbar = ({ user }) => {
       </Button>
     );
   };
-  const mainItems = mainLinks.map((item) => (
+  const mainItemsDesktop = mainLinksDesktop.map((item) => (
     <Anchor
       href={item.link}
       key={item.label}
@@ -134,6 +141,24 @@ export const Navbar = ({ user }) => {
     </Anchor>
   ));
 
+  const mainItemsMobile = mainLinksMobile.map((item) => (
+    <Anchor
+      href={item.link}
+      key={item.label}
+      className={cx(classes.mainLink, {
+        [classes.mainLinkActive]: item.link === active,
+      })}
+      onClick={(event) => {
+        event.preventDefault();
+        setActive(item.link);
+        navigate(item.link);
+      }}
+    >
+      {item.label}
+    </Anchor>
+  ));
+
+  console.log("test: ", user);
   return (
     <Box>
       <Header height={60} px="md">
@@ -144,9 +169,9 @@ export const Navbar = ({ user }) => {
             spacing={0}
             className={classes.hiddenMobile}
           >
-            {mainItems}
+            {mainItemsDesktop}
           </Group>
-          <Group>
+          <Group className={classes.hiddenMobile}>
             <Menu withArrow width={250}>
               <Menu.Target>
                 <UnstyledButton>
@@ -194,16 +219,29 @@ export const Navbar = ({ user }) => {
         onClose={closeDrawer}
         size="100%"
         padding="md"
-        title="Navigation"
+        title="Kidsync"
         className={classes.hiddenDesktop}
         zIndex={1000000}
       >
+        <UnstyledButton>
+          <Group>
+            <Avatar src={user && user.photoURL} radius="xl" />
+            <div style={{ flex: 1 }}>
+              <Text size="sm" weight={500}>
+                {user && user.displayName}
+              </Text>
+              <Text color="dimmed" size="xs">
+                {user && user.email}
+              </Text>
+            </div>
+          </Group>
+        </UnstyledButton>
         <ScrollArea sx={{ height: "calc(100vh - 60px)" }} mx="-md">
           <Divider
             my="sm"
             color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
           />
-          {mainItems}
+          {mainItemsMobile}
 
           <Divider
             my="sm"
