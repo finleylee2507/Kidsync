@@ -18,6 +18,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./CreateEditDependentProfileForm.module.css";
+import { convertTo12HourFormat } from "../../utilities/helperMethods";
 
 const ReviewPage = ({
   basicFormData,
@@ -144,7 +145,7 @@ const ReviewPage = ({
         : "N/A";
       let newWeekdays =
         item.schedule.weekdays.length === 0 ? "N/A" : item.schedule.weekdays;
-      let newTime = item.time.toUTCString();
+      let newTime = item.time;
 
       return {
         ...item,
@@ -218,16 +219,16 @@ const ReviewPage = ({
           teacherName: educationFormData.teacherName,
           grade: educationFormData.grade,
           startTime: educationFormData.startTime
-            ? educationFormData.startTime.toUTCString()
+            ? educationFormData.startTime
             : "N/A",
           endTime: educationFormData.endTime
-            ? educationFormData.endTime.toUTCString()
+            ? educationFormData.endTime
             : "N/A",
           busNumber: educationFormData.busNumber.trim()
             ? educationFormData.busNumber
             : "N/A",
           busTime: educationFormData.busTime
-            ? educationFormData.busTime.toUTCString()
+            ? educationFormData.busTime
             : "N/A",
         },
         generalCare: {
@@ -238,7 +239,7 @@ const ReviewPage = ({
             ? generalCareFormData.extracurriculars
             : "N/A",
           bedTime: generalCareFormData.bedTime
-            ? generalCareFormData.bedTime.toUTCString()
+            ? generalCareFormData.bedTime
             : "N/A",
           currentMedications: generalCareFormData.currentMedications.trim()
             ? generalCareFormData.currentMedications
@@ -315,16 +316,16 @@ const ReviewPage = ({
           teacherName: educationFormData.teacherName,
           grade: educationFormData.grade,
           startTime: educationFormData.startTime
-            ? educationFormData.startTime.toUTCString()
+            ? educationFormData.startTime
             : "N/A",
           endTime: educationFormData.endTime
-            ? educationFormData.endTime.toUTCString()
+            ? educationFormData.endTime
             : "N/A",
           busNumber: educationFormData.busNumber.trim()
             ? educationFormData.busNumber
             : "N/A",
           busTime: educationFormData.busTime
-            ? educationFormData.busTime.toUTCString()
+            ? educationFormData.busTime
             : "N/A",
         },
         generalCare: {
@@ -335,7 +336,7 @@ const ReviewPage = ({
             ? generalCareFormData.extracurriculars
             : "N/A",
           bedTime: generalCareFormData.bedTime
-            ? generalCareFormData.bedTime.toUTCString()
+            ? generalCareFormData.bedTime
             : "N/A",
           currentMedications: generalCareFormData.currentMedications.trim()
             ? generalCareFormData.currentMedications
@@ -566,7 +567,7 @@ const ReviewPage = ({
                 <Text>
                   {" "}
                   {educationFormData.startTime
-                    ? educationFormData.startTime.toLocaleTimeString()
+                    ? convertTo12HourFormat(educationFormData.startTime)
                     : "N/A"}
                 </Text>
               </div>
@@ -578,7 +579,7 @@ const ReviewPage = ({
                 <Text>
                   {" "}
                   {educationFormData.endTime
-                    ? educationFormData.endTime.toLocaleTimeString()
+                    ? convertTo12HourFormat(educationFormData.endTime)
                     : "N/A"}
                 </Text>
               </div>
@@ -603,7 +604,7 @@ const ReviewPage = ({
                   {" "}
                   {educationFormData.busTime === ""
                     ? "N/A"
-                    : educationFormData.busTime.toLocaleTimeString()}
+                    : convertTo12HourFormat(educationFormData.busTime)}
                 </Text>
               </div>
             </SimpleGrid>
@@ -646,7 +647,7 @@ const ReviewPage = ({
                   {" "}
                   {generalCareFormData.bedTime === ""
                     ? "N/A"
-                    : generalCareFormData.bedTime.toLocaleTimeString()}
+                    : convertTo12HourFormat(generalCareFormData.bedTime)}
                 </Text>
               </div>
 
@@ -752,7 +753,7 @@ const ReviewPage = ({
                               <Text>{item.taskName}</Text>
                             </td>
                             <td>
-                              <Text>{item.time.toLocaleTimeString()}</Text>
+                              <Text>{convertTo12HourFormat(item.time)}</Text>
                             </td>
                             <td>
                               <Text>

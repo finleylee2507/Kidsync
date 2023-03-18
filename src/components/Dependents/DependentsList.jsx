@@ -131,7 +131,7 @@ const DependentsList = ({
     return (
       <Container
         fluid
-        style={{
+        sx={{
           backgroundColor: "#EEE1C4",
           height: "100%",
           minHeight: "calc(100vh - 0px)",
@@ -158,7 +158,7 @@ const DependentsList = ({
         </Container>
 
         <Box
-          style={{
+          sx={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -171,9 +171,16 @@ const DependentsList = ({
             width={300}
             fit="contain"
             alt="No dependent"
+            sx={{
+              opacity: 0.8,
+            }}
           />
           <Text fz="xl" fw={500}>
-            You have no dependent. Go create one above!
+            No dependent...
+          </Text>
+
+          <Text fz="md" fw={400} c="#6d757c" mt={10}>
+            You don't have any dependent. Go create one above!
           </Text>
         </Box>
       </Container>
@@ -182,7 +189,7 @@ const DependentsList = ({
     return (
       <Container
         fluid
-        style={{
+        sx={{
           backgroundColor: "#EEE1C4",
           height: "100%",
           minHeight: "calc(100vh - 0px)",

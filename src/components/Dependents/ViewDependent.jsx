@@ -11,6 +11,7 @@ import {
   Text,
 } from "@mantine/core";
 import { DependentImage } from "./DependentImage";
+import { convertTo12HourFormat } from "../../utilities/helperMethods";
 
 const ViewDependent = () => {
   // obtain the data passed by navigate()
@@ -20,7 +21,14 @@ const ViewDependent = () => {
   const navigate = useNavigate();
 
   return (
-    <Container fluid style={{ backgroundColor: "#E7E5F4", height: "100vh" }}>
+    <Container
+      fluid
+      sx={{
+        backgroundColor: "#E7E5F4",
+        height: "100%",
+        minHeight: "calc(100vh - 0px)",
+      }}
+    >
       <Container pb={40}>
         <Button
           onClick={() => {
@@ -163,11 +171,7 @@ const ViewDependent = () => {
                   </Text>
                   <Text>
                     {" "}
-                    {dependent.education.startTime !== "N/A"
-                      ? new Date(
-                          dependent.education.startTime
-                        ).toLocaleTimeString()
-                      : "N/A"}
+                    {convertTo12HourFormat(dependent.education.startTime)}
                   </Text>
                 </div>
 
@@ -177,11 +181,7 @@ const ViewDependent = () => {
                   </Text>
                   <Text>
                     {" "}
-                    {dependent.education.endTime !== "N/A"
-                      ? new Date(
-                          dependent.education.endTime
-                        ).toLocaleTimeString()
-                      : "N/A"}
+                    {convertTo12HourFormat(dependent.education.endTime)}
                   </Text>
                 </div>
 
@@ -198,11 +198,7 @@ const ViewDependent = () => {
                   </Text>
                   <Text>
                     {" "}
-                    {dependent.education.busTime !== "N/A"
-                      ? new Date(
-                          dependent.education.busTime
-                        ).toLocaleTimeString()
-                      : "N/A"}
+                    {convertTo12HourFormat(dependent.education.busTime)}
                   </Text>
                 </div>
               </SimpleGrid>
@@ -245,12 +241,7 @@ const ViewDependent = () => {
                     Bed Time
                   </Text>
                   <Text>
-                    {" "}
-                    {dependent.generalCare.bedTime !== "N/A"
-                      ? new Date(
-                          dependent.generalCare.bedTime
-                        ).toLocaleTimeString()
-                      : "N/A"}
+                    {convertTo12HourFormat(dependent.generalCare.bedTime)}
                   </Text>
                 </div>
 
@@ -367,9 +358,7 @@ const ViewDependent = () => {
                                 <Text>{item.taskName}</Text>
                               </td>
                               <td>
-                                <Text>
-                                  {new Date(item.time).toLocaleTimeString()}
-                                </Text>
+                                <Text>{convertTo12HourFormat(item.time)}</Text>
                               </td>
                               <td>
                                 <Text>

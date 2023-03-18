@@ -97,7 +97,7 @@ const ExistingAccessRow = ({
     }
   };
   const handleTerminate = async () => {
-    //Step 1: Delete dependent from caretaker's client list
+    //Step 1: Delete dependent from caretaker's client and currentlyInCare list
     let targetCaretaker = allUsers[caretaker.id];
 
     //remove the dependent from client array
@@ -105,9 +105,14 @@ const ExistingAccessRow = ({
       (client) => client.id !== dependent.id
     );
 
+    let newCurrentlyInCareList = targetCaretaker.currentlyInCare.filter(
+      (item) => item !== dependent.id
+    );
+
     let newUserObject = {
       ...targetCaretaker,
       clients: newClientList,
+      currentlyInCare: newCurrentlyInCareList,
     };
 
     let updateCareTakerResult = false;
@@ -235,6 +240,7 @@ const ExistingAccessRow = ({
           title: styles.modalTitle,
         }}
         size="lg"
+        centered
       >
         <Text>
           Are you sure you want to terminate this access? This action cannot be

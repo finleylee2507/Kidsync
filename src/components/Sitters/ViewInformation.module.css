@@ -8,6 +8,6 @@
 }
 
 .backButton:hover {
-    opacity: 0.9;
-    background-color: #6147FF;
+    opacity: 0.9 !important;
+    background-color: #6147FF !important;
 }

@@ -153,12 +153,12 @@ export const Navbar = ({ user }) => {
         setActive(item.link);
         navigate(item.link);
       }}
+      pl={20}
     >
       {item.label}
     </Anchor>
   ));
 
-  console.log("test: ", user);
   return (
     <Box>
       <Header height={60} px="md">
@@ -166,7 +166,7 @@ export const Navbar = ({ user }) => {
           <Image src={kidSyncLogo} height={45} width={200} fit="contain" />
           <Group
             sx={{ height: "100%" }}
-            spacing={0}
+            spacing={30}
             className={classes.hiddenMobile}
           >
             {mainItemsDesktop}

@@ -37,14 +37,14 @@ const ClientsList = ({ user, allUsers, allDependents }) => {
     return (
       <Container
         fluid
-        style={{
+        sx={{
           backgroundColor: "#EEE1C4",
           height: "100%",
           minHeight: "calc(100vh - 0px)",
         }}
       >
         <Box
-          style={{
+          sx={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -56,10 +56,17 @@ const ClientsList = ({ user, allUsers, allDependents }) => {
             height={300}
             width={300}
             fit="contain"
-            alt="No dependent"
+            alt="No client"
+            sx={{
+              opacity: 0.8,
+            }}
           />
-          <Text fz="xl" fw={500}>
-            You have no client...
+          <Text fz="xl" fw={500} mt={20}>
+            No client...
+          </Text>
+          <Text fz="md" fw={400} c="#6d757c" mt={10}>
+            You don't have any client. When one is assigned to you, he/she will
+            show up here.
           </Text>
         </Box>
       </Container>
@@ -68,7 +75,7 @@ const ClientsList = ({ user, allUsers, allDependents }) => {
     return (
       <Container
         fluid
-        style={{
+        sx={{
           backgroundColor: "#EEE1C4",
           height: "100%",
           minHeight: "calc(100vh - 0px)",

@@ -198,7 +198,7 @@ const CreateDependentProfileForm = ({ user, allUsers }) => {
   return (
     <Container
       fluid
-      style={{
+      sx={{
         backgroundColor: "#E7E5F4",
         height: "100%",
         minHeight: "calc(100vh - 0px)",

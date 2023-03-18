@@ -1,8 +1,8 @@
 import React from "react";
-import { Grid, Modal, Text } from "@mantine/core";
+import { Grid, Image, Modal, Text, Box } from "@mantine/core";
 import ExistingAccessRow from "./ExistingAccessRow";
 import { useMediaQuery } from "@mantine/hooks";
-
+import emptyState from "../../images/empty_state4.png";
 const ExistingAccessModal = ({
   allUsers,
   isOpen,
@@ -73,9 +73,31 @@ const ExistingAccessModal = ({
             }
           </div>
         ) : (
-          <Text fz="xl" ta="center" c="black" mb={30} fw={700}>
-            No Caretakers
-          </Text>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              src={emptyState}
+              height={300}
+              width={300}
+              fit="contain"
+              alt="No caretaker"
+              sx={{ opacity: 0.8 }}
+              mt={-40}
+            />
+
+            <Text fz="xl" fw={500} mt={-30} ta="center">
+              No caretaker...
+            </Text>
+            <Text fz="md" fw={400} c="#6d757c" mt={10} ta="center">
+              When you create a dependent, he/she will show up here.
+            </Text>
+          </Box>
         )}
       </Modal>
     </div>

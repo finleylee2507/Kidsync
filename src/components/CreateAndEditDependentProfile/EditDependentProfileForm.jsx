@@ -96,22 +96,22 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
       ...dependent.education,
       startTime:
         dependent.education.startTime !== "N/A"
-          ? new Date(dependent.education.startTime)
+          ? dependent.education.startTime
           : "",
       endTime:
         dependent.education.endTime !== "N/A"
-          ? new Date(dependent.education.endTime)
+          ? dependent.education.endTime
           : "",
       busTime:
         dependent.education.busTime !== "N/A"
-          ? new Date(dependent.education.busTime)
+          ? dependent.education.busTime
           : "",
     });
     setGeneralCareFormData({
       ...dependent.generalCare,
       bedTime:
         dependent.generalCare.bedTime !== "N/A"
-          ? new Date(dependent.generalCare.bedTime)
+          ? dependent.generalCare.bedTime
           : "",
     });
 
@@ -127,7 +127,7 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
           item.schedule.eventDate === "N/A"
             ? null
             : new Date(item.schedule.eventDate);
-        let newTime = new Date(item.time);
+        let newTime = item.time;
 
         return {
           ...item,
@@ -261,7 +261,7 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
   return (
     <Container
       fluid
-      style={{
+      sx={{
         backgroundColor: "#E7E5F4",
         height: "100%",
         minHeight: "calc(100vh - 0px)",
