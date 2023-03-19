@@ -27,6 +27,9 @@ const useStyles = createStyles((theme) => ({
     fontFamily: "'Comfortaa'",
     fontSize: "25px",
   },
+  dropdownItem: {
+    fontWeight: "600",
+  },
   hiddenMobile: {
     [`@media (max-width: 800px)`]: {
       display: "none",
@@ -172,7 +175,13 @@ export const Navbar = ({ user }) => {
             {mainItemsDesktop}
           </Group>
           <Group className={classes.hiddenMobile}>
-            <Menu withArrow width={250}>
+            <Menu
+              withArrow
+              width={250}
+              classNames={{
+                item: classes.dropdownItem,
+              }}
+            >
               <Menu.Target>
                 <UnstyledButton>
                   <Group>
@@ -203,9 +212,6 @@ export const Navbar = ({ user }) => {
               </Menu.Dropdown>
             </Menu>
           </Group>
-          {/*<Group className={classes.hiddenMobile}>*/}
-          {/*  <SignOutButton />*/}
-          {/*</Group>*/}
           <Burger
             opened={drawerOpened}
             onClick={toggleDrawer}
@@ -213,46 +219,94 @@ export const Navbar = ({ user }) => {
           />
         </Group>
       </Header>
-
-      <Drawer
+      <Drawer.Root
         opened={drawerOpened}
         onClose={closeDrawer}
+        className={classes.hiddenDesktop}
         size="100%"
         padding="md"
-        title="Kidsync"
-        className={classes.hiddenDesktop}
         zIndex={1000000}
       >
-        <UnstyledButton>
-          <Group>
-            <Avatar src={user && user.photoURL} radius="xl" />
-            <div style={{ flex: 1 }}>
-              <Text size="sm" weight={500}>
-                {user && user.displayName}
-              </Text>
-              <Text color="dimmed" size="xs">
-                {user && user.email}
-              </Text>
-            </div>
-          </Group>
-        </UnstyledButton>
-        <ScrollArea sx={{ height: "calc(100vh - 60px)" }} mx="-md">
-          <Divider
-            my="sm"
-            color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
-          />
-          {mainItemsMobile}
+        <Drawer.Overlay />
+        <Drawer.Content>
+          <Drawer.Header>
+            <Drawer.Title>
+              <UnstyledButton>
+                <Group>
+                  <Avatar src={user && user.photoURL} radius="xl" />
+                  <div style={{ flex: 1 }}>
+                    <Text size="sm" weight={500}>
+                      {user && user.displayName}
+                    </Text>
+                    <Text color="dimmed" size="xs">
+                      {user && user.email}
+                    </Text>
+                  </div>
+                </Group>
+              </UnstyledButton>
+            </Drawer.Title>
 
-          <Divider
-            my="sm"
-            color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
-          />
+            <Drawer.CloseButton />
+          </Drawer.Header>
+          <Drawer.Body>
+            <ScrollArea sx={{ height: "calc(100vh - 60px)" }} mx="-md">
+              <Divider
+                my="sm"
+                color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
+              />
+              {mainItemsMobile}
 
-          <Group position="center" grow pb="xl" px="md">
-            <SignOutButton />
-          </Group>
-        </ScrollArea>
-      </Drawer>
+              <Divider
+                my="sm"
+                color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
+              />
+
+              <Group position="center" grow pb="xl" px="md">
+                <SignOutButton />
+              </Group>
+            </ScrollArea>
+          </Drawer.Body>
+        </Drawer.Content>
+      </Drawer.Root>
+      {/*<Drawer*/}
+      {/*  opened={drawerOpened}*/}
+      {/*  onClose={closeDrawer}*/}
+      {/*  size="100%"*/}
+      {/*  padding="md"*/}
+      {/*  title="Kidsync"*/}
+      {/*  className={classes.hiddenDesktop}*/}
+      {/*  zIndex={1000000}*/}
+      {/*>*/}
+      {/*  <UnstyledButton>*/}
+      {/*    <Group>*/}
+      {/*      <Avatar src={user && user.photoURL} radius="xl" />*/}
+      {/*      <div style={{ flex: 1 }}>*/}
+      {/*        <Text size="sm" weight={500}>*/}
+      {/*          {user && user.displayName}*/}
+      {/*        </Text>*/}
+      {/*        <Text color="dimmed" size="xs">*/}
+      {/*          {user && user.email}*/}
+      {/*        </Text>*/}
+      {/*      </div>*/}
+      {/*    </Group>*/}
+      {/*  </UnstyledButton>*/}
+      {/*  <ScrollArea sx={{ height: "calc(100vh - 60px)" }} mx="-md">*/}
+      {/*    <Divider*/}
+      {/*      my="sm"*/}
+      {/*      color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}*/}
+      {/*    />*/}
+      {/*    {mainItemsMobile}*/}
+
+      {/*    <Divider*/}
+      {/*      my="sm"*/}
+      {/*      color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}*/}
+      {/*    />*/}
+
+      {/*    <Group position="center" grow pb="xl" px="md">*/}
+      {/*      <SignOutButton />*/}
+      {/*    </Group>*/}
+      {/*  </ScrollArea>*/}
+      {/*</Drawer>*/}
     </Box>
   );
 };
