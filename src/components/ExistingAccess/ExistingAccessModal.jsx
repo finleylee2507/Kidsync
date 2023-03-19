@@ -1,8 +1,9 @@
 import React from "react";
-import { Grid, Image, Modal, Text, Box } from "@mantine/core";
+import { Box, Grid, Image, Modal, Text } from "@mantine/core";
 import ExistingAccessRow from "./ExistingAccessRow";
 import { useMediaQuery } from "@mantine/hooks";
 import emptyState from "../../images/empty_state4.png";
+
 const ExistingAccessModal = ({
   allUsers,
   isOpen,
@@ -10,7 +11,8 @@ const ExistingAccessModal = ({
   dependent,
 }) => {
   const isMobileMedium = useMediaQuery("(max-width:1200px)");
-  const isMobileExtraSmall = useMediaQuery("(max-width:500px)");
+  const isMobileSmall = useMediaQuery("(max-width:750px)");
+  const isMobileExtraSmall = useMediaQuery("(max-width:600px)");
   return (
     <div>
       <Modal
@@ -35,22 +37,22 @@ const ExistingAccessModal = ({
             </Text>
             <Grid columns={30}>
               <Grid.Col span={isMobileExtraSmall ? 5 : 4}>
-                <Text fw={700} size={isMobileExtraSmall ? "xs" : "md"}>
+                <Text fw={700} size={isMobileSmall ? "xs" : "md"}>
                   Name:
                 </Text>
               </Grid.Col>
               <Grid.Col span={isMobileExtraSmall ? 6 : 4}>
-                <Text fw={700} size={isMobileExtraSmall ? "xs" : "md"}>
+                <Text fw={700} size={isMobileSmall ? "xs" : "md"}>
                   Relationship:
                 </Text>
               </Grid.Col>
               <Grid.Col span={10}>
-                <Text fw={700} size={isMobileExtraSmall ? "xs" : "md"}>
+                <Text fw={700} size={isMobileSmall ? "xs" : "md"}>
                   Access Granted:
                 </Text>
               </Grid.Col>
               <Grid.Col span={isMobileExtraSmall ? 9 : 12}>
-                <Text fw={700} size={isMobileExtraSmall ? "xs" : "md"}>
+                <Text fw={700} size={isMobileSmall ? "xs" : "md"}>
                   Options:
                 </Text>
               </Grid.Col>

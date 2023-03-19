@@ -35,7 +35,7 @@ const NewAccessModal = ({
   const isMobile = useMediaQuery("(max-width:850px)");
   const form = useForm({
     initialValues: {
-      name: "",
+      // name: "",
       email: "",
       phoneNumber: "",
       accessGranted: ["emergency"],
@@ -157,7 +157,6 @@ const NewAccessModal = ({
 
             // Create entry in clients array in users table (id and perms)
             let updatedUserClients;
-            console.log("Test: ", allUsers[user.uid]);
             if (!allUsers[clientID].clients) {
               updatedUserClients = {
                 clients: [
@@ -226,7 +225,6 @@ const NewAccessModal = ({
               dependentID
             );
 
-            console.log("Add result: ", addResult);
             // Update toast notification
             if (addResult) {
               toast.success("Successfully granted access!");
@@ -245,12 +243,12 @@ const NewAccessModal = ({
         >
           <Grid gutter="xl" justify="center">
             <Grid.Col span={6}>
-              <TextInput
-                placeholder="Caretaker name"
-                label="Name"
-                withAsterisk
-                {...form.getInputProps("name")}
-              />
+              {/*<TextInput*/}
+              {/*  placeholder="Caretaker name"*/}
+              {/*  label="Name"*/}
+              {/*  withAsterisk*/}
+              {/*  {...form.getInputProps("name")}*/}
+              {/*/>*/}
               <TextInput
                 placeholder="Caretaker email"
                 label="Email"

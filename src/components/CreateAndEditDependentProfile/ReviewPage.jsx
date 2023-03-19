@@ -113,7 +113,13 @@ const ReviewPage = ({
       );
 
       if (isUploadProfilePicSuccessful) {
+        console.log("profile pic upload successful");
+        console.log(profilePicURL);
         profilePicURL = profilePicLink;
+      } else {
+        toast.error(
+          "Error uploading profile picture. Proceeding without failing."
+        );
       }
     }
 
@@ -130,6 +136,9 @@ const ReviewPage = ({
           fileLinks[key] = { fileName: file.name, fileLink: fileLink };
         } else {
           fileLinks[key] = "N/A";
+          toast.error(
+            `Error uploading ${file.name}. Proceeding without failing.`
+          );
         }
       } else {
         //user didn't upload file
@@ -381,7 +390,7 @@ const ReviewPage = ({
           render: "Successfully created dependent profile! 👌",
           type: toast.TYPE.SUCCESS,
           isLoading: false,
-          autoClose: 1000,
+          autoClose: 2000,
         });
         navigate("/dependents");
       } else {
@@ -389,7 +398,7 @@ const ReviewPage = ({
           render: "Hmm... Something went wrong. 🤯 Please try again!",
           type: toast.TYPE.ERROR,
           isLoading: false,
-          autoClose: 1000,
+          autoClose: 2000,
         });
       }
     }

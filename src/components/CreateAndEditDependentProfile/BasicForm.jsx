@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import InputMask from "react-input-mask";
 import { useForm } from "@mantine/form";
-import { DateInput, DatePicker } from "@mantine/dates";
+import { DateInput } from "@mantine/dates";
 import styles from "./CreateEditDependentProfileForm.module.css";
 
 const BasicForm = ({
@@ -101,13 +101,6 @@ const BasicForm = ({
               </Anchor>
             </Text>
           )}
-        {/*<DatePicker*/}
-        {/*  label="Birthday"*/}
-        {/*  size="lg"*/}
-        {/*  withAsterisk*/}
-        {/*  {...form.getInputProps("birthday")}*/}
-        {/*  radius="md"*/}
-        {/*/>*/}
 
         <DateInput
           label="Birthday"

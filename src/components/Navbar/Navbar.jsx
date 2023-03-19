@@ -20,7 +20,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { signOut } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 import kidSyncLogo from "../../images/KidSync.png";
-import { ChevronDown, Settings, Logout } from "tabler-icons-react";
+import { ChevronDown, Logout, Settings } from "tabler-icons-react";
 
 const useStyles = createStyles((theme) => ({
   logoText: {
@@ -118,6 +118,7 @@ export const Navbar = ({ user }) => {
     await signOut();
     navigate("/");
   }
+
   const SignOutButton = () => {
     const { classes, theme, cx } = useStyles();
 

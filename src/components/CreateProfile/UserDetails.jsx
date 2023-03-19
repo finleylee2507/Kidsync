@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./UserDetails.module.css";
 import { Button, Group, Input, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";

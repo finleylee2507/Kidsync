@@ -12,7 +12,7 @@ import {
 import { useForm } from "@mantine/form";
 import { DatePickerInput, TimeInput } from "@mantine/dates";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import { faCirclePlus, faPlus, faT } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import {
   LetterF,
   LetterM,

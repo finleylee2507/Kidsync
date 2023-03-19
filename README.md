@@ -160,9 +160,7 @@ to the information.
 
 ## Known Bugs
 
-- [ ] This app doesn't support the most current version of Mantine UI. It currently supports @mantine/core: "^5.10.4"
-
-<p align="right">(<a href="#kidsync">back to top</a>)</p>
+- N/A
 
 <!-- CONTRIBUTING -->
 
