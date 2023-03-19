@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import BasicForm from "./BasicForm";
 import EmergencyForm from "./EmergencyForm";
 import GeneralCareForm from "./GeneralCareForm";
@@ -14,15 +14,12 @@ import {
   Text,
 } from "@mantine/core";
 import ReviewPage from "./ReviewPage";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 import ReminderForm from "./ReminderForm";
 
-const EditDependentProfileForm = ({ user, allUsers }) => {
-  // obtain the data passed by navigate()
-  const location = useLocation();
+const CreateDependentProfileForm = ({ user, allUsers }) => {
   const navigate = useNavigate();
-  const dependent = location.state;
-
   const [isOpenModal, setIsOpenModal] = useState(false);
   const handleReturn = () => {
     setIsOpenModal(true);
@@ -46,6 +43,7 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
     address: "",
     phoneNumber: "",
     parentsName: "",
+    profilePic: null,
   });
 
   const [emergencyFormData, setEmergencyFormData] = useState({
@@ -84,66 +82,6 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
     reminders: [],
   });
 
-  useEffect(() => {
-    setBasicFormData({
-      ...dependent.basic,
-      birthday: new Date(dependent.basic.birthday),
-      phoneNumber: null,
-      profilePic: null,
-    });
-    setEmergencyFormData(dependent.emergency);
-    setEducationFormData({
-      ...dependent.education,
-      startTime:
-        dependent.education.startTime !== "N/A"
-          ? new Date(dependent.education.startTime)
-          : "",
-      endTime:
-        dependent.education.endTime !== "N/A"
-          ? new Date(dependent.education.endTime)
-          : "",
-      busTime:
-        dependent.education.busTime !== "N/A"
-          ? new Date(dependent.education.busTime)
-          : "",
-    });
-    setGeneralCareFormData({
-      ...dependent.generalCare,
-      bedTime:
-        dependent.generalCare.bedTime !== "N/A"
-          ? new Date(dependent.generalCare.bedTime)
-          : "",
-    });
-
-    let processedReminders;
-    //pre-process reminder data and reconstruct
-    if (dependent.reminders === "N/A") {
-      processedReminders = [];
-    } else {
-      processedReminders = dependent.reminders.map((item, index) => {
-        let newWeekdays =
-          item.schedule.weekdays === "N/A" ? [] : item.schedule.weekdays;
-        let newEventDate =
-          item.schedule.eventDate === "N/A"
-            ? null
-            : new Date(item.schedule.eventDate);
-        let newTime = new Date(item.time);
-
-        return {
-          ...item,
-          time: newTime,
-          schedule: {
-            ...item.schedule,
-            weekdays: newWeekdays,
-            eventDate: newEventDate,
-          },
-        };
-      });
-    }
-
-    setReminderFormData({ reminders: processedReminders });
-    //NOTE: we don't set documentFormData to what's coming from the database
-  }, [dependent]);
   //keeps track of which form we want to display
   const [step, setStep] = useState(0);
 
@@ -167,8 +105,8 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
           formData={basicFormData}
           nextStep={nextStep}
           setFormData={setBasicFormData}
-          isEditMode={true}
-          oldFormData={dependent.basic}
+          isEditMode={false}
+          oldFormData={null}
         />
       );
       break;
@@ -208,11 +146,11 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
       renderedElement = (
         <DocumentsForm
           formData={documentsFormData}
-          oldFormData={dependent.documents}
           nextStep={nextStep}
           prevStep={prevStep}
           setFormData={setDocumentsFormData}
-          isEditMode={true}
+          isEditMode={false}
+          oldFormData={null}
         />
       );
       break;
@@ -234,14 +172,13 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
           generalCareFormData={generalCareFormData}
           educationFormData={educationFormData}
           documentsFormData={documentsFormData}
-          oldDocumentsFormData={dependent.documents}
           reminderFormData={reminderFormData}
           prevStep={prevStep}
           user={user}
           allUsers={allUsers}
-          dependentId={dependent.id}
-          isEditMode={true}
-          oldBasicFormData={dependent.basic}
+          oldDocumentsFormData={null}
+          dependentId={null}
+          isEditMode={false}
         />
       );
       break;
@@ -251,8 +188,8 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
           formData={basicFormData}
           nextStep={nextStep}
           setFormData={setBasicFormData}
-          isEditMode={true}
-          oldFormData={dependent.basic}
+          isEditMode={false}
+          oldFormData={null}
         />
       );
       break;
@@ -261,7 +198,7 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
   return (
     <Container
       fluid
-      style={{
+      sx={{
         backgroundColor: "#E7E5F4",
         height: "100%",
         minHeight: "calc(100vh - 0px)",
@@ -297,14 +234,18 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
           </Button>
         </div>
       </Modal>
+
       <div className={styles.formWrapper}>
-        <Button
-          onClick={handleReturn}
-          classNames={{ root: styles.returnButton }}
-          mt={10}
-        >
-          Return
-        </Button>
+        <div>
+          <Button
+            onClick={handleReturn}
+            classNames={{ root: styles.returnButton }}
+            mt={10}
+          >
+            Return
+          </Button>
+        </div>
+
         <div className={styles.progressBarContainer} title="Progress">
           <Progress
             value={(step / 6) * 100}
@@ -334,4 +275,4 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
   );
 };
 
-export default EditDependentProfileForm;
+export default CreateDependentProfileForm;

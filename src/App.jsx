@@ -5,22 +5,23 @@ import { useAuthState, useDbData } from "./utilities/firebase";
 
 import Landing from "./components/Authentication/Landing";
 import DependentsList from "./components/Dependents/DependentsList";
-import UserDetails from "./components/CreateProfile/UserDetails";
-import CreateDependentProfileForm from "./components/CreateAndEditDependentProfile/CreateDependentProfileForm";
+import UserDetails from "./components/UserProfile/UserDetails";
+import CreateDependentProfileForm from "./components/DependentProfile/CreateDependentProfileForm";
 import { Navbar } from "./components/Navbar/Navbar";
 import ViewDependent from "./components/Dependents/ViewDependent";
 import ClientsList from "./components/Sitters/ClientsList";
 import HomePage from "./components/Home/HomePage";
-import EditDependentProfileForm from "./components/CreateAndEditDependentProfile/EditDependentProfileForm";
+import EditDependentProfileForm from "./components/DependentProfile/EditDependentProfileForm";
 import { ToastContainer } from "react-toastify";
 import ViewInformation from "./components/Sitters/ViewInformation";
+import ProfileSettings from "./components/UserProfile/ProfileSettings";
 
 const App = () => {
   const user = useAuthState();
   const [dbUsers, dbUsersError] = useDbData("/users");
   const [dbDependents, dbDependentsError] = useDbData("/dependents");
   const [dbEmailToID, dbEmailToIDError] = useDbData("/emailToID");
-
+  console.log("user: ", user);
   if (dbUsersError) {
     console.log(
       "Here was the error in getting the users from the database: ",
@@ -44,7 +45,10 @@ const App = () => {
         <Route
           path="/"
           element={
-            user && dbUsers && dbUsers[user.uid] ? (
+            user &&
+            dbUsers &&
+            dbUsers[user.uid] &&
+            dbUsers[user.uid].isProfileCompleted ? (
               <Navigate to="/home" />
             ) : (
               <Landing allUsers={dbUsers} />
@@ -61,11 +65,20 @@ const App = () => {
           }
         ></Route>
         <Route
+          path="/profile-settings"
+          element={
+            <div>
+              <ToastContainer position="top-right" autoClose={1000} />
+              <ProfileSettings />
+            </div>
+          }
+        ></Route>
+        <Route
           path="/home"
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar />
+              <Navbar user={user} />
               <HomePage
                 user={user}
                 allUsers={dbUsers}
@@ -79,7 +92,7 @@ const App = () => {
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar />
+              <Navbar user={user} />
               <DependentsList
                 user={user}
                 allUsers={dbUsers}
@@ -94,7 +107,7 @@ const App = () => {
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar />
+              <Navbar user={user} />
               <ViewDependent />
             </div>
           }
@@ -104,7 +117,7 @@ const App = () => {
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar />
+              <Navbar user={user} />
               <ViewInformation />
             </div>
           }
@@ -114,7 +127,7 @@ const App = () => {
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar />
+              <Navbar user={user} />
               <ClientsList
                 user={user}
                 allUsers={dbUsers}
@@ -128,7 +141,7 @@ const App = () => {
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar />
+              <Navbar user={user} />
               <CreateDependentProfileForm user={user} allUsers={dbUsers} />
             </div>
           }
@@ -139,7 +152,7 @@ const App = () => {
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar />
+              <Navbar user={user} />
               <EditDependentProfileForm user={user} allUsers={dbUsers} />
             </div>
           }

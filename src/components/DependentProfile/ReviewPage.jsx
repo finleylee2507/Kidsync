@@ -18,6 +18,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./CreateEditDependentProfileForm.module.css";
+import { convertTo12HourFormat } from "../../utilities/helperMethods";
 
 const ReviewPage = ({
   basicFormData,
@@ -112,7 +113,13 @@ const ReviewPage = ({
       );
 
       if (isUploadProfilePicSuccessful) {
+        console.log("profile pic upload successful");
+        console.log(profilePicURL);
         profilePicURL = profilePicLink;
+      } else {
+        toast.error(
+          "Error uploading profile picture. Proceeding without failing."
+        );
       }
     }
 
@@ -129,6 +136,9 @@ const ReviewPage = ({
           fileLinks[key] = { fileName: file.name, fileLink: fileLink };
         } else {
           fileLinks[key] = "N/A";
+          toast.error(
+            `Error uploading ${file.name}. Proceeding without failing.`
+          );
         }
       } else {
         //user didn't upload file
@@ -144,7 +154,7 @@ const ReviewPage = ({
         : "N/A";
       let newWeekdays =
         item.schedule.weekdays.length === 0 ? "N/A" : item.schedule.weekdays;
-      let newTime = item.time.toUTCString();
+      let newTime = item.time;
 
       return {
         ...item,
@@ -218,16 +228,16 @@ const ReviewPage = ({
           teacherName: educationFormData.teacherName,
           grade: educationFormData.grade,
           startTime: educationFormData.startTime
-            ? educationFormData.startTime.toUTCString()
+            ? educationFormData.startTime
             : "N/A",
           endTime: educationFormData.endTime
-            ? educationFormData.endTime.toUTCString()
+            ? educationFormData.endTime
             : "N/A",
           busNumber: educationFormData.busNumber.trim()
             ? educationFormData.busNumber
             : "N/A",
           busTime: educationFormData.busTime
-            ? educationFormData.busTime.toUTCString()
+            ? educationFormData.busTime
             : "N/A",
         },
         generalCare: {
@@ -238,7 +248,7 @@ const ReviewPage = ({
             ? generalCareFormData.extracurriculars
             : "N/A",
           bedTime: generalCareFormData.bedTime
-            ? generalCareFormData.bedTime.toUTCString()
+            ? generalCareFormData.bedTime
             : "N/A",
           currentMedications: generalCareFormData.currentMedications.trim()
             ? generalCareFormData.currentMedications
@@ -315,16 +325,16 @@ const ReviewPage = ({
           teacherName: educationFormData.teacherName,
           grade: educationFormData.grade,
           startTime: educationFormData.startTime
-            ? educationFormData.startTime.toUTCString()
+            ? educationFormData.startTime
             : "N/A",
           endTime: educationFormData.endTime
-            ? educationFormData.endTime.toUTCString()
+            ? educationFormData.endTime
             : "N/A",
           busNumber: educationFormData.busNumber.trim()
             ? educationFormData.busNumber
             : "N/A",
           busTime: educationFormData.busTime
-            ? educationFormData.busTime.toUTCString()
+            ? educationFormData.busTime
             : "N/A",
         },
         generalCare: {
@@ -335,7 +345,7 @@ const ReviewPage = ({
             ? generalCareFormData.extracurriculars
             : "N/A",
           bedTime: generalCareFormData.bedTime
-            ? generalCareFormData.bedTime.toUTCString()
+            ? generalCareFormData.bedTime
             : "N/A",
           currentMedications: generalCareFormData.currentMedications.trim()
             ? generalCareFormData.currentMedications
@@ -380,7 +390,7 @@ const ReviewPage = ({
           render: "Successfully created dependent profile! 👌",
           type: toast.TYPE.SUCCESS,
           isLoading: false,
-          autoClose: 1000,
+          autoClose: 2000,
         });
         navigate("/dependents");
       } else {
@@ -388,7 +398,7 @@ const ReviewPage = ({
           render: "Hmm... Something went wrong. 🤯 Please try again!",
           type: toast.TYPE.ERROR,
           isLoading: false,
-          autoClose: 1000,
+          autoClose: 2000,
         });
       }
     }
@@ -566,7 +576,7 @@ const ReviewPage = ({
                 <Text>
                   {" "}
                   {educationFormData.startTime
-                    ? educationFormData.startTime.toLocaleTimeString()
+                    ? convertTo12HourFormat(educationFormData.startTime)
                     : "N/A"}
                 </Text>
               </div>
@@ -578,7 +588,7 @@ const ReviewPage = ({
                 <Text>
                   {" "}
                   {educationFormData.endTime
-                    ? educationFormData.endTime.toLocaleTimeString()
+                    ? convertTo12HourFormat(educationFormData.endTime)
                     : "N/A"}
                 </Text>
               </div>
@@ -603,7 +613,7 @@ const ReviewPage = ({
                   {" "}
                   {educationFormData.busTime === ""
                     ? "N/A"
-                    : educationFormData.busTime.toLocaleTimeString()}
+                    : convertTo12HourFormat(educationFormData.busTime)}
                 </Text>
               </div>
             </SimpleGrid>
@@ -646,7 +656,7 @@ const ReviewPage = ({
                   {" "}
                   {generalCareFormData.bedTime === ""
                     ? "N/A"
-                    : generalCareFormData.bedTime.toLocaleTimeString()}
+                    : convertTo12HourFormat(generalCareFormData.bedTime)}
                 </Text>
               </div>
 
@@ -752,7 +762,7 @@ const ReviewPage = ({
                               <Text>{item.taskName}</Text>
                             </td>
                             <td>
-                              <Text>{item.time.toLocaleTimeString()}</Text>
+                              <Text>{convertTo12HourFormat(item.time)}</Text>
                             </td>
                             <td>
                               <Text>

@@ -3,6 +3,7 @@ import {
   Button,
   Checkbox,
   Grid,
+  Group,
   Input,
   Modal,
   Radio,
@@ -15,7 +16,7 @@ import InputMask from "react-input-mask";
 import { toast } from "react-toastify";
 import { addNewClient } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
-import { fromEmailToDbString } from "../../utilities/emailFormatter";
+import { fromEmailToDbString } from "../../utilities/helperMethods";
 import { sendSMS } from "./../../utilities/twilio";
 import { useMediaQuery } from "@mantine/hooks";
 import styles from "./NewAccessModal.module.css";
@@ -34,7 +35,7 @@ const NewAccessModal = ({
   const isMobile = useMediaQuery("(max-width:850px)");
   const form = useForm({
     initialValues: {
-      name: "",
+      // name: "",
       email: "",
       phoneNumber: "",
       accessGranted: ["emergency"],
@@ -156,7 +157,6 @@ const NewAccessModal = ({
 
             // Create entry in clients array in users table (id and perms)
             let updatedUserClients;
-            console.log("Test: ", allUsers[user.uid]);
             if (!allUsers[clientID].clients) {
               updatedUserClients = {
                 clients: [
@@ -225,7 +225,6 @@ const NewAccessModal = ({
               dependentID
             );
 
-            console.log("Add result: ", addResult);
             // Update toast notification
             if (addResult) {
               toast.success("Successfully granted access!");
@@ -244,12 +243,12 @@ const NewAccessModal = ({
         >
           <Grid gutter="xl" justify="center">
             <Grid.Col span={6}>
-              <TextInput
-                placeholder="Caretaker name"
-                label="Name"
-                withAsterisk
-                {...form.getInputProps("name")}
-              />
+              {/*<TextInput*/}
+              {/*  placeholder="Caretaker name"*/}
+              {/*  label="Name"*/}
+              {/*  withAsterisk*/}
+              {/*  {...form.getInputProps("name")}*/}
+              {/*/>*/}
               <TextInput
                 placeholder="Caretaker email"
                 label="Email"
@@ -283,15 +282,17 @@ const NewAccessModal = ({
                 }}
                 withAsterisk
               >
-                <Radio value="coparent" label="Co-Parent" color="indigo" />
-                <Radio value="doctor" label="Doctor" color="indigo" />
-                <Radio value="babysitter" label="Babysitter" color="indigo" />
-                <Radio
-                  value="schoolstaff"
-                  label="School Staff"
-                  color="indigo"
-                />
-                <Radio value="other" label="Other" color="indigo" />
+                <Group>
+                  <Radio value="coparent" label="Co-Parent" color="indigo" />
+                  <Radio value="doctor" label="Doctor" color="indigo" />
+                  <Radio value="babysitter" label="Babysitter" color="indigo" />
+                  <Radio
+                    value="schoolstaff"
+                    label="School Staff"
+                    color="indigo"
+                  />
+                  <Radio value="other" label="Other" color="indigo" />
+                </Group>
               </Radio.Group>
               {form.values.relationship === "other" && (
                 <TextInput
@@ -309,21 +310,35 @@ const NewAccessModal = ({
                 {...form.getInputProps("accessGranted")}
                 mt="2rem"
               >
-                <Checkbox value="basic" label="Basic" color="indigo" />
-                <Checkbox value="reminders" label="Reminders" color="indigo" />
-                <Checkbox
-                  value="generalCare"
-                  label="General Care"
-                  color="indigo"
-                />
-                <Checkbox
-                  value="emergency"
-                  label="Emergency"
-                  checked
-                  disabled
-                />
-                <Checkbox value="education" label="Education" color="indigo" />
-                <Checkbox value="documents" label="Documents" color="indigo" />
+                <Group>
+                  <Checkbox value="basic" label="Basic" color="indigo" />
+                  <Checkbox
+                    value="reminders"
+                    label="Reminders"
+                    color="indigo"
+                  />
+                  <Checkbox
+                    value="generalCare"
+                    label="General Care"
+                    color="indigo"
+                  />
+                  <Checkbox
+                    value="emergency"
+                    label="Emergency"
+                    checked
+                    disabled
+                  />
+                  <Checkbox
+                    value="education"
+                    label="Education"
+                    color="indigo"
+                  />
+                  <Checkbox
+                    value="documents"
+                    label="Documents"
+                    color="indigo"
+                  />
+                </Group>
               </Checkbox.Group>
 
               <Space h="xs" />

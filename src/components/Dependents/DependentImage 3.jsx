@@ -1,4 +1,4 @@
-import { createStyles, Avatar, Text, Group } from "@mantine/core";
+import { Avatar, createStyles, Group, Text } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
   icon: {

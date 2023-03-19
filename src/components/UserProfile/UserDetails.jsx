@@ -8,8 +8,10 @@ import InputMask from "react-input-mask";
 
 const UserDetails = ({ user }) => {
   const navigate = useNavigate();
+
   const form = useForm({
     initialValues: {
+      //pre-populate the form with the user's sign-in profile info
       firstName: user ? user.displayName.split(" ")[0] : "",
       lastName: user ? user.displayName.split(" ")[1] : "",
       email: user ? user.email : "",
@@ -45,15 +47,15 @@ const UserDetails = ({ user }) => {
             displayName: `${values.firstName} ${values.lastName}`,
             email: values.email,
             phoneNumber: newPhoneNumber,
+            isProfileCompleted: true,
           };
 
           try {
             updateUser(updatedUser, user.uid);
+            navigate("/home");
           } catch (error) {
             console.log("Error while creating dbString: ", error);
           }
-
-          navigate("/home");
         })}
       >
         <TextInput

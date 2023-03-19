@@ -11,6 +11,7 @@ import {
   Table,
   Text,
 } from "@mantine/core";
+import { convertTo12HourFormat } from "../../utilities/helperMethods";
 
 const ViewInformation = () => {
   // obtain the data passed by navigate()
@@ -18,11 +19,17 @@ const ViewInformation = () => {
   const client = location.state.client;
   const permissions = location.state.permissions;
   const showEmergency = location.state.showEmergency;
-  // const clientDocuments = client.documents;
   const navigate = useNavigate();
 
   return (
-    <Container fluid style={{ backgroundColor: "#E7E5F4", height: "100vh" }}>
+    <Container
+      fluid
+      sx={{
+        backgroundColor: "#E7E5F4",
+        height: "100%",
+        minHeight: "calc(100vh - 0px)",
+      }}
+    >
       <Container pb={40}>
         <Button
           onClick={() => {
@@ -183,11 +190,7 @@ const ViewInformation = () => {
                     </Text>
                     <Text>
                       {" "}
-                      {client.education.startTime !== "N/A"
-                        ? new Date(
-                            client.education.startTime
-                          ).toLocaleTimeString()
-                        : "N/A"}
+                      {convertTo12HourFormat(client.education.startTime)}
                     </Text>
                   </div>
 
@@ -197,11 +200,7 @@ const ViewInformation = () => {
                     </Text>
                     <Text>
                       {" "}
-                      {client.education.endTime !== "N/A"
-                        ? new Date(
-                            client.education.endTime
-                          ).toLocaleTimeString()
-                        : "N/A"}
+                      {convertTo12HourFormat(client.education.endTime)}
                     </Text>
                   </div>
 
@@ -218,11 +217,7 @@ const ViewInformation = () => {
                     </Text>
                     <Text>
                       {" "}
-                      {client.education.busTime !== "N/A"
-                        ? new Date(
-                            client.education.busTime
-                          ).toLocaleTimeString()
-                        : "N/A"}
+                      {convertTo12HourFormat(client.education.busTime)}
                     </Text>
                   </div>
                 </SimpleGrid>
@@ -274,12 +269,7 @@ const ViewInformation = () => {
                       Bed Time
                     </Text>
                     <Text>
-                      {" "}
-                      {client.generalCare.bedTime !== "N/A"
-                        ? new Date(
-                            client.generalCare.bedTime
-                          ).toLocaleTimeString()
-                        : "N/A"}
+                      {convertTo12HourFormat(client.generalCare.bedTime)}
                     </Text>
                   </div>
 
@@ -413,7 +403,7 @@ const ViewInformation = () => {
                                   </td>
                                   <td>
                                     <Text>
-                                      {new Date(item.time).toLocaleTimeString()}
+                                      {convertTo12HourFormat(item.time)}
                                     </Text>
                                   </td>
                                   <td>

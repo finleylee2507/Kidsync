@@ -25,7 +25,7 @@ const ExistingAccessRow = ({
   const [isTerminateModalOpen, setIsTerminateModalOpen] = useState(false);
   const isMobileMedium = useMediaQuery("(max-width:1200px)");
   const isMobileSmall = useMediaQuery("(max-width:750px)");
-  const isMobileExtraSmall = useMediaQuery("(max-width:500px)");
+  const isMobileExtraSmall = useMediaQuery("(max-width:600px)");
   const form = useForm({
     initialValues: {
       permissions: caretaker.permissions, // get actual permissions from db
@@ -97,7 +97,7 @@ const ExistingAccessRow = ({
     }
   };
   const handleTerminate = async () => {
-    //Step 1: Delete dependent from caretaker's client list
+    //Step 1: Delete dependent from caretaker's client and currentlyInCare list
     let targetCaretaker = allUsers[caretaker.id];
 
     //remove the dependent from client array
@@ -105,9 +105,14 @@ const ExistingAccessRow = ({
       (client) => client.id !== dependent.id
     );
 
+    let newCurrentlyInCareList = targetCaretaker.currentlyInCare.filter(
+      (item) => item !== dependent.id
+    );
+
     let newUserObject = {
       ...targetCaretaker,
       clients: newClientList,
+      currentlyInCare: newCurrentlyInCareList,
     };
 
     let updateCareTakerResult = false;
@@ -151,13 +156,13 @@ const ExistingAccessRow = ({
         <Divider my="sm" />
         <Grid columns={30} gutter={isMobileSmall ? "xs" : "md"}>
           <Grid.Col span={isMobileExtraSmall ? 5 : 4}>
-            <Text size={isMobileExtraSmall ? "xs" : "md"}>
+            <Text size={isMobileSmall ? "xs" : "md"}>
               {allUsers[caretaker.id].displayName}
             </Text>
           </Grid.Col>
 
           <Grid.Col span={isMobileExtraSmall ? 6 : 4}>
-            <Text size={isMobileExtraSmall ? "xs" : "md"}>
+            <Text size={isMobileSmall ? "xs" : "md"}>
               {caretaker.relationship}
             </Text>
           </Grid.Col>
@@ -165,7 +170,7 @@ const ExistingAccessRow = ({
             <Text>
               <Checkbox.Group
                 {...form.getInputProps("permissions")}
-                size={isMobileExtraSmall ? "xs" : "sm"}
+                size={isMobileSmall ? "xs" : "sm"}
               >
                 <SimpleGrid cols={isMobileSmall ? 1 : 2}>
                   <Checkbox value="basic" label="Basic" color="indigo" />
@@ -235,6 +240,7 @@ const ExistingAccessRow = ({
           title: styles.modalTitle,
         }}
         size="lg"
+        centered
       >
         <Text>
           Are you sure you want to terminate this access? This action cannot be

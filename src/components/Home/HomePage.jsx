@@ -30,7 +30,7 @@ const HomePage = ({ user, allUsers, allDependents }) => {
   return (
     <Container
       fluid
-      style={{
+      sx={{
         backgroundColor: "#EEE1C4",
         height: "100%",
         minHeight: "calc(100vh - 0px)",
@@ -78,12 +78,17 @@ const HomePage = ({ user, allUsers, allDependents }) => {
                 width={300}
                 fit="contain"
                 alt="No dependent"
+                sx={{ opacity: 0.8 }}
+                ml={20}
               />
             </Grid.Col>
 
             <Grid.Col>
-              <Text fz="xl" fw={500} ml={40}>
+              <Text fz="xl" fw={500} ml={60} mt={-50}>
                 You have no dependent...
+              </Text>
+              <Text fz="md" fw={400} c="#6d757c" mt={10}>
+                When you create a dependent, he/she will show up here.
               </Text>
             </Grid.Col>
           </Grid>
@@ -98,7 +103,8 @@ const HomePage = ({ user, allUsers, allDependents }) => {
           allDeps == null ||
           allDeps.length == 1 ||
           allUsers[user.uid] == undefined ||
-          allUsers[user.uid].currentlyInCare == null
+          allUsers[user.uid].currentlyInCare == null ||
+          allUsers[user.uid].clients == null
         ) ? (
           <Grid>
             {allUsers[user.uid].currentlyInCare.map((clientID) => {
@@ -139,12 +145,16 @@ const HomePage = ({ user, allUsers, allDependents }) => {
                 width={300}
                 fit="contain"
                 alt="No one in care"
+                sx={{ opacity: 0.8 }}
               />
             </Grid.Col>
 
             <Grid.Col>
-              <Text fz="xl" fw={500} ml={40}>
+              <Text fz="xl" fw={500} ml={60} mt={-30}>
                 You have no one in your care...
+              </Text>
+              <Text fz="md" fw={400} c="#6d757c" mt={10} mb={20}>
+                When you pick up a client, he/she will show up here.
               </Text>
             </Grid.Col>
           </Grid>

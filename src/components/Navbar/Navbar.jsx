@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Anchor,
+  Avatar,
   Box,
   Burger,
   Button,
@@ -10,26 +11,33 @@ import {
   Group,
   Header,
   Image,
+  Menu,
   ScrollArea,
+  Text,
+  UnstyledButton,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { signOut } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 import kidSyncLogo from "../../images/KidSync.png";
+import { ChevronDown, Logout, Settings } from "tabler-icons-react";
 
 const useStyles = createStyles((theme) => ({
   logoText: {
     fontFamily: "'Comfortaa'",
     fontSize: "25px",
   },
+  dropdownItem: {
+    fontWeight: "600",
+  },
   hiddenMobile: {
-    [theme.fn.smallerThan("sm")]: {
+    [`@media (max-width: 800px)`]: {
       display: "none",
     },
   },
 
   hiddenDesktop: {
-    [theme.fn.largerThan("sm")]: {
+    [`@media (min-width: 800px)`]: {
       display: "none",
     },
   },
@@ -69,26 +77,17 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const SignOutButton = () => {
-  const { classes, theme, cx } = useStyles();
-  const navigate = useNavigate();
-
-  async function signOutUser() {
-    await signOut();
-    navigate("/");
-  }
-
-  return (
-    <Button onClick={signOutUser} className={classes.signOutButton}>
-      Sign out
-    </Button>
-  );
-};
-
-const mainLinks = [
+const mainLinksDesktop = [
   { label: "Home", link: "/home" },
   { label: "My Dependents", link: "/dependents" },
   { label: "My Clients", link: "/clients" },
+];
+
+const mainLinksMobile = [
+  { label: "Home", link: "/home" },
+  { label: "My Dependents", link: "/dependents" },
+  { label: "My Clients", link: "/clients" },
+  { label: "Profile Settings", link: "/profile-settings" },
 ];
 
 function GetUrlRelativePath() {
@@ -104,7 +103,7 @@ function GetUrlRelativePath() {
   return relUrl;
 }
 
-export function Navbar() {
+export const Navbar = ({ user }) => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes, theme, cx } = useStyles();
@@ -115,7 +114,21 @@ export function Navbar() {
     setActive(GetUrlRelativePath());
   });
 
-  const mainItems = mainLinks.map((item) => (
+  async function signOutUser() {
+    await signOut();
+    navigate("/");
+  }
+
+  const SignOutButton = () => {
+    const { classes, theme, cx } = useStyles();
+
+    return (
+      <Button onClick={signOutUser} className={classes.signOutButton}>
+        Sign out
+      </Button>
+    );
+  };
+  const mainItemsDesktop = mainLinksDesktop.map((item) => (
     <Anchor
       href={item.link}
       key={item.label}
@@ -132,6 +145,24 @@ export function Navbar() {
     </Anchor>
   ));
 
+  const mainItemsMobile = mainLinksMobile.map((item) => (
+    <Anchor
+      href={item.link}
+      key={item.label}
+      className={cx(classes.mainLink, {
+        [classes.mainLinkActive]: item.link === active,
+      })}
+      onClick={(event) => {
+        event.preventDefault();
+        setActive(item.link);
+        navigate(item.link);
+      }}
+      pl={20}
+    >
+      {item.label}
+    </Anchor>
+  ));
+
   return (
     <Box>
       <Header height={60} px="md">
@@ -139,13 +170,53 @@ export function Navbar() {
           <Image src={kidSyncLogo} height={45} width={200} fit="contain" />
           <Group
             sx={{ height: "100%" }}
-            spacing={0}
+            spacing={30}
             className={classes.hiddenMobile}
           >
-            {mainItems}
+            {mainItemsDesktop}
           </Group>
           <Group className={classes.hiddenMobile}>
-            <SignOutButton />
+            <Menu
+              withArrow
+              width={250}
+              classNames={{
+                item: classes.dropdownItem,
+              }}
+            >
+              <Menu.Target>
+                <UnstyledButton>
+                  <Group>
+                    <Avatar src={user && user.photoURL} radius="xl" />
+                    <div style={{ flex: 1 }}>
+                      <Text size="sm" weight={500}>
+                        {user && user.displayName}
+                      </Text>
+                      <Text color="dimmed" size="xs">
+                        {user && user.email}
+                      </Text>
+                    </div>
+                    <ChevronDown size={16} />
+                  </Group>
+                </UnstyledButton>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Item
+                  icon={<Settings size={14} />}
+                  onClick={() => {
+                    navigate("/profile-settings");
+                  }}
+                >
+                  Profile Settings
+                </Menu.Item>
+                <Menu.Item
+                  color="red"
+                  icon={<Logout size={14} />}
+                  onClick={signOutUser}
+                >
+                  Sign Out
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
           </Group>
           <Burger
             opened={drawerOpened}
@@ -154,33 +225,94 @@ export function Navbar() {
           />
         </Group>
       </Header>
-
-      <Drawer
+      <Drawer.Root
         opened={drawerOpened}
         onClose={closeDrawer}
+        className={classes.hiddenDesktop}
         size="100%"
         padding="md"
-        title="Navigation"
-        className={classes.hiddenDesktop}
         zIndex={1000000}
       >
-        <ScrollArea sx={{ height: "calc(100vh - 60px)" }} mx="-md">
-          <Divider
-            my="sm"
-            color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
-          />
-          {mainItems}
+        <Drawer.Overlay />
+        <Drawer.Content>
+          <Drawer.Header>
+            <Drawer.Title>
+              <UnstyledButton>
+                <Group>
+                  <Avatar src={user && user.photoURL} radius="xl" />
+                  <div style={{ flex: 1 }}>
+                    <Text size="sm" weight={500}>
+                      {user && user.displayName}
+                    </Text>
+                    <Text color="dimmed" size="xs">
+                      {user && user.email}
+                    </Text>
+                  </div>
+                </Group>
+              </UnstyledButton>
+            </Drawer.Title>
 
-          <Divider
-            my="sm"
-            color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
-          />
+            <Drawer.CloseButton />
+          </Drawer.Header>
+          <Drawer.Body>
+            <ScrollArea sx={{ height: "calc(100vh - 60px)" }} mx="-md">
+              <Divider
+                my="sm"
+                color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
+              />
+              {mainItemsMobile}
 
-          <Group position="center" grow pb="xl" px="md">
-            <SignOutButton />
-          </Group>
-        </ScrollArea>
-      </Drawer>
+              <Divider
+                my="sm"
+                color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
+              />
+
+              <Group position="center" grow pb="xl" px="md">
+                <SignOutButton />
+              </Group>
+            </ScrollArea>
+          </Drawer.Body>
+        </Drawer.Content>
+      </Drawer.Root>
+      {/*<Drawer*/}
+      {/*  opened={drawerOpened}*/}
+      {/*  onClose={closeDrawer}*/}
+      {/*  size="100%"*/}
+      {/*  padding="md"*/}
+      {/*  title="Kidsync"*/}
+      {/*  className={classes.hiddenDesktop}*/}
+      {/*  zIndex={1000000}*/}
+      {/*>*/}
+      {/*  <UnstyledButton>*/}
+      {/*    <Group>*/}
+      {/*      <Avatar src={user && user.photoURL} radius="xl" />*/}
+      {/*      <div style={{ flex: 1 }}>*/}
+      {/*        <Text size="sm" weight={500}>*/}
+      {/*          {user && user.displayName}*/}
+      {/*        </Text>*/}
+      {/*        <Text color="dimmed" size="xs">*/}
+      {/*          {user && user.email}*/}
+      {/*        </Text>*/}
+      {/*      </div>*/}
+      {/*    </Group>*/}
+      {/*  </UnstyledButton>*/}
+      {/*  <ScrollArea sx={{ height: "calc(100vh - 60px)" }} mx="-md">*/}
+      {/*    <Divider*/}
+      {/*      my="sm"*/}
+      {/*      color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}*/}
+      {/*    />*/}
+      {/*    {mainItemsMobile}*/}
+
+      {/*    <Divider*/}
+      {/*      my="sm"*/}
+      {/*      color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}*/}
+      {/*    />*/}
+
+      {/*    <Group position="center" grow pb="xl" px="md">*/}
+      {/*      <SignOutButton />*/}
+      {/*    </Group>*/}
+      {/*  </ScrollArea>*/}
+      {/*</Drawer>*/}
     </Box>
   );
-}
+};
