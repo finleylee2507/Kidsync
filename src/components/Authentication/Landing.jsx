@@ -1,6 +1,7 @@
 import { React, useEffect } from "react";
 import {
   addNewUser,
+  clearDatabase,
   signInWithGoogle,
   useAuthState,
 } from "../../utilities/firebase";
@@ -28,13 +29,13 @@ const SignInButton = () => {
   );
 };
 
-const Landing = (allUsers) => {
+const Landing = ({ allUsers }) => {
   const user = useAuthState();
   const navigate = useNavigate();
-
   const checkAndAddUser = async () => {
-    if (user && allUsers && allUsers["allUsers"]) {
-      if (!allUsers["allUsers"][user.uid]) {
+    if (user && allUsers) {
+      if (!allUsers[user.uid]) {
+        //if we don't have a record for the current user in the db, add the user
         const newUser = {
           displayName: user.displayName,
           email: user.email,
@@ -45,9 +46,12 @@ const Landing = (allUsers) => {
         try {
           const dbString = await fromEmailToDbString(user.email);
           addNewUser(newUser, dbString, user.uid);
+          navigate("/create-profile");
         } catch (error) {
           console.log("Error while creating dbString: ", error);
         }
+      } else if (!allUsers[user.uid].isProfileCompleted) {
+        //if the user hasn't completed his/her profile, redo create profile step
         navigate("/create-profile");
       }
     }

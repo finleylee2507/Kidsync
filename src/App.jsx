@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useState } from "react";
 
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useAuthState, useDbData } from "./utilities/firebase";
@@ -20,7 +20,7 @@ const App = () => {
   const [dbUsers, dbUsersError] = useDbData("/users");
   const [dbDependents, dbDependentsError] = useDbData("/dependents");
   const [dbEmailToID, dbEmailToIDError] = useDbData("/emailToID");
-
+  console.log("user: ", user);
   if (dbUsersError) {
     console.log(
       "Here was the error in getting the users from the database: ",
@@ -44,7 +44,10 @@ const App = () => {
         <Route
           path="/"
           element={
-            user && dbUsers && dbUsers[user.uid] ? (
+            user &&
+            dbUsers &&
+            dbUsers[user.uid] &&
+            dbUsers[user.uid].isProfileCompleted ? (
               <Navigate to="/home" />
             ) : (
               <Landing allUsers={dbUsers} />
