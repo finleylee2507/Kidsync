@@ -5,15 +5,16 @@ import { useAuthState, useDbData } from "./utilities/firebase";
 
 import Landing from "./components/Authentication/Landing";
 import DependentsList from "./components/Dependents/DependentsList";
-import UserDetails from "./components/CreateProfile/UserDetails";
-import CreateDependentProfileForm from "./components/CreateAndEditDependentProfile/CreateDependentProfileForm";
+import UserDetails from "./components/UserProfile/UserDetails";
+import CreateDependentProfileForm from "./components/DependentProfile/CreateDependentProfileForm";
 import { Navbar } from "./components/Navbar/Navbar";
 import ViewDependent from "./components/Dependents/ViewDependent";
 import ClientsList from "./components/Sitters/ClientsList";
 import HomePage from "./components/Home/HomePage";
-import EditDependentProfileForm from "./components/CreateAndEditDependentProfile/EditDependentProfileForm";
+import EditDependentProfileForm from "./components/DependentProfile/EditDependentProfileForm";
 import { ToastContainer } from "react-toastify";
 import ViewInformation from "./components/Sitters/ViewInformation";
+import ProfileSettings from "./components/UserProfile/ProfileSettings";
 
 const App = () => {
   const user = useAuthState();
@@ -60,6 +61,15 @@ const App = () => {
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
               <UserDetails user={user} />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="/profile-settings"
+          element={
+            <div>
+              <ToastContainer position="top-right" autoClose={1000} />
+              <ProfileSettings />
             </div>
           }
         ></Route>

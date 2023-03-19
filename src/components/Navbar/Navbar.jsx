@@ -200,7 +200,12 @@ export const Navbar = ({ user }) => {
                 </UnstyledButton>
               </Menu.Target>
               <Menu.Dropdown>
-                <Menu.Item icon={<Settings size={14} />}>
+                <Menu.Item
+                  icon={<Settings size={14} />}
+                  onClick={() => {
+                    navigate("/profile-settings");
+                  }}
+                >
                   Profile Settings
                 </Menu.Item>
                 <Menu.Item
