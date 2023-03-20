@@ -1,4 +1,4 @@
-## KidSync
+## Kidsync
 
 <!-- TABLE OF CONTENTS -->
 <details>
