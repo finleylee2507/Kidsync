@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./UserDetails.module.css";
-import { Button, Group, Input, Text, TextInput } from "@mantine/core";
+import {
+  Button,
+  Container,
+  FileInput,
+  Group,
+  Input,
+  Text,
+  TextInput,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { updateUser } from "../../utilities/firebase";
+import { updateUser, uploadFile } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
+import { toast } from "react-toastify";
 
 const UserDetails = ({ user }) => {
   const navigate = useNavigate();
@@ -16,6 +25,7 @@ const UserDetails = ({ user }) => {
       lastName: user ? user.displayName.split(" ")[1] : "",
       email: user ? user.email : "",
       phoneNumber: "",
+      profilePic: null,
     },
 
     validate: {
@@ -32,87 +42,176 @@ const UserDetails = ({ user }) => {
     },
   });
 
+  useEffect(() => {
+    if (user) {
+      form.setFieldValue("firstName", user.displayName.split(" ")[0]);
+      form.setFieldValue("lastName", user.displayName.split(" ")[1]);
+      form.setFieldValue("email", user.email);
+    }
+  }, [user]);
+
   return (
-    <div className={styles.userDetailsFormContainer}>
-      <Text fz="xl" fw="700" mb="2rem" mt="6rem">
-        Enter Account Information:
+    <Container
+      fluid
+      sx={{
+        backgroundColor: "#E7E5F4",
+        height: "100%",
+        minHeight: "calc(100vh - 0px)",
+      }}
+    >
+      <Text fz="30px" fw="700" mb="2rem" pt="6rem" ta="center">
+        Welcome to Kidsync ! 👋 Let's set up your account:
       </Text>
-      <form
-        onSubmit={form.onSubmit(async (values) => {
-          console.log("Values: ", values);
+      <div className={styles.userDetailsFormContainer}>
+        <Text fz="23px" fw="600" mb="2rem" pt="3rem">
+          Enter account details:
+        </Text>
+        <form
+          onSubmit={form.onSubmit(async (values) => {
+            const id = toast.loading(
+              "We're creating your profile... Please wait."
+            );
+            let finalProfilePicLink = "N/A";
+            const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
+            //if the user uploaded a picture, upload it to firebase storage
+            if (
+              form.values.profilePic &&
+              acceptedFileTypes.includes(form.values.profilePic.type)
+            ) {
+              let [isUploadProfilePicSuccessful, profilePicLink] =
+                await uploadFile(
+                  form.values.profilePic,
+                  "user-profile-pictures"
+                );
 
-          const newPhoneNumber = values.phoneNumber.replace(/[+\s()-]/g, "");
+              if (isUploadProfilePicSuccessful) {
+                //check if the upload is successful
+                finalProfilePicLink = profilePicLink;
+              } else {
+                if (user.photoURL) {
+                  //use the user's sign in provider profile pic
+                  finalProfilePicLink = user.photoURL;
+                  toast.error(
+                    "Something went wrong during picture upload.⚠️ We'll use your picture from your sign in provider instead."
+                  );
+                } else {
+                  toast.error(
+                    "Error during profile picture upload.⚠️Proceeding without failing."
+                  );
+                }
+              }
+            } else {
+              //the user didn't upload a profile picture
+              if (user.photoURL) {
+                //use the user's sign in provider profile pic
+                finalProfilePicLink = user.photoURL;
+              }
+            }
 
-          const updatedUser = {
-            displayName: `${values.firstName} ${values.lastName}`,
-            email: values.email,
-            phoneNumber: newPhoneNumber,
-            isProfileCompleted: true,
-          };
+            const newPhoneNumber = values.phoneNumber.replace(/[+\s()-]/g, "");
 
-          try {
-            updateUser(updatedUser, user.uid);
-            navigate("/home");
-          } catch (error) {
-            console.log("Error while creating dbString: ", error);
-          }
-        })}
-      >
-        <TextInput
-          withAsterisk
-          label="First Name"
-          size="lg"
-          {...form.getInputProps("firstName")}
-          value={form.values.firstName}
-          radius="md"
-          required
-        />
-        <TextInput
-          withAsterisk
-          label="Last Name"
-          size="lg"
-          {...form.getInputProps("lastName")}
-          value={form.values.lastName}
-          radius="md"
-          required
-        />
-        <TextInput
-          withAsterisk
-          label="Email"
-          placeholder="your@email.com"
-          size="lg"
-          {...form.getInputProps("email")}
-          value={form.values.email}
-          radius="md"
-          required
-        />
+            const updatedUser = {
+              displayName: `${values.firstName} ${values.lastName}`,
+              email: values.email,
+              phoneNumber: newPhoneNumber,
+              isProfileCompleted: true,
+              profilePic: finalProfilePicLink,
+            };
 
-        <Input.Wrapper
-          label="Phone Number"
-          size="lg"
-          error={form.errors.phoneNumber}
-          withAsterisk
+            let uploadProfileResult = true;
+            try {
+              uploadProfileResult = await updateUser(updatedUser, user.uid);
+              navigate("/home");
+            } catch (error) {
+              console.log("Error while creating dbString: ", error);
+            }
+
+            if (uploadProfileResult) {
+              toast.update(id, {
+                render: "Successfully created profile! Welcome to Kidsync! 😊",
+                type: toast.TYPE.SUCCESS,
+                isLoading: false,
+                autoClose: 2000,
+              });
+            } else {
+              toast.update(id, {
+                render:
+                  "Hmm... Something went wrong. 😢 Please try again or contact the dev team!",
+                type: toast.TYPE.ERROR,
+                isLoading: false,
+                autoClose: 2000,
+              });
+            }
+          })}
         >
-          <Input
-            component={InputMask}
-            mask="+1 (999) 999-9999"
+          <TextInput
+            withAsterisk
+            label="First Name"
             size="lg"
-            {...form.getInputProps("phoneNumber")}
+            {...form.getInputProps("firstName")}
+            value={form.values.firstName}
+            radius="md"
+            required
+          />
+          <TextInput
+            withAsterisk
+            label="Last Name"
+            size="lg"
+            {...form.getInputProps("lastName")}
+            value={form.values.lastName}
+            radius="md"
+            required
+          />
+          <TextInput
+            withAsterisk
+            label="Email"
+            placeholder="your@email.com"
+            size="lg"
+            {...form.getInputProps("email")}
+            value={form.values.email}
+            radius="md"
+            required
+          />
+
+          <Input.Wrapper
+            label="Phone Number"
+            size="lg"
+            error={form.errors.phoneNumber}
+            withAsterisk
+          >
+            <Input
+              component={InputMask}
+              mask="+1 (999) 999-9999"
+              size="lg"
+              {...form.getInputProps("phoneNumber")}
+              radius="md"
+            />
+          </Input.Wrapper>
+
+          <FileInput
+            label="Profile Picture"
+            {...form.getInputProps("profilePic")}
+            accept="image/png,image/jpeg"
+            size="lg"
             radius="md"
           />
-        </Input.Wrapper>
+          <Text fz="sm" c="#6147FF">
+            Note: If no profile picture is uploaded, your profile picture with
+            your authentication provider (Google, Microsoft, etc.) will be used.
+          </Text>
 
-        <Group position="right" mt="md">
-          <Button
-            type="submit"
-            name="nextButton"
-            classNames={{ root: styles.confirmButton }}
-          >
-            Confirm Account
-          </Button>
-        </Group>
-      </form>
-    </div>
+          <Group position="right" mt="md">
+            <Button
+              type="submit"
+              name="nextButton"
+              classNames={{ root: styles.confirmButton }}
+            >
+              Create Account
+            </Button>
+          </Group>
+        </form>
+      </div>
+    </Container>
   );
 };
 

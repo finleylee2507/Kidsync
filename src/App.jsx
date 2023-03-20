@@ -78,7 +78,7 @@ const App = () => {
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar user={user} />
+              <Navbar user={user} allUsers={dbUsers} />
               <HomePage
                 user={user}
                 allUsers={dbUsers}
@@ -92,7 +92,7 @@ const App = () => {
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar user={user} />
+              <Navbar user={user} allUsers={dbUsers} />
               <DependentsList
                 user={user}
                 allUsers={dbUsers}
@@ -107,7 +107,7 @@ const App = () => {
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar user={user} />
+              <Navbar user={user} allUsers={dbUsers} />
               <ViewDependent />
             </div>
           }
@@ -117,7 +117,7 @@ const App = () => {
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar user={user} />
+              <Navbar user={user} allUsers={dbUsers} />
               <ViewInformation />
             </div>
           }
@@ -127,7 +127,7 @@ const App = () => {
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar user={user} />
+              <Navbar user={user} allUsers={dbUsers} />
               <ClientsList
                 user={user}
                 allUsers={dbUsers}
@@ -141,7 +141,7 @@ const App = () => {
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar user={user} />
+              <Navbar user={user} allUsers={dbUsers} />
               <CreateDependentProfileForm user={user} allUsers={dbUsers} />
             </div>
           }
@@ -152,7 +152,7 @@ const App = () => {
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar user={user} />
+              <Navbar user={user} allUsers={dbUsers} />
               <EditDependentProfileForm user={user} allUsers={dbUsers} />
             </div>
           }

@@ -113,8 +113,6 @@ const ReviewPage = ({
       );
 
       if (isUploadProfilePicSuccessful) {
-        console.log("profile pic upload successful");
-        console.log(profilePicURL);
         profilePicURL = profilePicLink;
       } else {
         toast.error(
@@ -278,7 +276,8 @@ const ReviewPage = ({
         navigate("/dependents");
       } else {
         toast.update(id, {
-          render: "Hmm... Something went wrong. 🤯 Please try again!",
+          render:
+            "Hmm... Something went wrong. 😢 Please try again or contact the dev team!",
           type: toast.TYPE.ERROR,
           isLoading: false,
           autoClose: 1000,

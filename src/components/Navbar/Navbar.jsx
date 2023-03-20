@@ -103,7 +103,7 @@ function GetUrlRelativePath() {
   return relUrl;
 }
 
-export const Navbar = ({ user }) => {
+export const Navbar = ({ user, allUsers }) => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes, theme, cx } = useStyles();
@@ -186,13 +186,21 @@ export const Navbar = ({ user }) => {
               <Menu.Target>
                 <UnstyledButton>
                   <Group>
-                    <Avatar src={user && user.photoURL} radius="xl" />
+                    <Avatar
+                      src={
+                        user &&
+                        allUsers &&
+                        allUsers[user.uid].profilePic !== "N/A" &&
+                        allUsers[user.uid].profilePic
+                      }
+                      radius="xl"
+                    />
                     <div style={{ flex: 1 }}>
                       <Text size="sm" weight={500}>
-                        {user && user.displayName}
+                        {user && allUsers && allUsers[user.uid].displayName}
                       </Text>
                       <Text color="dimmed" size="xs">
-                        {user && user.email}
+                        {user && allUsers && allUsers[user.uid].email}
                       </Text>
                     </div>
                     <ChevronDown size={16} />

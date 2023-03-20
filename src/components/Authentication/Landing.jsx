@@ -1,6 +1,7 @@
 import { React, useEffect } from "react";
 import {
   addNewUser,
+  clearDatabase,
   signInWithGoogle,
   useAuthState,
 } from "../../utilities/firebase";
@@ -38,7 +39,7 @@ const Landing = ({ allUsers }) => {
         const newUser = {
           displayName: user.displayName,
           email: user.email,
-          photoURL: user.photoURL,
+          providerPhotoURL: user.photoURL,
           phoneNumber: "",
           id: user.uid,
         };
