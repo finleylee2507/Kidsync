@@ -123,7 +123,7 @@ const UserDetails = ({ user }) => {
               uploadProfileResult = await updateUser(updatedUser, user.uid);
               navigate("/home");
             } catch (error) {
-              console.log("Error while creating dbString: ", error);
+              console.log("Error while creating user profile: ", error);
             }
 
             if (uploadProfileResult) {

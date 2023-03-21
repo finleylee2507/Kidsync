@@ -69,7 +69,7 @@ const App = () => {
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <ProfileSettings />
+              <ProfileSettings user={user} allUsers={dbUsers} />
             </div>
           }
         ></Route>

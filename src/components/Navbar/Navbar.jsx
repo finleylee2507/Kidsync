@@ -217,7 +217,7 @@ export const Navbar = ({ user, allUsers }) => {
                   Profile Settings
                 </Menu.Item>
                 <Menu.Item
-                  color="red"
+                  color="#6147FF"
                   icon={<Logout size={14} />}
                   onClick={signOutUser}
                 >
@@ -282,45 +282,6 @@ export const Navbar = ({ user, allUsers }) => {
           </Drawer.Body>
         </Drawer.Content>
       </Drawer.Root>
-      {/*<Drawer*/}
-      {/*  opened={drawerOpened}*/}
-      {/*  onClose={closeDrawer}*/}
-      {/*  size="100%"*/}
-      {/*  padding="md"*/}
-      {/*  title="Kidsync"*/}
-      {/*  className={classes.hiddenDesktop}*/}
-      {/*  zIndex={1000000}*/}
-      {/*>*/}
-      {/*  <UnstyledButton>*/}
-      {/*    <Group>*/}
-      {/*      <Avatar src={user && user.photoURL} radius="xl" />*/}
-      {/*      <div style={{ flex: 1 }}>*/}
-      {/*        <Text size="sm" weight={500}>*/}
-      {/*          {user && user.displayName}*/}
-      {/*        </Text>*/}
-      {/*        <Text color="dimmed" size="xs">*/}
-      {/*          {user && user.email}*/}
-      {/*        </Text>*/}
-      {/*      </div>*/}
-      {/*    </Group>*/}
-      {/*  </UnstyledButton>*/}
-      {/*  <ScrollArea sx={{ height: "calc(100vh - 60px)" }} mx="-md">*/}
-      {/*    <Divider*/}
-      {/*      my="sm"*/}
-      {/*      color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}*/}
-      {/*    />*/}
-      {/*    {mainItemsMobile}*/}
-
-      {/*    <Divider*/}
-      {/*      my="sm"*/}
-      {/*      color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}*/}
-      {/*    />*/}
-
-      {/*    <Group position="center" grow pb="xl" px="md">*/}
-      {/*      <SignOutButton />*/}
-      {/*    </Group>*/}
-      {/*  </ScrollArea>*/}
-      {/*</Drawer>*/}
     </Box>
   );
 };
