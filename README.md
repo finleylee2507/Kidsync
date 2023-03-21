@@ -206,11 +206,10 @@ Vincent Wei - vincentwei2024@u.northwestern.edu
 
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites
-to kick things off!
+A special shoutout to the following resources that have been instrumental in the development of this project:
 
 - [Font Awesome](https://fontawesome.com)
-- [React Icons](https://react-icons.github.io/react-icons/search)
+- [Tabler Icons for React](https://tabler-icons-react.vercel.app/)
 
 <p align="right">(<a href="#kidsync">back to top</a>)</p>
 
