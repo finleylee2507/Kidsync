@@ -207,7 +207,7 @@ Vincent Wei - vincentwei2024@u.northwestern.edu
 ## Acknowledgments
 
 A special shoutout to the following resources/libraries that have been instrumental in the development of this project:
--[Mantine UI](https://mantine.dev/)
+- [Mantine UI](https://mantine.dev/)
 - [Font Awesome](https://fontawesome.com)
 - [Tabler Icons for React](https://tabler-icons-react.vercel.app/)
 
