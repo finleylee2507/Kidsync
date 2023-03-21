@@ -199,7 +199,6 @@ Evan Waite - evanwaite2024@u.northwestern.edu
 
 Vincent Wei - vincentwei2024@u.northwestern.edu
 
-Project Link: [https://github.com/394-w23/YourTurn](https://github.com/394-w23/YourTurn)
 
 <p align="right">(<a href="#kidsync">back to top</a>)</p>
 
