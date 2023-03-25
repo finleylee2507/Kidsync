@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   ActionIcon,
   Avatar,
@@ -10,6 +10,7 @@ import {
   TextInput,
   Button,
   Group,
+  FileInput,
 } from "@mantine/core";
 import { PhotoEdit } from "tabler-icons-react";
 import InputMask from "react-input-mask";
@@ -17,17 +18,19 @@ import styles from "./ProfileSettings.module.css";
 import { useMediaQuery } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 import { toast } from "react-toastify";
-import { updateUser } from "../../utilities/firebase";
+import { updateUser, uploadFile } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 
 const ProfileSettings = ({ user, allUsers }) => {
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
   const form = useForm({
     initialValues: {
       firstName: "",
       lastName: "",
       email: "",
       phoneNumber: "",
+      profilePic: null,
     },
   });
   const isMobile = useMediaQuery("(max-width:850px)");
@@ -70,9 +73,27 @@ const ProfileSettings = ({ user, allUsers }) => {
             const id = toast.loading(
               "We're editing your profile... Please wait."
             );
-
+            let finalProfilePicLink = allUsers[user.uid].profilePic;
             //re-upload profile picture if there is one
+            const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
+            if (
+              form.values.profilePic &&
+              acceptedFileTypes.includes(form.values.profilePic.type)
+            ) {
+              let [isUploadProfilePicSuccessful, profilePicLink] =
+                await uploadFile(
+                  form.values.profilePic,
+                  "user-profile-pictures"
+                );
 
+              if (isUploadProfilePicSuccessful) {
+                finalProfilePicLink = profilePicLink;
+              } else {
+                toast.error(
+                  "Error during profile picture upload.⚠️Proceeding without failing."
+                );
+              }
+            }
             //construct new user object
             const newPhoneNumber = values.phoneNumber.replace(/[+\s()-]/g, "");
             const updatedUser = {
@@ -80,7 +101,7 @@ const ProfileSettings = ({ user, allUsers }) => {
               email: values.email,
               phoneNumber: newPhoneNumber,
               isProfileCompleted: true,
-              profilePic: allUsers[user.uid].profilePic,
+              profilePic: finalProfilePicLink,
             };
 
             let uploadProfileResult = true;
@@ -119,7 +140,13 @@ const ProfileSettings = ({ user, allUsers }) => {
             }}
           >
             <Avatar
-              src={user && allUsers && allUsers[user.uid].profilePic}
+              src={
+                user &&
+                allUsers &&
+                (!form.values.profilePic
+                  ? allUsers[user.uid].profilePic
+                  : URL.createObjectURL(form.values.profilePic))
+              }
               size={150}
               radius={100}
             />
@@ -132,6 +159,10 @@ const ProfileSettings = ({ user, allUsers }) => {
               variant="filled"
               color="violet"
               radius={30}
+              title="edit profile picture"
+              onClick={() => {
+                fileInputRef.current.click();
+              }}
             >
               <PhotoEdit color={"white"} />
             </ActionIcon>
@@ -177,6 +208,13 @@ const ProfileSettings = ({ user, allUsers }) => {
                 {...form.getInputProps("phoneNumber")}
               />
             </Input.Wrapper>
+
+            {/*    hidden file input*/}
+            <FileInput
+              {...form.getInputProps("profilePic")}
+              sx={{ display: "none" }}
+              ref={fileInputRef}
+            />
           </Box>
 
           <Group position="left" mt="md" pb="md">
@@ -195,6 +233,7 @@ const ProfileSettings = ({ user, allUsers }) => {
               classNames={{
                 root: styles.cancelButton,
               }}
+              onClick={() => navigate("/")}
             >
               Cancel
             </Button>
