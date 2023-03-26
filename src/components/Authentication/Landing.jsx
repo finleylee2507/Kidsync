@@ -1,7 +1,7 @@
 import { React, useEffect } from "react";
 import {
   addNewUser,
-  clearDatabase,
+  deAuthenticateUser,
   signInWithGoogle,
   useAuthState,
 } from "../../utilities/firebase";
@@ -11,6 +11,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Title } from "@mantine/core";
 import landingImage from "../../images/Group6195.png";
 import { fromEmailToDbString } from "../../utilities/helperMethods";
+import { toast } from "react-toastify";
 
 const SignInButton = () => {
   return (
@@ -43,23 +44,36 @@ const Landing = ({ allUsers }) => {
           phoneNumber: "",
           id: user.uid,
         };
+        let addNewUserResult = false;
         try {
           const dbString = await fromEmailToDbString(user.email);
-          addNewUser(newUser, dbString, user.uid);
-          navigate("/create-profile");
+          addNewUserResult = await addNewUser(newUser, dbString, user.uid);
+
+          if (addNewUserResult) {
+            navigate("/create-profile");
+          } else {
+            //user doesn't have permission to edit the user table
+            await deAuthenticateUser();
+            toast.error(
+              "Sorry, you don't have permission to access this app:(. 🙁 Try contacting the dev team to request access."
+            );
+          }
         } catch (error) {
           console.log("Error while creating dbString: ", error);
         }
-      } else if (!allUsers[user.uid].isProfileCompleted) {
-        //if the user hasn't completed his/her profile, redo create profile step
-        navigate("/create-profile");
+      } else {
+        if (!allUsers[user.uid].isProfileCompleted) {
+          //if we have a record for the user but the user has not completed his/her profile
+          //redo create profile step
+          navigate("/create-profile");
+        }
       }
     }
   };
 
   useEffect(() => {
     checkAndAddUser();
-  });
+  }, [user]);
 
   return (
     <div className={styles.bigContainer}>

@@ -17,6 +17,7 @@ import {
 } from "firebase/database";
 
 import {
+  deleteUser,
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
@@ -71,10 +72,24 @@ export const useDbData = (path) => {
 };
 
 // Add new user to the user table in the database
-export const addNewUser = (newUser, uemail, uid) => {
-  set(ref(database, "users/" + uid), newUser);
+export const addNewUser = async (newUser, uemail, uid) => {
+  let isAddUserSuccessful = false;
+  let isAddEmailIDSuccessful = false;
+  try {
+    await set(ref(database, "users/" + uid), newUser);
+    isAddUserSuccessful = true;
+  } catch (error) {
+    console.log("Firebase error while writing into users table: ", error);
+  }
 
-  set(ref(database, "emailToID/" + uemail), uid);
+  try {
+    await set(ref(database, "emailToID/" + uemail), uid);
+    isAddEmailIDSuccessful = true;
+  } catch (error) {
+    console.log("Firebase error while writing into emailToID table: ", error);
+  }
+
+  return isAddUserSuccessful && isAddEmailIDSuccessful;
 };
 
 //Update existing user
@@ -209,6 +224,16 @@ export const useAuthState = () => {
   return user;
 };
 
+//De-authenticate a user
+export const deAuthenticateUser = async () => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  try {
+    await deleteUser(user);
+  } catch (error) {
+    console.log("Error while de-authenticating user: ", error);
+  }
+};
 // Clear entire database of all unessential fields
 export const clearDatabase = () => {
   console.log("Clearing database");

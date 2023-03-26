@@ -22,6 +22,7 @@ const App = () => {
   const [dbDependents, dbDependentsError] = useDbData("/dependents");
   const [dbEmailToID, dbEmailToIDError] = useDbData("/emailToID");
   console.log("user: ", user);
+  console.log("db users: ", dbUsers);
   if (dbUsersError) {
     console.log(
       "Here was the error in getting the users from the database: ",
@@ -51,7 +52,10 @@ const App = () => {
             dbUsers[user.uid].isProfileCompleted ? (
               <Navigate to="/home" />
             ) : (
-              <Landing allUsers={dbUsers} />
+              <>
+                <ToastContainer position="top-right" autoClose={1000} />
+                <Landing allUsers={dbUsers} />
+              </>
             )
           }
         ></Route>
@@ -69,7 +73,7 @@ const App = () => {
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <ProfileSettings />
+              <ProfileSettings user={user} allUsers={dbUsers} />
             </div>
           }
         ></Route>
