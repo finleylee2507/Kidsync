@@ -171,6 +171,7 @@ const UserDetails = ({ user }) => {
             value={form.values.email}
             radius="md"
             required
+            disabled
           />
 
           <Input.Wrapper

@@ -195,6 +195,7 @@ const ProfileSettings = ({ user, allUsers }) => {
               radius="md"
               {...form.getInputProps("email")}
               value={form.values.email}
+              disabled
               required
             />
 
