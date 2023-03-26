@@ -212,6 +212,7 @@ const ProfileSettings = ({ user, allUsers }) => {
             <FileInput
               {...form.getInputProps("profilePic")}
               sx={{ display: "none" }}
+              accept="image/png,image/jpeg"
               ref={fileInputRef}
             />
           </Box>
