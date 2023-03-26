@@ -49,9 +49,9 @@ const useStyles = createStyles((theme) => ({
   },
 
   signOutButton: {
-    backgroundColor: "#6147FF",
+    backgroundColor: "#f35151",
     "&:hover": {
-      backgroundColor: "#6147FF",
+      backgroundColor: "#f35151",
       opacity: 0.9,
     },
   },
@@ -217,7 +217,7 @@ export const Navbar = ({ user, allUsers }) => {
                   Profile Settings
                 </Menu.Item>
                 <Menu.Item
-                  color="#6147FF"
+                  color="#f35151"
                   icon={<Logout size={14} />}
                   onClick={signOutUser}
                 >

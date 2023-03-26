@@ -1,7 +1,6 @@
 import { React, useEffect } from "react";
 import {
   addNewUser,
-  clearDatabase,
   deAuthenticateUser,
   signInWithGoogle,
   useAuthState,

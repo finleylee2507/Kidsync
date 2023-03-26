@@ -17,12 +17,12 @@ import {
 } from "firebase/database";
 
 import {
+  deleteUser,
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
   signOut,
-  deleteUser,
 } from "firebase/auth";
 
 import {

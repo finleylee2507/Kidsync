@@ -3,14 +3,13 @@ import {
   ActionIcon,
   Avatar,
   Box,
+  Button,
   Container,
-  Grid,
+  FileInput,
+  Group,
   Input,
   Text,
   TextInput,
-  Button,
-  Group,
-  FileInput,
 } from "@mantine/core";
 import { PhotoEdit } from "tabler-icons-react";
 import InputMask from "react-input-mask";

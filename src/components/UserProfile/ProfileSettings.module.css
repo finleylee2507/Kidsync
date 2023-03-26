@@ -1,13 +1,13 @@
-.cancelButton{
-    color:#6147FF;
+.cancelButton {
+    color: #6147FF;
     border-color: #6147FF;
 }
 
-.saveButton{
+.saveButton {
     background-color: #6147FF;
 }
 
-.saveButton:hover{
-    background-color: #6147FF!important;
+.saveButton:hover {
+    background-color: #6147FF !important;
     opacity: 0.9 !important;
 }
