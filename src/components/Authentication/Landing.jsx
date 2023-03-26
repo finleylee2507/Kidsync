@@ -8,31 +8,35 @@ import {
 import { useNavigate } from "react-router-dom";
 import styles from "./Landing.module.css";
 import { FcGoogle } from "react-icons/fc";
-import { Title } from "@mantine/core";
+import {
+  Container,
+  PasswordInput,
+  TextInput,
+  Title,
+  Button,
+  Anchor,
+  Text,
+  Divider,
+  Avatar,
+  Flex,
+} from "@mantine/core";
 import landingImage from "../../images/Group6195.png";
 import { fromEmailToDbString } from "../../utilities/helperMethods";
 import { toast } from "react-toastify";
-
-const SignInButton = () => {
-  return (
-    <div className={styles.signInBtnContainer}>
-      <button
-        id={styles.signInButton}
-        className="btn btn-light"
-        size="lg"
-        aria-label="Sign in with google"
-        onClick={signInWithGoogle}
-      >
-        <FcGoogle className={styles.googleIcon} />
-        Sign in with Google
-      </button>
-    </div>
-  );
-};
+import { useForm } from "@mantine/form";
 
 const Landing = ({ allUsers }) => {
   const user = useAuthState();
   const navigate = useNavigate();
+
+  //sign in form
+  const form = useForm({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+  });
+
   const checkAndAddUser = async () => {
     if (user && allUsers) {
       if (!allUsers[user.uid]) {
@@ -99,8 +103,73 @@ const Landing = ({ allUsers }) => {
         </div>
       </div>
       <div className={styles.signInColumn}>
-        <Title className={styles.title}>Sign In</Title>
-        <SignInButton />
+        <form>
+          <Container size="600px">
+            <Title className={styles.title}>Sign In</Title>
+            <Divider
+              color="gray"
+              mt={30}
+              label="Sign in using a Kidsync account"
+              labelPosition="center"
+              classNames={{
+                label: styles.dividerLabel,
+              }}
+            ></Divider>
+            <TextInput
+              withAsterisk
+              label="Email"
+              {...form.getInputProps("email")}
+              size="lg"
+              required
+              radius="md"
+              mt={30}
+            />
+            <PasswordInput
+              withAsterisk
+              label="Password"
+              {...form.getInputProps("password")}
+              size="lg"
+              required
+              radius="md"
+              mt={10}
+            />
+            <Button
+              mt={30}
+              fullWidth
+              classNames={{ root: styles.signInButton }}
+            >
+              Sign In
+            </Button>
+
+            <Text mt={10}>
+              <Anchor underline={false} color="dimmed">
+                Forgot password?
+              </Anchor>
+            </Text>
+
+            <Divider
+              color="gray"
+              mt={30}
+              label="Or sign in using"
+              labelPosition="center"
+              classNames={{
+                label: styles.dividerLabel,
+              }}
+            ></Divider>
+            <Flex justify="center">
+              <Avatar
+                radius={30}
+                size="lg"
+                mt={10}
+                onClick={signInWithGoogle}
+                classNames={{ root: styles.providerIcon }}
+              >
+                <FcGoogle />
+              </Avatar>
+            </Flex>
+          </Container>
+        </form>
+
         {/*<button*/}
         {/*  onClick={clearDatabase}*/}
         {/*  style={{*/}

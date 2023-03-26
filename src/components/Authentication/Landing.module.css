@@ -6,6 +6,25 @@
     margin-top: 2rem;
 }
 
+.signInButton {
+    background-color: #6147FF;
+    height: 50px;
+
+}
+
+.dividerLabel {
+    font-size: 15px;
+}
+
+.providerIcon {
+    cursor: pointer;
+}
+
+.signInButton:hover {
+    background-color: #6147FF !important;
+    opacity: 0.9;
+}
+
 .bigContainer {
     width: 100vw;
     height: 100vh;
@@ -44,25 +63,26 @@
 
 }
 
-#signInButton {
-    color: white;
-    border: none;
-    background-color: black;
-    border-radius: 30px;
-    font-size: 1.2rem;
-    font-family: "Montserrat", sans-serif;
-    font-weight: bold;
-    padding: 1rem 2rem;
-    width: 90%;
-}
+/*deprecated*/
+/*#signInButton {*/
+/*    color: white;*/
+/*    border: none;*/
+/*    background-color: black;*/
+/*    border-radius: 30px;*/
+/*    font-size: 1.2rem;*/
+/*    font-family: "Montserrat", sans-serif;*/
+/*    font-weight: bold;*/
+/*    padding: 1rem 2rem;*/
+/*    width: 90%;*/
+/*}*/
 
-#signInButton:hover {
-    cursor: pointer;
-    color: black;
-    border: 2px solid black;
-    background-color: white;
-    transition: 0.3s;
-}
+/*#signInButton:hover {*/
+/*    cursor: pointer;*/
+/*    color: black;*/
+/*    border: 2px solid black;*/
+/*    background-color: white;*/
+/*    transition: 0.3s;*/
+/*}*/
 
 .googleIcon {
     margin-right: 0.5rem;
