@@ -88,7 +88,6 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
     setBasicFormData({
       ...dependent.basic,
       birthday: new Date(dependent.basic.birthday),
-      phoneNumber: null,
       profilePic: null,
     });
     setEmergencyFormData(dependent.emergency);

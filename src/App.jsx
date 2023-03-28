@@ -15,6 +15,7 @@ import EditDependentProfileForm from "./components/DependentProfile/EditDependen
 import { ToastContainer } from "react-toastify";
 import ViewInformation from "./components/Sitters/ViewInformation";
 import ProfileSettings from "./components/UserProfile/ProfileSettings";
+import SignUpWithEmail from "./components/Authentication/SignUpWithEmail";
 
 const App = () => {
   const user = useAuthState();
@@ -46,17 +47,20 @@ const App = () => {
         <Route
           path="/"
           element={
-            user &&
-            dbUsers &&
-            dbUsers[user.uid] &&
-            dbUsers[user.uid].isProfileCompleted ? (
-              <Navigate to="/home" />
-            ) : (
-              <>
-                <ToastContainer position="top-right" autoClose={1000} />
-                <Landing allUsers={dbUsers} />
-              </>
-            )
+            <>
+              <ToastContainer position="top-right" autoClose={2000} />
+              <Landing allUsers={dbUsers} />
+            </>
+          }
+        ></Route>
+
+        <Route
+          path="/sign-up-with-email"
+          element={
+            <div>
+              <ToastContainer position="top-right" autoClose={1000} />
+              <SignUpWithEmail />
+            </div>
           }
         ></Route>
         <Route
@@ -64,7 +68,7 @@ const App = () => {
           element={
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
-              <UserDetails user={user} />
+              <UserDetails user={user} allUsers={dbUsers} />
             </div>
           }
         ></Route>

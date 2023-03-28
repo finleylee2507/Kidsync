@@ -1,13 +1,18 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import {
   addNewUser,
+  clearDatabase,
   deAuthenticateUser,
+  isAuthenticatedThroughThirdParty,
+  signInWithEmail,
   signInWithGoogle,
+  updateUser,
   useAuthState,
 } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 import styles from "./Landing.module.css";
 import { FcGoogle } from "react-icons/fc";
+import { AlertCircle } from "tabler-icons-react";
 import {
   Container,
   PasswordInput,
@@ -19,6 +24,7 @@ import {
   Divider,
   Avatar,
   Flex,
+  Alert,
 } from "@mantine/core";
 import landingImage from "../../images/Group6195.png";
 import { fromEmailToDbString } from "../../utilities/helperMethods";
@@ -28,56 +34,112 @@ import { useForm } from "@mantine/form";
 const Landing = ({ allUsers }) => {
   const user = useAuthState();
   const navigate = useNavigate();
+  const [isShowAlert, setIsShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [rerenderVar, setRerenderVar] = useState(0);
+  const flipRerenderVar = () => {
+    setRerenderVar((prevValue) => (prevValue === 0 ? 1 : 0));
+  };
 
+  console.log("Current user: ", user);
   //sign in form
   const form = useForm({
     initialValues: {
       email: "",
       password: "",
     },
+    validate: {
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+    },
   });
 
   const checkAndAddUser = async () => {
-    if (user && allUsers) {
-      if (!allUsers[user.uid]) {
-        //if we don't have a record for the current user in the db, add the user
-        const newUser = {
-          displayName: user.displayName,
-          email: user.email,
-          providerPhotoURL: user.photoURL,
-          phoneNumber: "",
-          id: user.uid,
-        };
-        let addNewUserResult = false;
-        try {
-          const dbString = await fromEmailToDbString(user.email);
-          addNewUserResult = await addNewUser(newUser, dbString, user.uid);
+    console.log("FIRST BITCH YO");
+    console.log("Bitch user: ", user);
 
-          if (addNewUserResult) {
-            navigate("/create-profile");
-          } else {
-            //user doesn't have permission to edit the user table
+    if (user && allUsers) {
+      console.log("Let me see: ", allUsers[user.uid]);
+      if (allUsers[user.uid] && allUsers[user.uid].isProfileCompleted) {
+        console.log("Hello");
+        let isThirdParty = isAuthenticatedThroughThirdParty(user);
+        if (!allUsers[user.uid].isThirdParty && isThirdParty) {
+          //if a user signs in again using a third party provider associated with their email, turn isThirdParty to true
+          console.log("We got here bitch");
+
+          const updatedUser = {
+            ...allUsers[user.uid],
+            isThirdParty: true,
+            profilePic:
+              allUsers[user.uid].profilePic !== "N/A"
+                ? allUsers[user.uid].profilePic
+                : user.photoURL,
+          };
+
+          let updateUserResult = false;
+          try {
+            updateUserResult = await updateUser(updatedUser, user.uid);
+          } catch (e) {
+            console.log("Error while updating user: ", e);
+          }
+
+          if (!updateUserResult) {
             await deAuthenticateUser();
             toast.error(
-              "Sorry, you don't have permission to access this app:(. 🙁 Try contacting the dev team to request access."
+              "Sorry, you don't have permission to access this app:(. 🙁  Please contact the dev team to request access."
             );
           }
-        } catch (error) {
-          console.log("Error while creating dbString: ", error);
         }
+        //direct users to the home page if they're authenticated, signed in, added to the db and have completed their profiles
+        navigate("/home");
       } else {
-        if (!allUsers[user.uid].isProfileCompleted) {
-          //if we have a record for the user but the user has not completed his/her profile
-          //redo create profile step
-          navigate("/create-profile");
+        let isThirdParty = isAuthenticatedThroughThirdParty(user);
+        console.log("BITCH YO");
+
+        if (!allUsers[user.uid]) {
+          //if we don't have a record for the current user in the db, add the user
+          console.log("No record, adding");
+          const newUser = {
+            displayName: isThirdParty ? user.displayName : "",
+            email: user.email,
+            providerPhotoURL: isThirdParty ? user.photoURL : "",
+            phoneNumber: "",
+            id: user.uid,
+            isThirdParty: isThirdParty,
+          };
+          let addNewUserResult = false;
+          try {
+            const dbString = await fromEmailToDbString(user.email);
+            addNewUserResult = await addNewUser(newUser, dbString, user.uid);
+
+            if (addNewUserResult) {
+              navigate("/create-profile");
+            } else {
+              //user doesn't have permission to edit the user table (the app is in not open to newcomers)
+              await deAuthenticateUser();
+              toast.error(
+                "Sorry, you don't have permission to access this app:(. 🙁  Please contact the dev team to request access."
+              );
+            }
+          } catch (error) {
+            console.log("Error while creating dbString: ", error);
+          }
+        } else {
+          console.log("WE already have a record");
+          //we hava a record for the user in the db
+          if (!allUsers[user.uid].isProfileCompleted) {
+            //the user has not completed his/her profile
+            //redo create profile step
+            navigate("/create-profile");
+          }
         }
       }
     }
   };
 
   useEffect(() => {
+    console.log("use effect runs");
     checkAndAddUser();
-  }, [user]);
+  }, [user, rerenderVar]);
 
   return (
     <div className={styles.bigContainer}>
@@ -103,7 +165,30 @@ const Landing = ({ allUsers }) => {
         </div>
       </div>
       <div className={styles.signInColumn}>
-        <form>
+        <form
+          onSubmit={form.onSubmit(async (values) => {
+            //call firebase sign in method
+            let [signInResult, error] = await signInWithEmail(
+              values.email,
+              values.password
+            );
+            if (!signInResult) {
+              //if we run into sign-in errors
+              if (error.code === "auth/user-not-found") {
+                setAlertMessage("We do not recognize the email.");
+              }
+              if (error.code === "auth/wrong-password") {
+                setAlertMessage("Wrong password.");
+              }
+
+              setIsShowAlert(true);
+            } else {
+              //sign in successful
+              await checkAndAddUser();
+              flipRerenderVar();
+            }
+          })}
+        >
           <Container size="600px">
             <Title className={styles.title}>Sign In</Title>
             <Divider
@@ -115,6 +200,23 @@ const Landing = ({ allUsers }) => {
                 label: styles.dividerLabel,
               }}
             ></Divider>
+            {isShowAlert && (
+              <Alert
+                title="Error"
+                color="red"
+                variant="filled"
+                radius="md"
+                mt={30}
+                icon={<AlertCircle />}
+                withCloseButton
+                onClose={() => {
+                  setIsShowAlert(false);
+                  setAlertMessage("");
+                }}
+              >
+                {alertMessage}
+              </Alert>
+            )}
             <TextInput
               withAsterisk
               label="Email"
@@ -137,6 +239,7 @@ const Landing = ({ allUsers }) => {
               mt={30}
               fullWidth
               classNames={{ root: styles.signInButton }}
+              type="submit"
             >
               Sign In
             </Button>
@@ -161,23 +264,37 @@ const Landing = ({ allUsers }) => {
                 radius={30}
                 size="lg"
                 mt={10}
-                onClick={signInWithGoogle}
+                onClick={async () => {
+                  await signInWithGoogle();
+
+                  flipRerenderVar();
+                  await checkAndAddUser();
+                  // await checkAndAddUser(true);
+                }}
                 classNames={{ root: styles.providerIcon }}
               >
                 <FcGoogle />
               </Avatar>
             </Flex>
+            <Flex justify="center">
+              <Text color="dimmed" mt={30}>
+                Need an account?{" "}
+                <Anchor underline={false} href="/sign-up-with-email">
+                  Sign up here.
+                </Anchor>
+              </Text>
+            </Flex>
           </Container>
         </form>
 
-        {/*<button*/}
-        {/*  onClick={clearDatabase}*/}
-        {/*  style={{*/}
-        {/*    border: "1px solid black",*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  Clear Database*/}
-        {/*</button>*/}
+        <button
+          onClick={clearDatabase}
+          style={{
+            border: "1px solid black",
+          }}
+        >
+          Clear Database
+        </button>
       </div>
     </div>
   );

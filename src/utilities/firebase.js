@@ -23,6 +23,8 @@ import {
   onAuthStateChanged,
   signInWithPopup,
   signOut,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 
 import {
@@ -206,10 +208,57 @@ export const uploadFile = async (file, directory) => {
 /* USER AUTHENTICATION FUNCTIONS */
 
 // Open Google sign in popup and sign in the user
-export const signInWithGoogle = () => {
-  signInWithPopup(getAuth(firebase), new GoogleAuthProvider());
+export const signInWithGoogle = async () => {
+  await signInWithPopup(getAuth(firebase), new GoogleAuthProvider());
 };
 
+//Create a email, password based account
+export const createUserAccountWithEmail = async (email, password) => {
+  const auth = getAuth();
+  let creationResult = false;
+  let error = null;
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    creationResult = true;
+  } catch (e) {
+    error = e;
+  }
+
+  return [creationResult, error];
+};
+
+//Check if the user (assumed existed) is authenticated through email and password or third party
+export const isAuthenticatedThroughThirdParty = (user) => {
+  let isThirdParty = false;
+
+  const providerData = user.providerData;
+  if (providerData && providerData.length > 0) {
+    for (let i = 0; i < providerData.length; i++) {
+      const providerId = providerData[i].providerId;
+      if (providerId !== "password") {
+        // User is authenticated with third-party provider
+        isThirdParty = true;
+        break;
+      }
+    }
+  }
+  return isThirdParty;
+};
+// Sign in user using email authentication
+export const signInWithEmail = async (email, password) => {
+  const auth = getAuth();
+  let signInResult = false;
+  let error = null;
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    signInResult = true;
+  } catch (e) {
+    error = e;
+  }
+
+  return [signInResult, error];
+};
 // Sign out the user
 const firebaseSignOut = () => signOut(getAuth(firebase));
 export { firebaseSignOut as signOut };

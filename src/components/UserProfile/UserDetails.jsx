@@ -15,15 +15,15 @@ import { useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
 import { toast } from "react-toastify";
 
-const UserDetails = ({ user }) => {
+const UserDetails = ({ user, allUsers }) => {
   const navigate = useNavigate();
 
   const form = useForm({
     initialValues: {
       //pre-populate the form with the user's sign-in profile info
-      firstName: user ? user.displayName.split(" ")[0] : "",
-      lastName: user ? user.displayName.split(" ")[1] : "",
-      email: user ? user.email : "",
+      firstName: "",
+      lastName: "",
+      email: "",
       phoneNumber: "",
       profilePic: null,
     },
@@ -43,9 +43,12 @@ const UserDetails = ({ user }) => {
   });
 
   useEffect(() => {
-    if (user) {
-      form.setFieldValue("firstName", user.displayName.split(" ")[0]);
-      form.setFieldValue("lastName", user.displayName.split(" ")[1]);
+    if (user && allUsers) {
+      if (allUsers[user.uid].isThirdParty) {
+        form.setFieldValue("firstName", user.displayName.split(" ")[0]);
+        form.setFieldValue("lastName", user.displayName.split(" ")[1]);
+      }
+
       form.setFieldValue("email", user.email);
     }
   }, [user]);
@@ -108,12 +111,16 @@ const UserDetails = ({ user }) => {
               }
             }
 
-            const newPhoneNumber = values.phoneNumber.replace(/[+\s()-]/g, "");
+            const formattedPhoneNumber = values.phoneNumber.replace(
+              /[+\s()-]/g,
+              ""
+            );
 
             const updatedUser = {
               displayName: `${values.firstName} ${values.lastName}`,
               email: values.email,
-              phoneNumber: newPhoneNumber,
+              phoneNumber: formattedPhoneNumber,
+              displayedPhoneNumber: values.phoneNumber,
               isProfileCompleted: true,
               profilePic: finalProfilePicLink,
             };
@@ -149,7 +156,6 @@ const UserDetails = ({ user }) => {
             label="First Name"
             size="lg"
             {...form.getInputProps("firstName")}
-            value={form.values.firstName}
             radius="md"
             required
           />
@@ -158,7 +164,6 @@ const UserDetails = ({ user }) => {
             label="Last Name"
             size="lg"
             {...form.getInputProps("lastName")}
-            value={form.values.lastName}
             radius="md"
             required
           />
@@ -168,9 +173,9 @@ const UserDetails = ({ user }) => {
             placeholder="your@email.com"
             size="lg"
             {...form.getInputProps("email")}
-            value={form.values.email}
             radius="md"
             required
+            disabled
           />
 
           <Input.Wrapper
