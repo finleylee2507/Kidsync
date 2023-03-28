@@ -17,14 +17,15 @@ import {
 } from "firebase/database";
 
 import {
+  createUserWithEmailAndPassword,
   deleteUser,
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
 } from "firebase/auth";
 
 import {
@@ -273,6 +274,19 @@ export const useAuthState = () => {
   return user;
 };
 
+//Send the user a password recovery email
+export const sendPasswordRecoveryEmail = async (email) => {
+  const auth = getAuth();
+  let sendResult = false;
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    sendResult = true;
+  } catch (e) {
+    console.log("Error while sending password reset email");
+  }
+  return sendResult;
+};
 //De-authenticate a user
 export const deAuthenticateUser = async () => {
   const auth = getAuth();

@@ -6,7 +6,6 @@ import {
   isAuthenticatedThroughThirdParty,
   signInWithEmail,
   signInWithGoogle,
-  updateUser,
   useAuthState,
 } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
@@ -14,17 +13,17 @@ import styles from "./Landing.module.css";
 import { FcGoogle } from "react-icons/fc";
 import { AlertCircle } from "tabler-icons-react";
 import {
+  Alert,
+  Anchor,
+  Avatar,
+  Button,
   Container,
+  Divider,
+  Flex,
   PasswordInput,
+  Text,
   TextInput,
   Title,
-  Button,
-  Anchor,
-  Text,
-  Divider,
-  Avatar,
-  Flex,
-  Alert,
 } from "@mantine/core";
 import landingImage from "../../images/Group6195.png";
 import { fromEmailToDbString } from "../../utilities/helperMethods";
@@ -54,47 +53,22 @@ const Landing = ({ allUsers }) => {
   });
 
   const checkAndAddUser = async () => {
-    console.log("FIRST BITCH YO");
-    console.log("Bitch user: ", user);
-
+    console.log("Checking and adding");
     if (user && allUsers) {
+      if (!user.email) {
+        toast.error(
+          "Error. There is already a password-based account that signs in using the same email address."
+        );
+        await deAuthenticateUser();
+        return;
+      }
       console.log("Let me see: ", allUsers[user.uid]);
       if (allUsers[user.uid] && allUsers[user.uid].isProfileCompleted) {
-        console.log("Hello");
-        let isThirdParty = isAuthenticatedThroughThirdParty(user);
-        if (!allUsers[user.uid].isThirdParty && isThirdParty) {
-          //if a user signs in again using a third party provider associated with their email, turn isThirdParty to true
-          console.log("We got here bitch");
-
-          const updatedUser = {
-            ...allUsers[user.uid],
-            isThirdParty: true,
-            profilePic:
-              allUsers[user.uid].profilePic !== "N/A"
-                ? allUsers[user.uid].profilePic
-                : user.photoURL,
-          };
-
-          let updateUserResult = false;
-          try {
-            updateUserResult = await updateUser(updatedUser, user.uid);
-          } catch (e) {
-            console.log("Error while updating user: ", e);
-          }
-
-          if (!updateUserResult) {
-            await deAuthenticateUser();
-            toast.error(
-              "Sorry, you don't have permission to access this app:(. 🙁  Please contact the dev team to request access."
-            );
-          }
-        }
         //direct users to the home page if they're authenticated, signed in, added to the db and have completed their profiles
         navigate("/home");
       } else {
+        //the user hasn't finished setting up his account
         let isThirdParty = isAuthenticatedThroughThirdParty(user);
-        console.log("BITCH YO");
-
         if (!allUsers[user.uid]) {
           //if we don't have a record for the current user in the db, add the user
           console.log("No record, adding");
@@ -175,7 +149,9 @@ const Landing = ({ allUsers }) => {
             if (!signInResult) {
               //if we run into sign-in errors
               if (error.code === "auth/user-not-found") {
-                setAlertMessage("We do not recognize the email.");
+                setAlertMessage(
+                  "We do not recognize the email. Please sign up first."
+                );
               }
               if (error.code === "auth/wrong-password") {
                 setAlertMessage("Wrong password.");
@@ -245,7 +221,7 @@ const Landing = ({ allUsers }) => {
             </Button>
 
             <Text mt={10}>
-              <Anchor underline={false} color="dimmed">
+              <Anchor underline={false} color="dimmed" href="/reset-password">
                 Forgot password?
               </Anchor>
             </Text>
@@ -266,10 +242,6 @@ const Landing = ({ allUsers }) => {
                 mt={10}
                 onClick={async () => {
                   await signInWithGoogle();
-
-                  flipRerenderVar();
-                  await checkAndAddUser();
-                  // await checkAndAddUser(true);
                 }}
                 classNames={{ root: styles.providerIcon }}
               >

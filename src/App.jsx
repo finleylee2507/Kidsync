@@ -1,6 +1,6 @@
 import { React } from "react";
 
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useAuthState, useDbData } from "./utilities/firebase";
 
 import Landing from "./components/Authentication/Landing";
@@ -16,6 +16,7 @@ import { ToastContainer } from "react-toastify";
 import ViewInformation from "./components/Sitters/ViewInformation";
 import ProfileSettings from "./components/UserProfile/ProfileSettings";
 import SignUpWithEmail from "./components/Authentication/SignUpWithEmail";
+import ResetPasswordWithEmail from "./components/Authentication/ResetPasswordWithEmail";
 
 const App = () => {
   const user = useAuthState();
@@ -60,6 +61,16 @@ const App = () => {
             <div>
               <ToastContainer position="top-right" autoClose={1000} />
               <SignUpWithEmail />
+            </div>
+          }
+        ></Route>
+
+        <Route
+          path="/reset-password"
+          element={
+            <div>
+              <ToastContainer position="top-right" autoClose={1000} />
+              <ResetPasswordWithEmail />
             </div>
           }
         ></Route>

@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "@mantine/form";
 import {
-  Container,
+  Alert,
+  Anchor,
   Box,
+  Button,
+  Container,
+  Flex,
+  PasswordInput,
   Text,
   TextInput,
-  PasswordInput,
-  Button,
-  Flex,
-  Anchor,
-  Alert,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import styles from "./Landing.module.css";
