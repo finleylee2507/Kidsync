@@ -210,7 +210,9 @@ export const uploadFile = async (file, directory) => {
 
 // Open Google sign in popup and sign in the user
 export const signInWithGoogle = async () => {
-  await signInWithPopup(getAuth(firebase), new GoogleAuthProvider());
+  let googleProvider = new GoogleAuthProvider();
+  googleProvider.addScope("email");
+  await signInWithPopup(getAuth(firebase), googleProvider);
 };
 
 //Create a email, password based account

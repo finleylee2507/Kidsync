@@ -6,6 +6,7 @@ import {
   isAuthenticatedThroughThirdParty,
   signInWithEmail,
   signInWithGoogle,
+  updateUser,
   useAuthState,
 } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
@@ -55,16 +56,41 @@ const Landing = ({ allUsers }) => {
   const checkAndAddUser = async () => {
     console.log("Checking and adding");
     if (user && allUsers) {
-      if (!user.email) {
-        toast.error(
-          "Error. There is already a password-based account that signs in using the same email address."
-        );
-        await deAuthenticateUser();
-        return;
-      }
+      console.log("User: ", user);
+      // if (!user.email) {
+      //   toast.error(
+      //     "Error. There is already a password-based account that signs in using the same email address."
+      //   );
+      //   await deAuthenticateUser();
+      //   return;
+      // }
       console.log("Let me see: ", allUsers[user.uid]);
       if (allUsers[user.uid] && allUsers[user.uid].isProfileCompleted) {
         //direct users to the home page if they're authenticated, signed in, added to the db and have completed their profiles
+
+        //if the user signs in again using a different provider but with the same email address
+        if (
+          isAuthenticatedThroughThirdParty(user) &&
+          !allUsers[user.uid].isThirdParty
+        ) {
+          const updatedUser = {
+            ...allUsers[user.uid],
+            isThirdParty: true,
+            providerPhotoURL: user.photoURL,
+            profilePic:
+              allUsers[user.uid].profilePic === "N/A"
+                ? user.photoURL
+                : allUsers[user.uid].profilePic,
+          };
+
+          let updateResult = await updateUser(updatedUser, user.uid);
+          if (!updateResult) {
+            toast.error(
+              "Error updating user profile with new sign-in provider. Proceeding without failing."
+            );
+          }
+        }
+
         navigate("/home");
       } else {
         //the user hasn't finished setting up his account
