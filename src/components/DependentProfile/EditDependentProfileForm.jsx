@@ -89,6 +89,10 @@ const EditDependentProfileForm = ({ user, allUsers }) => {
       ...dependent.basic,
       birthday: new Date(dependent.basic.birthday),
       profilePic: null,
+      phoneNumber:
+        dependent.basic.phoneNumber === "N/A"
+          ? ""
+          : dependent.basic.phoneNumber,
     });
     setEmergencyFormData(dependent.emergency);
     setEducationFormData({

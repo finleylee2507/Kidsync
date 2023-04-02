@@ -144,6 +144,12 @@ const Landing = ({ allUsers }) => {
   return (
     <div className={styles.bigContainer}>
       <div className={styles.leftContainer}>
+        <div className={styles.scrollIndicatorContainer}>
+          <a href="#signInColumn">
+            <span></span>
+            <p className={styles.scrollIndicatorText}>Sign In</p>
+          </a>
+        </div>
         <div className={styles.heroImageContainer}>
           <img
             className={styles.heroImage}
@@ -164,7 +170,7 @@ const Landing = ({ allUsers }) => {
           </p>
         </div>
       </div>
-      <div className={styles.signInColumn}>
+      <div className={styles.signInColumn} id="signInColumn">
         <form
           onSubmit={form.onSubmit(async (values) => {
             //call firebase sign in method
@@ -268,6 +274,7 @@ const Landing = ({ allUsers }) => {
                 mt={10}
                 onClick={async () => {
                   await signInWithGoogle();
+                  await checkAndAddUser();
                 }}
                 classNames={{ root: styles.providerIcon }}
               >
@@ -285,14 +292,14 @@ const Landing = ({ allUsers }) => {
           </Container>
         </form>
 
-        <button
-          onClick={clearDatabase}
-          style={{
-            border: "1px solid black",
-          }}
-        >
-          Clear Database
-        </button>
+        {/*<button*/}
+        {/*  onClick={clearDatabase}*/}
+        {/*  style={{*/}
+        {/*    border: "1px solid black",*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  Clear Database*/}
+        {/*</button>*/}
       </div>
     </div>
   );

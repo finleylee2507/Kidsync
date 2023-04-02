@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Container, Flex, Image, Text, Button } from "@mantine/core";
 import errorImage from "../../images/error_image.png";
 import styles from "../Authentication/Landing.module.css";
+
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
