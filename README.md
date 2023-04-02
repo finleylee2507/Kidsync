@@ -33,7 +33,7 @@
 
 ## About The Project
 
-![Kidsync Landing Page](https://user-images.githubusercontent.com/61121081/224862444-9d3269a0-5106-4164-831b-6cbbdd89b276.jpeg)
+![Kidsync Landing Page](src/images/landing_page.png)
 
 Kidsync is an information sharing app that bridges the communication gap between co-parents, caretakers, and babysitters
 to ensure that all parties have the most complete information about their children at all times.
@@ -62,7 +62,8 @@ As a parent, Kidsync enables you to:
 
 Check out our app in action at: https://yourturn-bb7ce.web.app!
 
-To explore the app, you can sign in with your own Google account (we plan to add support for more sign-in methods in the
+To explore the app, you can sign up with your own email. You can also sign in directly with your own Google account (we
+plan to add support for more third party sign-in methods in the
 future).
 
 Alternatively, you can watch a quick video demo of the app below.
@@ -207,6 +208,7 @@ Vincent Wei - vincentwei2024@u.northwestern.edu
 ## Acknowledgments
 
 A special shoutout to the following resources/libraries that have been instrumental in the development of this project:
+
 - [Mantine UI](https://mantine.dev/)
 - [Font Awesome](https://fontawesome.com)
 - [Tabler Icons for React](https://tabler-icons-react.vercel.app/)
