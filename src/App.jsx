@@ -1,6 +1,6 @@
 import { React } from "react";
 
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useAuthState, useDbData } from "./utilities/firebase";
 
 import Landing from "./components/Authentication/Landing";
@@ -15,6 +15,9 @@ import EditDependentProfileForm from "./components/DependentProfile/EditDependen
 import { ToastContainer } from "react-toastify";
 import ViewInformation from "./components/Sitters/ViewInformation";
 import ProfileSettings from "./components/UserProfile/ProfileSettings";
+import SignUpWithEmail from "./components/Authentication/SignUpWithEmail";
+import ResetPasswordWithEmail from "./components/Authentication/ResetPasswordWithEmail";
+import ErrorBoundary from "./components/Errors/ErrorBoundary";
 
 const App = () => {
   const user = useAuthState();
@@ -41,128 +44,143 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            user &&
-            dbUsers &&
-            dbUsers[user.uid] &&
-            dbUsers[user.uid].isProfileCompleted ? (
-              <Navigate to="/home" />
-            ) : (
+    <ErrorBoundary>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
               <>
-                <ToastContainer position="top-right" autoClose={1000} />
+                <ToastContainer position="top-right" autoClose={2000} />
                 <Landing allUsers={dbUsers} />
               </>
-            )
-          }
-        ></Route>
-        <Route
-          path="/create-profile"
-          element={
-            <div>
-              <ToastContainer position="top-right" autoClose={1000} />
-              <UserDetails user={user} />
-            </div>
-          }
-        ></Route>
-        <Route
-          path="/profile-settings"
-          element={
-            <div>
-              <ToastContainer position="top-right" autoClose={1000} />
-              <ProfileSettings user={user} allUsers={dbUsers} />
-            </div>
-          }
-        ></Route>
-        <Route
-          path="/home"
-          element={
-            <div>
-              <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar user={user} allUsers={dbUsers} />
-              <HomePage
-                user={user}
-                allUsers={dbUsers}
-                allDependents={dbDependents}
-              />
-            </div>
-          }
-        ></Route>
-        <Route
-          path="/dependents"
-          element={
-            <div>
-              <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar user={user} allUsers={dbUsers} />
-              <DependentsList
-                user={user}
-                allUsers={dbUsers}
-                allDependents={dbDependents}
-                emailToIDMapping={dbEmailToID}
-              />
-            </div>
-          }
-        ></Route>
-        <Route
-          path="/view-dependent"
-          element={
-            <div>
-              <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar user={user} allUsers={dbUsers} />
-              <ViewDependent />
-            </div>
-          }
-        ></Route>
-        <Route
-          path="/view-information"
-          element={
-            <div>
-              <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar user={user} allUsers={dbUsers} />
-              <ViewInformation />
-            </div>
-          }
-        ></Route>
-        <Route
-          path="/clients"
-          element={
-            <div>
-              <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar user={user} allUsers={dbUsers} />
-              <ClientsList
-                user={user}
-                allUsers={dbUsers}
-                allDependents={dbDependents}
-              />
-            </div>
-          }
-        ></Route>
-        <Route
-          path="/create-dependents-profile"
-          element={
-            <div>
-              <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar user={user} allUsers={dbUsers} />
-              <CreateDependentProfileForm user={user} allUsers={dbUsers} />
-            </div>
-          }
-        ></Route>
+            }
+          ></Route>
 
-        <Route
-          path="/edit-dependents-profile"
-          element={
-            <div>
-              <ToastContainer position="top-right" autoClose={1000} />
-              <Navbar user={user} allUsers={dbUsers} />
-              <EditDependentProfileForm user={user} allUsers={dbUsers} />
-            </div>
-          }
-        ></Route>
-      </Routes>
-    </BrowserRouter>
+          <Route
+            path="/sign-up-with-email"
+            element={
+              <div>
+                <ToastContainer position="top-right" autoClose={1000} />
+                <SignUpWithEmail />
+              </div>
+            }
+          ></Route>
+
+          <Route
+            path="/reset-password"
+            element={
+              <div>
+                <ToastContainer position="top-right" autoClose={1000} />
+                <ResetPasswordWithEmail />
+              </div>
+            }
+          ></Route>
+          <Route
+            path="/create-profile"
+            element={
+              <div>
+                <ToastContainer position="top-right" autoClose={1000} />
+                <UserDetails user={user} allUsers={dbUsers} />
+              </div>
+            }
+          ></Route>
+          <Route
+            path="/profile-settings"
+            element={
+              <div>
+                <ToastContainer position="top-right" autoClose={1000} />
+                <ProfileSettings user={user} allUsers={dbUsers} />
+              </div>
+            }
+          ></Route>
+          <Route
+            path="/home"
+            element={
+              <div>
+                <ToastContainer position="top-right" autoClose={1000} />
+                <Navbar user={user} allUsers={dbUsers} />
+                <HomePage
+                  user={user}
+                  allUsers={dbUsers}
+                  allDependents={dbDependents}
+                />
+              </div>
+            }
+          ></Route>
+          <Route
+            path="/dependents"
+            element={
+              <div>
+                <ToastContainer position="top-right" autoClose={1000} />
+                <Navbar user={user} allUsers={dbUsers} />
+                <DependentsList
+                  user={user}
+                  allUsers={dbUsers}
+                  allDependents={dbDependents}
+                  emailToIDMapping={dbEmailToID}
+                />
+              </div>
+            }
+          ></Route>
+          <Route
+            path="/view-dependent"
+            element={
+              <div>
+                <ToastContainer position="top-right" autoClose={1000} />
+                <Navbar user={user} allUsers={dbUsers} />
+                <ViewDependent />
+              </div>
+            }
+          ></Route>
+          <Route
+            path="/view-information"
+            element={
+              <div>
+                <ToastContainer position="top-right" autoClose={1000} />
+                <Navbar user={user} allUsers={dbUsers} />
+                <ViewInformation />
+              </div>
+            }
+          ></Route>
+          <Route
+            path="/clients"
+            element={
+              <div>
+                <ToastContainer position="top-right" autoClose={1000} />
+                <Navbar user={user} allUsers={dbUsers} />
+                <ClientsList
+                  user={user}
+                  allUsers={dbUsers}
+                  allDependents={dbDependents}
+                />
+              </div>
+            }
+          ></Route>
+          <Route
+            path="/create-dependents-profile"
+            element={
+              <div>
+                <ToastContainer position="top-right" autoClose={1000} />
+                <Navbar user={user} allUsers={dbUsers} />
+                <CreateDependentProfileForm user={user} allUsers={dbUsers} />
+              </div>
+            }
+          ></Route>
+
+          <Route
+            path="/edit-dependents-profile"
+            element={
+              <div>
+                <ToastContainer position="top-right" autoClose={1000} />
+                <Navbar user={user} allUsers={dbUsers} />
+                <EditDependentProfileForm user={user} allUsers={dbUsers} />
+              </div>
+            }
+          ></Route>
+        </Routes>
+      </BrowserRouter>
+    </ErrorBoundary>
   );
 };
 

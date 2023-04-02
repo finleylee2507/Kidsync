@@ -2,6 +2,7 @@
     cursor: pointer;
 }
 
+
 /*hover effect on available devices*/
 @media (hover: hover) and (pointer: fine) {
     .removeIcon:hover {

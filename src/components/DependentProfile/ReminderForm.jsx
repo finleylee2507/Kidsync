@@ -65,6 +65,16 @@ const CheckboxIconS = ({ indeterminate, className }) => {
   );
 };
 
+const weekdays = [
+  { value: "Monday", icon: CheckboxIconM },
+  { value: "Tuesday", icon: CheckboxIconT },
+  { value: "Wednesday", icon: CheckboxIconW },
+  { value: "Thursday", icon: CheckboxIconT },
+  { value: "Friday", icon: CheckboxIconF },
+  { value: "Saturday", icon: CheckboxIconS },
+  { value: "Sunday", icon: CheckboxIconS },
+];
+
 const SchedulePopUp = ({
   form,
   index,
@@ -91,7 +101,7 @@ const SchedulePopUp = ({
             onClick={() => {
               handleSetPopoverState(index, true);
             }}
-            color="violet"
+            color="indigo"
             variant={
               form.values.reminders[index].schedule.weekdays.length === 0 &&
               (form.values.reminders[index].schedule.scheduleType !=
@@ -168,13 +178,19 @@ const SchedulePopUp = ({
             size="sm"
           >
             <Group>
-              <Checkbox value="Monday" icon={CheckboxIconM} indeterminate />
-              <Checkbox value="Tuesday" icon={CheckboxIconT} indeterminate />
-              <Checkbox value="Wednesday" icon={CheckboxIconW} indeterminate />
-              <Checkbox value="Thursday" icon={CheckboxIconT} indeterminate />
-              <Checkbox value="Friday" icon={CheckboxIconF} indeterminate />
-              <Checkbox value="Saturday" icon={CheckboxIconS} indeterminate />
-              <Checkbox value="Sunday" icon={CheckboxIconS} indeterminate />
+              {weekdays.map((day) => (
+                <Checkbox
+                  key={day.value}
+                  value={day.value}
+                  icon={day.icon}
+                  indeterminate
+                  styles={{
+                    input: {
+                      "&:checked": { backgroundColor: "#6147FF" },
+                    },
+                  }}
+                />
+              ))}
             </Group>
           </Checkbox.Group>
         )}

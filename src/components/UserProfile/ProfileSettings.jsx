@@ -31,6 +31,17 @@ const ProfileSettings = ({ user, allUsers }) => {
       phoneNumber: "",
       profilePic: null,
     },
+    validate: {
+      phoneNumber: (value) => {
+        console.log("Phone number: ", value);
+        if (value && !/^\+1 \(\d{3}\) \d{3}-\d{4}$/.test(value)) {
+          console.log("Fuck no");
+          return "Invalid phone number";
+        } else {
+          return null;
+        }
+      },
+    },
   });
   const isMobile = useMediaQuery("(max-width:850px)");
   useEffect(() => {
@@ -44,7 +55,10 @@ const ProfileSettings = ({ user, allUsers }) => {
         allUsers[user.uid].displayName.split(" ")[1]
       );
       form.setFieldValue("email", allUsers[user.uid].email);
-      form.setFieldValue("phoneNumber", allUsers[user.uid].phoneNumber);
+      form.setFieldValue(
+        "phoneNumber",
+        allUsers[user.uid].displayedPhoneNumber
+      );
     }
   }, [allUsers]);
   return (
@@ -94,13 +108,17 @@ const ProfileSettings = ({ user, allUsers }) => {
               }
             }
             //construct new user object
-            const newPhoneNumber = values.phoneNumber.replace(/[+\s()-]/g, "");
+            const formattedPhoneNumber = values.phoneNumber.replace(
+              /[+\s()-]/g,
+              ""
+            );
             const updatedUser = {
               displayName: `${values.firstName} ${values.lastName}`,
               email: values.email,
-              phoneNumber: newPhoneNumber,
+              phoneNumber: formattedPhoneNumber,
               isProfileCompleted: true,
               profilePic: finalProfilePicLink,
+              displayedPhoneNumber: values.phoneNumber,
             };
 
             let uploadProfileResult = true;
@@ -175,7 +193,6 @@ const ProfileSettings = ({ user, allUsers }) => {
               size="lg"
               radius="md"
               {...form.getInputProps("firstName")}
-              value={form.values.firstName}
               required
             />
 
@@ -185,7 +202,6 @@ const ProfileSettings = ({ user, allUsers }) => {
               radius="md"
               required
               {...form.getInputProps("lastName")}
-              value={form.values.lastName}
             />
             <TextInput
               withAsterisk
@@ -194,12 +210,16 @@ const ProfileSettings = ({ user, allUsers }) => {
               size="lg"
               radius="md"
               {...form.getInputProps("email")}
-              value={form.values.email}
-              disabled
               required
+              disabled
             />
 
-            <Input.Wrapper label="Phone Number" size="lg" withAsterisk>
+            <Input.Wrapper
+              label="Phone Number"
+              size="lg"
+              withAsterisk
+              error={form.errors.phoneNumber}
+            >
               <Input
                 component={InputMask}
                 mask="+1 (999) 999-9999"
