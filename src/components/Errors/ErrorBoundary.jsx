@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Flex, Image, Text, Button } from "@mantine/core";
+import { Button, Container, Flex, Image, Text } from "@mantine/core";
 import errorImage from "../../images/error_image.png";
 import styles from "../Authentication/Landing.module.css";
 

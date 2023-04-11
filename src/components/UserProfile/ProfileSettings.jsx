@@ -254,7 +254,7 @@ const ProfileSettings = ({ user, allUsers }) => {
               classNames={{
                 root: styles.cancelButton,
               }}
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/home")}
             >
               Cancel
             </Button>

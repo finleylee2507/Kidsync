@@ -31,7 +31,7 @@ const HomePage = ({ user, allUsers, allDependents }) => {
     <Container
       fluid
       sx={{
-        backgroundColor: "#EEE1C4",
+        backgroundColor: "#e7e5f4",
         height: "100%",
         minHeight: "calc(100vh - 0px)",
       }}
