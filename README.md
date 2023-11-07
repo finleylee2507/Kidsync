@@ -24,7 +24,7 @@
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#known-bugs">Known Bugs</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact">Developers</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
@@ -180,25 +180,19 @@ Don't forget to give the project a star! Thanks again!
 <p align="right">(<a href="#kidsync">back to top</a>)</p>
 
 
-<!-- CONTACT -->
+<!-- DEVELOPERS -->
 
-## Contact
+## Developers
 
-Vedant Apte - vedantapte2023@u.northwestern.edu
+- Vedant Apte
+- Finley Li
+- Hongle Che
+- Rawan Mohamed
+- Shiyuan Duan
+- Elina Rawat
+- Evan Waite
+- Vincent Wei
 
-Hongle Che - HongleChe2024@u.northwestern.edu
-
-Shiyuan Duan - shiyuanduan2023@u.northwestern.edu
-
-Finley Li - fenglieli2024@u.northwestern.edu
-
-Rawan Mohamed - rawanmohamed2023@u.northwestern.edu
-
-Elina Rawat - elinarawat2024@u.northwestern.edu
-
-Evan Waite - evanwaite2024@u.northwestern.edu
-
-Vincent Wei - vincentwei2024@u.northwestern.edu
 
 
 <p align="right">(<a href="#kidsync">back to top</a>)</p>
